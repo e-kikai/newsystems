@@ -1,0 +1,87 @@
+/*** alert ***/
+div.cjf_alert {
+  width : 340px;
+  height : 80px;
+  line-height : 80px;
+  border : 2px solid orange;
+  color : #ff2819;
+  font-weight : bold;
+  text-align : center;
+  background : #FFF;
+  position : fixed;
+  top : 50%;
+  left : 50%;
+  margin-top : -40px;
+  margin-left : -170px;
+  display : none;
+  z-index : 2000;
+}
+
+/*** mapbox ***/
+/*
+div.cjf_mapbox {
+  width : 650px;
+  height : 490px;
+  border : 2px solid #AAA;
+  background : #EEE;
+  position : fixed;
+  top : 50%;
+  left : 50%;
+  margin-top : -245px;
+  margin-left : -325px;
+  display : none;
+  z-index : 1500;
+}
+
+
+#viewport {
+  position : relative;
+  width : 640px; 
+  height : 480px;
+  background : #EEE;
+  border : 1px solid #AAA;
+  cursor : move;
+  margin : 5px auto;
+  overflow : hidden; /*keep map contents from spilling over if JS is disabled*/ }
+
+div.cjf_mapbox .mapbox_button {
+  display : block;
+  position : absolute;
+  width : 25px;
+  height : 25px;
+  line-height : 25px;
+  text-align : center;
+}
+
+div.cjf_mapbox .pluse {
+  top : 8px;
+  left : 8px;
+}
+
+div.cjf_mapbox .minus {
+  top : 8px;
+  left : 34px;
+}
+
+div.cfj_bg {
+  display : none;
+
+  background : #000;
+  
+  filter : alpha(opacity=85); /* for IE6,7 */
+  -moz-opacity : 0.85; /* for FF */
+  opacity : 0.85;
+  
+  position : fixed;
+  top : 0px;
+  left : 0px;
+  width : 100%;
+  height : 100%;
+  
+  _position : absolute; /* for IE6 */
+  _height : 1000px; /* for IE6 */
+  
+  z-index : 500;
+}
+*/
+

@@ -1,0 +1,263 @@
+*{
+  margin: 0;
+  padding: 0;
+  font-family :Verdana,'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro',osaka,'メイリオ',Meiryo,'ＭＳ Ｐゴシック','MS PGothic',sans-serif;
+}
+img{
+  border: none;
+}
+a{
+  text-decoration: none;
+}
+a:hover{
+  text-decoration: underline;
+}
+
+/*
+body{
+  text-align: center;
+  background-color: #FFF;
+}
+*/
+
+/* ---------------------- 右動リンク ------------------- */
+.free_link {
+  position: fixed;
+  top: 100px;
+  right: 0px;
+}
+/* ---------------------- 白背景 ---------------------- */
+#wrapper {
+}
+
+#white_bg {
+  /*
+  width: 1000px;
+  */
+  width: 964px;
+  background-image: url(./img/white_bg.png);
+  background-position-x: -18px;
+  background-repeat: repeat-y;
+  text-align: center;
+  padding:  0px 0px 8px 0px;
+  margin: 0 auto;
+}
+
+#cont {
+  width: 1000px;
+  background-image: url(./img/white_bg.png);
+  background-repeat: repeat-y;
+  text-align: center;
+  padding:  20px 0px 50px 0px;
+  margin: 0 auto;
+  font-size: 12px;
+}
+#footer {
+  width: 1000px;
+  background-image: url(./img/white_bg.png);
+  background-repeat: repeat-y;
+  text-align: center;
+  padding:  0px 0px 0px 0px;
+  margin: 0 auto;
+  font-size: 10px;
+}
+#footer a {
+  text-decoration: none;
+  color: #000;
+  padding:  0px 0px 20px 0px;
+}
+
+
+br.clear{
+  clear: both;
+}
+
+/* ------------ form --------- */
+/*
+p {
+  padding:  10px 50px 10px 50px;
+	font-size: 12px;
+	line-height: 18px;
+  text-align: left;
+	margin: 10px;
+}
+*/
+h2 {
+  padding:  10px 50px 10px 50px;
+	font-size: 18px;
+  text-align: left;
+	margin: 10px;
+}
+h3 {
+  padding:  10px 50px 10px 50px;
+	font-size: 14px;
+  text-align: left;
+	margin: 10px;
+}
+.table_format {
+	width: 900px;
+	background-color: #FFFFFF;
+	margin: 10px auto;
+	text-align: left;
+	padding: 20px;
+}
+.table_format th {
+	font-size: 12px;
+	font-weight: Bold;
+	margin: 5px;
+	padding: 15px;
+	background-color: #E7C10C;
+}
+.table_format td {
+	font-size: 12px;
+	margin: 5px;
+	padding: 15px;
+	background-color: #F7F7F7;
+}
+.table_format span {
+	font-size: 10px;
+	color: #FF0000;
+}
+.tag {
+	width: 140px;
+	background-color: #E0E0E0;
+	padding: 5px;
+	font-size: 12px;
+	color: #333;
+}
+.tag2 {
+	background-color: #E0E0E0;
+	padding: 5px;
+	font-size: 12px;
+	color: #333;
+	text-align: center;
+}
+.item {
+	padding: 5px;
+	font-size: 12px;
+	line-height: 20px;
+	color: #000;
+}
+.red {
+	color: #FF0000;
+	font-size: 10px;
+	font-weight: Bold;
+}
+#err{
+
+  color: #d00;
+
+}
+
+#cont_img {
+  width: 910px;
+  text-align: center;
+  padding:  20px 0px 50px 0px;
+  margin: 0 auto;
+  font-size: 12px;
+}
+.thumb_img {
+	margin-left: 25px;
+	width: 196px;
+	height: 147px;
+	margin-bottom: 5px;
+	background: #ddd;
+	text-align: center;
+	float: left;
+}
+
+/*
+body {
+  background: #FFF;
+}
+*/
+
+.c_01_title {
+  position: absolute;
+  color: #F8F8F8;
+  font-size: 76px;
+  font-weight: bold;
+  width: 700px;
+  top: 22px;
+  left: 48px;
+  line-height: 1.1;
+  text-align: left;
+  text-shadow: 4px 4px 4px #000;
+}
+
+.c_01_title span {
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.c_01_info {
+  position: absolute;
+  color: #FFFF00;
+  font-size: 24px;
+  top: 232px;
+  left: 128px;
+  color: #FFF;
+  text-align: left;
+  line-height: 1.6;
+}
+
+.c_06_title{
+  position: absolute;
+  color: #70A5E7;
+  font-size: 52px;
+  font-weight: bold;
+  width: 900px;
+  top: 46px;
+  left: 64px;
+  line-height: 1.1;
+  text-align: left;
+  text-shadow: -1px -1px #FFF, 1px -1px #FFF, -1px 1px #FFF, 1px 1px #FFF, 4px 4px 4px #000;
+}
+
+.c_06_info {
+  position: absolute;
+  color: #FFFF00;
+  font-size: 19px;
+  top: 240px;
+  left: 64px;
+  font-family: serif;
+  color: #333;
+  text-align: left;
+  line-height: 1.8;
+}
+
+a.link_button {
+  display: block;
+  position: relative;
+  margin: 16px auto;
+}
+
+.link_label {
+  position: absolute;
+  font-size: 26px;
+  color: #C82724;
+  text-shadow: -1px -1px #FFF, 1px -1px #FFF, -1px 1px #FFF, 1px 1px #FFF, 2px 2px 2px #000;
+  top: 20px;
+  width: 890px;
+  left: 54px;
+  text-align: center;
+}
+
+.link_before {
+  position: absolute;
+  font-size: 36px;
+  color: #000;
+  text-shadow: -1px -1px #FFF, 1px -1px #FFF, -1px 1px #FFF, 1px 1px #FFF, 2px 2px 2px #000;
+  top: 60px;
+  width: 400px;
+  left: 300px;
+  text-align: center;
+  
+  transform: rotate(-20deg);
+  -moz-transform: rotate(-20deg);
+  -webkit-transform: rotate(-20deg);
+}
+
+.infomessage {
+  font-size: 15px;
+}

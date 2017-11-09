@@ -1,0 +1,415 @@
+@charset "utf-8";
+/*** 左ペイン ***/
+.left_area {
+  float: left;
+  position: relative;
+  width: 100%;
+}
+
+.news2_area {
+  padding: 4px 8px;
+  border: 1px solid #147543;
+  height: 204px;
+  margin: 1px 0 8px 0;
+}
+
+.news2_area a {
+  display: list-item;
+  padding: 1px;
+}
+
+.news2_area .machine_news {
+  width: 49%;
+  float: left;
+}
+
+.news2_area .machine_news {
+  background: #FFF;
+}
+
+.news2_area .machine_news:nth-child(2),
+.news2_area .machine_news:nth-child(3),
+.news2_area .machine_news:nth-child(6) {
+  background: #EEE;
+}
+
+a.news_link {
+  position: absolute;
+  top: 14px;
+  right: 170px;
+}
+
+a.news_link.tool {
+  right: 16px;
+}
+
+a.news_link:hover {
+  color: #F60;
+}
+
+/*** 右ペイン ***/
+.right_area {
+  float: left;
+  position: relative;
+  width: 400px; 
+  margin-left: 12px;
+}
+
+.banner_area {
+  margin: 2px 0;
+}
+
+img.banner {
+  display: block;
+}
+
+.right_area {
+  width: 478px;
+  margin-left: 8px;
+}
+
+/**********/
+.infomations {
+  border: 1px solid #147543;
+  background: #FFF;
+  padding: 4px 8px;
+  height: 320px;
+  overflow: auto;
+  box-shadow: 0 6px 6px rgba(0,0,0,0.1) inset;
+  margin: 1px 0 8px 0;
+}
+
+.info {
+  padding: 3px 0;
+  border-bottom: 1px dotted #CCC;
+  width: auto;
+}
+
+.info_date {
+  display: inline-block;
+  margin-right: 3px;
+  color: #AAA;
+}
+
+.info_name {
+  display: inline-block;
+  margin-right: 3px;
+  font-weight: bold;
+  color: #0A0;
+}
+
+.cjf_new {
+  display: inline-block;
+  margin-right: 4px;
+  background: #F33;
+  color: white;
+  width: 40px;
+  height: 15px;
+  line-height: 15px;
+  font-size: 11px;
+  text-align: center;
+  border-radius: 3px;
+  text-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+  font-family: 'Verdana';
+}
+
+/*** 広告枠 ***/
+.premium_bid a {
+  display: block;
+  float: left;
+  margin-right: 1px;
+}
+
+/*** 特大ジャンル ***/
+.xl_area {
+  position: relative;
+  width: 700px;
+  float: left;
+  margin-right: 6px;
+  margin-bottom: 10px;
+}
+
+.xl_area .xl_genre {
+  display: inline-block;
+  position: relative;
+  z-index: 100;
+  
+  width: 220px;
+  height: 36px;
+  line-height: 36px;
+  margin: 4px 2px;
+  border: 1px solid #CCC;
+  background: #EEE;
+  text-align: center;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.xl_area .xl_genre:hover {
+  background: #FFFFCC;
+  color: #FF6633;
+  border-color: #FF9933;
+}
+
+.xl_area .xl_large_genre_area {
+  position: absolute;
+  z-index: 3000;
+
+  top: 48px;
+  left: 0;
+  
+  width: 220px;
+  border: 1px solid #FF6633;
+  background: #FFFFCC;
+  
+}
+
+.xl_area .xl_large_genre_area:after {
+  content: '';
+  position: absolute;
+  border-bottom: 10px solid #FFFF99;
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  top: -9px;
+  left: 5px;
+}
+
+.xl_area .xl_large_genre_area:before {
+  content: '';
+  position: absolute;
+  border-bottom: 10px solid #FF6633;
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  top: -11px;
+  left: 5px;
+}
+
+.xl_area .xl_large_genre_area a {
+  display: block;
+  width: 200px;
+  margin: 4px 12px;
+  text-align: left;
+  text-decoration: none;
+  height: 22px;
+  line-height: 22px;
+  font-size: 14px;
+}
+      
+.keyword_area {
+  width: 250px;
+  float: left;
+  margin-bottom: 10px;
+}
+
+.xl_area h2,
+.keyword_area h2 {
+  margin-bottom: 5px;
+}
+
+.keyword_area .keyword_search {
+  width: 160px;
+}
+
+.keyword_area button.keyword_submit {
+  width: 60px;
+}
+
+.keyword_area .keyword_label {
+  margin: 6px 0 2px 0;
+}
+
+/*
+.xl_area,
+.keyword_area,
+*/
+.xl_large_genre_area {
+  display: none;
+}
+
+
+.sp_area {
+  margin: 15px 0;
+}
+
+select.addr1 {
+  width: 174px;
+}
+
+select.addr1 option.empty {
+  color: #999;
+}
+
+/*** 入札会バナー ***/
+.bid_auto_banner {
+  display: block;
+  position: relative;
+  background-image: url('/imgs/bid_banner_base.png');
+  height: 148px;
+  margin-bottom: 4px;
+  overflow: hidden;
+}
+
+a.bid_auto_banner:hover {
+  opacity: 0.5;
+  -moz-opacity: 0.5;
+  filter: alpha(opacity=50);
+  -ms-filter: "alpha(opacity=50)";
+}
+
+.bid_auto_banner .bid_banner_title {
+  position: absolute;
+  color: #FFF;
+  font-size: 58px;
+  font-weight: bold;
+  text-shadow: 4px 4px 4px #000;
+  width: 430px;
+  top: 12px;
+  left: 18px;
+  line-height: 1.1;
+  z-index: 40;
+}
+
+.bid_auto_banner .bid_banner_title_02 {
+  position: absolute;
+  color: #FFF;
+  font-size: 58px;
+  font-weight: bold;
+  text-shadow: 4px 4px 4px #000;
+  width: 570px;
+  top: 12px;
+  left: 18px;
+  line-height: 1.1;
+  z-index: 40;
+}
+
+span.bid_banner_title_mini {
+  font-size: 36px;
+}
+
+.bid_auto_banner .bid_banner_title span {
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.bid_auto_banner .bid_banner_info {
+  position: absolute;
+  color: #FFFF00;
+  font-size: 18px;
+  top: 60px;
+  left: 480px;
+}
+
+.bid_auto_banner .bid_banner_end {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 148px;
+  background: rgba(255,255,255,0.7);
+  z-index: 50;
+}
+
+.bid_auto_banner .bid_banner_end span {  
+  color: #FF0000;
+  font-size: 52px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 148px;
+  display: block;
+  
+  transform: rotate(-10deg);
+  -moz-transform: rotate(-10deg);
+  -webkit-transform: rotate(-10deg);
+  
+  text-shadow: -1px -1px #FFF, 1px -1px #FFF, -1px 1px #FFF, 1px 1px #FFF;
+}
+
+.bid_auto_banner .bid_lp {
+   position: absolute;
+  top: 8px;
+  left: 400px;
+  width: 700px;
+  height: 112px;
+  padding-left: 120px;
+  background: rgb(29, 60, 102);
+  z-index: 30;
+}
+
+.bid_auto_banner .bid_lp_link {
+  font-size: 20px;
+  text-decoration: none;
+  color: #DD0;
+  width: 364px;
+}
+
+.bid_auto_banner .bid_lp_end {
+  font-size: 20px;
+  text-decoration: none;
+  color: #999;
+  width: 364px;
+}
+
+.bid_auto_banner .bid_lp_link:hover {
+  color: #F60;
+}
+
+#keyword-search {
+  display: none;
+}
+
+#keyword-search .toppage-keyword_area {
+  border: 1px dotted #666;
+  background: #EEE;
+  padding: 0 16px;
+  height: 57px;
+  line-height: 55px;
+  text-align: center;
+}
+
+#keyword-search .keyword_search {
+  font-size: 17px;
+  height: 27px;
+  width: 450px;
+}
+
+#keyword-search .keyword_submit {
+  width: 80px;
+  font-size: 17px;
+  height: 35px;
+}
+
+a.header_zenkiren {
+  display: block;
+  position: absolute;
+  top: 6px;
+  right: 12px;
+}
+
+h1 {
+  border: 0;
+  width: auto;
+  height: auto;
+  margin: 0;
+}
+
+.bid_banner_now {
+  color: #CC0000;
+  font-size: 23px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 148px;
+  display: block;
+  position: absolute;
+  bottom: 10px;
+  left: 350px;
+  line-height: 1;
+  text-shadow: -1px -1px #FFF, 1px -1px #FFF, -1px 1px #FFF, 1px 1px #FFF;
+}
+
+.twitter_area {
+  border: 1px solid #147543;
+  height: 358px;
+  overflow: auto;
+  padding:0 16px;
+}
+

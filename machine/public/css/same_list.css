@@ -1,0 +1,186 @@
+@charset "utf-8";
+/*** ログ機械一覧 ***/
+.log_machine,
+.same_machine {
+  position: relative;
+  float: left;
+  width: 120px;
+  padding: 2px;
+  border: 1px solid #CCC;
+  height: 162px;
+  margin: 0 4px;
+  text-align: left;
+  background: #FFF;
+}
+
+.log_machine a,
+.same_machine a {
+  text-decoration: none;
+  display: block;
+  padding: 0;
+  width: 120px;
+}
+
+.log_machine .names,
+.same_machine .names {
+  height: 74px;
+  overflow: hidden;
+}
+
+.log_machine.bid .names,
+.same_machine.bid .names {
+  height: 54px;
+}
+
+.log_machine .name,
+.same_machine .name,
+.same_machine .company {
+  display: inline-block;
+  margin: 0 2px;
+}
+
+.same_machine .min_price {
+  display: block;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  
+  color: #E81F18;
+  font-size: 17px;
+  font-weight: normal;
+
+  width: 100%;
+  text-align: center;
+}
+
+.log_machine img,
+.same_machine img {
+  display: block;
+  max-width: 120px;
+  max-height: 90px;
+  margin: 0 auto;
+}
+
+.same_area {
+  height: 172px;
+  margin: 0;
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.image_carousel {
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  margin: auto;
+  width: 871px;
+  height: 170px;
+}
+
+.carousel_products {
+  position: relative;
+  white-space: nowrap;
+  display: inline-block;
+  width: auto;
+  height: 170px;
+  letter-spacing: -.40em;
+}
+
+.carousel_products .same_machine {
+  display: inline-block;
+  vertical-align: top;
+  float: none;
+  overflow: hidden;
+  white-space: nowrap;
+  letter-spacing: normal;
+  background: #EEE;
+}
+
+.carousel_products .same_machine:hover {
+  background: rgb(254,255,204);
+}
+
+.carousel_products .same_machine div {
+  white-space: normal;
+}
+
+.scrollRight, .scrollLeft {
+  position: absolute;
+  top: 0;
+  width: 45px;
+  height: 168px;
+  cursor: pointer;
+  background: red;
+}
+
+.scrollRight:hover,
+.scrollLeft:hover {
+  opacity: 0.5;
+  -moz-opacity: 0.5;
+  filter: alpha(opacity=50);
+  -ms-filter: "alpha(opacity=50)";
+}
+
+.scrollLeft {
+  left: 0px;
+  background: url('../imgs/img_prev2.png') no-repeat 18px 63px;
+}
+
+.scrollRight {
+  right: 0px;
+  text-align: right;
+  background: url('../imgs/img_next2.png') no-repeat 10px 63px;
+}
+
+
+/*** bid banner ***/
+.search_bid_banner {
+  display: block;
+  position: relative;
+  background-image: url('/imgs/bid_banner_base.png');
+  background-position: 0px -48px;
+  height: 68px;
+  margin-bottom: 4px;
+  overflow: hidden;
+}
+
+a.search_bid_banner:hover {
+  opacity: 0.5;
+}
+
+.search_bid_banner .bid_title {
+  position: absolute;
+  color: #FFF;
+  font-size: 39px;
+  font-weight: bold;
+  text-shadow: 4px 4px 4px #000;
+  width: 630px;
+  bottom: 12px;
+  left: 18px;
+  line-height: 1.1;
+  z-index: 40;
+}
+
+.search_bid_banner .bid_banner_now {
+  color: #FFF;
+  font-size: 19px;
+  text-align: center;
+  line-height: 148px;
+  display: block;
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  line-height: 1;
+}
+
+.bid_banner_click {
+  font-size: 23px;
+  font-weight: bold;
+  color: #CC0000;
+  text-shadow: -1px -1px #FFF, 1px -1px #FFF, -1px 1px #FFF, 1px 1px #FFF;
+}
+
+.min_price_title {
+  color: #333;
+}
+

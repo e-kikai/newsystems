@@ -1,0 +1,57 @@
+/*** admin access_log ***/
+table.accesslog th {
+  padding : 3px;
+  border : 1px solid #FFF;
+  border-width : 0 1px;
+  background : #29866B;
+  color : #FFF;
+  vertical-align : middle;
+}
+
+table.accesslog td {
+  padding : 3px;
+  border : 1px solid #FFF;
+  border-width : 0 1px;
+  vertical-align : middle;
+}
+
+table.accesslog td.page a {
+  word-wrap : break-word;
+  display : block;
+  width: 400px;
+}
+
+table.accesslog td.id {
+  width : 50px;
+  text-align : right;
+}
+
+table.accesslog .ip_addr {
+  width : 120px;
+}
+
+table.accesslog .host {
+  width : 160px;
+}
+
+table.accesslog .page {
+  width : 412px;
+}
+
+table.accesslog td.entry {
+  width : 124px;
+  text-align : right;
+}
+
+table.accesslog table.accesslog tr.even td {
+  background : #FFF;
+}
+
+table.accesslog tr.odd td {
+  background : #DFE;
+}
+
+a.back_link {
+  display: inline-block;
+  margin: 8px;
+}

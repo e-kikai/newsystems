@@ -1,0 +1,258 @@
+@charset "utf-8";
+
+/*** admin access_log ***/
+table.accesslog th {
+  padding : 3px;
+  border : 1px solid #FFF;
+  border-width : 0 1px;
+  background : #29866B;
+  color : #FFF;
+  vertical-align : middle;
+}
+
+table.accesslog td {
+  padding : 3px;
+  border : 1px solid #FFF;
+  border-width : 0 1px;
+  vertical-align : middle;
+}
+
+table.accesslog td.page a {
+  word-wrap : break-word;
+  display : block;
+  width: 400px;
+}
+
+table.accesslog td.id {
+  width : 50px;
+  text-align : right;
+}
+
+table.accesslog .ip_addr {
+  width : 120px;
+}
+
+table.accesslog .host {
+  width : 160px;
+}
+
+table.accesslog .page {
+  width : 412px;
+}
+
+table.accesslog td.entry {
+  width : 124px;
+  text-align : right;
+}
+
+table.accesslog table.accesslog tr.even td {
+  background : #FFF;
+}
+
+table.accesslog tr.odd td {
+  background : #DFE;
+}
+
+/*** CSVテーブル ***/
+table.list {
+  width: 100%;
+  margin: 8px auto;
+}
+
+table.list td,
+table.list th {
+  padding: 2px;
+  border: 1px dotted #BBB;
+  vertical-align: middle;
+  background: #FFF;
+}
+
+table.list th {
+  text-align: center;
+  color: #EFE;
+  background: #040;
+}
+
+table.list tr:nth-child(even) td {
+  background: #EFE
+}
+
+
+table.list .no,
+table.list .capacity,
+table.list .price {
+  width: 50px;
+}
+
+table.list .id,
+table.list .imgs,
+table.list .year {
+  width: 40px;
+}
+
+table.list .genre,
+table.list .name,
+table.list .maker,
+table.list .model {
+  width: 80px;
+}
+
+table.list td.id,
+table.list td.no,
+table.list td.capacity,
+table.list td.year,
+table.list td.price {
+  text-align: right;
+}
+
+img.thumbnail {
+  max-width: 60px;
+  max-height: 60px;
+}
+
+/*******/
+.table_area {
+  overflow: scroll;
+  width: 100%;
+  height: 360px;
+}
+
+.csv_form {
+  width: 460px;
+  border: 1px solid #AAA;
+  margin: 8px auto;
+  padding: 4px 16px;
+  border-radius: 8px;
+}
+
+select.company {
+  display: block;
+  margin: 4px 0;
+}
+
+/*********/
+table.catalog.list .uid,
+table.catalog.list .year {
+  width: 80px;
+}
+
+table.catalog.list .maker,
+table.catalog.list .catalog_no {
+  width: 120px;
+}
+
+table.catalog.list .genres {
+  width: 180px;
+}
+
+table.catalog.list .model {
+  width: auto;
+}
+
+table.catalog.list .file {
+  width: 40px;
+  text-align: center;
+}
+
+table.catalog.list td.uid {
+  text-align: right;
+}
+
+
+.center_container table.list tr:hover td {
+  background : #FFFFAD;
+}
+
+/*** contact ss ***/
+table.list td,
+table.list th {
+  padding: 2px 6px;
+  border: 1px dotted #BBB;
+  vertical-align: middle;
+  background: #FFF;
+}
+
+table.list th {
+  text-align: center;
+  color: #EFE;
+  background: #040;
+}
+
+table.list tr:nth-child(even) td {
+  background: #EFE
+}
+
+table.contact_ss.contact_ss {
+  margin: 8px auto;
+  width: 800px;
+}
+
+table.list.contact_ss td.month,
+table.list.contact_ss td.detail,
+table.list.contact_ss td.zenkiren,
+table.list.contact_ss td.company,
+table.list.contact_ss td.machine,
+table.list.contact_ss td.total {
+  text-align: right;
+}
+
+table.contact_ss .month {
+  border-right: 1px solid #BBB;
+  width: 120px;
+}
+
+table.contact_ss .total {
+  border-left: 3px double #BBB;
+}
+
+table.contact_ss .detail {
+  width: 90px;
+}
+
+table.contact_ss .zenkiren {
+  border-left: 3px double #BBB;
+}
+
+
+table.contact_ss tr.Sun td {
+  background: #FDF;
+}
+
+table.contact_ss tr.Sat td {
+  background: #DFF;
+}
+
+.Sun .dw {
+  color: #F33;
+}
+
+.Sat .dw {
+  color: #33F;
+}
+
+/*** お問い合わせ一覧 ***/
+table.contact {
+  width: 100%;
+  margin: 8px auto;
+}
+
+table.contact .id {
+  width: 30px;
+}
+
+table.contact td.id {
+  text-align: right;
+}
+
+table.contact .company,
+table.contact .name {
+  width: 130px;
+}
+
+table.contact .mail {
+  width: 200px;
+}
+
+table.contact .created_at {
+  width: 130px;
+}

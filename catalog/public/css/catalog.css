@@ -1,0 +1,288 @@
+@charset "utf-8";
+/*** 遅延読み込み ***/
+img.lazy {
+  display: none;
+}
+
+/*** マイリストに追加ボタン ***/
+button.set_mylist {
+  display: block;
+  margin: 4px auto;
+  color: #EA570F;
+  background: #C5C5C5;
+  background: -webkit-gradient(linear, left top, left bottom, from(#EAEAEA), to(#C5C5C5) );
+  background: -moz-linear-gradient(-90deg, #EAEAEA, #C5C5C5);
+  background: -o-linear-gradient(-90deg, #EAEAEA, #C5C5C5);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#EAEAEA', endColorstr='#C5C5C5');
+}
+
+button.set_mylist:hover {
+  background: #EAEAEA;
+  background: -webkit-gradient(linear, left top, left bottom, from(#C5C5C5), to(#EAEAEA) );
+  background: -moz-linear-gradient(-90deg, #C5C5C5, #EAEAEA);
+  background: -o-linear-gradient(-90deg, #C5C5C5, #EAEAEA);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#C5C5C5', endColorstr='#EAEAEA');
+}
+
+button.set_mylist:active {
+  position: relative;
+  top: 1px;
+  background: #C5C5C5;
+}
+
+button.set_mylist,
+button.delete_mylist {
+  width: 130px;
+  height: 25px;
+}
+/*** 選択タブ ***/
+.catalog_view {
+  border-bottom: 2px solid #147543;
+  margin-bottom: 10px;
+}
+
+.catalog_view a.selected {
+  border: 2px solid #147543;
+  border-bottom: 0;
+  background: #147543;
+  color: white;
+}
+
+.catalog_view a {
+  display: inline-block;
+  background: #DDD;
+  margin: 0 4px 0 0;
+  border: 2px solid #BBB;
+  border-bottom: 0;
+  width: 160px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  color: #333;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  bottom: 0;
+  right: 0;
+}
+
+.catalog_view a:hover {
+  background: RGB(227,249,204);
+}
+
+.catalog_view a.selected {
+  border: 2px solid #147543;
+  border-bottom: 0;
+
+  background: #147543;
+  color: #FFF;
+}
+
+/*** メイン一覧（共通） ****/
+table.main_list {
+  width: 942px;
+}
+
+table.main_list th,
+table.main_list td {
+  color: #333;
+  background: #EEE;
+  border: 1px solid #DDD;
+  vertical-align: middle;
+  padding: 4px;
+}
+
+table.main_list th {
+  text-align: center;
+  height: 30px;
+  font-weight: bold;
+}
+
+table.main_list td {
+  font-weight: normal;
+  text-align: left;
+}
+
+table.main_list tr.separator td {
+  border-color: #DDD white;
+  height: 6px;
+  padding: 0;
+  background: #FFF;
+}
+
+table.main_list tr:hover td,
+table.main_list tbody:hover td {
+  background : rgb(254,255,204);
+}
+
+table.main_list tbody:hover tr.separator td {
+  background : #FFF;
+}
+
+/*** メイン一覧（カタログ） ***/
+table.main_list.catalogs .button {
+  width: 140px;
+  text-align: center;
+}
+
+table.main_list.catalogs .img {
+  width: 100px;
+  text-align: center;
+  padding: 0;
+}
+
+table.main_list.catalogs .img img {
+  margin: auto;
+  max-width: 90px;
+  max-height: 90px;
+  min-width : 60px;
+  min-height : 60px;
+}
+
+table.main_list.catalogs .genre,
+table.main_list.catalogs .maker {
+  width: 150px;
+}
+
+table.main_list.catalogs .model {
+  width: auto;
+}
+
+/*** 写真で表示 ***/
+.image_l .catalog {
+  margin: 3px 1px;
+  background: #EEE;
+  border: 1px solid #AAA;
+  display: inline-block;
+  #display: inline;  /* for IE6,7 */
+  #zoom: 1;
+  text-align: center;
+  padding: 2px 2px 0 2px;
+  #width: 290px;
+  vertical-align: middle;
+}
+
+.image_l .catalog:hover {
+  background : rgb(254,255,204);
+}
+
+.image_l .catalog_image img {
+  height: 284px;
+  max-width: none;
+  #height: auto;
+  #width: 284px;
+  border: 1px solid #AAA;
+}
+
+/*** リスト・写真共通　***/
+.hidden {
+  display: none;
+}
+
+.catalog_image img:hover {
+  position :relative;
+  top: -4px;
+  left: -4px;
+  box-shadow: 4px 4px 8px rgba(0,0,0,0.4);
+}
+
+
+/*** ジャンル絞り込み ***/
+.area_label {
+  font-weight: bold;
+}
+
+.genre_area,
+.maker_area,
+.model2_area {
+  width: auto;
+  border: 1px solid #147543;
+  padding: 4px;
+  margin: 1px auto;
+}
+
+.genre_area li,
+.maker_area li,
+.model2_area li {
+  display: inline-block;
+  #display: inline;  /* for IE6,7 */
+  #zoom: 1;          /* for IE6,7 */
+  /* width: 182px; */ 
+  width: 152px;
+  height: 20px;
+  line-height: 20px;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+/*** model_area ***/
+.model_area {
+  top: -30px;
+  left: 580px;
+}
+
+.model_area .label {
+  display: inline-block;
+  height: 24px;
+  line-height: 24px;
+}
+
+.model_area form {
+  display: inline-block;
+}
+
+/*** 2012/07/26 ***/
+th.year_td,
+td.year_td {
+  width: 80px;
+}
+
+/***********/
+table.main_list button.set_mylist,
+table.main_list button.delete_mylist {
+  width: 72px;
+  height: 42px;
+}
+
+table.main_list.catalogs .button {
+width: 76px;
+text-align: center;
+}
+
+th.year_td,
+td.year_td {
+  width: 132px;
+}
+
+.catalog_view {
+  border-bottom: 1px solid #147543;
+  margin-bottom: 1px;
+  margin-top: 8px;
+}
+
+.catalog_view  a {
+margin: 0 0 0 4px;
+border: 1px solid #BBB;
+border-bottom: 0;
+width: 136px;
+height: 24px;
+line-height: 24px;
+font-size: 15px;
+text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+}
+
+table.main_list tr.separator td {
+  height: 4px;
+}
+
+table.main_list th {
+  height: auto;
+}
+
+h1 {
+  margin-bottom: 8px;
+}
+
+.pankuzu {
+  margin-bottom: 8px;
+}

@@ -1,0 +1,71 @@
+@charset "utf-8";
+/*** print ***/
+input[type=checkbox],
+input[type=radio],
+select,
+div.keyword,
+.header_menu,
+.micro_banner_area,
+.pankuzu,
+.footer_menu,
+.sp_area,
+button.print,
+button,
+a.contact,
+fieldset.search,
+.sort_comment,
+.machine_tab,
+.machine_header,
+.pager,
+.machine_full,
+.period_area,
+div.search,
+.bid_timer,
+.mylist_link,
+.bid_detail_02,
+#topcontrol {
+  display:none !important;
+}
+
+body {
+  background: #FFF;
+}
+
+a.header_title {
+  position: static;
+}
+
+div.table_area {
+  overflow: visible !important;
+  border: 0 !important;
+  height: auto !important;
+}
+
+table.list {
+  table-layout: auto;
+  width: 940px;
+}
+
+thead {display: table-header-group;}
+
+td, th,
+div.others {
+  page-break-after: avoid;
+  page-break-before: avoid;
+  page-break-inside: avoid;
+}
+
+a,
+a:visited,
+a:link {
+  color: #333;
+  text-decoration: none;
+}
+
+.machine_num {
+  display: none;
+}
+
+div.product_line {
+  page-break-inside: avoid;
+}

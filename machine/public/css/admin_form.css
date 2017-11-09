@@ -1,0 +1,303 @@
+/*** フォーム要素 ***/
+.form_comment {
+  width: 720px;
+}
+
+table.form {
+  width: 720px;
+}
+
+table.form th {
+  width: 180px;
+}
+
+span.memberonly {
+  color: #00E;
+}
+
+span.required {
+  color: #EE0;
+}
+
+span.alert {
+  color: #D00;
+}
+
+/* 会社情報 */
+table.form td input.zip {
+  width: 90px;
+}
+
+table.form td input.mail,
+table.form td input.website,
+table.form td input.address {
+  width : 300px;
+}
+
+table.form td input.tel,
+table.form td input.fax {
+  width : 180px;
+}
+
+table.form td input[type=number] {
+  text-align : right;
+  width : 120px;
+}
+
+table.form td textarea {
+  width: 492px;
+  height: 3.6em;
+}
+
+/* 営業所 */
+.office {
+  background: #EFE;
+  border: #060 1px solid;
+  border-radius: 4px;
+  margin: 4px;
+  padding: 4px;
+  position: relative;
+}
+
+table.form td .addr1 {
+  width: 74px;
+}
+
+table.form td .addr2 {
+  width: 128px;
+}
+
+table.form td .addr3 {
+  width: 238px;
+}
+
+button#offices_add {
+  width: 150px;
+}
+
+button.zip2address {
+  width: 100px;
+}
+
+.office a.delete {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+}
+
+.office a.delete span {
+  padding: 2px 4px;
+}
+
+.office_template {
+  display: none;
+}
+
+/* 在庫機械情報 */
+table.form td input.number,
+table.form td input.name,
+table.form td input.maker,
+table.form td input.model,
+table.form td input.location,
+table.form td input.degree {
+  width : 170px;
+}
+
+table.form td input.capacity {
+  width: 60px;
+  text-align: right;
+}
+
+table.form td input.number {
+  width : 112px;
+  text-align: right;
+}
+
+table.form td input.mininum {
+  width: 36px;
+  text-align: right;
+}
+
+table.form td input.accessory {
+  width : 360px;
+}
+
+table.form td input.text,
+table.form .others input.combo {
+  width: 112px;
+}
+
+.capacity td .unit,
+.capacity td input {
+  display: inline-block;
+}
+
+.maker_area {
+  width : 170px;
+  height : 24px;
+  position : relative;
+}
+
+/* 共通 */
+select {
+  border: 1px solid #999;
+  padding: 3px 6px;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.1) inset;
+}
+
+textarea {
+  overflow-y: scroll;
+}
+
+table.form td input.name[readonly=readonly] {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+  color: #333;
+  width: 360px;
+}
+
+table.form td input[type=checkbox],
+table.form td input[type=radio] {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+/*** その他能力 ***/
+div.others {
+  min-height: 26px;
+}
+
+.others_label,
+.others_unit {
+  display: inline-block;
+  width: 120px;
+  text-align: left;
+  vertical-align: middle;
+  padding: 0 3px;
+}
+
+.others_unit {
+  width: 50px;
+}
+
+/*** カタログ検索枠 ***/
+button.catalog_search {
+  width: 120px;
+}
+
+.catalog_list {
+  display: none;
+}
+
+.catalog_list table {
+  width: 640px;
+  border: 1px solid #999;
+  background: #FFF;
+}
+
+.catalog_list table th {
+  border: 1px solid #999;
+  color: #FFF;
+  background: maroon;
+  text-align: center;
+  vertical-align: middle;
+  padding: 2px;
+}
+
+.catalog_list table td {
+  border: 1px solid #999;
+  text-align: left;
+  vertical-align: middle;
+  padding: 2px;
+}
+
+.catalog_list table .maker,
+.catalog_list table .year {
+  width: 100px;
+}
+
+.catalog_list table .img {
+  width: 60px;
+  padding: 0;
+}
+
+button.catalog_select {
+  width: 56px;
+}
+
+.catalog_tumbnail {
+  width: 60px;
+}
+
+.model_label {
+  display: inline-block;
+  width: 170px;
+  text-align: left;
+  vertical-align: middle;
+  padding: 0 3px;
+}
+
+.catalog_area {
+  display: inline-block;
+  width: 100px;
+  vertical-align: middle;
+  padding: 0 3px;
+}
+
+table.form td input.location {
+  display: inline-block;
+  width: 140px;
+}
+
+table.form td input.location_address {
+  display: inline-block;
+  width: 240px;
+  margin-left: 2px;
+}
+
+input.lat,
+input.lng {
+  text-align: right;
+  width: 130px;
+}
+
+/*** 画像のアップロード ***/
+.upload {
+  width: 500px;
+  height: 28px;
+  border: 0;
+  background: transparent;
+}
+
+.upload_img div.img {
+  display: inline-block;
+  margin: 4px 8px;
+}
+
+.upload_img img {
+  width: 60px;
+}
+
+.upload_pdf .pdf a {
+  padding-right: 6px;
+}
+
+/*** オートコンプリート枠 ***/
+ul.ui-autocomplete {
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.4);
+  background: #FFF;
+}
+
+input.date {
+  width: 110px;
+}
+
+input.time {
+  width: 60px;
+}

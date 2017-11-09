@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /system/
+Disallow: /ajax/
+Disallow: /login*
+Disallow: /contact*

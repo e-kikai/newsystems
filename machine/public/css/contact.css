@@ -1,0 +1,135 @@
+@charset "utf-8";
+table.contact {
+  width: 800px;
+  border-collapse: collapse;
+  margin: 10px auto;
+  border: 1px solid #CCC;
+}
+
+div.terms {
+  width: 800px;
+  margin: 10px auto;
+}
+
+table.contact th {
+  background: #FFF6E4;
+  text-align: left;
+  padding: 6px;
+  vertical-align: middle;
+  border: 1px solid #CCC;
+  border-style: dotted solid;
+  width: 200px;
+}
+
+table.contact td {
+  background: #EFEFEF;
+  text-align: left;
+  padding: 6px;
+  vertical-align: middle;
+  border: 1px solid #CCC;
+  border-style: dotted solid;
+  width: 600px;
+}
+
+span.required {
+  color: red;
+  padding: 0 8px;
+}
+
+table.contact td.mailuser {
+  padding: 16px;
+}
+
+/*** フォームサイズ ***/
+textarea.other_message {
+  width: 540px;
+  height: 8.5em;
+}
+
+input.name {
+  width: 240px;
+}
+
+input.mail {
+  width: 300px;
+}
+
+.append_tel,
+.append_fax {
+  display: none;
+  padding: 0 2px 0 8px;
+  height: 28px;
+}
+
+.append_tel input,
+.append_fax input {
+  width: 130px;
+}
+/*** ボタン ***/
+button.submit {
+  display: block;
+  margin: 10px auto;
+  text-align: center;
+  background: #EA570F;
+  background: -webkit-gradient(linear, left top, left bottom, from(#ff8e66), to(#EA570F) );
+  background: -moz-linear-gradient(-90deg, #ff8e66, #EA570F);
+  background: -o-linear-gradient(-90deg, #ff8e66, #EA570F);
+  background: linear-gradient(to bottom, #ff8e66, #EA570F);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ff8e66', endColorstr='#EA570F');
+  color: #FFF;
+  font-weight: normal;
+  width: 272px;
+  height: 25px;
+  border: 1px solid #EA570F;
+}
+
+button.submit:hover {
+  background: #ff8e66;
+  background: -webkit-gradient(linear, left top, left bottom, from(#EA570F), to(#ff8e66) );
+  background: -moz-linear-gradient(-90deg, #EA570F, #ff8e66);
+  background: -o-linear-gradient(-90deg, #EA570F, #ff8e66);
+  background: linear-gradient(to bottom, #ff8e66, #EA570F);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#EA570F', endColorstr='#ff8e66');
+}
+
+button.submit:active {
+  background: #EA570F;
+}
+
+/*** seccode ***/
+.seccode {
+  display: block;
+}
+
+button.seccode_reflesh {
+  display: block;
+  width: 60px;
+  font-weight: normal;
+  margin: 2px 0;
+}
+
+.seccode_area {
+  float: left;
+  margin-right: 8px;
+}
+
+.contact_area .tel,
+.contact_area .fax {
+  width: 400px;
+  color : #C00;
+  font-size: 16px;
+}
+
+.append_bid {
+  display: none;
+  margin: 0 2px 0 8px;
+  padding: 4px;
+  border: 1px dotted #666;
+  background: #FFF;
+  width: 360px;
+}
+
+input.number {
+  width: 112px;
+  text-align: right;
+}

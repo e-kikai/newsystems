@@ -1,0 +1,2 @@
+get_uri: 'http://machinelife.zenkiren.net/system/ajax/crawl_get_ex.php'
+set_uri: 'http://machinelife.zenkiren.net/system/ajax/crawl_set_data.php'

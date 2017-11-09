@@ -1,0 +1,431 @@
+@charset "utf-8";
+.detail_container {
+  position : relative;
+}
+
+button.mylist {
+  position: absolute;
+  top: -28px;
+  right: 0;
+
+  width: 224px;
+  background: #FFF;
+  background: -webkit-gradient(linear, left top, left bottom, from(#EAEAEA), to(#C5C5C5) );
+  background: -moz-linear-gradient(-90deg, #EAEAEA, #C5C5C5);
+  background: -o-linear-gradient(-90deg, #EAEAEA, #C5C5C5);
+  background: linear-gradient(to bottom, #EAEAEA, #C5C5C5);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#EAEAEA', endColorstr='#C5C5C5');
+  color: #EA570F;
+  border: 1px solid #C5C5C5;
+  margin-left: 6px;
+}
+
+button.mylist:hover  {
+  background: #EAEAEA;
+  background: -webkit-gradient(linear, left top, left bottom, from(#C5C5C5), to(#EAEAEA) );
+  background: -moz-linear-gradient(-90deg, #C5C5C5, #EAEAEA);
+  background: -o-linear-gradient(-90deg, #C5C5C5, #EAEAEA);
+  background: linear-gradient(to bottom, #C5C5C5, #EAEAEA);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#C5C5C5', endColorstr='#EAEAEA');
+}
+
+button.mylist:active {
+  background: #C5C5C5;
+}
+
+/*** table ***/
+table.machine {
+  width : 880px;
+  margin : 10px auto;
+}
+
+table.machine td,
+table.machine th {
+  vertical-align : middle;
+  border : 1px solid #CCC;
+  padding : 4px;
+}
+
+table.machine th {
+  background : #EEE;
+  font-weight : bold;
+  text-align : center;
+}
+
+table.machine td {
+  background : #FFF;
+  text-align : left;
+  min-height : 60px;
+}
+
+table.machine td.company_info,
+.machine .company_info {
+  width : 220px;
+}
+
+table.machine td.spec {
+  height: 50px;
+}
+
+table.spec.bid th {
+  text-align: center;
+}
+
+table.spec.bid td.price {
+  text-align: right;
+}
+
+table.spec.bid th.no,
+table.spec.bid td.no {
+  width: 40px;
+}
+
+/*** お問い合わせ ***/
+.contact_area {
+  position: relative;
+  width: 100%;
+  height: auto;
+  margin-bottom: 4px;
+}
+
+a.contact_link {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 68px;
+}
+
+.contact_area .tel,
+.contact_area .fax {
+  width: 256px;
+  height: auto;
+
+  color : #C00;
+  font-size : 20px;
+  text-align: left;
+
+  margin: 0 0 0 auto;
+}
+
+/*** ラベル ***/
+.others {
+  display: inline-block;
+}
+
+/*
+.label.bid {
+  height: 35px;
+  margin-bottom: 6px;
+}
+*/
+
+.label {
+  float: left;
+  margin: 0 4px 4px 0;
+  font-size: 15px;
+}
+
+/*** 画像 ***/
+.top_image img {
+  display : block;
+  margin : auto;
+  max-width : 384px;
+  max-height : 360px;
+  _height : 360px; /* for IE6 */
+}
+
+.images .img {
+  display : inline-block;
+  /display : inline;  /* for IE6,7 */
+  /zoom : 1;          /* for IE6,7 */
+
+  width : 170px;
+  height : 130px;
+
+  margin : 0 10px 10px 0;
+
+  background : #FFF;
+  border : 1px solid #CCC;
+}
+
+.images .img img {
+  display : block;
+  margin : 5px auto auto auto;
+  max-width : 160px;
+  max-height : 120px;
+  _height : 120px; /* for IE6 */
+}
+
+div.data_area {
+  font-weight : bold;
+}
+
+a.back_button {
+  display: block;
+  float: left;
+  width : 130px;
+  height : 25px;
+  line-height : 25px;
+}
+
+/*** 詳細メインテーブル ***/
+table.machine {
+  width: 100%;
+  margin: 8px auto 0 auto;
+}
+
+table.machine .company_info {
+  width: 160px;
+}
+
+/*** others、仕様、コメント枠テーブル ***/
+table.spec th {
+  background: #EEE;
+  font-weight: bold;
+  text-align: left;
+  width: 160px;
+}
+
+table.spec th,
+table.spec td {
+  height: auto;
+  vertical-align: middle;
+  border: 1px solid #CCC;
+  padding: 4px;
+}
+
+table.spec {
+  width: 578px;
+  margin: 4px 0;
+}
+
+table.spec .label_area td {
+  border: 0;
+  padding: 4px 0;
+}
+
+span.memberonly {
+  color: #00E;
+}
+
+/*** 画像枠 ***/
+.zoomWrapperImage img {
+  max-width: none;
+  max-height: none;
+}
+
+.img_area {
+  float: left;
+  width: 512px;
+}
+
+#viewport {
+  position: relative;
+  cursor: move;
+  overflow: visible;
+  width: auto;
+  height: 384px;
+  margin: 0;
+  display: inline-block;
+}
+
+.spec_area {
+  width: 442px;
+  float: right;
+}
+
+table.spec {
+  width: 442px;
+  margin: 0;
+  margin-bottom: 4px;
+}
+
+div.top_image {
+  position : relative;
+
+  margin : 20px 40px 0 0;
+  padding : 0;
+
+  vertical-align : top;
+
+  padding : 0;
+
+  width : 512px;
+  height: 384px;
+  margin: 0 0 4px 0;
+  text-align: center;
+}
+
+.top_image img.zoom_img {
+  max-width: 512px;
+  max-height: 384px;
+  border: 1px solid #CCC;
+}
+
+table.spec th {
+  width: 118px;
+}
+
+.images {
+  display : inline-block;
+  /display : inline;  /* for IE6,7 */
+  /zoom : 1;          /* for IE6,7 */
+
+  width : 512px;
+  margin : 20px 0 0 0;
+  text-align: left;
+
+  margin-top: 2px;
+
+  border: 1px solid #CCC;
+  height: 80px;
+  overflow: auto;
+
+  letter-spacing: -.40em;
+}
+
+.images a.img,
+.images a.movie {
+  display: block;
+  float: left;
+  background: #FFF;
+  width: 64px;
+  height: 48px;
+  border: 0;
+  margin: 0;
+  border: 3px solid #FFF;
+}
+
+.images a.movie {
+  text-align: center;
+}
+
+.images a.img.selected {
+  border: 3px solid #777;
+}
+
+.images a.img img {
+  max-width: 64px;
+  max-height: 48px;
+  margin: 0 auto;
+}
+
+.youtube {
+  margin-top: 8px;
+}
+
+table.machine {
+  width: 442px;
+  margin: 0 0 4px 0;
+}
+table.machine .no {
+  width: 80px;
+}
+
+table.machine .name,
+table.machine .model {
+  width: 130px;
+}
+
+table.machine .year {
+  width: 60px;
+}
+
+.zoomPad {
+  float: right;
+}
+
+table.machine .bid_machine_id {
+  width: 80px;
+  text-align: center;
+}
+
+td.bid_machine_id {
+  font-size: 16px;
+}
+
+table.machine td:hover {
+  background : #FFFFAD;
+}
+
+table.spec tr:hover td {
+  background : #FFFFAD;
+}
+
+table.spec .label_area:hover td {
+  background : #FFF;
+}
+
+/*** 地図表示 ***/
+#gmap2 {
+  width : 512px;
+  height : 386px;
+  border : 1px solid #CCC;
+  margin : 0 auto;
+}
+
+a.map_link {
+  display: block;
+  position: absolute;
+  width: 140px;
+  top: 3px;
+  right: 12px;
+  font-weight: normal;
+}
+
+td.location {
+  position: relative;
+  min-height: 37px;
+}
+
+a.accessmap {
+  display: block;
+  width: 70px;
+  height: 35px;
+  line-height: 35px;
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  vertical-align: middle;
+  color: #FFFFFF;
+  font-size: 14px;
+  background: #076AB6;
+  border-radius: 3px;
+  text-align: center;
+  padding: 0;
+  text-decoration: none;
+  border: 0;
+  text-shadow: none;
+  box-shadow: none;
+}
+
+/*** 入札会案内 ***/
+.bid_open {
+  border: 1px dotted #147543;
+  margin: 6px auto;
+  padding: 3px;
+  width: 580px;
+}
+
+.bid_open p {
+  margin: 4px 0;
+}
+
+td.detail_min_price {
+  color: #E81F18;
+  font-size: 19px;
+  font-weight: normal;
+}
+
+p.contents {
+  margin: 4px auto 8px auto;
+  width: 94%;
+  font-size: 15px;
+}
+
+img.bid_announce {
+  display: block;
+  margin: 4px auto;
+  width: 100%;
+}

@@ -1,0 +1,1099 @@
+@charset "utf-8";
+
+div.data_area,
+span.data_area {
+  font-weight: bold;
+}
+
+.company_info div.company {
+  color: #076AB6;
+}
+
+/*** 絞り込みエリア ***/
+.machine_header {
+  position: relative;
+}
+
+.area_label {
+  font-weight: bold;
+  vertical-align: top;
+  line-height: 1em;
+  height: 1em;
+}
+
+.filter_area,
+.period_area,
+.genre_area,
+.maker_area,
+.model2_area,
+.capacity_area,
+.location_area,
+.map_location_area,
+.submit_area {
+  width: auto;
+  border: 1px solid #147543;
+  padding: 4px;
+  margin: 1px auto;
+}
+
+.submit_area {
+  border-bottom: 0;
+  position: absolute;
+  right: 0;
+  top: -28px;
+  border: 0;
+  padding: 0;
+}
+
+.filter_area {
+  overflow: auto;
+  max-height: 126px;
+}
+
+.period_area,
+.model2_area {
+  padding: 2px 4px;
+}
+
+.model2_area input {
+  width: 120px;
+}
+
+.model2_area input,
+.model2_area select {
+  margin-right: 24px;
+}
+
+.location_area {
+  border: 0;
+}
+
+.filter_area a {
+  vertical-align: top;
+  line-height: 1.1;
+  height: 1.1em;
+}
+
+.period_area .area_label,
+.model2_area .area_label {
+  vertical-align: middle;
+}
+
+.area_label.year {
+  margin-left: 32px;
+  vertical-align: middle;
+}
+
+/*** 並び替え枠 ***/
+.sort_area {
+  position: absolute;
+  bottom: -61px;
+  right: 0;
+  /*
+  bottom: 7px;
+  right: 8px;
+  */
+}
+
+.filter_area input:checked + .check_label {
+  color: #E54500;
+}
+
+.sort_area input:checked + .check_label {
+  color: #E54500;
+}
+
+.sort_area label {
+  display: inline;
+}
+
+/*** 表示数枠 ***/
+select.limit {
+  vertical-align: top;
+  height: 24px;
+  margin-left: 32px;
+}
+
+/*** 在庫機械テーブル ***/
+.machine_list.list .company_info div {
+  display: block;
+}
+
+.machine_list table.spec_data th,
+.machine_list table.spec_data td {
+  height: 24px;
+  padding: 4px;
+  min-width: 60px;
+}
+
+.machine_list table.spec_data td.integer,
+.machine_list table.spec_data td.float {
+  text-align: right;
+}
+
+.machine_list tr.separator td.capacity_separator {
+  border-bottom-color: #147543;
+}
+
+.filter_area li,
+.genre_area li,
+.maker_area li,
+.capacity_area li,
+.location_area li,
+.map_location_area li,
+.period_area li {
+  display: inline-block;
+  #display: inline;  /* for IE6,7 */
+  #zoom: 1;          /* for IE6,7 */
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.filter_area li {
+  width: 8.7em;
+  height: 1.3em;
+  line-height: 1.3em;
+}
+
+.filter_area.state li,
+.filter_area.city li {
+  width: 6em;
+}
+
+.genre_area li {
+  width: 11.7em;
+}
+
+.maker_area li {
+  width: 10em;
+}
+
+.location_area li {
+  width: 7.7em;
+}
+
+.capacity_area li {
+  width: auto;
+}
+
+.filter_area li label {
+  display: block;
+  width: 300px;
+}
+
+.capacity_area li label {
+  width: auto;
+  margin-right: 0.8em;
+}
+
+.capacity_label_area {
+  border-top: 1px dotted #777;
+}
+
+.capacity_label_area.first {
+  border-top: 0;
+}
+
+.period_area li {
+  width: auto;
+  margin-right: 16px;
+}
+
+.period_area #start_date {
+  width: 100px;
+}
+
+.submit_area button {
+  width: 196px;
+  color: #FFFFFF;
+  border: 0;
+  margin-left: 6px;
+  vertical-align: baseline;
+}
+
+.all_clear {
+  position: absolute;
+  right: 2px;
+  top: -22px;
+}
+.all_clear .ui-button-text {
+  padding: 2px 6px;
+}
+
+.maker_area li.other {
+  display: none;
+}
+
+button.input_mylist_genres,
+button.input_mailmagazine,
+button.mylist_full,
+button.mylist_full_company {
+  width: 224px;
+  background: #FFF;
+  background: -webkit-gradient(linear, left top, left bottom, from(#EAEAEA), to(#C5C5C5) );
+  background: -moz-linear-gradient(-90deg, #EAEAEA, #C5C5C5);
+  background: -o-linear-gradient(-90deg, #EAEAEA, #C5C5C5);
+  background: linear-gradient(to bottom, #EAEAEA, #C5C5C5);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#EAEAEA', endColorstr='#C5C5C5');
+  color: #EA570F;
+  border: 1px solid #C5C5C5;
+  margin-left: 6px;
+}
+
+button.input_mylist_genres:hover,
+button.input_mailmagazine:hover,
+button.mylist_full:hover,
+button.mylist_full_company:hover  {
+  background: #EAEAEA;
+  background: -webkit-gradient(linear, left top, left bottom, from(#C5C5C5), to(#EAEAEA) );
+  background: -moz-linear-gradient(-90deg, #C5C5C5, #EAEAEA);
+  background: -o-linear-gradient(-90deg, #C5C5C5, #EAEAEA);
+  background: linear-gradient(to bottom, #C5C5C5, #EAEAEA);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#C5C5C5', endColorstr='#EAEAEA');
+}
+
+button.input_mylist_genres:active,
+button.input_mailmagazine:active,
+button.mylist_full:active,
+button.mylist_full_company:active {
+  background: #C5C5C5;
+}
+
+button.mylist_full,
+button.mylist_full_company {
+  width : 144px;
+}
+
+/*** others ***/
+.machine_list.list table.others th,
+.machine_list.list table.others td {
+  padding: 2px 4px;
+  height: auto;
+  min-width: 40px;
+}
+
+table.others td.number,
+table.others td.x2,
+table.others td.x3,
+table.others td.c3 {
+  text-align: right;
+}
+
+table.others td dt {
+  border-bottom: 1px dotted #BBB;
+}
+
+/*** まとめて ***/
+.machine_full {
+  margin-bottom: 6px;
+}
+
+button.contact_full,
+button.contact_full_company {
+  width: 144px;
+  display: inline-block;
+  margin: auto;
+  text-align: center;
+  background: #EA570F;
+  background: -webkit-gradient(linear, left top, left bottom, from(#ff8e66), to(#EA570F) );
+  background: -moz-linear-gradient(-90deg, #ff8e66, #EA570F);
+  background: -o-linear-gradient(-90deg, #ff8e66, #EA570F);
+  background: linear-gradient(to bottom, #ff8e66, #EA570F);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ff8e66', endColorstr='#EA570F');
+  color: #FFF;
+  height: 25px;
+  border: 1px solid #EA570F;
+}
+
+button.contact_full:hover,
+button.contact_full_company:hover {
+  background: #ff8e66;
+  background: -webkit-gradient(linear, left top, left bottom, from(#EA570F), to(#ff8e66) );
+  background: -moz-linear-gradient(-90deg, #EA570F, #ff8e66);
+  background: -o-linear-gradient(-90deg, #EA570F, #ff8e66);
+  background: linear-gradient(to bottom, #EA570F, #ff8e66);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#EA570F', endColorstr='#ff8e66');
+}
+
+button.contact_full:active,
+button.contact_full_company:active {
+  background: #EA570F;
+}
+
+/*** メンバー情報 ***/
+.machine_list.company td {
+  height: 136px;
+  height: 120px;
+}
+
+.machine_list.company .machines td.checkbox {
+  overflow: hidden;
+}
+
+.machine_list.company .machines .img {
+  width: 136px;
+}
+
+.machine_list.company .machines td.img {
+  text-align: center;
+}
+
+.machine_list.company .count {
+  width: 80px;
+}
+
+.machine_list.company td.count {
+  text-align: right;
+}
+
+.machine_list.company .opening,
+.machine_list.company .closed,
+.machine_list.company .number {
+  width: 140px;
+}
+
+.machine_list.company td.number {
+  text-align: right;
+}
+
+.company img.top_image {
+  max-width: 136px;
+  max-height: 136px;
+}
+
+/*** 件数／並び替え ***/
+.machine_num strong,
+.map_machine_num strong {
+  font-size: 16px;
+  font-weight: bold;
+  color: #ff2819;
+  margin-right: 4px;
+}
+
+.machine_num {
+  position: absolute;
+  top: -24px;
+  right: 180px;
+  width: 200px;
+  height: 20px;
+  text-align: right;
+  line-height: 20px;
+}
+
+.machine_order {
+  height: 20px;
+  line-height: 20px;
+  margin-bottom: 10px;
+}
+
+.machine_order a {
+  border-right: 1px solid #333;
+  margin-right: 4px;
+  padding-right: 6px;
+}
+
+.machine_order a.reset {
+  border: 0;
+}
+
+/*** 機械一覧共通 ***/
+div.machine_list.list,
+table.machines {
+  width: 964px;
+}
+
+.machine td {
+  border: 1px solid #BBB;
+}
+
+.img_machine .checkbox,
+.machine .checkbox {
+  vertical-align: middle;
+  text-align: center;
+  border-right: 1px solid #BBB;
+}
+
+
+.machine_list.company .buttons,
+.machine_list.list .buttons {
+  width: 138px;
+  text-align: center;
+  padding: 0;
+}
+
+.machines.img .img_machine:hover td.data,
+.map.machine_list .map_machine:hover,
+.machine_list .machine:hover td {
+  background: rgb(254,255,204);
+}
+
+.machines.img .checkbox,
+.machines.img .img_machine:hover .checkbox,
+.machine_list .machine .checkbox,
+.machine_list .machine:hover td.checkbox {
+  background: rgb(255,246,228);
+}
+
+.machines td.checkbox,
+.machines th.checkbox {
+  padding: 0;
+  width: 17px;
+  border-right: 0;
+}
+
+.machine .status,
+.machine .company_info,
+.machines.img .company_info {
+  width: 900px;
+  padding: 4px;
+}
+
+.machine .status div{
+  margin-right: 1.5em;
+}
+
+.machine .status {
+  border-bottom: 1px solid #BBB;
+}
+
+.machine .company_info {
+  border-top: 1px solid #BBB;
+}
+
+.imgs {
+  position: relative;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.imgs li {
+  display: inline-block;
+  #display: inline;  /* for IE6,7 */
+  #zoom: 1;          /* for IE6,7 */
+  text-align: center;
+  height: 192px;
+  margin: 0 3px;
+  vertical-align: top;
+}
+
+.imgs li img {
+  width: auto;
+  height: 192px;
+  margin: auto;
+}
+
+.machines.img button.movie {
+  width: 130px;
+  height: 60px;
+  vertical-align: top;
+  margin-top: 57px;
+}
+
+div.new {
+  display: inline-block;
+  #display: inline;  /* for IE6,7 */
+  #zoom: 1;          /* for IE6,7 */
+
+  background: #F00;
+  color: #FFF;
+  width: 46px;
+  text-align: center;
+}
+
+/*** リストで表示 ***/
+img.hoverimg {
+  display: block;
+  position: absolute;
+  max-width: 272px;
+  max-height: 272px;
+  border: 1px solid #AAA;
+  box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.6);
+}
+
+.machine_list.list th,
+.machine_list.list td,
+.machines.img td,
+.machine_list.company th,
+.machine_list.company td {
+  background: #EEE;
+  border: 1px solid #BBB;
+  vertical-align: middle;
+  padding: 2px 4px;
+}
+
+.machine_list.list th {
+  text-align: center;
+  height: 20px;
+  color: #333;
+}
+
+.machine_list.list .machines .img {
+  width: 120px;
+  text-align: center;
+}
+
+.machine_list.list .machines .imgs {
+  border-left: 0;
+}
+
+.machine_list.list .img img {
+  max-height: 120px;
+  max-width: 120px;
+  display: block;
+  margin: auto;
+}
+
+.machine_list.list .imgs img {
+  height: 45px;
+  margin-right: 15px;
+}
+
+.machine_list.list .maker,
+.machine_list.list .model,
+.machine_list.list .loation {
+  width: 90px;
+}
+
+.machine_list.list .year {
+  width: 50px;
+}
+
+.machine_list.list .company_info {
+  width: 200px;
+  padding: 1px 4px;
+}
+
+.machine_list.list td.capacity_area {
+  border: 1px solid #147543;
+  background: #FFF;
+  height: auto;
+}
+
+.machine_list.list a.contact,
+.machine_list.company a.contact {
+  margin: 4px auto;
+  line-height: 1.3;
+}
+
+.map.machine_list a.contact {
+  width: 80px;
+}
+
+/* マイリストに追加ボタン */
+.machine_list button.mylist,
+.machine_list button.mylist_company,
+.mylist_genres button.input_mailmagazine {
+  color: #EA570F;
+  background: #FFF;
+  background: #C5C5C5;
+  background: -webkit-gradient(linear, left top, left bottom, from(#EAEAEA), to(#C5C5C5) );
+  background: -moz-linear-gradient(-90deg, #EAEAEA, #C5C5C5);
+  background: -o-linear-gradient(-90deg, #EAEAEA, #C5C5C5);
+  background: linear-gradient(to bottom, #EAEAEA, #C5C5C5);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#EAEAEA', endColorstr='#C5C5C5');
+  
+  font-size: 12px;
+  font-weight: normal;
+  width: 130px;
+  border: 1px solid #C5C5C5;
+  margin: auto;
+}
+
+.machine_list button.mylist:hover,
+.machine_list button.mylist_company:active,
+.mylist_genres button.input_mailmagazine:hover {
+  background: #EAEAEA;
+  background: -webkit-gradient(linear, left top, left bottom, from(#C5C5C5), to(#EAEAEA) );
+  background: -moz-linear-gradient(-90deg, #C5C5C5, #EAEAEA);
+  background: -o-linear-gradient(-90deg, #C5C5C5, #EAEAEA);
+  background: linear-gradient(to bottom, #C5C5C5, #EAEAEA);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#C5C5C5', endColorstr='#EAEAEA');
+}
+
+.machine_list button.mylist:active,
+.machine_list button.mylist_company:active,
+.mylist_genres button.input_mailmagazine:active {
+  background: #C5C5C5;
+}
+
+/* セパレータ */
+.machine_list tr.separator td {
+  border-color: #BBB #FFF;
+  height: 4px;
+  padding: 0;
+  background: #FFF;
+}
+
+.machine_list:hover tr.separator td {
+  background: #FFF;
+}
+
+.hidden,
+.machine .status div.hidden {
+  display: none;
+}
+
+.machine_list.list .machines .img_area {
+  position: relative;
+  width: auto;
+}
+
+.machine_list.list .machines td.img,
+.machine_list.list .machines td.checkbox,
+.machine_list.company .machines td.checkbox {
+  height: 109px;
+  overflow: hidden;
+  padding: 2px;
+}
+
+.list.machine_list .name {
+  display: inline-block;
+  #display: inline; /* for IE6,7 */
+  #zoom: 1;         /* for IE6,7 */
+}
+
+/*** 画像で表示 ***/
+.machines.img td.data {
+  width: 911px;
+  position: relative;
+}
+
+.list.machine_list button {
+  display: inline-block;
+  #display: inline; /* for IE6,7 */
+  #zoom: 1;         /* for IE6,7 */
+  margin: auto ;
+}
+
+.machines.img button {
+  display: inline-block;
+  #display: inline; /* for IE6,7 */
+  #zoom: 1;         /* for IE6,7 */
+  margin: auto 4px;
+}
+
+.machines.img .status {
+  position: relative;
+  width: auto;
+  height: 30px;
+}
+
+.machines.img .company_info a.contact {
+  position: absolute;
+  top: 4px;
+  left: 768px;
+}
+
+.machines.img .company_info button.mylist {
+  position: absolute;
+  top: 4px;
+  left: 628px;
+}
+
+.machines.img .status div,
+.machines.img .company_info div {
+  display: inline-block;
+  #display: inline; /* for IE6,7 */
+  #zoom: 1;
+}
+
+.machine_list .status div.hidden {
+  display: none;
+}
+
+.machines.img .image_carousel {
+  position: relative;
+  margin: auto;
+  width: 864px;
+}
+
+.machines.img .image_carousel a.detail {
+  position: absolute;
+  left: 24px;
+  z-index: 700;
+}
+
+.machines.img .machine .company_info {
+  height: 25px;
+  line-height: 25px;
+}
+
+.machines.img .machine .imgs {
+  width: 850px;
+}
+
+img.triangle {
+  width: auto;
+  height: auto;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+/*** 画像で表示 ****/
+.image_carousel {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.machines.img .machine .imgs {
+  overflow: visible;
+}
+
+.jqzoom {
+  width: 256px;
+}
+
+/*** ボタン ***/
+table.machines button.mylist,
+table.machines button.mylist_company {
+  width: 68px;
+  height: 42px;
+  font-size: 13px;
+  margin: 0 1px;
+  padding: 0;
+  vertical-align: middle;
+  line-height: 1.3;
+}
+
+table.machines a.contact {
+  padding: 4px 0;
+  height: 32px;
+  width: 68px;
+  font-size: 13px;
+  line-height: normal;
+  margin: 0 2px;
+  vertical-align: middle;
+}
+
+.machine_list.company .buttons,
+.machine_list.list .buttons  {
+  width: 152px;
+}
+
+/*** スクロール ****/
+.scrollRight,
+.scrollLeft {
+  position: absolute;
+  bottom: 108px;
+  width: 30px;
+  height: 30px;
+  z-index: 700;
+  cursor: pointer;
+}
+
+.scrollLeft {
+  left: 4px;
+  background: url('../imgs/imgs_prev.png') no-repeat;
+}
+
+.scrollRight {
+  right: 4px;
+  background: url('../imgs/img_next.png') no-repeat;
+}
+
+.machines.img a.contact {
+  width: 100px;
+  height: 22px;
+  padding: 0;
+  line-height: 22px;
+}
+
+.machines.img button.mylist {
+  width: 100px;
+  height: 25px;
+}
+
+/**** Google Maps API v3 ****/
+.map_company {
+  font-weight: bold;
+  color: #076AB6;
+}
+
+.map_pure_address {
+  margin-bottom: 4px;
+}
+
+.map.machine_list .machine.map_hoverd {
+  background: rgb(254,255,204);
+}
+
+.map_machine_list {
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+/***** 地図で表示 *****/
+.machine_container {
+  width: 100%;
+  border: 1px solid #333;
+}
+
+.machine_container .area {
+  height: 28px;
+  line-height: 28px;
+}
+
+.machine_container .area a {
+  padding: 0 8px;
+}
+
+.machine_container .area a.selected {
+  color: #147543;
+}
+
+#gmap {
+  display: inline-block;
+  #display: inline;  /* for IE6,7 */
+  #zoom: 1;          /* for IE6,7 */
+  width: 728px;
+  height: 540px;
+  border: 1px solid #AAA;
+  margin: 1px 0;
+}
+
+.machines.map {
+  display: inline-block;
+  #display: inline;  /* for IE6,7 */
+  #zoom: 1;          /* for IE6,7 */
+
+  width: 228px;
+  height: 540px;
+  vertical-align: top;
+  border: 1px solid #AAA;
+  position: relative;
+  margin: 1px 0;
+
+  overflow: auto;
+}
+
+.machines.map .map_machine {
+  position: relative;
+  background: #FFF;
+  border-bottom: 1px dotted #AAA;
+  border-width : 0 0 1px 0;
+  margin: 0;
+  padding: 3px;
+}
+
+.machines.map .status {
+  float: left;
+  width: 80px;
+  border-width : 0;
+  padding: 2px;
+}
+
+.machines.map .status button {
+  width: 82px;
+  margin: 4px 0;
+}
+
+.machines.map .status div {
+  margin: 0;
+  word-wrap: break-word;
+}
+
+.machines.map .company_info {
+  float: left;
+  vertical-align: top;
+  width: 120px;
+  border-width : 0;
+  padding: 0;
+}
+
+.map_machine .link {
+  display: block;
+  text-decoration: none;
+}
+
+.map_machine .link div {
+  display: inline-block;
+}
+
+.machines.map img {
+  display: block;
+  position: relative;
+  margin: auto;
+  vertical-align: top;
+  max-width: 120px;
+  max-height: 120px;
+}
+
+/*** お問い合わせ不可の場合 ***/
+.contact.none {
+  display: inline-block;
+  border: 1px solid #AAA;
+  background: #888;
+  width: 68px;
+  height: 32px;
+  font-size: 13px;
+  margin: 4px auto;
+  padding: 4px 0;
+  vertical-align: middle;
+  color: white;
+  cursor: pointer;
+  border-radius: 0.3em;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.machines.img .contact.none {
+  width: 130px;
+  height: 22px;
+  padding: 0;
+  line-height: 22px;
+}
+
+.machine_list.map .contact.none {
+  width: 103px;
+  height: 22px;
+  padding: 0;
+  line-height: 22px;
+}
+
+button.input_mylist_genres,
+button.genre_open {
+  display: none;
+}
+
+
+#bid_area label,
+#sort_area label {
+  display: inline-block;
+  font-size: 13px;
+  height: 25px;
+  font-weight: normal;
+}
+
+#bid_area {
+  display: inline-block;
+}
+
+#bid_area label .ui-button-text,
+#sort_area label .ui-button-text {
+  padding: 3px 8px;
+}
+
+#bid_area input {
+  width: auto;
+  margin: auto;
+}
+
+.area_label.year {
+  line-height: auto;
+  height: auto;
+}
+
+.all_clear .ui-button-text {
+  padding: 3px 8px;
+  font-weight: normal;
+}
+
+.all_clear {
+  top: -30px;
+  height: 25px;
+}
+
+.machine_tab a {
+  text-shadow: none;
+}
+
+/****/
+a.movie {
+  display: block;
+  float: left;
+  margin-right: 8px; 
+}
+
+/****/
+.machine_list.list .machines td.img,
+.machine_list.list .machines td.checkbox,
+.machines td.checkbox,
+table.machine_list.list .machines td,
+table.machine_list.list .machines td.img,
+table.machine_list.list .machines td.checkbox {
+  height: 90px;
+}
+
+.machine_list .company {
+  width: 128px;
+}
+
+th.tdname,
+td.tdname,
+th.maker,
+td.maker,
+th.model,
+td.model {
+  width: 90px;
+}
+
+td.tdname,
+td.maker,
+td.model,
+td.year {
+  font-size: 15px;
+}
+
+.machine_list.list .year,
+.machine_list.list .year {
+  width: 38px;
+}
+
+.machine_list.list tr:nth-child(odd) td {
+  background: #FFF;
+}
+
+.machine_list.list tr:nth-child(odd):hover td {
+  background: rgb(254,255,204);
+}
+
+.machine_list.list tr:nth-child(odd) td.checkbox {
+  background: rgb(255,246,228);
+}
+
+.machine_list.list th {
+  background: #147543;
+  color: #FFF;
+}
+
+.machine_list.list a.contact,
+.machine_list.company a.contact {
+  display: block;
+  height: 30px;
+  padding: 0;
+  line-height: 30px;
+  margin: 8px auto;
+}
+
+table.machines button.mylist,
+table.machines button.mylist_company {
+  display: block;
+  margin: 8px auto;
+  height: 32px;
+  line-height: 32px;
+}
+
+.machine_list.list .machines td.img,
+.machine_list.list .machines td.checkbox,
+.machine_list.company .machines td.checkbox
+{
+  padding: 1px;
+}
+
+.machine_list.list .machines .img {
+  width: 114px;
+}
+
+.label.pdf,
+.label.catalog {
+  background-image: none;
+  text-indent: 0;
+}
+
+.label.movie {
+  color: #E00;
+  border: 1px solid #E00;
+  background: #FEE;
+  text-decoration: none;
+}

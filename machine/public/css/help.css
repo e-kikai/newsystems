@@ -1,0 +1,185 @@
+/****** èâÇﬂÇƒÇÃï˚Ç÷ *****/
+.begin_slogan {
+  display : block;
+  margin : -20px auto 15px auto;
+}
+
+.begin_menu {
+  margin : 15px auto;
+  text-align : center;
+}
+
+.begin_menu a {
+  display : inline-block;
+  #display : inline;  /* for IE6,7 */
+  #zoom : 1;          /* for IE6,7 */
+  
+  margin : 0 30px;
+  width : 242px;
+  height : 32px;
+  line-height : 32px;
+  font-size : 15px;
+  font-weight : bold;
+  border : 4px solid #8EC323;
+  color : #1D9A4C;
+  background : #FFF;
+  position : relative;
+  border-radius : 8px;
+  behavior : url(PIE.htc);
+}
+
+.begin_menu a.selected,
+.begin_menu a:hover {
+  color : #FFF;
+  background : #66B22E;
+}
+
+.messages {
+  padding-top : 100px;
+  background : url('../img/begin_peoples.png') top center no-repeat;
+  margin : auto;
+}
+
+.messages p {
+  width : 810px;
+  margin : 0 auto 42px auto;
+  line-height : 2;
+}
+
+.messages p.top {
+  color : #1D9A4C;
+  font-weight : bold;
+  font-size : 16px;
+}
+
+.messages p.main {
+  font-family : 'ÉqÉâÉMÉmñæí© Pro W3','Hiragino Mincho Pro','ÇlÇr Çoñæí©','MS PMincho',serif;
+  font-size : 14px;
+}
+
+.pages_img {
+  display : inline-block;
+  #display : inline;  /* for IE6,7 */
+  #zoom : 1;          /* for IE6,7 */
+
+  width : 400px;
+}
+
+.pages_img img {
+  border : 1px solid #AAA;
+}
+
+.pages_img h2 {
+  width : 400px;
+  height : 24px;
+  line-height : 24px;
+  text-align : center;
+  font-size : 14px;
+  font-weight : bold;
+  color : #FFF;
+  background : #8EC323;
+  margin : 20px auto;
+  position : relative;
+  border-radius : 8px;
+  behavior : url(PIE.htc);
+}
+
+.pages_description {
+  display : inline-block;
+  #display : inline;  /* for IE6,7 */
+  #zoom : 1;          /* for IE6,7 */
+
+  width : 500px;
+  margin : 65px auto 0 25px;
+  vertical-align : top;
+}
+
+.center_container {
+  vertical-align : middle;
+}
+
+.pages_description h3 {
+  height : 25px;
+  line-height : 25px;
+  padding-left : 36px;
+  font-size : 16px;
+  font-weight : bold;
+}
+
+.pages_description h3.order_01 {
+  background : url('../img/order_01.png') left center no-repeat;
+}
+
+.pages_description h3.order_02 {
+  background : url('../img/order_02.png') left center no-repeat;
+}
+
+.pages_description h3.order_03 {
+  background : url('../img/order_03.png') left center no-repeat;
+}
+
+.pages_description p {
+  line-height : 2;
+
+  font-family : 'ÉqÉâÉMÉmñæí© Pro W3','Hiragino Mincho Pro','ÇlÇr Çoñæí©','MS PMincho',serif;
+  font-size : 14px;
+  width : 464px;
+  margin : 0 auto 42px 36px;
+}
+
+/****** beginner_03 *****/
+.h1_p {
+  font-size : 14px;
+  line-height: 2;
+  margin: 0 auto 32px auto;
+}
+
+.h2_p {
+  font-size : 14px;
+  line-height: 2;
+  margin: 0 auto 24px 36px;
+}
+
+.help_service .h3_area {
+  background : #DDD;
+  padding : 8px;
+  font-size : 14px;
+  margin : 0 auto 16px auto;
+}
+
+.help_service .h3_area img {
+  border : 1px solid #AAA;
+}
+
+.help_service h2 {
+  font-size : 14px;
+  height : 32px;
+  line-height: 32px;
+  padding-left : 32px;
+  background : url('../img/help_h2_dot.png') left center no-repeat;
+}
+
+.help_service h3 {
+  font-size : 16px;
+  font-weight : bold;
+  background : #DDD;
+  width : 320px;
+  height : 32px;
+  line-height : 32px;
+  padding : 0 24px;
+  border-radius : 12px 12px 0 0;
+  behavior : url(PIE.htc);
+}
+
+img.help_03_01 {
+  width : 900px;
+  display : block;
+  margin : 8px auto;
+}
+
+img.help_03_02 {
+  width : 600px;
+  display : block;
+  float : left;
+  margin : 8px;
+}

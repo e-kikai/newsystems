@@ -1,0 +1,359 @@
+@charset "utf-8";
+
+/*** CSVテーブル ***/
+table.list {
+  width: 100%;
+  margin: 8px auto;
+}
+
+table.list td,
+table.list th {
+  padding: 2px;
+  border: 1px dotted #BBB;
+  vertical-align: middle;
+  background: #FFF;
+}
+
+table.list th {
+  text-align: center;
+  color: #EFE;
+  background: #040;
+}
+
+table.list th a:visited,
+table.list th a {
+  color: #EFE;
+  text-decoration: none;
+  border-bottom: 1px dotted #EFE; 
+}
+
+table.list tr:nth-child(even) td {
+  background: #EFE
+}
+
+table.list tr:hover td {
+  background : #FFFFAD;
+}
+
+table.list .no,
+table.list .capacity,
+table.list .price {
+  width: 50px;
+}
+
+table.list .id,
+table.list .imgs,
+table.list .year {
+  width: 40px;
+}
+
+table.list .bid_machine_id {
+  width: 60px;
+  text-align: center;
+}
+
+table.list .b2m {
+  width: 50px;
+  text-align: center;
+}
+
+table.list td.bid_machine_id {
+  font-size: 16px;
+}
+
+table.list .name {
+  width: 120px;
+}
+
+table.list .genre,
+table.list .maker,
+table.list .model {
+  width: 80px;
+}
+
+table.list td.id,
+table.list td.no,
+table.list td.capacity,
+table.list td.year,
+table.list td.price {
+  text-align: right;
+}
+
+table.list .uid {
+  width: 30px;
+}
+
+table.list .check {
+  width: 24px;
+}
+
+table.list .img {
+  width: 60px;
+  padding: 0;
+}
+
+table.list .img img {
+  width: 60px;
+}
+
+table.list .genre_id {
+  display: none;
+}
+
+table.list .commission,
+table.list .view_option {
+  width : 38px;
+}
+
+table.list .created_at {
+  width : 80px;
+}
+
+table.list td.check,
+table.list td.commission,
+table.list td.view_option,
+table.list td.uid {
+  text-align: center;
+}
+
+img.thumbnail {
+  max-width: 60px;
+  max-height: 60px;
+}
+
+/*** 検索エリア ***/
+#company_list_form {
+  display: inline-block;
+}
+
+.center_container button.company_list_submit {
+  width: 60px;
+  margin: 0 8px;
+}
+
+select.genre_id,
+select.maker {
+  width: 150px;
+}
+
+input.keyword_search {
+  width: 150px;
+}
+
+button.delete {
+  width : 64px;
+  text-align : center;
+  padding: 2px;
+}
+
+fieldset.search {
+  width: 640px;
+  border: 1px solid #AAA;
+  margin: 2px auto;
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+/*** ユーザ一覧 ***/
+table.list .role,
+table.list .changed_at {
+  width: 160px;
+}
+
+table.list.user .company {
+  width: 240px;
+}
+
+/*** 入札会出品枠 ***/
+table.list .bid {
+  width: 200px;
+}
+
+input.min_price {
+  width: 120px;
+  text-align: right;
+}
+
+button.bid_entry {
+  width: 60px;
+}
+
+table.list .id {
+  width: 50px;
+}
+
+table.list .result_price {
+  width: 100px;
+}
+
+table.list .same_count {
+  text-align: center;
+  width: 30px;
+}
+
+table.list td.id,
+table.list td.min_price,
+table.list td.result_price {
+  text-align: right;
+}
+
+table.list .company_min {
+  width: 80px;
+}
+
+.others {
+  display: inline-block;
+}
+
+/*** 入札 ***/
+.bid_true {
+  color: #C00;
+  font-weight: bold;
+}
+
+.bid_false {
+  color: #00C;
+  font-weight: bold;
+}
+
+.title,
+.organizer {
+  width: 160px;
+}
+
+.entry_start_date {
+  width: 128px;
+}
+
+.condition {
+  width: 80px;
+  text-align: center;
+}
+
+/*** 入札会案内 ***/
+.bid_open {
+  border: 1px dotted #147543;
+  margin: 6px auto;
+  padding: 3px;
+  width: 580px;
+}
+
+fieldset.id_search {
+  float: left;
+  width: 220px;
+  margin: auto;
+}
+
+.bid_open p {
+  margin: 4px 0;
+}
+
+.bid_open h3 {
+  font-size: 15px;
+  margin-top: 6px;
+}
+
+/*** 会社情報 ***/
+table.list .company {
+  width: 140px;
+}
+
+table.list .region {
+  width: 70px;
+}
+
+table.list .representative {
+  width: 100px;
+}
+
+table.list .tel {
+  width: 112px;
+}
+
+table.list .mail {
+  width: 120px;
+  word-wrap: break-word;
+}
+
+
+table.list .website {
+  width: 40px;
+  text-align: center;
+}
+
+table.list th.login,
+table.list td.login {
+  width: 88px;
+  text-align: center;
+}
+
+button.login {
+  width: 80px;
+}
+
+table.list th.groups {
+  text-align: left;
+  border-style: dotted;
+}
+
+table.list td.min_price,
+table.list th.min_price {
+  width: 80px;
+}
+
+table.list .charge,
+table.list .comment {
+  width: 100px;
+}
+
+table.list .same_count,
+table.list .res {
+  width: 30px;
+  text-align: center;
+}
+
+table.list tr:nth-child(even) td.blank,
+table.list tr:nth-child(odd) td.blank,
+table.list td.blank {
+  background: #FFF;
+  border-style: solid;
+  border-width: 1px 0 0 0;
+}
+
+div.table_area {
+  width: 100%;
+  height: 400px;
+  overflow: scroll;
+  border: 1px solid;
+  margin-bottom: 6px;
+}
+
+table.list th.sepa,
+table.list td.sepa {
+  border-left-style: solid;
+}
+
+table.list th.sepa2,
+table.list td.sepa2 {
+  border-left-style: double;
+  border-left-width: 3px;
+}
+
+/* 削除ボタン */
+th.delete,
+td.delete {
+  width: 54px;
+}
+
+button.delete {
+  width: 50px;
+}
+
+/*** 会員ランク ***/
+td.rank,
+th.rank {
+  width: 50px;
+}
+
+.rank-200 { color: red; }
+.rank-100 { color: blue; }

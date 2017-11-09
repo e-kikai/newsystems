@@ -1,0 +1,19 @@
+@charset "utf-8";
+/*** alert ***/
+div.cjf_alert {
+  width: 340px;
+  height: 80px;
+  line-height: 80px;
+  border: 2px solid orange;
+  color: #ff2819;
+  font-weight: bold;
+  text-align: center;
+  background: #FFF;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -40px;
+  margin-left: -170px;
+  display: none;
+  z-index: 2000;
+}

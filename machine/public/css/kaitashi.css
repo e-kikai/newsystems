@@ -1,0 +1,75 @@
+@charset "utf-8";
+/*** ”ƒ‚¢‚½‚µˆê—— ***/
+.kaitashis {
+  width : 900px;
+  margin : 16px auto;
+  
+  border : 1px solid #AAA;
+}
+
+.kaitashis th {
+  border : 1px solid #AAA;
+
+  background : #800000;
+  color : #FFF;
+  
+  padding : 4px;
+  border-width : 1px;
+}
+
+.kaitashis td {
+  padding : 4px;
+  border : 1px dotted #AAA;
+  text-align : left;
+  vertical-align : middle;
+  
+  border-width : 1px;
+  border-style : dotted solid;
+}
+
+.kaitashis tr.odd td {
+  background : #f5deb3;
+}
+
+.kaitashis tr:hover td {
+  background : #FFFFAD;
+}
+
+.kaitashis .id {
+  width : 50px;
+}
+
+.kaitashis td.id {
+  text-align : right;
+}
+
+.kaitashis .name {
+  width : 150px;
+}
+
+.kaitashis .price {
+  width : 140px;
+}
+
+.kaitashis .customer,
+.kaitashis .tel,
+.kaitashis .fax {
+  width : 100px;
+}
+
+.kaitashis .date_insert {
+  width : 100px;
+}
+
+.kaitashis td.date_insert {
+  text-align : right;
+}
+
+.kaitashi.odd td {
+  background : #f5deb3;
+}
+
+.kaitashi:hover td {
+  background : #FFFFAD;
+}
+

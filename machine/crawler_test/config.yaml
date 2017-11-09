@@ -1,0 +1,2 @@
+get_uri: 'http://test-machine.etest.wjg.jp/system/ajax/crawl_get_ex.php'
+set_uri: 'http://test-machine.etest.wjg.jp/system/ajax/crawl_set_data.php'

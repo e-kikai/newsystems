@@ -1,0 +1,633 @@
+@charset "utf-8";
+h1 {
+  width: 772px;
+  margin: 0 auto 6px 4px;
+  overflow: hidden;
+}
+
+.center_container {
+  margin-top: 73px;
+}
+
+.bid_timer {
+  position: absolute;
+  width: 300px;
+  top: -64px;
+  left: 8px;
+  font-size: 16px;
+  height: 28px;
+  line-height: 28px;
+}
+
+.header_preview_date {
+  position: absolute;
+  width: 480px;
+  top: 4px;
+  left: 64px;
+  font-size: 18px;
+  height: 46px;
+  line-height: 28px;
+}
+
+/*** ボタンデフォルト ***/
+a.contact,
+a.mylist_link,
+a.button,
+a.bid_help,
+button.mylist,
+button {
+  background: none;
+  background-color: #CCC;
+  color: #333;
+  text-shadow: none;
+  box-shadow: none;
+  border-radius: 3px;
+  text-align: center;
+  padding: 0;
+  text-decoration: none;
+  border: 0;
+  text-shadow: none;
+  box-shadow: none;
+}
+
+a.contact,
+a.mylist_link,
+a.button {
+  background-color: #076AB6;
+  color: #FFF;
+}
+
+a.contact:hover,
+a.button:hover,
+a.mylist_link:hover,
+button.mylist:hover,
+button:hover {
+  background: none;
+  background-color: #F60;
+  color: #FFF;
+  text-shadow: none;
+  box-shadow: none;
+}
+
+/*** お問い合わせ ***/
+a.contact {
+  background: #EA570F;
+  color: #FFF;
+}
+
+a.contact:active {
+  top: 0;
+  box-shadow: 0
+}
+
+a.mylist_link {
+  display: block;
+  position: absolute;
+  right: 2px;
+  width: 200px;
+  height: 27px;
+  line-height: 28px;
+  text-indent: 32px;
+  text-decoration: none;
+  font-size: 16px;
+  border-radius: 0.3em;
+
+  background: url('../imgs/wish_icon.png') no-repeat 4px 0px #E02E2E;
+  filter: none;
+}
+
+a.mylist_link:hover {
+  background: url('../imgs/wish_icon.png') no-repeat 4px 0px #F60;
+}
+
+/*** 入札会案内ボタン ***/
+button.bid_help,
+a.bid_help {
+  display: block;
+  margin: 30px auto 0 auto;
+  background: url('../imgs/bid_help_button_01.png') no-repeat 238px 0px #FFF;
+  border: 1px solid #EC7C13;
+  color: #EC7C13;
+  font-size: 22px;
+  text-shadow: none;
+  width: 320px;
+  height: 60px;
+  text-align: left;
+  line-height: 1.2;
+  padding: 5px 16px;
+
+  filter: none;
+}
+
+a.bid_help {
+  width: 288px;
+  height: 56px;
+  text-align: left;
+  line-height: 1.3;
+  padding: 0 0 0 16px;
+}
+
+.bid_help.head {
+  position: absolute;
+  top: -64px;
+  right: 190px;
+  margin: 0;
+}
+
+/*** FAQリンク ***/
+a.help_link {
+  display: block;
+  position: absolute;
+  top: -64px;
+  right: 518px;
+  background: #076AB6;
+  border: 0;
+  color: #FFF;
+  font-size: 22px;
+  text-shadow: none;
+  width: 210px;
+  height: 58px;
+  line-height: 60px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 3px;
+}
+a.help_link:hover {
+  background-color: #F60;
+}
+
+button.mylist_movie {
+  display: block;
+  background: url('../imgs/youtube_icon_48_02.png') no-repeat 4px 12px #FFF;
+  border: 1px solid #BE181B;
+  color: #BE181B;
+  font-size: 22px;
+  text-shadow: none;
+  width: 184px;
+  height: 60px;
+  text-align: left;
+  line-height: 1.2;
+  padding: 5px 16px 5px 56px;
+
+  filter: none;
+  position: absolute;
+  top: -64px;
+  right: 2px;
+  margin: 0;
+}
+
+button.mylist_movie:hover,
+a.bid_help:hover,
+button.bid_help:hover {
+  background-color: #F60;
+  color: #FFF;
+  border-color: #F60;
+}
+
+a.company_list_button {
+  display: block;
+  margin: 8px auto 0;
+  font-size: 18px;
+  text-align: center;
+  width: 300px;
+  height: 40px;
+  line-height: 40px;
+  color: #FFF;
+  text-decoration: none;
+
+  border: 1px solid #004675;
+  border-radius: 3px;
+
+  background: #004675;
+}
+
+a.company_list_button:active,
+a.company_list_button:hover {
+  background: #81a8cb;
+}
+
+/*** 入札方法説明エリア ***/
+.bid_01,
+.bid_02 {
+  color: #FFF;
+  width: 220px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  border-radius: 12px;
+}
+
+.bid_01 {
+  background: #5F5FFF;
+}
+
+.bid_02 {
+  background: #27C827;
+}
+
+.bid_help_area {
+  position: relative;
+}
+
+.bid_help_area .bid_01 {
+  position: absolute;
+  top: 22px;
+  left: 200px;
+}
+
+.bid_help_area .bid_02 {
+  position: absolute;
+  top: 210px;
+  left: 200px;
+  background: #5F5FFF;
+}
+
+.bid_help_area .company_list_button {
+  position: absolute;
+  top: 312px;
+  left: 490px;
+  width: 298px;
+  height: 32px;
+  line-height: 32px;
+}
+
+.bid_help_area a.company_list_button:active {
+  top: 313px;
+}
+
+.bid_help_area .bid_arrow_00,
+.bid_help_area .bid_arrow_01,
+.bid_help_area .bid_arrow_02_1,
+.bid_help_area .bid_arrow_02_2 {
+  position: absolute;
+  background:url('../imgs/bid_arrow_01.png') no-repeat;
+  background-size: 100% 100%;
+  color: #66662D;
+  text-indent: 8px;
+  font-size: 15px;
+}
+
+.bid_help_area .bid_arrow_00 {
+  top: 92px;
+  left: 8px;
+  width: 180px;
+  height: 208px;
+  line-height: 200px;
+}
+
+.bid_help_area .bid_arrow_01 {
+  top: 72px;
+  left: 200px;
+  width: 284px;
+  height: 68px;
+  line-height: 64px;
+}
+
+.bid_help_area .bid_arrow_02_1 {
+  top: 240px;
+  left: 200px;
+  width: 284px;
+  height: 68px;
+  line-height: 64px;
+}
+
+.bid_help_area .bid_arrow_02_2 {
+  top: 386px;
+  left: 200px;
+  width: 284px;
+  height: 68px;
+  line-height: 64px;
+}
+
+.bid_sepa {
+  position: absolute;
+  top: 188px;
+  left: 200px;
+  width: 590px;
+  border: 1px dotted #777;
+  border-width: 1px 0 0 0;
+}
+
+.bid_help_area .bid_01_contents,
+.bid_help_area .bid_02_contents,
+.bid_help_area .bid_03_contents {
+  position: absolute;
+  border: 1px dotted #777;
+  background: #FFF;
+  padding: 4px;
+  font-size: 15px;
+  left: 490px;
+  width: 290px;
+}
+
+.bid_help_area .bid_01_contents {
+  top: 72px;
+}
+
+.bid_help_area .bid_02_contents {
+  top: 227px;
+}
+
+.bid_help_area .bid_03_contents {
+  top: 370px;
+}
+
+/*** ユーザ登録フォーム ***/
+.preuser_form_area .preuser_01 {
+  margin-bottom: 16px;
+}
+
+.preuser_form_area label {
+  display: block;
+  font-size: 14px;
+  text-align: right;
+  margin: 3px auto;
+  vertical-align: top;
+  width: 420px;
+  height: 26px;
+  line-height: 26px;
+}
+
+.preuser_form_area label input.mail,
+.preuser_form_area label input.user_name {
+  width: 240px;
+  margin-left: 16px;
+  font-size: 13px;
+}
+
+.preuser_form_area label input.privacy_check {
+  vertical-align: 0;
+}
+
+.preuser_form_area .privacy {
+  width: 100%;
+  height: 100px;
+  border: 1px solid #CCC;
+  overflow: scroll;
+  padding: 4px;
+  background: #FFF;
+}
+
+.preuser_form_area .checke_area {
+  width: 98%;
+  text-align: left;
+}
+
+.preuser_form_area .preuser_submit {
+  margin: 8px auto 0 auto;
+  display: block;
+}
+
+span.require {
+  color: #FF0033;
+  vertical-align: top;
+}
+
+/**** 20141208 ***/
+
+.center_container {
+  margin-top: 8px;
+}
+
+a.mylist_link,
+a.mylist_link:active {
+  top: -30px;
+}
+
+.bid_head {
+  position: relative;
+  min-height: 48px;
+}
+
+.bid_head .contact_area {
+  width: 600px;
+  display: inline-block;
+  position: static;
+  height: 70px;
+  margin: 0;
+}
+
+.head_search_no {
+  position: absolute;
+  bottom: 12px;
+  right: 8px;
+  font-size: 19px;
+  height: 32px;
+  line-height: 32px;
+}
+
+.head_search_no input {
+  height: 32px;
+  font-size: 20px;
+  padding: 0 6px;
+  width: 132px;
+  line-height: 33px;
+}
+
+.head_search_no button {
+  height: 34px;
+  line-height: 34px;
+  font-size: 20px;
+  width: 90px;
+  padding: 0;
+  color: #333;
+}
+.head_search_no button:hover {
+  color: #FFF;
+}
+
+/*** bid_detail ***/
+.large_img_area img {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+/*** 一括問い合わせ ***/
+button.mylist,
+button.delete_mylist {
+  width: 198px;
+  height: 32px;
+  color: #333;
+}
+
+button.mylist {
+  text-align: left;
+  text-indent: 38px;
+}
+
+a.mylist_text_link {
+  display: block;
+  position: absolute;
+  width: 100px;
+}
+
+.mylist_pluse {
+  color: #FFF;
+  background: #E02E2E;
+  font-weight: bold;
+  display: block;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 3px 0 0 3px;
+  text-indent: initial;
+  text-align: center;
+  border: 1px solid #E02E2E;
+}
+
+button.mylist:hover > .mylist_pluse,
+button.mylist:active >.mylist_pluse {
+  background: #FFF;
+  color: #F60;
+  border: 1px solid #F60;
+}
+
+table.price_table {
+  width: 324px;
+}
+
+table.bid-table {
+  width: 478px;
+}
+
+table.bid-table td {
+  font-size: 19px;
+}
+
+table.bid-table td.bid_machine_id {
+  width: 70px;
+  text-align: right;
+}
+
+table.bid-table td.detail_min_price {
+  text-align: right;
+}
+
+.img_area,
+.spec_area {
+  position: relative;
+  width: 480px;
+}
+
+table.spec {
+  width: 478px;
+}
+
+.spec_area .bid_help {
+  display: block;
+  position: static;
+  float: left;
+  width: 300px;
+  margin: 0;
+  top: 0;
+  left: 0;
+}
+
+.spec_area button.mylist_movie {
+  margin: 0 0 0 12px;
+  width: 162px;
+  height: 28px;
+}
+
+.spec_area button.detail_mylist_movie {
+  border: 0;
+  float: none;
+  position: absolute;
+  top: -32px;
+  right: 160px;
+  width: 100px;
+  color: #076AB6;
+  background: #FFF;
+  font-size: 13px;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.spec_area button.detail_mylist_movie:hover {
+  color: #F60;
+  background: #FFF;
+}
+
+a.accessmap {
+  display: block;
+  width: 70px;
+  height: 35px;
+  line-height: 35px;
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  vertical-align: middle;
+  color: #FFFFFF;
+  font-size: 14px;
+  background: #076AB6;
+}
+
+.next_area {
+  position: relative;
+  height: 36px;
+  width: 100%;
+}
+
+.next_area .prev_link,
+.next_area .next_link {
+  position: absolute;
+  height: auto;
+  width: 120px;
+  top: 0;
+  padding: 3px;
+  overflow: hidden;
+  font-size: 19px;
+}
+
+.next_area .prev_link {
+  right: 500px;
+  text-align: right;
+}
+
+.next_area .next_link {
+  left: 500px;
+}
+
+.tel_label {
+  position: absolute;
+  width: 250px;
+  height: 19px;
+  font-size: 15px;
+  text-align: left;
+  left: 254px;
+  top: 0;
+}
+
+.contact_tel {
+  position: absolute;
+  width: 250px;
+  height: 24px;
+  color: #C00;
+  font-size: 20px;
+  text-align: left;
+  left: 254px;
+  top: 20px;
+}
+
+/*** 印刷ボタン ***/
+button.print {
+  background: #CCC;
+  color: #333;
+  border: 0;
+  text-indent: 40px;
+  top: 5px;
+}
+
+button.print:hover,
+button.print:active {
+  background: #F60;
+  color: #FFF;
+}
+
+/*** dialog ***/
+.ui-dialog .ui-dialog-content {
+  padding: 0;
+}

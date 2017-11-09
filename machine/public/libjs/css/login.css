@@ -1,0 +1,85 @@
+/*** member login ***/
+.login_form {
+  width: 400px;
+  border: 1px solid #AAA;
+  margin: 16px auto;
+  padding: 4px 16px;
+  border-radius: 8px;
+}
+
+.login_form legend {
+  padding: 0 4px;
+}
+
+.login_form dt {
+  display: inline-block;
+  /display: inline;  /* for IE6 */
+  /zoom: 1;          /* for IE6 */
+  width: 100px;
+  margin: 4px 10px;
+  vertical-align: middle;
+  font-size: 14px;
+}
+
+.login_form dd {
+  display: inline-block;
+  /display: inline;  /* for IE6 */
+  /zoom: 1;          /* for IE6 */
+  width: 240px;
+  margin: 4px 10px;
+  vertical-align: middle;
+  font-size: 14px;
+}
+
+.login_form dd input {
+  width: 220px;
+  font-size: 14px;
+  height: 20px;
+  line-height: 20px;
+  border: 1px solid #AAA;
+  border-radius: 4px;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.1) inset;
+}
+
+.login_form dd input:focus {
+  background: #fffacd
+}
+
+button.login_submit {
+  display: block;
+  position: relative;
+  width: 200px;
+  height: 23px;
+  margin: 16px auto;
+}
+
+button.login_submit:active {
+  top: 1px;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.6);
+  background: #91BD09;
+}
+
+/*** 規約 ***/
+.terms_title {
+  width: 640px;
+  margin: 16px auto 0 auto;
+}
+
+.terms {
+  border: 1px solid #AAA;
+  width: 640px;
+  height: 120px;
+  margin: 0 auto 8px auto;
+  padding: 8px;
+  overflow-y: scroll;
+  box-shadow: 0 6px 6px rgba(0,0,0,0.1) inset;
+}
+
+/*** 非表示枠 ***/
+.machine_tab,
+.tools_area,
+button.miniblog_open,
+.mylist_menu a.mylist,
+header .sitemap_menu a {
+  display: none;
+}

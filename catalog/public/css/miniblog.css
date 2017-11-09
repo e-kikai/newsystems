@@ -1,0 +1,52 @@
+@charset "utf-8";
+/*** ミニブログ ***/
+.tools_area {
+  display: block;
+  position: fixed;
+  width: 80px;
+  height: 25px;
+  left: 64px;
+  bottom: 16px;
+  padding: 5px;
+  border: 1px solid #CCC;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.75);
+}
+
+button.miniblog_open {
+  display: block;
+  width: 80px;
+  height: 25px;
+}
+
+.miniblog_area {
+  position: fixed;
+  width: 340px;
+  height: 180px;
+  left: 64px;
+  bottom: 60px;
+  border: 1px solid #FFCC00;
+  border-radius: 8px;
+  background: rgba(255,255,144,0.75);
+  padding: 8px;
+  box-shadow: 6px 6px 6px rgba(0,0,0,0.4);
+  display: none;
+}
+
+.miniblog_input {
+  width: 320px;
+  height: 100px;
+  display: block;
+}
+
+button.miniblog_submit {
+  width: 160px;
+  height: 25px;
+  display: block;
+  margin: 8px 0 auto auto;
+}
+
+button.miniblog_submit:disabled {
+  background: #AAA;
+  box-shadow: none;
+}
