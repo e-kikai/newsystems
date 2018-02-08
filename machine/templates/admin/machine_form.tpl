@@ -40,10 +40,10 @@ $(function() {
             });
             locationList.push({ label:'現場(地図には非表示)', value:'現場', addr1:'', addr2:'', addr3:'', lat:'', lng:'' });
             locationList.push({ label:'その他(地図に表示させる場合は、住所を入力してください)', value:'', addr1:'', addr2:'', addr3:'', lat:'', lng:'' });
-            
+
             // フォームの初期化
             $('.large_genre_id').change();
-            
+
             $('input.location').autocomplete({
                 source : function(req, res) { res(locationList); },
                 minLength : 0,
@@ -72,7 +72,7 @@ $(function() {
             });
             if (!result) { return false; }
         }
-        
+
         if (confirm('在庫機械情報の変更を反映します。よろしいですか。')) {
             $(this).attr('action', 'admin/machine_do.php');
             return true;
@@ -80,14 +80,14 @@ $(function() {
             return false;
         }
     });
-    
+
     //// ジャンル再編成 ////
     var currentLargeGenre = 0;
     $('select.large_genre_id').change(function() {
         var g = $('select.genre_id').val();
         $('select.genre_id').empty();
         var l = $(this).val();
-        
+
         $.each(genreList, function(i, val) {
             if (val['large_genre_id'] == l) {
                 $('select.genre_id').append(
@@ -96,14 +96,14 @@ $(function() {
                 );
             }
         });
-        
+
         $("select.genre_id").val(g).change();
     });
-    
+
     //// ジャンル変更：メーカー・能力一覧を再構成 ////
     $("select.genre_id").change(function() {
         var g = $(this).val();
-        
+
         // ジャンル情報を変数格納
         $.each(genreList, function(i, val) {
             if (val['id'] == g) {
@@ -111,21 +111,21 @@ $(function() {
                 return;
             }
         });
-        
+
         // メーカー一覧の再編、コンボボックス
         var re = new RegExp("(^|[|])" + g + "($|[|])");
         var sc = [];
         $.each(makerList, function(i, val) {
             if (val['genre_ids'].match(re)) { sc.push(val['maker']); }
         });
-        
+
         $('input.maker').autocomplete({
             source    : function(req, res) {res(sc);},
             minLength : 0
         }).click(function() {
             $(this).autocomplete('search');
         })
-        
+
         //// 能力の表示を変更 ////
         if (genre) {
             // 主能力
@@ -136,7 +136,7 @@ $(function() {
             } else {
                 $('.capacity').hide();
             }
-            
+
             // その他能力
             $('.other_specs input').each(function() {
                 $_self = $(this);
@@ -148,12 +148,12 @@ $(function() {
                 $.each(genre['spec_labels'], function(i, val){
                     // フォーム部分
                     var form = '';
-                    
+
                     // ラベル部分
                     if (val['label']) {
                         form += '<div class="others_label">' + val['label'] + '</div>';
                     }
-                    
+
                     // フォーム設定
                     name = 'others[' + i + ']';
                     if (val['type'] == 'number') {
@@ -196,17 +196,17 @@ $(function() {
                             '  value="'+tmp[name+'[model]']+'" placeholder="型式" />';
                     } else {
                         // 文字列入力text(デフォルト)
-                        form += '<input type="text" class="text" name="'+name+'" value="'+tmp[name]+'" />';   
+                        form += '<input type="text" class="text" name="'+name+'" value="'+tmp[name]+'" />';
                     }
-                    
+
                     // 単位部分
                     if (val['unit']) {
                         form += '<div class="others_unit">' + val['unit'] + '</div>';
                     }
-                    
+
                     // 表示エリアに結合
                     $('.other_specs').append('<div class="others '+i+'">'+form+'</div>');
-                    
+
                     // コンボボックスのイベント設定
                     if (val['type'] == 'combo') {
                         $('.others.' + i + ' input').autocomplete({
@@ -226,43 +226,43 @@ $(function() {
                     }
                 });
             }
-            
+
             // undefinedの修正
             $('.others input[value="undefined"]').val('');
-            
+
             // textresizerの反映
             $('ul.textresizer a.textresizer-active').click();
-            
+
             // 名前の変更
             $('input.capacity').change();
         }
     });
     $(".genre_id").change();
-    
+
     //// 能力の変更による機械名の変更 ////
     $('input.capacity').change(function() {
         var cap = $(this).val();
         var g = $('select.genre_id').val();
-        
+
         // 能力を数値に整形 @ba-ta 20130329
         cap = mb_convert_kana(cap, 'KVrnm').replace(/[^0-9.]/g, '');
         cap = cap ? parseFloat(cap) : '';
         $(this).val(cap);
-        
+
         if (genre) {
             var name = genre['naming'];
-            
+
             // 機械名フォームを初期化
             $('input.name').attr({
                 // 'readonly' : 'readonly',
                 'placeholder' : ''
             }) // .autocomplete('destroy');
-            
+
             // 能力 + 単位を付加
             if (cap) {
                 name = name.replace(/\%capacity\%/g, cap);
                 name = name.replace(/\%unit\%/g, genre['capacity_unit']);
-                
+
                 // 旋盤のみの独自仕様
                 if (name.match(/\%lather\%/)) {
                     var nTemp = cap >= 2000 ? (cap / 1000) + 'm' :
@@ -273,26 +273,26 @@ $(function() {
                         cap >= 600  ? '5尺' :
                         cap >= 360  ? '4尺' :
                         cap >= 240  ? '3尺' : '';
-                    
+
                     name = name.replace(/\%lather\%/g, nTemp);
                 }
             } else {
                 name = name.replace(/\%(capacity|unit|lather)\%/g, '');
             }
-            
+
             // 自由記入
             if (name.match(/\%free\%/)) {
                 name = name.replace(/\%free\%/g, '');
                 // 入力フィールドをアクティブに
                 // $('input.name').removeAttr('readonly').attr('placeholder', '自由記入');
             }
-            
+
             // 選択
             if (name.match(/\%select:(.*)\%/)) {
                 name = name.replace(/\%select:(.*)\%/g, '');
-                
+
                 // 入力フィールドをコンボボックスに
-                var sc = RegExp.$1.split('|');                
+                var sc = RegExp.$1.split('|');
                 $('input.name').autocomplete({
                     source    : function(req, res) {res(sc);},
                     minLength : 0
@@ -302,24 +302,30 @@ $(function() {
                 // 入力フィールドをアクティブに
                 // .removeAttr('readonly').attr('placeholder', '機械名を選択 or 自由記入');
             }
-            
+
             // 初期値の反映
             if ($('input.name.default').val()) {
                 if (name == '') { name = $('input.name.default').val(); }
                 $('input.name.default').removeClass('default');
             }
-            
+
             // 機械名を反映
-            $('input.name').val(name);
+            if (nameChange == true) {
+                $('input.name').val(name);
+            } else {
+                nameChange = true;
+            }
         }
     });
+
+    var nameChange = false;
 
     //// カタログ検索 ////
     $('.catalog_search').click(function() {
         var model = $.trim($('input.model').val());
         var maker = $.trim($('input.maker').val());
         var genre_id = $.trim($('select.genre_id').val());
-        
+
         if (model == '') {
             alert('型式を入力してください');
         } else {
@@ -328,22 +334,22 @@ $(function() {
                 {"target": "machine", "action": "getCatalogList", "data": {'ma':maker,'g':genre_id,'mo':model}},
                 function(json) {
                     var catalogList = json;
-                    
+
                     // リストの初期化
                     $('.catalog_list').hide();
                     $('.catalog_list tbody').empty()
-                
+
                     if (!catalogList.length) {
                         alert('該当するカタログはありません(' + model + ')');
                         return false;
                     }
-                    
+
                     // カタログ一覧の作成
                     var curi = 'http://catalog.zenkiren.net';
                     $.each(catalogList, function(i, val) {
                         $('.catalog_list tbody').append(
                             '<tr>' +
-                            '<td class="maker">'+ (val['maker']?val['maker']:'') + '<br />' + (val['genres']?val['genres']:'') + 
+                            '<td class="maker">'+ (val['maker']?val['maker']:'') + '<br />' + (val['genres']?val['genres']:'') +
                             '<br /><button class="catalog_select" value="' + val['id'] + '">選択</button>' + '</td>' +
                             '<td class="img"><a href="' + curi + '/catalog_pdf.php?id=' + val['id'] + '" target="_blank">' +
                             '<img class="catalog_tumbnail" src="' + curi + '/media/catalog_thumb/' + val['thumbnail'] + '" alt="PDF" /></a></td>' +
@@ -351,7 +357,7 @@ $(function() {
                             '<td class="year">' + (val['year']?val['year']:'') + '<br />' + (val['catalog_no']?val['catalog_no']:'') + '</td>' +
                             '</tr>'
                         );
-                        
+
                         // 表示
                         var offset = $('.catalog_search').offset();
                         $('.catalog_list').dialog({
@@ -365,7 +371,7 @@ $(function() {
                             modal: true,
                         });
                     });
-                    
+
                     // 選択ボタンイベント
                     $('button.catalog_select').click(function() {
                         var catalog_id = $(this).val();
@@ -381,36 +387,36 @@ $(function() {
         }
         return false;
     });
-    
+
     //// 営業所の緯度経度の取得 ////
     // ジオコーディング
     gc = new google.maps.Geocoder();
-    
+
     // $('input.addr3').live('change', function() {
     $(document).on('change', 'input.addr3', function() {
         var $_parent = $(this).parent('.office');
-        
+
         // 緯度経度の初期化
         $_parent.find('input.lat').val();
         $_parent.find('input.lng').val();
-        
+
         if ($(this).val() == '') { return false; }
-        
+
         // 住所
         var pure_addr = $_parent.find('input.addr1').val() + ' ' + $_parent.find('input.addr2').val() + ' ' + $(this).val();
-        
+
         gc.geocode({'address': pure_addr}, function(results, status) {
             console.log(pure_addr);
             // 取得できなかった場合は無視
             if (status != 'OK') { return false; }
-            
+
             $_parent.find('input.lat').val(results[0].geometry.location.lat());
             $_parent.find('input.lng').val(results[0].geometry.location.lng());
-            
+
             return false;
         });
     });
-    
+
     //// 数値のみに自動整形 ////
     $('input.price').change(function() {
         var price = mb_convert_kana($(this).val(), 'KVrn').replace(/[^0-9]/g, '');
@@ -423,11 +429,11 @@ function upload_callback (target, data)
 {
     if (target == "imgs") {
         $.each(data, function(i, val) {
-            var h = 
+            var h =
                 '<div class="img">' +
                 '<label><input name="imgs_delete[]" type="checkbox" value="' + val.filename + '" />削除</label><br />' +
                 '<a href="/media/tmp/' + val.filename + '" target="_blank">' +
-                '<img src="/media/tmp/' + val.filename + '" />' + 
+                '<img src="/media/tmp/' + val.filename + '" />' +
                 '</a>' +
                 '<input name="imgs[]" type="hidden" value="' + val.filename + '" />'
                 '</div>';
@@ -435,11 +441,11 @@ function upload_callback (target, data)
         });
     } else if (target == "top_img") {
         $.each(data, function(i, val) {
-            var h = 
+            var h =
                 '<div class="img">' +
                 '<label><input name="top_img_delete" type="checkbox" value="' + val.filename + '" />削除</label><br />' +
                 '<a href="/media/tmp/' + val.filename + '" target="_blank">' +
-                '<img src="/media/tmp/' + val.filename + '" />' + 
+                '<img src="/media/tmp/' + val.filename + '" />' +
                 '</a>' +
                 '<input name="top_img" type="hidden" value="' + val.filename + '" />'
                 '</div>';
@@ -448,7 +454,7 @@ function upload_callback (target, data)
     } else if (target == "pdf") {
         $.each(data, function(i, val) {
             var label = val.label.replace(/\..*$/, "");
-            var h = 
+            var h =
                 '<div class="pdf">' +
                 '<a href="/media/tmp/' + val.filename + '" target="_blank">PDF</a>' +
                 '<input type="text" name="pdfs[' + val.filename + ']" value="' + label + '" /> ' +
@@ -494,7 +500,7 @@ button.machine_search {
   <input type="hidden" name="id" class="id" value="{$id}" />
   <input type="hidden" name="bid_machine_id" class="bid_machine_id" value="{$machine.bid_machine_id}" />
   <input type="hidden" name="bid_open_id" class="bid_open_id" value="{$machine.bid_open_id}" />
-  
+
 {if !empty($machine.used_id) && !empty($machine.used_change)}
   <div class="uid">△ この機械情報は、新九郎、CSVで同期後に変更を行った機械です(削除以外の同期の影響を受けません)</div>
   <input type="hidden" name="used_change" class="used_change" value="1" />
@@ -512,7 +518,7 @@ button.machine_search {
       {* ※ 一括変更を行う場合は必須 *}
     </td>
   </tr>
-  
+
   <tr class="large_genre">
     <th>ジャンル<span class="required">(必須)</span></th>
     <td>
@@ -529,7 +535,7 @@ button.machine_search {
           {elseif $l.id == 50}</optgroup><optgroup label="電気設備">
           {elseif $l.id == 54}</optgroup><optgroup label="鉄製造設備">
           {elseif $l.id == 32}</optgroup><optgroup label="その他機械">{/if}
-          
+
           <option value="{$l.id}" {if $l.id==$machine.large_genre_id} selected{/if}>
             {$l.large_genre}
           </option>
@@ -542,7 +548,7 @@ button.machine_search {
       </select>
     </td>
   </tr>
-    
+
   <tr class="name">
     <th>機械名<span class="required">(必須)</span></th>
     <td>
@@ -550,7 +556,7 @@ button.machine_search {
         placeholder="機械名" required />
     </td>
   </tr>
-  
+
   <tr class="maker">
     <th>メーカー</th>
     <td>
@@ -558,7 +564,7 @@ button.machine_search {
           placeholder="メーカー名選択 or 自由記入" />
     </td>
   </tr>
-  
+
   <tr class="model">
     <th>型式</th>
     <td>
@@ -576,12 +582,12 @@ button.machine_search {
       </div>
     </td>
   </tr>
-  
+
   <tr class="year">
     <th>年式</th>
     <td>{html_options name=year options=$yearList selected=$machine.year}</td>
   </tr>
-  
+
   {*** 能力 ***}
   <tr class="capacity">
     <th>主能力</th>
@@ -590,7 +596,7 @@ button.machine_search {
       <div class="unit"></div>
     </td>
   </tr>
-  
+
   {*** その他能力 ***}
   <tr class="spec_data">
     <th>能力</th>
@@ -609,7 +615,7 @@ button.machine_search {
       </div>
     </td>
   </tr>
-  
+
   <tr class="spec">
     <th>仕様</th>
     <td>
@@ -618,7 +624,7 @@ button.machine_search {
         >{$machine.spec}</textarea>
     </td>
   </tr>
-  
+
   <tr class="accessory">
     <th>附属品</th>
     <td>
@@ -627,7 +633,7 @@ button.machine_search {
         placeholder="附属品を入力してください" />
     </td>
   </tr>
-  
+
   <tr class="comment">
     <th>コメント</th>
     <td>
@@ -636,7 +642,7 @@ button.machine_search {
         >{$machine.comment}</textarea>
     </td>
   </tr>
-  
+
   <tr class="commission">
     <th>試運転</th>
     <td>
@@ -644,30 +650,30 @@ button.machine_search {
        selected=$machine.commission separator=' '}
     </td>
   </tr>
-   
+
   <tr class="location">
     <th>在庫場所</th>
     <td class="office">
       <input type="text" name="location" class="location" value="{$machine.location}"
         placeholder="在庫場所" /><br />
-                  
-      住所       
+
+      住所
       <input type="text" name="addr1" class="addr1" value="{$machine.addr1}" placeholder="都道府県" />
       <input type="text" name="addr2" class="addr2" value="{$machine.addr2}" placeholder="市区町村" />
       <input type="text" name="addr3" class="addr3" value="{$machine.addr3}" placeholder="番地その他" /><br />
-      
-      緯度経度(住所から自動入力) 
+
+      緯度経度(住所から自動入力)
       <input type="text" name="lat" class="lat" value="{$machine.lat}" placeholder="緯度(住所から自動入力)" />
       <input type="text" name="lng" class="lng" value="{$machine.lng}" placeholder="経度(住所から自動入力)" />
-      
+
     </td>
   </tr>
-  
+
   <tr class="maker">
     <th>金額<span class="memberonly">(会員のみ公開)</span></th>
     <td>
       <input type="text" name="price" class="price number" value="{$machine.price}"
-        placeholder="金額(数字で入力)" />円 
+        placeholder="金額(数字で入力)" />円
       {*
       {html_radios name='price_tax' options=['' => '税込価格', '1' => '税抜']
        selected=$machine.price_tax separator=' '}
@@ -676,7 +682,7 @@ button.machine_search {
        selected=$machine.price_tax separator=' '}
     </td>
   </tr>
-  
+
   <tr class="top_img">
     <th>TOP画像</th>
     <td>
@@ -717,7 +723,7 @@ button.machine_search {
       </div>
     </td>
   </tr>
-  
+
   <tr class="pdfs">
     <th>PDF(複数可)</th>
     <td>
@@ -731,10 +737,10 @@ button.machine_search {
           <input type="text" name="pdfs[{$i}]" value="{$key}" placeholder="ラベル" />
           削除<input type="checkbox" class="delete" name="pdfs_delete[]" value="{$i}" />
         </div>
-      {/foreach}            
+      {/foreach}
     </td>
   </tr>
-  
+
   <tr class="youtube">
     <th>YouTube URI</th>
     <td>

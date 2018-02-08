@@ -8,6 +8,10 @@
 //// 変数の設定 ////
 {literal}
 $(function() {
+  //// 一括削除 ////
+  $('button.delete').click(function() {
+      return confirm("チラシメールの削除を行います。よろしいですか？");
+  });
 });
 </script>
 <style type="text/css">
@@ -17,9 +21,13 @@ table.list .count {
 
 table.list td.count {
   text-align: right;
-
 }
 
+td.button,
+th.button,
+button.copy {
+  width: 50px;
+}
 </style>
 {/literal}
 {/block}
@@ -52,13 +60,14 @@ table.list td.count {
       <th class="count">クリック率</th>
 
       <th class="count">不達数</th>
-
+      <th class="button">削除</th>
       <th class="">作成日時</th>
+      <th class="button">複製</th>
     </tr>
   {/if}
   <tr>
 
-    {if !empty($reportList[$f.campaign])}
+    {if !empty($reportList[$f.campaign]) && $campaignList[$f.campaign].status != "404"}
       {$c = $campaignList[$f.campaign]}
       {$r = $reportList[$f.campaign]}
 
@@ -73,6 +82,7 @@ table.list td.count {
         <td class="count">{$r.clicks.unique_clicks}人</td>
         <td class="count">{round($r.clicks.click_rate * 100)}%</td>
         <td class="count">{$r.bounces.hard_bounces + $r.bounces.soft_bounces + $r.bounces.syntax_errors}人</td>
+        <td class="button"></td>
       {else}
         <td class="name"><a href="admin/flyer_menu.php?id={$f.id}">{$f.title}</a></td>
         {if $c.status == "schedule"}
@@ -81,13 +91,33 @@ table.list td.count {
           <td class="">作成中</td>
         {/if}
         <td class="" colspan="8"></td>
+        <td class="button">
+          <form class="machine" method="post" action="admin/flyer_delete.php">
+            <input type="hidden" name="id" value="{$f.id}" />
+            <button class="delete">削除</button>
+          </form>
+        </td>
+
       {/if}
     {else}
-      <td class="name"><a href="admin/flyer_menu.php?id={$f.id}">{$f.title}</a></td>
-      <td class="">作成中</td>
-      <td class="" colspan="8"></td>
+      <td class="name">{$f.title}</td>
+      <td class=""></td>
+      <td class="" colspan="8">メール情報を取得できませんでした。事務局にご連絡ください</td>
+      <td class="button">
+        <form class="machine" method="post" action="admin/flyer_delete.php">
+          <input type="hidden" name="id" value="{$f.id}" />
+          <button class="delete">削除</button>
+        </form>
+      </td>
     {/if}
+
     <td class="">{$f.created_at|date_format:'%Y/%m/%d %H:%M'}</td>
+    <td class="button">
+      <form class="machine" method="post" action="admin/flyer_copy.php">
+        <input type="hidden" name="id" value="{$f.id}" />
+        <button class="copy">複製</button>
+      </form>
+    </td>
   </tr>
 
   {if $f@last}

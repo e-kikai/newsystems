@@ -172,10 +172,12 @@ $(function() {
     <img src="imgs/omdc2_01.png" alt="大阪機械卸業団地組合 機械工具入札会" style="width:100%;"/>
   </a>
   *}
-  
+
+  {*
   <a href="https://www.deadstocktool.com/" target="_blank" onclick="ga('send', 'event','banner', 'sp', 'dst_01', 1, true);">
     <img src="imgs/dst_01.jpg" alt="大阪機械卸業団地組合 デッドストックツール.com" style="width:100%;"/>
   </a>
+  *}
 </div>
 
 {*
@@ -271,10 +273,12 @@ $(function() {
 
 {*** 入札会 ***}
 <div class="premium_bid">
+  {*
   <a href="https://www.deadstocktool.com/"  target="_blank"
     onClick="ga('send', 'event', 'banner', 'bid', 'dst_01', 1, true);">
     <img src="./imgs/dst_02.jpg" alt="大阪機械団地協同組合 デッドストックツール.com" style="width:240px;height:60px;"/>
   </a>
+  *}
 {if !empty($bidinfoList)}
   {foreach $bidinfoList as $b}
     {if !empty($b.banner_file)}
@@ -287,7 +291,7 @@ $(function() {
 {/if}
   <a href="./bid_schedule.php"  target="_blank"
     onClick="ga('send', 'event', 'banner', 'bid', 'bid_schedule', 1, true);">
-    <img src="./media/banner/2017bid.png" alt="2017年度Web入札会スケジュール" />
+    <img src="./media/banner/2018bid.png" alt="2018年度Web入札会スケジュール" />
   </a>
 
   <br style="clear:both;">

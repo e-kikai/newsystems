@@ -1,7 +1,7 @@
 <?php
 /**
  * 入札会バナーモデルクラス
- * 
+ *
  * @access public
  * @author 川端洋平
  * @version 0.2.0
@@ -15,10 +15,11 @@ class Bidinfo extends MyTable
     // フィルタ条件
     protected $_filter = array('rules' => array(
         '入札会名'   => array('fields' => 'bid_name',           'NotEmpty'),
-        'リンクURL'  => array('fields' => 'uri',                array('Callback', 'Zend_Uri::check')),
+        // 'リンクURL'  => array('fields' => 'uri',                array('Callback', 'Zend_Uri::check')),
+        'リンクURL'  => array('fields' => 'uri'),
         '主催者名'   => array('fields' => 'organizer',          'NotEmpty'),
         '入札会場'   => array('fields' => 'place',              'NotEmpty'),
-        
+
         '下見開始日' => array('fields' => 'preview_start_date', 'NotEmpty'),
         '下見終了日' => array('fields' => 'preview_end_date',   'NotEmpty'),
         '入札日時'   => array('fields' => 'bid_date',           'NotEmpty'),
@@ -36,7 +37,7 @@ class Bidinfo extends MyTable
      *
      * @access protected
      * @param  array   $q 検索クエリ
-     * @param  boolean $check 検索条件チェック     
+     * @param  boolean $check 検索条件チェック
      * @return string  生成したwhere句
      */
     protected function _makeWhereSqlArray($q, $check=false) {
@@ -46,21 +47,21 @@ class Bidinfo extends MyTable
         if (empty($q['end']) || $q['end'] != 'all') {
             $whereArr[] = ' (t.preview_end_date >= CURRENT_DATE OR t.bid_date::date >= CURRENT_DATE) ';
         }
-        
+
         return $whereArr;
     }
-    
+
     /**
      * 入札会バナー情報をセット
-     * 
-     * @access public     
+     *
+     * @access public
      * @param  array   $data 入札会バナーデータ入札会バナーデータ
      * @param  array   $file アップロードファイル
      * @param  integer $id   入札会バナーID
      * @return $this
-     */                    
+     */
     public function set($id=null, $data, $file=null)
-    {        
+    {
         //// 画像をアップロードする前に、情報のフィルタリング・バリデーションを行う ////
         if (!empty($this->_filter)) {
             $data = MyFilter::filtering($data, $this->_filter);

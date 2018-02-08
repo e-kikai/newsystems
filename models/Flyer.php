@@ -61,7 +61,7 @@ class Flyer extends Zend_Db_Table_Abstract
         }
 
         //// SQLクエリを作成・一覧を取得 ////
-        $sql = "SELECT f.* FROM flyers f WHERE {$where} {$orderBy};";
+        $sql = "SELECT f.* FROM flyers f WHERE f.deleted_at IS NULL AND {$where} {$orderBy};";
         $result = $this->_db->fetchAll($sql);
 
         // JSON展開
@@ -107,7 +107,7 @@ class Flyer extends Zend_Db_Table_Abstract
         $where = $this->_makeWhere($q);
 
         //// SQLクエリを作成・一覧を取得 ////
-        $sql = "SELECT count(f.*) AS count FROM flyers f WHERE {$where};";
+        $sql = "SELECT count(f.*) AS count FROM flyers f WHERE deleted_at IS NULL AND {$where};";
         $result = $this->_db->fetchOne($sql);
         return $result;
     }
@@ -230,6 +230,29 @@ class Flyer extends Zend_Db_Table_Abstract
         // $machine = $this->get($id);
         $flyer = $this->_db->fetchRow('SELECT * FROM flyers WHERE id = ? LIMIT 1;', $id);
         return $flyer['company_id'] == $companyId ? true : false;
+    }
+
+    /**
+     * チラシ報を論理削除
+     *
+     * @access public
+     * @param  array $id 機械ID配列
+     * @return $this
+     */
+    public function deleteById($id, $companyId) {
+        if (empty($id)) {
+            throw new Exception('削除する機械IDが設定されていません');
+        }
+
+        $this->update(
+            array('deleted_at' => new Zend_Db_Expr('current_timestamp')),
+            array(
+                $this->_db->quoteInto(' id IN(?) ', $id),
+                $this->_db->quoteInto(' company_id = ? ', $companyId),
+            )
+        );
+
+        return $this;
     }
 
     ///////////////////////////////////////

@@ -63,7 +63,7 @@ thread = []
 # ['teng'].each_with_index do |o, i|
 # ['ehorikawa', 'ekikai', 'onuma', 'kobayashi', 'okabe', 'yms', 'sato', 'mechany', 'tachikawa'].each_with_index do |o, i|
 ['mesena', 'yuushi', 'sanzen', 'kowa', 'onuma', 'kobayashi', 'okabe', 'yms', 'sato', 'sanwa', 'sanwakitakanto',
-  'sanwafukuyama', 'mechany', 'tachikawa', 'teng', 'dainichi', 'ibuki', 'okabeosaka'].each_with_index do |o, i|
+  'sanwafukuyama', 'mechany', 'tachikawa', 'teng', 'dainichi', 'ibuki', 'okabeosaka', 'okabekanto'].each_with_index do |o, i|
   thread[i] = Thread.new do |t|
     #### クローラオブジェクト作成 ####
     require File.dirname(__FILE__) + '/crawler/' + o

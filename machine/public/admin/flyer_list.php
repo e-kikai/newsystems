@@ -53,6 +53,14 @@ try {
             $message = "チラシメールの配信スケジュールをキャンセルしました";
         } else if ($r == 'sended') {
             $message = "このチラシメールは、既に配信済みです";
+        } else if ($r == 'copy') {
+            $message = "チラシメールを複製しました";
+        } else if ($r == 'copy_error') {
+            $message = "チラシメールの複製に失敗しました";
+        } else if ($r == 'delete') {
+            $message = "チラシメールを削除しました";
+        } else if ($r == 'delete_error') {
+            $message = "チラシメールの削除に失敗しました";
         }
     }
 
@@ -63,6 +71,8 @@ try {
         'flyerList'    => $flyerList,
         'campaignList' => $campaignList,
         'reportList'   => $reportList,
+        'pager'        => $pgn->getPages(),
+        'cUri'         => "/admin/flyer_list.php?",
 
         'message'      => $message,
     ))->display("admin/flyer_list.tpl");

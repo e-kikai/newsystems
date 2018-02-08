@@ -1,6 +1,6 @@
 #! ruby -Ku
 #
-# クローラクラス(for 岡部機械)のソースファイル
+# クローラクラス(for 岡部機械株式会社　大阪営業所)のソースファイル
 # Author::    川端洋平
 # Date::      2013/01/20
 # Copyright:: Copyright (c) 2013 川端洋平
@@ -9,7 +9,7 @@ require File.dirname(__FILE__) + '/base'
 require 'csv'
 
 # クローラクラス
-class Okabe < Base
+class Okabekanto < Base
   #
   # コンストラクタ
   # Param:  Hash site クロール対象サイト情報
@@ -18,8 +18,8 @@ class Okabe < Base
     # 親クラスのコンストラクタ
     super()
 
-    @company    = '岡部機械株式会社'
-    @company_id = 343
+    @company    = '岡部機械株式会社関東営業所'
+    @company_id = 416
     @start_uri  = 'http://58.1.231.206/Okabe/frmokabe.aspx?searchname='
 
     @crawl_allow = /^xxxxxxxxxx$/
@@ -38,17 +38,16 @@ class Okabe < Base
 
         # 大阪営業所の場合はスキップ
         location = (m%'td:nth(8)').text.f
-        next if /(大阪|関東)/ =~ location
-        if /(岡山|本社)/ =~ location
-          location = '本社'
-        end
+        next unless /関東/ =~ location
 
-        #### 既存情報の場合スキップ ####
         uid = (m%'td:nth(2)').text.f
-        next unless check_uid(uid)
 
         ### UIDが-の場合もスキップ ####
         next if /^(\-)*$/ =~ uid
+        # next if /^OK/ !~ uid
+
+        #### 既存情報の場合スキップ ####
+        next unless check_uid(uid)
 
         temp = {
           :uid   => uid,
