@@ -19,11 +19,11 @@ class Pdf
     const SAGE_MARGIN_Y = 8;
     const QR_SIZE       = 36;
 
-    const SITE_URI   = 'http://www.zenkiren.net/';
-    const DETAIL_URI = 'http://www.zenkiren.net/bid_detail.php';
+    const SITE_URI   = 'https://www.zenkiren.net/';
+    const DETAIL_URI = 'https://www.zenkiren.net/bid_detail.php';
 
-    const QR_URI     = 'http://www.zenkiren.net/ajax/qr_img.php';
-    const LOGO_URI   = 'http://www.zenkiren.net/imgs/logo_machinelife.png';
+    const QR_URI     = 'https://www.zenkiren.net/ajax/qr_img.php';
+    const LOGO_URI   = 'https://www.zenkiren.net/imgs/logo_machinelife.png';
     // const QR_URI     = 'http://test-machine.etest.wjg.jp/ajax/qr_img.php';
     // const LOGO_URI   = 'http://test-machine.etest.wjg.jp/imgs/logo_machinelife.png';
 
@@ -218,7 +218,8 @@ class Pdf
             $this->_p->Cell(55, 20, B::u2s($b['maker']) , 1, 0, 'L');
             $this->_p->Cell(55, 20, B::u2s($b['model']) , 1, 1, 'L');
             // $this->_p->Cell(39, 20, '' , 1, 1, 'C');
-            $this->_p->Cell(100, 7, B::u2s('平成      年    月    日') , 0, 0, 'L');
+            // $this->_p->Cell(100, 7, B::u2s('平成      年    月    日') , 0, 0, 'L');
+            $this->_p->Cell(100, 7, B::u2s('          年    月    日') , 0, 0, 'L');
 
             // 機械名の手動改行
             if (preg_match('/^(.{14})(.+)/u', $b['name'], $res)) {
@@ -272,7 +273,8 @@ class Pdf
 
             // 上部右側
             $this->_p->SetFont(GOTHIC,'',12);
-            $this->_p->Text(140, 19,  B::u2s("平成".(date('Y')-1988)."年".date('m月d日')));
+            // $this->_p->Text(140, 19,  B::u2s("平成".(date('Y')-1988)."年".date('m月d日')));
+            $this->_p->Text(140, 19,  B::u2s(date('Y年n月j日')));
 
             $this->_p->SetFont(MINCHO, "", 12);
             $this->_p->Text(140, 29,  B::u2s("全日本機械業連合会"));
@@ -359,7 +361,8 @@ class Pdf
                 $this->_p->SetFont(MINCHO,'',14);
                 $this->_p->Text(self::SUM_UNDER_X, 191, B::u2s("お支払い額は下記の通りです。"));
                 $this->_p->SetFont( MINCHO,"B",16);
-                $this->_p->Text(self::SUM_UNDER_X, 197, B::u2s("平成".(date('Y', strtotime($bidOpen["payment_date"]))-1988)."年".date('m月d日', strtotime($bidOpen["payment_date"]))."にご指定の口座に銀行振込いたします。"));
+                // $this->_p->Text(self::SUM_UNDER_X, 197, B::u2s("平成".(date('Y', strtotime($bidOpen["payment_date"]))-1988)."年".date('m月d日', strtotime($bidOpen["payment_date"]))."にご指定の口座に銀行振込いたします。"));
+                $this->_p->Text(self::SUM_UNDER_X, 197, B::u2s(date('Y年n月j日', strtotime($bidOpen["payment_date"])) . "にご指定の口座に銀行振込いたします。"));
 
                 $this->_p->SetFont( GOTHIC,"",11);
                 $this->_p->Text(self::SUM_UNDER_X, 209, B::u2s("尚、お支払い額より振込手数料を差し引いて振込させていただきます。"));
@@ -373,7 +376,8 @@ class Pdf
                 $this->_p->SetFont(MINCHO,'',14);
                 $this->_p->Text(self::SUM_UNDER_X, 191, B::u2s("御請求額は上記の通りです。"));
                 $this->_p->SetFont( MINCHO,"B",16);
-                $this->_p->Text(self::SUM_UNDER_X, 197, B::u2s("平成".(date('Y', strtotime($bidOpen["billing_date"]))-1988)."年".date('m月d日', strtotime($bidOpen["billing_date"]))."までにご入金下さい。"));
+                // $this->_p->Text(self::SUM_UNDER_X, 197, B::u2s("平成".(date('Y', strtotime($bidOpen["billing_date"]))-1988)."年".date('m月d日', strtotime($bidOpen["billing_date"]))."までにご入金下さい。"));
+                $this->_p->Text(self::SUM_UNDER_X, 197, B::u2s(date('Y年n月j日', strtotime($bidOpen["billing_date"]))."までにご入金下さい。"));
 
                 $this->_p->SetFont(GOTHIC,'',12);
                 $this->_p->Text(self::SUM_UNDER_X, 205, B::u2s("北陸銀行今里支店"));
@@ -566,7 +570,8 @@ class Pdf
 
             // 上部右側
             $this->_p->SetFont(GOTHIC,'',12);
-            $this->_p->Text(140, 19,  B::u2s("平成".(date('Y')-1988)."年".date('m月d日')));
+            // $this->_p->Text(140, 19,  B::u2s("平成".(date('Y')-1988)."年".date('m月d日')));
+            $this->_p->Text(140, 19,  B::u2s(date('Y年n月j日')));
 
             $this->_p->SetFont(MINCHO, "", 12);
             $this->_p->Text(140, 29,  B::u2s("全日本機械業連合会"));
@@ -631,7 +636,8 @@ class Pdf
                 $this->_p->SetFont(MINCHO,'',14);
                 $this->_p->Text(self::SUM_UNDER_X, 191, B::u2s("お支払い額は下記の通りです。"));
                 $this->_p->SetFont( MINCHO,"B",16);
-                $this->_p->Text(self::SUM_UNDER_X, 197, B::u2s("平成".(date('Y', strtotime($bidOpen["payment_date"]))-1988)."年".date('m月d日', strtotime($bidOpen["payment_date"]))."にご指定の口座に銀行振込いたします。"));
+                // $this->_p->Text(self::SUM_UNDER_X, 197, B::u2s("平成".(date('Y', strtotime($bidOpen["payment_date"]))-1988)."年".date('m月d日', strtotime($bidOpen["payment_date"]))."にご指定の口座に銀行振込いたします。"));
+                $this->_p->Text(self::SUM_UNDER_X, 197, B::u2s(date('Y年n月j日', strtotime($bidOpen["payment_date"]))."にご指定の口座に銀行振込いたします。"));
 
                 $this->_p->SetFont( GOTHIC,"",11);
                 $this->_p->Text(self::SUM_UNDER_X, 209, B::u2s("尚、お支払い額より振込手数料を差し引いて振込させていただきます。"));
@@ -645,7 +651,8 @@ class Pdf
                 $this->_p->SetFont(MINCHO,'',14);
                 $this->_p->Text(self::SUM_UNDER_X, 191, B::u2s("御請求額は上記の通りです。"));
                 $this->_p->SetFont( MINCHO,"B",16);
-                $this->_p->Text(self::SUM_UNDER_X, 197, B::u2s("平成".(date('Y', strtotime($bidOpen["billing_date"]))-1988)."年".date('m月d日', strtotime($bidOpen["billing_date"]))."までにご入金下さい。"));
+                // $this->_p->Text(self::SUM_UNDER_X, 197, B::u2s("平成".(date('Y', strtotime($bidOpen["billing_date"]))-1988)."年".date('m月d日', strtotime($bidOpen["billing_date"]))."までにご入金下さい。"));
+                $this->_p->Text(self::SUM_UNDER_X, 197, B::u2s(date('Y年n月j日', strtotime($bidOpen["billing_date"]))."までにご入金下さい。"));
 
                 $this->_p->SetFont(GOTHIC,'',12);
                 $this->_p->Text(self::SUM_UNDER_X, 205, B::u2s("北陸銀行今里支店"));
@@ -836,7 +843,8 @@ class Pdf
                 //下部
                 $this->_p->SetXY(16, 90+$y);
                 $this->_p->Cell(0, 7, B::u2s('以上'), 0,1,'R');
-                $this->_p->Cell(0, 7, B::u2s('平成　　年　　月　　日'),0,1,'R');
+                // $this->_p->Cell(0, 7, B::u2s('平成　　年　　月　　日'),0,1,'R');
+                $this->_p->Cell(0, 7, B::u2s('　　　　年　　月　　日'),0,1,'R');
                 $this->_p->Cell(0, 7, B::u2s('全日本機械業連合会'),0,1,'R');
                 $this->_p->Cell(0, 7, B::u2s('マシンライフ委員会'),0,1,'R');
                 // $this->_p->Cell(0, 7, B::u2s('TEL 06-6747-7521　FAX 06-6747-7525'),0,1,'R');
@@ -943,7 +951,9 @@ class Pdf
     public function makeCompanySeikyu($companyList, $date)
     {
         // テンプレートPDF読み込み
-        $pagecount = $this->_p->setSourceFile('../media/pdf/rank_seikyu.pdf');
+        // $pagecount = $this->_p->setSourceFile('../media/pdf/rank_seikyu.pdf');
+        $pagecount = $this->_p->setSourceFile('../../templates/system/rank_seikyu.pdf');
+
         $seikyuTmp = $this->_p->ImportPage(1);
         $ryoshuTmp = $this->_p->ImportPage(2);
 
@@ -970,7 +980,8 @@ class Pdf
             $this->_p->Cell(100, 4, B::u2s($c['addr1'] . $c['addr2'] . $c['addr3']), 0, 0, 'L');
 
             $this->_p->SetXY(134, 22);
-            $this->_p->Cell(60, 4, B::u2s('請求日 平成' . (date('Y') - 1988) . '年' . date('n月j日')), 0, 0, 'L');
+            // $this->_p->Cell(60, 4, B::u2s('請求日 平成' . (date('Y') - 1988) . '年' . date('n月j日')), 0, 0, 'L');
+            $this->_p->Cell(60, 4, B::u2s('請求日 ' . date('Y年n月j日')), 0, 0, 'L');
 
             $this->_p->SetFont(GOTHIC,'', 16);
             $this->_p->SetXY(24, 34);
@@ -1041,7 +1052,8 @@ class Pdf
     public function makeMoushikomi($bidOpen, $company)
     {
         // テンプレートPDF読み込み
-        $pagecount = $this->_p->setSourceFile('../media/pdf/moushikomi_temp.pdf');
+        // $pagecount = $this->_p->setSourceFile('../media/pdf/moushikomi_temp.pdf');
+        $pagecount = $this->_p->setSourceFile('../../templates/system/moushikomi_temp.pdf');
 
         $this->_p->addPage('P');
         $this->_p->useTemplate($this->_p->ImportPage(1));

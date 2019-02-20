@@ -98,10 +98,10 @@ $(function() {
   </map>
 
   <a class="banner" href="http://www.omdc.or.jp/?page_id=434" target="_blank" onClick="_gaq.push(['_trackEvent', 'banner', 'sp', 'omdc_168', 1, true]);">
-    <img src="media/banner/omdc_168.png" alt="" />
+    <img src="{$_conf.media_dir}banner/omdc_168.png" alt="" />
   </a>
   <a class="banner" href="http://www.umc.gr.jp/" target="_blank" onClick="_gaq.push(['_trackEvent', 'banner', 'sp', 'spotsale_03', 1, true]);">
-    <img src="media/banner/spotsale_03.png" alt="" />
+    <img src="{$_conf.media_dir}banner/spotsale_03.png" alt="" />
   </a>
   *}
 
@@ -176,6 +176,12 @@ $(function() {
   {*
   <a href="https://www.deadstocktool.com/" target="_blank" onclick="ga('send', 'event','banner', 'sp', 'dst_01', 1, true);">
     <img src="imgs/dst_01.jpg" alt="大阪機械卸業団地組合 デッドストックツール.com" style="width:100%;"/>
+  </a>
+  *}
+
+  {*
+  <a href="https://www.mnok.net/" target="_blank" onclick="ga('send', 'event','banner', 'sp', 'auction_01', 1, true);">
+    <img src="{$_conf.media_dir}banner/auction_01.jpg" alt="ものづくりオークション" style="width:100%;"/>
   </a>
   *}
 </div>
@@ -284,14 +290,14 @@ $(function() {
     {if !empty($b.banner_file)}
       <a href="{$b.uri}"  target="_blank"
         onClick="ga('send', 'event', 'banner', 'bid', 'bidinfo_{$b.id}', 1, true);">
-        <img src="./media/banner/{$b.banner_file}" alt="{$b.bid_name}" />
+        <img src="{$_conf.media_dir}banner/{$b.banner_file}" alt="{$b.bid_name}" />
       </a>
     {/if}
   {/foreach}
 {/if}
   <a href="./bid_schedule.php"  target="_blank"
     onClick="ga('send', 'event', 'banner', 'bid', 'bid_schedule', 1, true);">
-    <img src="./media/banner/2018bid.png" alt="2018年度Web入札会スケジュール" />
+    <img src="{$_conf.media_dir}banner/2018bid.png" alt="2018年度Web入札会スケジュール" />
   </a>
 
   <br style="clear:both;">
@@ -327,7 +333,7 @@ $(function() {
   {*
   <a href="http://www.go-dove.com/ja/event-17965/" target="_blank" class="first"
   onClick="_gaq.push(['_trackEvent', 'banner', 'half', 'GoIndustry DoveBid Japan(half)_02', 1, true]);"
-  ><img class="banner" src="media/banner/ad_gdj_h_02.gif" /></a>
+  ><img class="banner" src="{$_conf.media_dir}banner/ad_gdj_h_02.gif" /></a>
   *}
 
   {assign "pAds" array(
@@ -340,7 +346,7 @@ $(function() {
     {foreach array_rand($pAds, 4) as $key}
       <a href="{$pAds[$key][2]}" target="_blank"{if $key@first} class="first"{/if}
         onClick="ga('send', 'event', 'banner', 'half', '{$pAds[$key][0]}', 1, true);"
-        ><img class="banner" src="media/banner/{$pAds[$key][1]}" alt="{$pAds[0]}" /></a>
+        ><img class="banner" src="{$_conf.media_dir}banner/{$pAds[$key][1]}" alt="{$pAds[0]}" /></a>
     {/foreach}
   {/if}
   <br class="clear"/>

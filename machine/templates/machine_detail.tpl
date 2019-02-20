@@ -106,7 +106,10 @@ h1.detail_h1 {
     </div>
 
     <div class='images'>
+    {*
     {if !empty($machine.imgs) || (!empty($machine.youtube) && preg_match("/https?:\/\/youtu.be\/(.+)/", $machine.youtube, $res))}
+    *}
+    {if !empty($machine.imgs)}
       {if !empty($machine.top_img)}
         <a class="img" href="{$_conf.media_dir}machine/{$machine.top_img}" target="_blank"
           {*
@@ -134,11 +137,15 @@ h1.detail_h1 {
           <img src="{$_conf.media_dir}machine/thumb_{$i}" alt="{$alt}" />
         </a>
       {/foreach}
-
-      {if !empty($machine.youtube) && preg_match("/https?:\/\/youtu.be\/(.+)/", $machine.youtube, $res)}
-        <a href="javascript:void(0)" data-youtubeid="{$res[1]}" class="movie" title="クリックで動画再生します"><img src="imgs/youtube_icon_48.png" /></a>
-      {/if}
     {/if}
+    </div>
+  {/if}
+
+  {if !empty($machine.youtube) && preg_match_all('/([\w\-]{11})/', $machine.youtube, $res)}
+    <div>
+      {foreach $res[0] as $y}
+        <a href="javascript:void(0)" data-youtubeid="{$y}" class="movie" title="クリックで動画再生します"><img src="imgs/youtube_icon_48.png" /></a>
+      {/foreach}
     </div>
   {/if}
 
@@ -147,7 +154,7 @@ h1.detail_h1 {
   {if !empty($machine.youtube) && preg_match("/http:\/\/youtu.be\/(.+)/", $machine.youtube, $res)}
     <div class="youtube">
       <iframe width="400" height="300"
-        src="http://www.youtube.com/embed/{$res[1]}?rel=0"
+        src="https://www.youtube.com/embed/{$res[1]}?rel=0"
         frameborder="0" allowfullscreen></iframe>
     </div>
   {/if}
@@ -315,6 +322,7 @@ h1.detail_h1 {
           <a href='company_detail.php?c={$machine.company_id}'>{$company.company}</a>
         </td>
       </tr>
+      {*
       <tr class="">
         <th>住所</th>
         <td>
@@ -322,6 +330,7 @@ h1.detail_h1 {
            {$company.addr1} {$company.addr2} {$company.addr3}
         </td>
       </tr>
+      *}
       <tr class="">
         <th>担当者</th>
         <td>{$company.officer}</td>

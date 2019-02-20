@@ -6,7 +6,7 @@
 <script type="text/javascript" src="{$_conf.libjs_uri}/jsrender.js"></script>
 
 <!-- Google Maps APL ver 3 -->
-<script src="http://maps.google.com/maps/api/js?sensor=false&language=ja" type="text/javascript"></script>
+<script src="https://maps.google.com/maps/api/js?sensor=false&language=ja" type="text/javascript"></script>
 
 <script type="text/JavaScript">
 {literal}
@@ -828,7 +828,7 @@ table.form td input.seri_price:disabled {
         placeholder="YouTube URIを入力してください" /><br />
       表示させる動画の「共有」ボタンで表示されるURIを入力してください<br />
       ※ 動画のアップロードは予め
-      <a href="http://www.youtube.com/?gl=JP&hl=ja" target="_blank">YouTube</a>
+      <a href="https://www.youtube.com/?gl=JP&hl=ja" target="_blank">YouTube</a>
       で行なってください
     </td>
   </tr>

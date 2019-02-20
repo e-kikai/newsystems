@@ -1,6 +1,6 @@
 {**
- * 共通フッタ部分 
- * 
+ * 共通フッタ部分
+ *
  * @access public
  * @author 川端洋平
  * @version 0.0.4
@@ -72,7 +72,7 @@ var google_remarketing_only = true;
 
 {*** clicky ***}
 {if $smarty.server.SERVER_NAME == 'www.zenkiren.net'}
-<a title="Web Analytics" href="http://clicky.com/100784739"><img alt="Web Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<a class="click" title="Web Analytics" href="http://clicky.com/100784739"><img alt="Web Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
 <script src="//static.getclicky.com/js" type="text/javascript"></script>
 <script type="text/javascript">try{ clicky.init(100784739); }catch(e){}</script>
 <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100784739ns.gif" /></p></noscript>
@@ -97,7 +97,7 @@ window.__wtw_lucky_site_id = 32662;
   <p class="copyright">
     {*
     <img class='footer_title' src='img/footer_title.png' alt='COPYRIGHT {$_conf.copyright} {$smarty.now|date_format:"%Y"} {$_conf.copyright}'/>
-    *}   
+    *}
     Copyright &copy; {$smarty.now|date_format:"%Y"}
     <a href="{$_conf.website_uri}" target="_blank">{$_conf.copyright}</a>
     All Rights Reserved.
@@ -110,7 +110,7 @@ window.__wtw_lucky_site_id = 32662;
 
 <script type='text/javascript'>
 // The ClickTale Balkan Tracking Code may be programmatically customized using hooks:
-// 
+//
  function ClickTalePreRecordingHook() {
 window.ClickTaleFetchFrom = document.location.href;
 window.ClickTaleFetchFrom+="#CTFetchUserAgent=VisitorUserAgent";
@@ -128,5 +128,5 @@ document.write(unescape("%3Cscript%20src='"+
 {/if}
 *}
 
-</body> 
+</body>
 </html>

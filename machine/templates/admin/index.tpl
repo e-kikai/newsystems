@@ -54,7 +54,6 @@ ul.top_menu li {
 .infomations {
   border: 1px solid #923431;
   background: #FFF;
-  padding: 4px;
   width: 400px;
   height: 160px;
   font-size: 13px;
@@ -91,6 +90,42 @@ button.miniblog_response {
   margin-right: 3px;
   font-weight: bold;
   color: #0A0;
+}
+
+.info_contents {
+  position: relative;
+}
+
+.info_goal {
+  display: inline-block;
+  margin-right: 3px;
+  font-weight: bold;
+}
+
+.info_no {
+  display: inline-block;
+  margin-right: 3px;
+}
+
+.info_goal.cell {
+  color: #C00;
+}
+
+.info_goal.buy {
+  color: #00C;
+}
+
+.info_end_date {
+  display: inline-block;
+  margin-right: 3px;
+  color: #999;
+}
+
+.info_link {
+  display: block;
+  position: absolute;
+  right: 3px;
+  bottom: 0;
 }
 
 ul.top_menu {
@@ -189,7 +224,33 @@ div.logininfo {
         </div>
       {/foreach}
     {else}
-      書きこみはありません
+      <div class="info">まだ書きこみはありません</div>
+    {/if}
+  </div>
+
+  <div class="infotitle">売りたし買いたし</div>
+  <div class="infomations">
+    {if !empty($urikaiList)}
+      {foreach $urikaiList as $uk}
+        <div class="info">
+          {if !empty($uk.end_date)}
+            <div class="info_end_date">(解決済)</div>
+          {elseif strtotime($uk.created_at) > strtotime('-1week')}
+            <div class="cjf_new">NEW!</div>
+          {/if}
+          <div class="info_goal {$uk.goal}">{if $uk.goal == "cell"}売りたし{else}買いたし{/if}</div>
+          <div class="info_no">No.{$uk.id}</div>
+          <div class="info_name">{'/(株式|有限|合.)会社/u'|preg_replace:'':$uk.company}</div>
+          <div class="info_date">{$uk.created_at|date_format:'%Y/%m/%d'}</div>
+
+          <div class="info_contents" data-id="{$uk.id}">
+            {$uk.contents|mb_substr:0:26}
+            <a href="/admin/urikai_detail.php?id={$uk.id}" class="info_link">→詳細を見る</a>
+          </div>
+        </div>
+      {/foreach}
+    {else}
+      <div class="info">まだ書きこみはありません</div>
     {/if}
   </div>
 
@@ -201,14 +262,14 @@ div.logininfo {
           {if strtotime($mi.created_at) > strtotime('-1week')}
             <div class="cjf_new">NEW!</div>
           {/if}
-          <div class="info_name">{$mi.user_name}</div>
+          <div class="info_name">{'/(株式|有限|合.)会社/u'|preg_replace:'':$mi.user_name}</div>
           <div class="info_date">{$mi.created_at|date_format:'%Y/%m/%d %H:%M'}</div>
           <button type="button" class="miniblog_response" data-id="{$mi.id}">返信</button>
           <div class="info_contents" data-id="{$mi.id}">{$mi.contents|escape|auto_link|nl2br nofilter}</div>
         </div>
       {/foreach}
     {else}
-      書きこみはありません
+      <div class="info">まだ書きこみはありません</div>
     {/if}
   </div>
 </div>
@@ -234,11 +295,13 @@ div.logininfo {
   <h2>お問い合わせ</h2>
   <li><a href="admin/contact_list.php">お問い合わせ一覧</a></li>
 
-{*
-  <li class="title">買いたし（機械探し）</li>
-  <li><a href="member/kaitashi_list.php">買いたし（機械探し）一覧</a></li>
-*}
-
+  {if Companies::checkRank($rank, 'B会員')}
+    <h2>売りたし買いたし</h2>
+    <li>
+      <a href="admin/urikai_list.php">売りたし買いたし書き込み一覧</a> |
+      <a href="admin/urikai_form.php">書き込む</a>
+    </li>
+  {/if}
 
   <h2>Web入札会</h2>
   {if !empty($bidOpenList)}
@@ -306,9 +369,9 @@ div.logininfo {
             <li>
               <a href="/admin/bid_list.php?o={$b.id}">商品リスト(入札・お問い合せ)</a>
             </li>
-            <li><a href="/media/pdf/list_pdf_{$b.id}.pdf" target="_blank"><div class="label pdf">印刷用PDF</div>商品リスト</a></li>
+            <li><a href="{$_conf.media_dir}pdf/list_pdf_{$b.id}.pdf" target="_blank"><div class="label pdf">印刷用PDF</div>商品リスト</a></li>
             {*
-            <li><a href="/media/pdf/bid_flyer_03.pdf" target="_blank"><div class="label pdf">印刷用PDF</div>第3回 Web入札会チラシ</a></li>
+            <li><a href="{$_conf.media_dir}pdf/bid_flyer_03.pdf" target="_blank"><div class="label pdf">印刷用PDF</div>第3回 Web入札会チラシ</a></li>
             *}
             {if Companies::checkRank($rank, 'B会員')}
               {if Auth::check('system')}
@@ -332,7 +395,7 @@ div.logininfo {
               <a href="/admin/bid_list.php?o={$b.id}&output=csv&limit=999999999">印刷用CSV出力</a>
             </li>
             <li><a href="/admin/bid_list.php?o={$b.id}">落札結果一覧</a></li>
-            <li><a href="/media/pdf/list_pdf_{$b.id}.pdf" target="_blank"><div class="label pdf">印刷用PDF</div>商品リスト</a></li>
+            <li><a href="{$_conf.media_dir}pdf/list_pdf_{$b.id}.pdf" target="_blank"><div class="label pdf">印刷用PDF</div>商品リスト</a></li>
 
             <li>
               <a href="/admin/bid_bid_list.php?o={$b.id}">落札商品 個別計算表</a> >>
@@ -356,7 +419,7 @@ div.logininfo {
             </li>
           {/if}
           <li>
-            <a href="/admin/bid_moushikomi.php?o={$b.id}" target="_blank"><div class="label pdf">印刷用PDF</div>入札会申込書</a> >> <a href="/media/pdf/moushikomi_sample.pdf" target="_blank">記入例</a>
+            <a href="/admin/bid_moushikomi.php?o={$b.id}" target="_blank"><div class="label pdf">印刷用PDF</div>入札会申込書</a> >> <a href="{$_conf.media_dir}pdf/moushikomi_sample.pdf" target="_blank">記入例</a>
           </li>
           <li>
             <a href="/admin/bid_fee_help.php?o={$b.id}">入札会手数料について</a> >>
@@ -395,7 +458,7 @@ div.logininfo {
             <li><a href="/admin/seri_bid_list.php?o={$b.id}&output=pdf" target="_blank"><div class="label pdf">印刷用PDF</div>引取指図書</a></li>
           {/if}
 
-          <li><a href="/media/pdf/seri_manual_01.pdf" target="_blank"><div class="label pdf">印刷用PDF</div>企業間売り切りシステム マニュアル</a></li>
+          <li><a href="{$_conf.media_dir}pdf/seri_manual_01.pdf" target="_blank"><div class="label pdf">印刷用PDF</div>企業間売り切りシステム マニュアル</a></li>
         {else}
           <div>企業間売り切りは開催されません</div>
         {/if}
@@ -435,9 +498,16 @@ div.logininfo {
   <li><a href="admin/mail_list.php">顧客メールログ</a></li>
   *}
 
+  {*
   <h2>チラシメール</h2>
   <li><a href="admin/flyer_form.php">新規配信</a></li>
   <li><a href="admin/flyer_list.php">配信履歴一覧</a></li>
+  *}
+
+  {if Companies::checkRank($rank, 'B会員')}
+    <h2>機械取扱説明書</h2>
+    <li><a href="admin/manuals.php">機械情報センター 機械取扱説明書について</a></li>
+  {/if}
 
   <h2>会社情報</h2>
   <li>
@@ -453,6 +523,7 @@ div.logininfo {
 
   <h2>会員ページヘルプ</h2>
   <li><a href="admin/help.php?p=linkbunner">リンクバナーについて</a></li>
+
 
   <h2>全機連マシンライフ</h2>
   <li><a href="{$_conf.website_uri}" target="_blank">全機連ウェブサイト</a></li>

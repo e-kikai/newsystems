@@ -25,7 +25,7 @@
 {if !empty($site.company_configs.company_top_contents)}
   <div class='greetng_area'>
     {if !empty($company.top_img)}
-      <img src='{$_conf.media_dir}/company/{$company.top_img}'
+      <img src='{$_conf.media_dir}company/{$company.top_img}'
         alt="中古機械 {$company.company} {$company.addr1} {$company.addr2} {$company.addr3}" />
     {/if}
     

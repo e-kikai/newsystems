@@ -534,8 +534,8 @@ body.mini {
     <div class="img_area">
       <a href="companybid_detail.php?m={$m.companybid_machine_id}">
         {if !empty($m.imgs)}
-          <img class="lazy" src='imgs/blank.png' data-original="media/companybid/{$m.imgs[0]}" alt='' />
-          <noscript><img src="media/companybid/{$m.imgs[0]}" alt='' /></noscript>
+          <img class="lazy" src='imgs/blank.png' data-original="{$_conf.media_dir}companybid/{$m.imgs[0]}" alt='' />
+          <noscript><img src="{$_conf.media_dir}companybid/{$m.imgs[0]}" alt='' /></noscript>
         {/if}
       </a>
     </div>

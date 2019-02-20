@@ -12,25 +12,25 @@
 $(function() {
     //// @ba-ta 2011/12/27 画像処理 ////
     $(".zoom").jqzoom({
-        zoomType      : 'standard',  
-        lens          : true,  
-        preloadImages : true,  
-        alwaysOn      : false,  
-        zoomWidth     : 400,  
-        zoomHeight    : 300,  
-        xOffset       : 24,  
-        yOffset       : 0,  
+        zoomType      : 'standard',
+        lens          : true,
+        preloadImages : true,
+        alwaysOn      : false,
+        zoomWidth     : 400,
+        zoomHeight    : 300,
+        xOffset       : 24,
+        yOffset       : 0,
         position      : 'right',
         title         : false
-    }); 
-    
+    });
+
     $(".zoom").click(function() {
         window.open($(this).attr('href'));
     });
-        
+
     // ロード時に、拡大縮小を生成
     $('.img a:first').click();
-    
+
     //// スクロール ////
     $('a[href*=#]').click(function() {
         var target = $(this.hash);
@@ -99,7 +99,7 @@ table.spec {
 div.top_image {
   width: 400px;
   height: 300px;
-  margin: 0 0 4px 0;
+  margin: 0 0 8px 0;
 }
 
 .top_image img.zoom_img {
@@ -181,7 +181,7 @@ table.machine .year {
 <div class='detail_container'>
 
 
-    
+
   {*** 画像 ***}
   <div class="img_area">
   {if empty($machine.top_img) && empty($machine.imgs)}
@@ -200,7 +200,7 @@ table.machine .year {
       {/if}
       </div>
     </div>
-  
+
     <div class='images'>
     {if !empty($machine.imgs)}
       {if !empty($machine.top_img)}
@@ -213,7 +213,7 @@ table.machine .year {
           <img src="{$_conf.media_dir}machine/{$machine.top_img}" alt="中古{$machine.name} {$machine.maker} {$machine.model}" />
         </a>
       {/if}
-    
+
       {foreach $machine.imgs as $i}
         <a class="img" href='javascript:void(0);'
            rel="{literal}{{/literal}
@@ -228,30 +228,32 @@ table.machine .year {
     <br style="clear:both;" />
     </div>
   {/if}
-  
+
   {*** youtube ***}
-  {if !empty($machine.youtube)}
+  {if !empty($machine.youtube) && preg_match_all('/([\w\-]{11})/', $machine.youtube, $res)}
     <div class="youtube">
-      <iframe width="400" height="300" 
-        src="http://www.youtube.com/embed/{'/http:\/\/youtu.be\//'|preg_replace:'':$machine.youtube}?rel=0" 
-        frameborder="0" allowfullscreen></iframe>
+      {foreach $res[0] as $y}
+        <iframe width="400" height="300"
+          src="https://www.youtube.com/embed/{$y}?rel=0"
+          frameborder="0" allowfullscreen></iframe>
+      {/foreach}
     </div>
   {/if}
-  
+
   </div>
-  
+
   <div class="spec_area">
-  
+
   {*
   <table class='machine'>
     <tr>
-      <th class="no">管理番号</th>    
+      <th class="no">管理番号</th>
       <th class='name'>機械名</th>
       <th class='maker'>メーカー</th>
       <th class='model'>型式</th>
       <th class='year'>年式</th>
     </tr>
-    
+
     <tr class='machine machine_{$machine.id}'>
       <td class='no'>{$machine.no}</td>
       <td class='name'>{$machine.name}</td>
@@ -261,7 +263,7 @@ table.machine .year {
     </tr>
   </table>
   *}
-    
+
     <table class="spec mysite">
       <tr class="">
         <th>管理番号</th>
@@ -283,14 +285,14 @@ table.machine .year {
         <th>年式</th>
         <td class='year'>{$machine.year}</td>
       </tr>
-        
+
       {if !empty($machine.capacity_label)}
         <tr class="capacity number" >
           <th>{$machine.capacity_label}</th>
           <td>{if empty($machine.capacity)}-{else}{$machine.capacity}{$machine.capacity_unit}{/if}</td>
         </tr>
       {/if}
-      
+
       <tr class="spec">
         <th>仕様</th>
         <td>
@@ -302,26 +304,26 @@ table.machine .year {
               {foreach $os[$d.type][0] as $key}
                 {$machine.others[$d@key][$key]}{if !($key@last)}{$os[$d.type][1]}{/if}
               {/foreach}
-              {$d.unit} | 
+              {$d.unit} |
             {else}
-              {$d.label}:{$machine.others[$d@key]}{$d.unit} | 
+              {$d.label}:{$machine.others[$d@key]}{$d.unit} |
             {/if}
           {/foreach}
           </div>
           <div>{$machine.spec}</div>
         </td>
       </tr>
-      
+
       <tr class="accessory">
         <th>附属品</th>
         <td>{$machine.accessory}</td>
       </tr>
-  
+
       <tr class="comment">
         <th>コメント</th>
         <td>{$machine.comment}</td>
       </tr>
-      
+
       <tr class="">
         <th>在庫場所</th>
         <td class='location'>
@@ -331,7 +333,7 @@ table.machine .year {
           </a>
         </td>
       </tr>
-      
+
       {*
       {if Auth::check('member')}
       <tr class="price">
@@ -345,7 +347,7 @@ table.machine .year {
       </tr>
       {/if}
       *}
-            
+
       <tr class="label_area">
         <td colspan="2">
           {if $machine.view_option == 2}<div class="label vo2">商談中</div>{/if}
@@ -365,8 +367,8 @@ table.machine .year {
         </td>
       </tr>
     </table>
-  
-     
+
+
     <div class='contact_area'>
       {if !empty($machine.contact_mail)}
         <a class='contact_link' href='contact.php?m={$machine.id}'><img src='{$_conf.site_uri}imgs/contact_button.png' /></a>
@@ -374,14 +376,14 @@ table.machine .year {
       {if !empty($machine.contact_tel)}<div class='tel'>TEL {$machine.contact_tel}</div>{/if}
       {if !empty($machine.contact_fax)}<div class='tel'>FAX {$machine.contact_fax}</div>{/if}
     </div>
-    
+
     {if $machine.addr3}
     <iframe class="gmap_detail" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-      src="http://maps.google.co.jp/maps?f=q&amp;q={$machine.addr1} {$machine.addr2} {$machine.addr3}+({$machine.location})&source=s_q&amp;hl=ja&amp;geocode=ie=UTF8&amp;t=m&amp;output=embed"></iframe><br />
-    <a href="https://maps.google.co.jp/maps?f=q&amp;q={$machine.addr1} {$machine.addr2} {$machine.addr3}+({$machine.location})&source=embed&amp;hl=ja&amp;geocode=&amp;ie=UTF8&amp;t=m" style="color:#0000FF;text-align:left" target="_blank">大きな地図で見る</a> 
+      src="https://maps.google.co.jp/maps?f=q&amp;q={$machine.addr1} {$machine.addr2} {$machine.addr3}+({$machine.location})&source=s_q&amp;hl=ja&amp;geocode=ie=UTF8&amp;t=m&amp;output=embed"></iframe><br />
+    <a href="https://maps.google.co.jp/maps?f=q&amp;q={$machine.addr1} {$machine.addr2} {$machine.addr3}+({$machine.location})&source=embed&amp;hl=ja&amp;geocode=&amp;ie=UTF8&amp;t=m" style="color:#0000FF;text-align:left" target="_blank">大きな地図で見る</a>
     {/if}
   </div>
-  
+
 </div>
 {else}
     <div class="error_mes">

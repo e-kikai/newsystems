@@ -44,6 +44,10 @@ class File
     public function setPath($path)
     {
         $this->_path =  $path;
+
+        // @ba-ta 20181129 ファイル格納パス確認
+        if (!@file_exists($path)) { mkdir($path, '0777'); }
+
         return $this;
     }
 
@@ -168,9 +172,10 @@ class File
      */
     public function delete($delete)
     {
-        foreach ((array)$delete as $val) {
-            unlink($this->_path . $val);
-        }
+        // @ba-ta_20181127 ファイルアップロードの不具合対策＆S3移行のため、一時コメントアウト
+        // foreach ((array)$delete as $val) {
+        //     unlink($this->_path . $val);
+        // }
 
         return $this;
     }
@@ -186,10 +191,11 @@ class File
     {
         // 削除フラグのある画像を削除
         foreach ((array)$delete as $key => $val) {
-            // 本パス上にファイルがある場合、ファイルをtempに移動
-            if (file_exists($realPath . '/'. $val)) {
-                rename($realPath . '/'. $val, $tempPath . '/'. $val);
-            }
+            // @ba-ta_20181127 ファイルアップロードの不具合対策＆S3移行のため、一時コメントアウト
+            // // 本パス上にファイルがある場合、ファイルをtempに移動
+            // if (file_exists($realPath . '/'. $val)) {
+            //     rename($realPath . '/'. $val, $tempPath . '/'. $val);
+            // }
         }
 
         // 削除された画像ファイル名をimgs配列から削除
@@ -197,16 +203,17 @@ class File
 
         // 追加されたものをtempから本パスに移動
         foreach ($res as $key => $val) {
-            if (file_exists($tempPath . '/'. $val)) {
+            if (!empty($val) && file_exists($tempPath . '/'. $val)) {
                 //// @ba-ta 20140322 EXIFデータより画像の回転補正 ////
                 $this->autoOrient($tempPath . '/'. $val);
 
-                rename($tempPath . '/'. $val, $realPath . '/'. $val);
-
                 // サムネイル化の処理
                 if ($thumFlag) {
-                    $this->makeThumbnail($realPath, $val);
+                    // $this->makeThumbnail($realPath, $val);
+                    $this->makeThumbnail($tempPath, $realPath, $val);
                 }
+
+                rename($tempPath . '/'. $val, $realPath . '/'. $val);
             }
         }
 
@@ -214,10 +221,11 @@ class File
     }
 
     // サムネイル生成
-    public function makeThumbnail($realPath, $val)
+    // public function makeThumbnail($realPath, $val)
+    public function makeThumbnail($tempPath, $realPath, $val)
     {
         $imgCmd = '/usr/bin/convert -resize 120x90 ';
-        $cmd = $imgCmd . ' ' . escapeshellcmd($realPath . '/'. $val). ' ' . escapeshellcmd($realPath . '/thumb_'. $val);
+        $cmd = $imgCmd . ' ' . escapeshellcmd($tempPath . '/'. $val). ' ' . escapeshellcmd($realPath . '/thumb_'. $val);
         exec($cmd);
     }
 
@@ -232,18 +240,21 @@ class File
     {
         // 削除フラグのある画像を削除
         if (!empty($delete)) {
-            if (file_exists($realPath  . '/' . $delete)) {
-                rename($realPath . '/' . $delete, $tempPath . '/' . $delete);
-            }
+            // @ba-ta_20181127 ファイルアップロードの不具合対策＆S3移行のため、一時コメントアウト
+            // if (file_exists($realPath  . '/' . $delete)) {
+            //     rename($realPath . '/' . $delete, $tempPath . '/' . $delete);
+            // }
             return '';
-        } else if (file_exists($tempPath . '/' . $img)) {
+        } else if (!empty($img) && file_exists($tempPath . '/' . $img)) {
             $this->autoOrient($tempPath . '/'. $img);
-            rename($tempPath . '/' . $img, $realPath . '/' . $img);
 
             // サムネイル化の処理
             if ($thumFlag) {
-                $this->makeThumbnail($realPath, $img);
+                // $this->makeThumbnail($realPath, $img);
+                $this->makeThumbnail($tempPath, $realPath, $img);
             }
+
+            rename($tempPath . '/' . $img, $realPath . '/' . $img);
         }
 
         return $img;

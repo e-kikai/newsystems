@@ -47,47 +47,26 @@ if (Req::query('mylist')) {
 
 $mModel = new Machine();
 $result = $mModel->search($q);
-$os     = $mModel->getOtherSpecs();
+// $os     = $mModel->getOtherSpecs();
 
 // 現在既に登録されている機械IDを取得
 $bmModel       = new BidMachine();
 $bidMachineIds = $bmModel->getMachineIds();
 
-//// 表示変数アサイン ////
-/*
-$assign = array(
-    // 'pageTitle'   => implode(' /', $pageTitle) . ' :: 検索結果',
-    // 'pankuzu'     => $pankuzu,
-    // 'cUri'        => 'search.php?' . implode('&', $cUri),
-    'genreList'   => $result['genreList'],
-    'makerList'   => $result['makerList'],
-    'machineList' => $result['machineList'],
-    'companyList' => $result['companyList'],
-    'addr1List'   => $result['addr1List'],
-    'queryDetail' => $result['queryDetail'],
-    'largeGenreList' => $largeGenreList,
-    'largeGenreId' => Req::query('l'),
-    'noCompanyFlag' => Req::query('c') ? true : false,
-    'tp'            => 'list',
-);
-
-$display = $_smarty->assign($assign)->fetch('include/order.tpl');
-$display.= $_smarty->assign($assign)->fetch('include/machine_header.tpl');
-*/
 // データ整形
 $mTemp = array();
 foreach($result['machineList'] as $key => $m) {
     // その他能力を仕様に連結
-    $spec = (String)$m['spec'];
-    $others = array();
-    if (!empty($m['spec_labels'])) {
-        $oSpec  = $mModel->makerOthers($m['spec_labels'], $m['others']);
-        if (!empty($oSpec) && !empty($spec)) {
-            $spec = $oSpec . ' | ' . $spec;
-        } else {
-            $spec.= $oSpec;
-        }
-    }
+    // $spec = (String)$m['spec'];
+    // $others = array();
+    // if (!empty($m['spec_labels'])) {
+    //     $oSpec  = $mModel->makerOthers($m['spec_labels'], $m['others']);
+    //     if (!empty($oSpec) && !empty($spec)) {
+    //         $spec = $oSpec . ' | ' . $spec;
+    //     } else {
+    //         $spec.= $oSpec;
+    //     }
+    // }
 
     // その他の項目値の処理
     // $model2 = preg_replace('/[^A-Z0-9]/', '', strtoupper(mb_convert_kana($m['model'], 'KVrn')));
@@ -108,7 +87,8 @@ foreach($result['machineList'] as $key => $m) {
         // 'model2'         => $model2,
         'model2'         => !empty($m['model2']) ? $m['model2'] : '',
         'year'           => !empty($m['year']) ? $m['year'] : '',
-        'spec'           => mb_strimwidth($spec, 0, 120, '…'),
+        // 'spec'           => mb_strimwidth($spec, 0, 120, '…'),
+        'spec'           => !empty($m['spec']) ? $m['spec'] : '',
 
         'company_id'     => $m['company_id'],
         'company'        => preg_replace('/(株式|有限|合.)会社/u', '', $m['company']),
@@ -120,9 +100,11 @@ foreach($result['machineList'] as $key => $m) {
         'capacity_unit'  => $m['capacity_unit'],
         'capacity_label' => $m['capacity_label'],
 
-        'top_img'        =>  $m['top_img'],
+        'media_dir'      => $_conf->media_dir,
+        'top_img'        => $m['top_img'],
         // 'imgs'           =>  $m['imgs'],
-        'pdfs'           =>  $m['pdfs'],
+        // 'pdfs'           => $m['pdfs'],
+
         'youtube'        => $m['youtube'],
 
         'commission'     => $m['commission'],

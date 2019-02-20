@@ -46,9 +46,12 @@
 
 <div class="head_search_no">
   <form method="GET" id="company_list_form" action="bid_list.php">
-    出品番号でさがす
+    出品番号・キーワードでさがす
     <input type="hidden" name="o" value="{$bidOpenId}" />
+    {*
     <input type="text" class="m number" name="no" value="" placeholder="出品番号" />
+    *}
+    <input type="text" class="m" name="k" value="{Req::query('k')}" placeholder="キーワード" />
     <button type="submit" class="company_list_submit">検索</button>
   </form>
 </div>

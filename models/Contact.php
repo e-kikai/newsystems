@@ -34,7 +34,8 @@ class Contact extends Zend_Db_Table_Abstract
         'TEL'              => array('fields' => 'tel',),
         'FAX'              => array('fields' => 'fax',),
 
-        'メールアドレス'   => array('fields' => 'mail',          'NotEmpty', 'EmailAddress'),
+        // 'メールアドレス'   => array('fields' => 'mail',          'NotEmpty', 'EmailAddress'),
+        'メールアドレス'   => array('fields' => 'mail',          'NotEmpty'),
         '都道府県'         => array('fields' => 'addr1',),
         'お問い合わせ内容' => array('fields' => 'message',       'NotEmpty'),
         'お知らせメール'   => array('fields' => 'mailuser_flag',),

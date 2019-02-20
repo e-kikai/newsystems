@@ -105,8 +105,10 @@ class Mechany < Base
 
         # 動画、PDF
         (p2/'.shiyou a').each do |a|
-          if /v=([0-9a-zA-Z])&/ =~ a[:href]
-            temp[:youtube] = 'http://youtu.be/' + $1
+          # if /v=([0-9a-zA-Z_-]*)/ =~ a[:href]
+          #   temp[:youtube] = 'http://youtu.be/' + $1
+          if /youtu.*\/([0-9a-zA-Z_-]{11})/ =~ a[:href]
+            temp[:youtube] = $1
           elsif /\.pdf$/ =~ a[:href]
             temp[:used_pdfs]["PDF"] = join_uri(detail_uri, a[:href])
           end
@@ -114,7 +116,7 @@ class Mechany < Base
 
         # 画像
         (p2/'#area_2 img, #area_3 img').each do |i|
-          temp[:used_imgs] << join_uri(detail_uri, i[:src]) unless /\.gif$/ =~ i[:href]
+          temp[:used_imgs] << join_uri(detail_uri, i[:src]) unless /gif$/ =~ i[:src]
         end
 
         @d << temp

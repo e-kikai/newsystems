@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {**
- * 自社サイト共通HTMLヘッダ部分 
- * 
+ * 自社サイト共通HTMLヘッダ部分
+ *
  * @access  public
  * @author  川端洋平
  * @version 0.0.4
@@ -13,16 +13,16 @@
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  
-  {if !empty($pageDescription)}  
+
+  {if !empty($pageDescription)}
     <meta name="description" content="{$pageDescription}" />
   {/if}
-  
+
   <base href="{$site.site_uri}" />
-  
+
   <title>{if !empty($pageTitle)}{$pageTitle}{else}{$site.company}{/if}
   </title>
-  
+
 {* for IE8－ IE9.js *}
 <!--[if lt IE 9]>
   <script src="{$_conf.libjs_uri}/IE/ie_speedup.js"></script>
@@ -56,7 +56,7 @@
 
 <script type="text/javascript" src="{$_conf.libjs_uri}/mb_convert_kana.js"></script>
 
-<script type="text/javascript" src="{$_conf.libjs_uri}/cjf.js"></script>
+<script type="text/javascript" src="{$_conf.libjs_uri}/cjf.js?201811231"></script>
 
 {* jquery UI *}
 <script type="text/javascript" src="{$_conf.libjs_uri}/jquery-ui.js"></script>

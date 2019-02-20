@@ -40,7 +40,7 @@
     <tr style="background:{cycle values='#FFF, #EEE'};">
       <td style="border:1px solid #777;padding:0;">
         {if $m.top_img}
-          <a href="machine_detail.php?m={$m.id}" target="_blank"><img src="media/machine/thumb_{$m.top_img}" style="border:0;" /></a>
+          <a href="machine_detail.php?m={$m.id}" target="_blank"><img src="{$_conf.media_dir}machine/thumb_{$m.top_img}" style="border:0;" /></a>
         {/if}
       </td>
       <td style="border:1px solid #777;padding:3px;">

@@ -12,23 +12,23 @@ $(function() {
         var data = {
             'id': $.trim($(this).val()),
         }
-        
+
         // 送信確認
         if (!confirm($.trim($_parent.find('td.bid_name').text()) + "\nこの入札会バナー情報を削除します。よろしいですか。")) { return false; }
-        
+
         $.post('/system/ajax/bidinfo.php', {
             'target': 'system',
             'action': 'delete',
             'data'  : data,
         }, function(res) {
             if (res != 'success') { alert(res); return false; }
-            
+
             // 登録完了
             alert($.trim($_parent.find('td.bid_name').text()) + "\nの削除が完了しました");
             $_parent.remove();
             return false;
         }, 'text');
-        
+
         return false;
     });
 });
@@ -57,8 +57,8 @@ button.delete {
 
 {block 'main'}
 <div class="select_area">
-  <a href="/system/bidinfo_form.php">新規登録</a> :: 
-  <a href="/system/bidinfo_list.php">表示中</a> | 
+  <a href="/system/bidinfo_form.php">新規登録</a> ::
+  <a href="/system/bidinfo_list.php">表示中</a> |
   <a href="/system/bidinfo_list.php?e=all">すべて</a>
 </div>
 
@@ -78,14 +78,14 @@ button.delete {
       <th class="delete"></th>
     </tr>
   </thead>
-  
+
   {foreach $bidinfoList as $b}
     <tr>
       <td class='id'>{$b.id}</td>
       <td class='banner'>
         <a href="{$b.uri}" target="_blank">
           {if !empty($b.banner_file)}
-            <img src="media/banner/{$b.banner_file}" />
+            <img src="{$_conf.media_dir}banner/{$b.banner_file}" />
           {else}
             バナー表示なし<br />(新着メールのみ)
           {/if}

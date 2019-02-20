@@ -56,8 +56,9 @@ try {
 
    //// 出品商品情報一覧を取得 ////
     $bmModel = new BidMachine();
-    $list_no = Req::query('no');
+    // $list_no = Req::query('no');
     $list_no = !empty($list_no) ? Req::query('no') : null;
+
     $q = array(
         'bid_open_id'    => $bidOpenId,
         'xl_genre_id'    => Req::query('x'),

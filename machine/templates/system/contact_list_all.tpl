@@ -13,11 +13,11 @@
 
 {block 'main'}
 <form action="system/contact_list_all.php" method=="get">
-  表示月 : 
+  表示月 :
   {html_select_date prefix='month' time=$month end_year='2013'
     display_days=false field_separator=' / ' month_format='%m' reverse_years=true field_order="YMD"}
   <input type="submit" value="表示月変更" />
-  
+
   {if !empty($month)}
     <a href="system/contact_list_all.php">表示月をリセット</a>
   {else}
@@ -25,6 +25,8 @@
   {/if}
 
    | <a href="system/contact_list_all.php?output=csv">メールアドレスCSV出力</a>
+   | <a href="system/contact_list_all.php?output=csvall&monthYear={$monthYear}&monthMonth={$monthMonth}">問い合わせ一覧CSV出力</a>
+
 </form>
 
 {if empty($contactList)}
@@ -42,7 +44,7 @@
       <th class="id">メル<br />マガ</th>
     </tr>
   </thead>
-  
+
   {foreach $contactList as $c}
     <tr class='{cycle values='even, odd'}'>
       <td class='id'>{$c.id}</td>

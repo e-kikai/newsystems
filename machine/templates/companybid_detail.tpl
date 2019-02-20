@@ -287,10 +287,10 @@ body.mini {
   {else}
     {foreach $machine.imgs as $i}
       {*
-      <img class="lazy" src='imgs/blank.png' data-original="/media/companybid/{$i}" alt='' />
-      <noscript><img src="/media/companybid/{$i}" alt='' /></noscript>
+      <img class="lazy" src='imgs/blank.png' data-original="{$_conf.media_dir}companybid/{$i}" alt='' />
+      <noscript><img src="{$_conf.media_dir}companybid/{$i}" alt='' /></noscript>
       *}
-      <img src="/media/companybid/{$i}" alt='' />
+      <img src="{$_conf.media_dir}companybid/{$i}" alt='' />
     {/foreach}
   {/if}
   </div>

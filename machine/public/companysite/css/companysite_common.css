@@ -71,7 +71,7 @@ label {
 .pankuzu {
   width : 942px;
   margin : 0 auto 10px auto;
-  
+
   width: 964px;
   margin: 4px auto;
   padding: 4px;
@@ -92,11 +92,11 @@ input[type="date"],
 input[type="datetime"],
 input[type="datetime-local"],
 input[type="email"],
-input[type="month"], 
+input[type="month"],
 input[type="number"],
 input[type="password"],
 input[type="tel"],
-input[type="text"], 
+input[type="text"],
 input[type="time"],
 input[type="url"],
 input[type="week"],
@@ -126,7 +126,7 @@ textarea {
   padding: 5px 10px;
   background: #FFF;
   font-size: 13px;
-  
+
   border-radius: 4px;
   box-shadow:  0 2px 3px rgba(0,0,0,0.1) inset;
 }
@@ -175,7 +175,7 @@ textarea:focus {
   margin : 16px auto;
   border : 1px dotted #88F;
   background : #EEF;
-  
+
   color : #33F;
   font-weight : bold;
 }
@@ -263,7 +263,7 @@ footer {
   height: 60px;
   line-height : 30px;
   text-align: center;
-  
+
   color: #FFF;
   margin: auto;
   background: #000;
@@ -305,11 +305,11 @@ a.header_title {
   display: block;
   position: absolute;
   top: 12px;
-  left: 42px;
-  font-size: 28px;
+  left: 24px;
+  font-size: 30px;
   color: #FFF;
   text-decoration: none;
-  text-shadow: 3px 3px 5px #333; 
+  text-shadow: 3px 3px 5px #333;
 }
 
 .headcopy {
@@ -324,7 +324,7 @@ header .header_contact {
   color: #FFF;
   position: absolute;
   top: 12px;
-  left: 700px;
+  right: 12px;
   text-decoration: none;
   text-align: right;
 }
@@ -423,7 +423,7 @@ a.button {
   border: 1px solid #59A9E6;
   border-radius: 4px;
   background: #4094D0;
-  
+
   background: -webkit-gradient(linear, left top, left bottom, color-stop(1.00, #1a62db), color-stop(0.51, #3690f0), color-stop(0.50, #54a3ee), color-stop(0.00, #70b6f2));
   background: -moz-linear-gradient(top, #70b6f2 0%, #54a3ee 50%, #3690f0 51%, #1a62db 100%);
   background: -o-linear-gradient(top, #70b6f2 0%, #54a3ee 50%, #3690f0 51%, #1a62db 100%);
@@ -516,7 +516,7 @@ a.top_zenkiren_link {
   max-height: 360px;
   overflow: hidden;
   background: #000;
-  
+
   text-shadow:
   0px -2px 2px #000,
   2px 0px 2px #000,
@@ -656,7 +656,7 @@ table.machines tr.odd td {
   border: 1px solid #f17431;
   padding: 3px 8px;
   border-radius: 4px;
-  
+
   background: #ea5506;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(1.00, #fd9c68), color-stop(0.51, #ea5506), color-stop(0.50, #f17431), color-stop(0.00, #feceb4));
   background: -webkit-linear-gradient(top, #feceb4 0%, #f17431 50%, #ea5506 51%, #fd9c68 100%);
@@ -725,7 +725,7 @@ div.comment {
 .img_area img {
   max-width: 400px;
   max-height: 300px;
-  
+
 }
 
 /*** table ***/
@@ -738,16 +738,16 @@ table.company th {
   vertical-align: middle;
   width: 240px;
   padding: 8px 4px;
-  
+
   background: #BDD7EE;
   font-weight: bold;
-  
+
   border: 1px solid #BFBFBF;
 }
 
 table.company td {
   width: 600px;
-  
+
   border: 1px solid #BFBFBF;
 
 }
@@ -836,4 +836,3 @@ div.contact_area {
   color: #C00;
   font-size: 20px;
 }
-

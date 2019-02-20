@@ -1,7 +1,7 @@
 <?php
 /**
  * 在庫機械一覧(研削)ページ
- * 
+ *
  * @access  public
  * @author  川端洋平
  * @version 0.0.4
@@ -11,7 +11,7 @@ require_once '../lib-machine.php';
 try {
     //// 認証 ////
     Auth::isAuth('machine');
-    
+
     //// 在庫情報を検索 ////
     $q = array(
         'xl_genre_id'    => Req::query('x'),
@@ -20,36 +20,36 @@ try {
         'company_id'     => Req::query('c'),
         'keyword'        => Req::query('k'),
         'maker'          => Req::query('ma'),
-        
+
         'period'         => Req::query('pe'),
         'start_date'     => Req::query('start_date'),
         'end_date'       => Req::query('end_date'),
         'is_youtube'     => Req::query('youtube'),
-        
+
         'limit'          => Req::query('limit', 30),
         'page'           => Req::query('page', 1),
     );
     $mModel = new Machine();
     $result = $mModel->search($q);
     // $os     = $mModel->getOtherSpecs();
-    foreach($result['machineList'] as $key => $m) {
-        $oSpec = $mModel->makerOthers($m['spec_labels'], $m['others']);
-        if (!empty($oSpec)) {
-            $result['machineList'][$key]['spec'] = $oSpec . ' | ' . $m['spec'];
-        }
-    }
+    // foreach($result['machineList'] as $key => $m) {
+    //     $oSpec = $mModel->makerOthers($m['spec_labels'], $m['others']);
+    //     if (!empty($oSpec)) {
+    //         $result['machineList'][$key]['spec'] = $oSpec . ' | ' . $m['spec'];
+    //     }
+    // }
 
     //// 大ジャンル一覧を取得 ////
     // $gModel         = new Genre();
     // $largeGenreList = $gModel->getLargeList(Genre::HIDE_CATALOG);
-    
+
     //// ページャ ////
     Zend_Paginator::setDefaultScrollingStyle('Sliding');
     $pgn = Zend_Paginator::factory(intval($result['count']));
     $pgn->setCurrentPageNumber($q['page'])
         ->setItemCountPerPage($q['limit'])
         ->setPageRange(15);
-    
+
     // カレントURL、ページタイトル生成
     $cUri = array();
     $pageTitle = array();
@@ -57,29 +57,29 @@ try {
         $pageTitle[] = $val['label'];
         $cUri[] = $val['key'] . '[]=' . $val['id'];
     }
-    
+
     if ((B::f(Req::query('k')))) {
         $pageTitle[] = B::f(Req::query('k'));
         $cUri[] = 'k=' . B::f(Req::query('k'));
     }
-    
+
     if (empty($result['machineList'])) {
         $_smarty->assign('message', 'この条件の機械は現在登録されていません');
     }
-    
+
     $cUri = preg_replace("/(\&?page=[0-9]+)/", '', $_SERVER["REQUEST_URI"]);
     if (!preg_match("/\?/", $cUri)) { $cUri.= '?'; }
-    
+
     //// リファラ処理 ////
     // デフォルト
     $backUri   = '';
     $backTitle = '';
     $pankuzu = array();
-    
+
     // ジャンルと会社で検索した時のみ
     if (!empty($q['large_genre_id']) && !empty($q['company_id']) && !empty($_SERVER['HTTP_REFERER'])) {
         $ref = urldecode($_SERVER['HTTP_REFERER']);
-        
+
         if (strstr($ref, 'search.php')) {
             $backUri   = $ref;
             $backTitle = '検索結果';
@@ -102,15 +102,15 @@ try {
             $pankuzu = array($ref => 'マイリスト(会社)');
         }
     }
-    
+
     // 大ジャンルのときのNC装置表示
     $isNc = false;
     $isNcArray = array(1,2,3,4,5,6,7,8);
-    
+
     if (!empty($q['large_genre_id'])) {
         $isNc = array_intersect($isNcArray, (array)$q['large_genre_id']) ? true : false;
     }
-    
+
     // 小ジャンルのときのパンくず表示取得
     if (!empty($q['genre_id'])) {
         $gModel = new Genre();
@@ -141,7 +141,7 @@ try {
 
     // 現在既に登録されている入札会商品情報を取得
     $bidMachineIds = $bmModel->getMachineIds();
-    
+
     //// 表示変数アサイン ////
     $template = 'search.tpl';
     // $title    = implode(' /', $pageTitle) . ' :: 検索結果';
@@ -154,23 +154,23 @@ try {
         $template = 'system/test/youtube_test_01.tpl';
     }
     $_smarty->assign(array(
-        'pageTitle'   => $title,
-        'keywords'    => $keywords,
-        'pankuzu'     => $pankuzu,
-        'cUri'        => $cUri,
-        'genreList'   => $result['genreList'],
-        'makerList'   => $result['makerList'],
-        'machineList' => $result['machineList'],
-        'companyList' => $result['companyList'],
-        'addr1List'   => $result['addr1List'],
+        'pageTitle'    => $title,
+        'keywords'     => $keywords,
+        'pankuzu'      => $pankuzu,
+        'cUri'         => $cUri,
+        'genreList'    => $result['genreList'],
+        'makerList'    => $result['makerList'],
+        'machineList'  => $result['machineList'],
+        'companyList'  => $result['companyList'],
+        'addr1List'    => $result['addr1List'],
         'capacityList' => $result['capacityList'],
-        'queryDetail' => $result['queryDetail'],
+        'queryDetail'  => $result['queryDetail'],
         // 'largeGenreList' => $largeGenreList,
         'largeGenreId' => Req::query('l', array()),
         'genreId'      => Req::query('g', array()),
         'isNc'         => $isNc,
-        'k'           => B::f(Req::query('k')),
-        'pager'       => $pgn->getPages(),
+        'k'            => B::f(Req::query('k')),
+        'pager'        => $pgn->getPages(),
         // 'os'          => $os,
 
         'bidOpenList'   => $bidOpenList,

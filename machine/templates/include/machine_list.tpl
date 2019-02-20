@@ -2,7 +2,7 @@
 <script type="text/javascript" src="{$_conf.libjs_uri}/jquery.jqzoom-core.js"></script>
 <link href="{$_conf.libjs_uri}/css/jquery.jqzoom.css" rel="stylesheet" type="text/css" />
 
-<script src="http://maps.google.com/maps/api/js?sensor=false&language=ja" type="text/javascript"></script>
+<script src="https://maps.google.com/maps/api/js?sensor=false&language=ja" type="text/javascript"></script>
 {literal}
 <script type="text/javascript">
 $(function() {
@@ -99,9 +99,9 @@ $(function() {
               <div class='name'>{$m.name}</div>
               {if !empty($m.top_img)}
                 <img class="top_image hover lazy" src='imgs/blank.png'
-                  data-original="media/machine/{$m.top_img}"
+                  data-original="{$_conf.media_dir}machine/{$m.top_img}"
                   alt="{$m.name} {$m.maker} {$m.model}" title="{$m.name} {$m.maker} {$m.model}" />
-                <noscript><img src="media/machine/{$m.top_img}" alt="" /></noscript>
+                <noscript><img src="{$_conf.media_dir}machine/{$m.top_img}" alt="" /></noscript>
               {else}
                 <img class='top_image noimage' src='./imgs/noimage.png'
                   alt="{$m.name} {$m.maker} {$m.model}" title="{$m.name} {$m.maker} {$m.model}" />
@@ -299,8 +299,8 @@ $(function() {
           <li>
             <a class='zoom' href='/machine_detail.php?m={$m.id}'>
               {if !empty($m.top_img)}
-                <img class="top_image lazy" src='imgs/blank.png' data-original="media/machine/{$m.top_img}" alt="" />
-                <noscript><img src="media/machine/{$m.top_img}" alt="" /></noscript>
+                <img class="top_image lazy" src='imgs/blank.png' data-original="{$_conf.media_dir}machine/{$m.top_img}" alt="" />
+                <noscript><img src="{$_conf.media_dir}machine/{$m.top_img}" alt="" /></noscript>
               {else}
                 <img class='top_image noimage' src='./imgs/noimage.png' />
               {/if}
@@ -311,8 +311,8 @@ $(function() {
             {foreach $m.imgs as $i}
               <li>
                 <a class='zoom' href='/machine_detail.php?m={$m.id}'>
-                  <img class="lazy" src='imgs/blank.png' data-original="media/machine/{$i}" alt="" />
-                  <noscript><img src="media/machine/{$i}" alt="" /></noscript>
+                  <img class="lazy" src='imgs/blank.png' data-original="{$_conf.media_dir}machine/{$i}" alt="" />
+                  <noscript><img src="{$_conf.media_dir}machine/{$i}" alt="" /></noscript>
                 </a>
               </li>
             {/foreach}
@@ -370,8 +370,8 @@ $(function() {
       <div class='company_info'>
         <a href='/machine_detail.php?m={$m.id}'>
           {if !empty($m.top_img)}
-            <img class="top_image lazy" src='imgs/blank.png' data-original="media/machine/{$m.top_img}" alt="" />
-            <noscript><img src="media/machine/{$m.top_img}" alt="" /></noscript>
+            <img class="top_image lazy" src='imgs/blank.png' data-original="{$_conf.media_dir}machine/{$m.top_img}" alt="" />
+            <noscript><img src="{$_conf.media_dir}machine/{$m.top_img}" alt="" /></noscript>
           {else}
             <img class='top_image noimage' src='./imgs/noimage.png' />
           {/if}
@@ -428,7 +428,7 @@ $(function() {
           <td class='img'>
             <a href='/company_detail.php?c={$c.id}'>
               {if isset($c.top_img)}
-                <img class="top_image" src="media/company/{$c.top_img}"
+                <img class="top_image" src="{$_conf.media_dir}company/{$c.top_img}"
                   alt="{$c.company}" title="{$c.company}" /><br />
               {/if}
               会社情報を見る

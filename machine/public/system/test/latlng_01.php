@@ -21,7 +21,7 @@ try {
         
         
         $address = $c['addr1'] . $c['addr2'] . $c['addr3'];
-        $req = 'http://maps.google.com/maps/api/geocode/xml';
+        $req = 'https://maps.google.com/maps/api/geocode/xml';
         $req .= '?address='.urlencode($address);
         $req .= '&sensor=false';
         

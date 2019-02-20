@@ -165,17 +165,18 @@ class Machine extends Zend_Db_Table_Abstract
         $result = $this->_db->fetchAll($sql);
 
         // JSON展開
-        $result = B::decodeTableJson($result, array_merge($this->_jsonColumn, array('spec_labels')));
+        // $result = B::decodeTableJson($result, array_merge($this->_jsonColumn, array('spec_labels')));
+        $result = B::decodeTableJson($result, array_merge(array('pdfs')));
 
-        // その他能力を仕様と結合する
-        if (!empty($q['is_ospec'])) {
-            foreach($result as $key => $m) {
-                $oSpec = $this->makerOthers($m['spec_labels'], $m['others']);
-                if (!empty($oSpec)) {
-                    $result[$key]['spec'] = $oSpec . ' | ' . $m['spec'];
-                }
-            }
-        }
+        // // その他能力を仕様と結合する
+        // if (!empty($q['is_ospec'])) {
+        //     foreach($result as $key => $m) {
+        //         $oSpec = $this->makerOthers($m['spec_labels'], $m['others']);
+        //         if (!empty($oSpec)) {
+        //             $result[$key]['spec'] = $oSpec . ' | ' . $m['spec'];
+        //         }
+        //     }
+        // }
 
         return $result;
     }
@@ -504,7 +505,7 @@ class Machine extends Zend_Db_Table_Abstract
           LEFT JOIN view_companies c
             ON mc.company_id = c.id
         ORDER BY
-          c.company_kana;";
+          c.company_kana collate \"ja_JP.utf8\" asc, c.company, c.id;";
         $result = $this->_db->fetchAll($sql);
 
         // JSON展開
@@ -801,7 +802,6 @@ class Machine extends Zend_Db_Table_Abstract
             $uGList[strtoupper($g['genre'])] = $g['id'];
         }
 
-
         //// 会社情報を取得 ////
         $cModel  = new Company();
         $company = $cModel->get($companyId);
@@ -830,6 +830,7 @@ class Machine extends Zend_Db_Table_Abstract
 
         //// ファイル処理クラスの初期化 ////
         $fModel = new File();
+        $_conf = Zend_Registry::get('_conf');
 
         foreach ($data as $m) {
             $usedName = B::f($m['name']);
@@ -869,8 +870,12 @@ class Machine extends Zend_Db_Table_Abstract
 
                     if ($m['top_img'] != $img && !in_array($img, $m['imgs'])) {
                         // ファイルの格納パス
-                        $realPath = dirname(__FILE__) . '/../machine/public/media/machine/';
-                        $filePath = $realPath . $img;
+                        $realPath = dirname(__FILE__) . '/../machine/public/media/machine';
+                        $tempPath = dirname(__FILE__) . '/../machine/public/media/tmp';
+                        $filePath = $realPath . '/' . $img;
+
+                        // @ba-ta 20181129 ファイル格納パス確認
+                        if (!@file_exists($tempPath)) { mkdir($tempPath, '0777'); }
 
                         // メカニー : httpヘッダからファイルサイズを取得
                         // if ($headFlag) { $headers = @get_headers($i, true); }
@@ -878,12 +883,29 @@ class Machine extends Zend_Db_Table_Abstract
                         // ファイル未取得の場合は、同期元からファイルをダウンロード
                         // if (!file_exists($filePath) ||
                         //     ($headFlag && filesize($filePath) != $headers["Content-Length"])) {
-                        if (!file_exists($filePath)) {
+                        // if (!file_exists($filePath)) {
+                        //     if ($fileData = @file_get_contents($i)) {
+                        //         file_put_contents($filePath, $fileData);
+                        //
+                        //         // サムネイル生成
+                        //         $fModel->makeThumbnail($realPath, $img);
+                        //     } else { continue; }
+                        // }
+
+                        // @ba-ta 20181110 存在確認
+                        // $response = @file_get_contents($_conf->media_dir . "machine/" . $img, NULL, NULL, 0, 1);
+                        $headers = @get_headers($_conf->media_dir . "machine/" . $img);
+
+                        // if ($response === false) {
+                        // if (empty($response)) {
+                        if (strpos($headers[0], 'OK') == false) {
                             if ($fileData = @file_get_contents($i)) {
-                                file_put_contents($filePath, $fileData);
+                                file_put_contents(($tempPath . '/' . $img), $fileData);
 
                                 // サムネイル生成
-                                $fModel->makeThumbnail($realPath, $img);
+                                $fModel->makeThumbnail($tempPath, $realPath, $img);
+
+                                rename($tempPath . '/' . $img, $realPath . '/'. $img);
                             } else { continue; }
                         }
 
@@ -906,7 +928,12 @@ class Machine extends Zend_Db_Table_Abstract
                         $filePath = dirname(__FILE__) . '/../machine/public/media/machine/' . $pdf;
 
                         // ファイル未取得の場合は、同期元からファイルをダウンロード
-                        if (!file_exists($filePath)) {
+                        // $response = @file_get_contents($_conf->media_dir . "machine/" . $pdf, NULL, NULL, 0, 1);
+                        $headers = @get_headers($_conf->media_dir . "machine/" . $pdf);
+
+                        // if (empty($response)) {
+                        if (strpos($headers[0], 'OK') == false) {
+
                             if ($fileData = @file_get_contents($i)) {
                                 file_put_contents($filePath, $fileData);
                             } else { continue; }
@@ -917,7 +944,6 @@ class Machine extends Zend_Db_Table_Abstract
                     }
                 }
             }
-
 
             //// 在庫場所 ////
             $location = B::f($m['location']);

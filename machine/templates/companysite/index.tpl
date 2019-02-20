@@ -19,33 +19,33 @@
 
 {if !empty($site.company_configs.top_img)}
   <div class="top_img_area">
-    <img class="toppage_img" src='/media/companysite/{$site.company_configs.top_img}' />
+    <img class="toppage_img" src='{$_conf.media_dir}companysite/{$site.company_configs.top_img}' />
     <div class="top_img_contents_area">
     {if !empty($site.company_configs.top_img_title)}
       <p class="top_img_title">{$site.company_configs.top_img_title}</p>
     {/if}
-    
+
     {if !empty($site.company_configs.top_img_contents)}
-      <p class="top_img_contents">{$site.company_configs.top_img_contents|escape|nl2br nofilter}</p>
+      <p class="top_img_contents">{$site.company_configs.top_img_contents|escape|nl2br|auto_link nofilter}</p>
     {/if}
     </div>
   </div>
 {/if}
-  
+
 <div class="left_area">
   {if !empty($site.company_configs.top_summary_title)}
     <p class="pr">{$site.company_configs.top_summary_title}</p>
   {/if}
-  
+
   {if !empty($site.company_configs.top_summary_contents)}
-    <p class="comment">{$site.company_configs.top_summary_contents|escape|nl2br nofilter}</p>
+    <p class="comment">{$site.company_configs.top_summary_contents|escape|nl2br|auto_link nofilter}</p>
   {/if}
-  
+
   <a class="button" href="machine_list.php">中古機械 在庫一覧</a>
-  
+
   <div class="top_zenkiren">
     <div class="top_zenkiren_inner">
-    
+
       <a class="top_zenkiren_link" href="http://www.zenkiren.org/" target="_blank">
         <img class="toppage_zenkiren" src="./imgs/logo_zenkiren.png" />
       </a>
@@ -61,7 +61,7 @@
 <div class="right_area">
   <h2>{$site.company}について</h2>
   {if !empty($company.top_img)}
-    <img src='{$_conf.media_dir}/company/{$company.top_img}'
+    <img src='{$_conf.media_dir}company/{$company.top_img}'
       alt="中古機械 {$company.company} {$company.addr1} {$company.addr2} {$company.addr3}"class="top_img" />
   {/if}
   <div>
@@ -72,7 +72,7 @@
     FAX : {$company.contact_fax}<br />
     古物免許 {$company.infos.license}
   </div>
-  
+
   <div style="text-align:center;margin: 16px 0;">
     <a class="button" href="company.php">会社情報</a>
     <a class="button" href="map.php">アクセスMAP</a>

@@ -1,7 +1,7 @@
 <?php
 /**
  * 掲載会社情報テーブルクラス
- *  
+ *
  * @access  public
  * @author  川端洋平
  * @version 0.2.0
@@ -15,18 +15,18 @@ class Companies extends MyTable
     //// 共通設定 ////
     protected $_jname             = '会社情報';
     protected $_view              = 'view_companies';
-    
+
     // 内容がJSONのカラム
     protected $_jsonColumns       = array('infos', 'imgs', 'offices', 'bid_entries');
     protected $_memberJsonColumns = array('infos', 'imgs', 'offices');
 
     // 検索SQLのORDER BY句
     protected $_orderBys          = array(
-        'group'   => ' t.root_id, t.group_id, t.company_kana, t.id ',
+        'group'   => ' t.root_id, t.group_id, t.company_kana collate "ja_JP.utf8" asc, t.id ',
         'region'  => ' t.region_order_no, t.state_order_no, t.company_kana, t.id ',
-        'company' => ' t.company_kana, t.company, t.id ',
+        'company' => ' t.company_kana collate "ja_JP.utf8" asc, t.company, t.id ',
     );
-    
+
     // フィルタ条件
     protected $_filters           = array('rules' => array(
         '会社名'               => array('fields' => 'company',           'NotEmpty'),
@@ -42,7 +42,8 @@ class Companies extends MyTable
 
         '代表TEL'              => array('fields' => 'tel',               'NotEmpty'),
         '代表FAX'              => array('fields' => 'fax',               'NotEmpty'),
-        '代表メールアドレス'   => array('fields' => 'mail',              'EmailAddress'),
+        // '代表メールアドレス'   => array('fields' => 'mail',              'EmailAddress'),
+        '代表メールアドレス'   => array('fields' => 'mail'),
         'ウェブサイトアドレス' => array('fields' => 'website',           array('Callback', 'Zend_Uri::check')),
         '団体ID'               => array('fields' => 'group_id',          'Digits'),
         'ランク'               => array('fields' => 'rank',              'Digits'),
@@ -50,12 +51,13 @@ class Companies extends MyTable
     ), 'filters' => array(
          'rank'                => array(array('Callback', 'Companies::formatRank')),
     ));
-    
-    protected $_memberFilters     = array('rules' => array(        
+
+    protected $_memberFilters     = array('rules' => array(
         '担当者'                     => array('fields' => 'officer',      'NotEmpty'),
         'お問い合わせTEL'            => array('fields' => 'contact_tel',  'NotEmpty'),
         'お問い合わせFAX'            => array('fields' => 'contact_fax',  'NotEmpty'),
-        'お問い合わせメールアドレス' => array('fields' => 'contact_mail', 'EmailAddress'),
+        // 'お問い合わせメールアドレス' => array('fields' => 'contact_mail', 'EmailAddress'),
+        'お問い合わせメールアドレス' => array('fields' => 'contact_mail'),
         'その他情報'                 => array('fields' => 'infos',),
         '営業所情報'                 => array('fields' => 'offices',),
         'TOP画像'                    => array('fields' => 'top_img',),
@@ -83,7 +85,7 @@ class Companies extends MyTable
      *
      * @access protected
      * @param  array   $q 検索クエリ
-     * @param  boolean $check 検索条件チェック     
+     * @param  boolean $check 検索条件チェック
      * @return string  生成したwhere句
      */
     protected function _makeWhereSqlArray($q, $check=false) {
@@ -92,18 +94,18 @@ class Companies extends MyTable
         if (!empty($q['id'])) {
             $whereArr[] = $this->_db->quoteInto(' t.id IN (?) ', $q['id']);
         }
-        
+
         if (!empty($q['group_id'])) {
             $whereArr[] = $this->_db->quoteInto(' t.group_id IN (?) ', $q['group_id']);
         }
-        
+
         if (!empty($q['root_id'])) {
             $whereArr[] = $this->_db->quoteInto(' t.root_id IN (?) ', $q['root_id']);
         }
-        
+
         if (!empty($q['notnull'])) {
             $whereArr[] = ' t.count IS NOT NULL ';
-            $whereArr[] = ' t.rank >= 200 ';            
+            $whereArr[] = ' t.rank >= 200 ';
         }
 
         if (!empty($q['rank'])) {
@@ -139,7 +141,7 @@ class Companies extends MyTable
         return parent::_makeOrderBySql(array('sort' => $sort));
     }
 
-    
+
     /**
      * 所属団体から会社情報件数(メール送信用)を取得
      *
@@ -154,13 +156,13 @@ class Companies extends MyTable
             $whereSql.= $this->_db->quoteInto(' c.group_id IN ( SELECT g2.id FROM groups g2 WHERE g2.parent_id = ? ', $groupId);
             $whereSql.= $this->_db->quoteInto(' OR c.group_id = ? ) AND ', $groupId);
         }
-        
+
         $sql = "SELECT count(c.*) FROM view_companies c WHERE {$whereSql} (c.mail IS NOT NULL AND c.mail <> '');";
         $result = $this->_db->fetchOne($sql);
 
         return $result;
     }
-    
+
     /**
      * 所属団体から会社情報一覧数(メール送信用)を取得
      *
@@ -175,49 +177,49 @@ class Companies extends MyTable
             $whereSql.= $this->_db->quoteInto(' c.group_id IN ( SELECT g2.id FROM groups g2 WHERE g2.parent_id = ? ', $groupId);
             $whereSql.= $this->_db->quoteInto(' OR c.group_id = ? ) AND ', $groupId);
         }
-        
+
         $sql = "SELECT c.company, c.mail FROM companies c WHERE {$whereSql} (c.mail IS NOT NULL AND c.mail <> '');";
         $result = $this->_db->fetchAll($sql);
 
         return $result;
     }
-    
+
     /**
      * 会社情報をセット(会員ページ用)
-     * 
+     *
      * @access public
-     * @param  intetger $companyId 会社ID      
+     * @param  intetger $companyId 会社ID
      * @param  array    $data      入力データ
      * @return $this
-     */                    
+     */
     public function memberSet($companyId, $data)
     {
         if (empty($id)) { throw new Exception('会社IDがありません'); }
-        
+
         //// フィルタリング・バリデーション・JSONエンコード(会員ページ用の保存項目)  ////
         $data = MyFilter::filter($data, $this->_memberFilters, $this->_jsonColumns);
-        
-        // 会員ページ用なので変更のみ、新規登録は行えない        
+
+        // 会員ページ用なので変更のみ、新規登録は行えない
         $data['changed_at'] = new Zend_Db_Expr('current_timestamp');
         $result = $this->update($data, $this->_db->quoteInto('id = ?', $companyId));
         if (empty($result)) { throw new Exception('会社情報が保存できませんでした'); }
-        
+
         return $this;
     }
-    
+
     /**
      * 会社情報をセット(管理者ページ用)
-     * 
+     *
      * @access public
-     * @param  integer $companyId 会社ID 
+     * @param  integer $companyId 会社ID
      * @param  array   $data      入力データ
      * @return $this
-     */                    
+     */
     public function set($companyId = null, $data)
     {
         //// フィルタリング・バリデーション ////
         $data = MyFilter::filter($data, $this->_filters);
-        
+
         if (empty($companyId)) {
             // 新規処理
             // デフォルトとして問い合わせ情報に代表者のものをコピー
@@ -230,48 +232,48 @@ class Companies extends MyTable
             $data['changed_at'] = new Zend_Db_Expr('current_timestamp');
             $res = $this->update($data, $this->_db->quoteInto('id = ?', $companyId));
         }
-        
+
         if (empty($res)) { throw new Exception('会社情報が保存できませんでした'); }
-        
+
         return $this;
     }
-    
+
     /**
      * 会社情報(Web入札会商品出品登録)をセット
-     * 
+     *
      * @access public
-     * @param  integer $companyId 会社ID 
+     * @param  integer $companyId 会社ID
      * @param  array   $data      入力データ
      * @return $this
-     */                    
+     */
     public function setBidEntries($companyId, $data)
     {
         if (empty($companyId)) { throw new Exception('会社IDがありません'); }
-        
+
         // JSONデータ保管
         $temp['bid_entries'] = json_encode($data['bid_entries'], JSON_UNESCAPED_UNICODE);
         $temp['changed_at']  = new Zend_Db_Expr('current_timestamp');
-        
+
         $result = $this->update($temp, $this->_db->quoteInto('id = ?', $companyId));
-        
+
         if (empty($result)) { throw new Exception('会社情報(Web入札会商品出品登録)が保存できませんでした'); }
-        
+
         return $this;
     }
 
     /**
      * 会社情報のランクをチェック
-     * 
+     *
      * @access public
      * @param  mixed   $data チェックするランク情報
      * @param  mixed   $rank 比較対象のランク情報
      * @return boolean チェック結果
-     */                    
+     */
     static public function checkRank($data, $rank)
     {
         // 20141231までは、チェック処理をしない
         // return true;
-        
+
         $data = self::formatRank($data);
         $rank = self::formatRank($rank);
 
@@ -280,11 +282,11 @@ class Companies extends MyTable
 
     /**
      * ランクの表示文字列を取得
-     * 
+     *
      * @access public
      * @param  mixed  $data 表示文字列を取得するランク情報
      * @return string 表示文字列
-     */                    
+     */
     static public function getRankLabel($data)
     {
         $data = self::formatRank($data);
@@ -293,11 +295,11 @@ class Companies extends MyTable
 
     /**
      * 会社情報のランク情報を整形(数値だった場合は下の一番近いものに整形、)
-     * 
+     *
      * @access public
      * @param  mixed   $data 整形するランク情報
      * @return integer 整形されたランク数値
-     */                    
+     */
     static public function formatRank($data)
     {
         $result = 0; // ランク数値のデフォルトは0(C会員)
@@ -317,7 +319,7 @@ class Companies extends MyTable
         } else if ($temp = array_search($data, self::$_rankRatio)) {
             // ランク情報が文字列で渡された場合、配列を検索
             $result = $temp;
-        } 
+        }
 
         return $result;
     }

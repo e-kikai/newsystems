@@ -46,7 +46,7 @@
   {/foreach}
 </table>
 <div class="right">
-  <a class="form_button" href="./media/pdf/2018schedule.pdf" target="_blank"><img src="./imgs/2014schedule.png" alt="2018年Web入札会日程(スケジュール)"></a>
+  <a class="form_button" href="{$_conf.media_dir}pdf/2018schedule.pdf" target="_blank"><img src="./imgs/2014schedule.png" alt="2018年Web入札会日程(スケジュール)"></a>
 </div>
 
 {*

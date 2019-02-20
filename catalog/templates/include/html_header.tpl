@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {**
- * 電子カタログ：共通HTMLヘッダ部分 
- * 
+ * 電子カタログ：共通HTMLヘッダ部分
+ *
  * @access public
  * @author 川端洋平
  * @version 0.0.2
@@ -16,10 +16,10 @@
 
   <meta name="description" content="{if isset($pageDescription)}{$pageDescription}{/if}" />
   <meta name="keywords" content="" />
-  <base href="{$_conf.site_uri}" /> 
-  
+  <base href="{$_conf.site_uri}" />
+
   <title>{if isset($pageTitle)}{$pageTitle} - {/if}{$_conf.site_name}</title>
-  
+
 {* for IE6 *}
 <!--[if lt IE 9]>
   <script src="{$_conf.libjs_uri}/IE/ie_speedup.js"></script>
@@ -41,7 +41,7 @@
 <script type="text/javascript" src="{$_conf.libjs_uri}/jquery.cookie.js"></script>
 <script type="text/javascript" src="{$_conf.libjs_uri}/scrolltopcontrol.js"></script>
 
-<script type="text/javascript" src="{$_conf.libjs_uri}/cjf.js"></script>
+<script type="text/javascript" src="{$_conf.libjs_uri}/cjf.js?201811231"></script>
 
 <script type="text/javascript" src="{$_conf.libjs_uri}/jquery-ui.js"></script>
 <link href="{$_conf.libjs_uri}/css/ui-lightness/jquery-ui.css" rel="stylesheet" type="text/css" />
@@ -60,6 +60,6 @@
 <script type="text/javascript" src="{$_conf.libjs_uri}/jquery.textresizer.js"></script>
 
 <script type="text/javascript" src="{$_conf.libjs_uri}/mb_convert_kana.js"></script>
-  
+
 {* Google Analytics *}
 <script type="text/javascript" src="{$_conf.site_uri}{$_conf.js_dir}/google_analytics.js"></script>

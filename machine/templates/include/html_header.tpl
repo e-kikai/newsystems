@@ -1,6 +1,6 @@
 {**
- * 共通HTMLヘッダ部分 
- * 
+ * 共通HTMLヘッダ部分
+ *
  * @access  public
  * @author  川端洋平
  * @version 0.0.4
@@ -19,15 +19,15 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Cache-Control" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  
-  {if !empty($pageDescription)}  
+
+  {if !empty($pageDescription)}
     <meta name="description" content="{$pageDescription}" />
   {/if}
-  
+
   <base href="{$_conf.site_uri}" />
   {*
   <title>{if !empty($pageTitle)}{$pageTitle} - {$_conf.site_name}{else}{$_conf.site_name} - 信頼と安心の中古機械情報{/if}
-  </title>  
+  </title>
   *}
   <title>
     {if !empty($pageTitle)}
@@ -79,8 +79,8 @@
 
 <script type="text/javascript" src="{$_conf.libjs_uri}/mb_convert_kana.js"></script>
 <script type="text/javascript" src="{$_conf.libjs_uri}/scrolltopcontrol.js"></script>
-<script type="text/javascript" src="{$_conf.libjs_uri}/cjf.js?20130701"></script>
-  
+<script type="text/javascript" src="{$_conf.libjs_uri}/cjf.js?201811231"></script>
+
 {* jquery UI *}
 <script type="text/javascript" src="{$_conf.libjs_uri}/jquery-ui.js"></script>
 <link href="{$_conf.libjs_uri}/css/ui-lightness/jquery-ui.css" rel="stylesheet" type="text/css" />
@@ -92,13 +92,13 @@
 <script type="text/javascript" src="{$_conf.libjs_uri}/jquery.ah-placeholder.js"></script>
 <script type="text/javascript" src="{$_conf.libjs_uri}/jquery.textresizer.js"></script>
 *}
-  
+
 {* StyleSeet *}
 <link href="{$_conf.libjs_uri}/css/html5reset.css" rel="stylesheet" type="text/css" />
 <link href="{$_conf.libjs_uri}/css/common.css?20130701" rel="stylesheet" type="text/css" />
 
 {* 印刷用CSS *}
-<link href="{$_conf.libjs_uri}/css/print.css" rel="stylesheet" type="text/css" media="print" />
+<link href="{$_conf.libjs_uri}/css/print.css?20180717" rel="stylesheet" type="text/css" media="print" />
 
 {*
 <link href="{$_conf.libjs_uri}/css/cjf.css" rel="stylesheet" type="text/css" />
@@ -121,4 +121,3 @@
 {*
 <script src="//cdn.optimizely.com/js/2382360201.js"></script>
 *}
-

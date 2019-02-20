@@ -12,11 +12,11 @@ $(function() {
         $(this).attr('href').match(/#([a-z_]+)-([a-z]+)/);
         var order = RegExp.$1;
         var dir   = RegExp.$2;
-        
+
         $('table.catalogs .catalog').sort( function(a, b) {
             var da = $(a).find('.' + order).text();
             var db = $(b).find('.' + order).text();
-            
+
             if (da == db)     { return $(a).find('.index').text() > $(b).find('.index').text() ? 1 : -1; }
             if (da == '')     { return 1; }
             if (db == '')     { return -1; }
@@ -25,13 +25,13 @@ $(function() {
         }).each(function() {
             $('table.catalogs').append($(this));
         });
-        
+
         // Lazyload用スクロール
         $(window).triggerHandler('scroll');
-    
+
         return false;
     });
-    
+
     //// ドラッグアンドドロップでの保存(for Chrome) ////
     $('td.img a.catalog_image, td.img a.button')
         .attr('draggable','true')
@@ -45,7 +45,7 @@ $(function() {
                 e.dataTransfer.setData("DownloadURL", data);
             }, false);
         });
-    
+
     $('.find_area button.req_open').click(function() {
         $('.req_area').dialog({
             title: 'カタログのリクエスト',
@@ -65,22 +65,22 @@ $(function() {
                         'model': $.trim($('input.req_model').val()),
                         'comment': $.trim($('textarea.req_comment').val()),
                     }
-            
+
                     //// 入力のチェック ////
                     var e = '';
                     if (data.maker == '') { e += "メーカーが入力されていません\n"; }
                     if (data.model == '') { e += "型式が入力されていません\n"; }
-            
+
                     //// エラー表示 ////
                     if (e != '') { alert(e); return false; }
-            
+
                     // 送信確認
                     if (!confirm('リクエストを送信します。よろしいですか。')) { return false; }
-                    
-                    
+
+
                     $('.req_submit').attr('disabled', 'disabled');
                     $('.req_submit .ui-button-text').text('リクエスト送信処理中、終了までそのままお待ち下さい');
-                    
+
                     $.post('/ajax/mail.php', {
                         'target': 'catalog',
                         'action': 'sendCatalogReq',
@@ -92,7 +92,7 @@ $(function() {
                             alert(res);
                             return false;
                         }
-                        
+
                         // リクエスト送信完了
                         alert(
                             "リクエスト送信が完了しました\n" +
@@ -101,7 +101,7 @@ $(function() {
                         $_self.dialog( "close" );
                         return false;
                     }, 'text');
-                    
+
                     return false;
                 }
             }
@@ -121,13 +121,13 @@ div.uid {
 .find_area {
   background: #D0FFB0;
   border: #006600 2px solid;
-  
+
   padding:  4px 8px;
   border-radius: 8px;
-  
+
   top: -60px;
   position: absolute;
-  
+
   left: 380px;
   width: 543px;
   height: 46px;
@@ -154,7 +154,7 @@ div.uid {
 
 .find_area button.req_open {
   position: absolute;
-  
+
   width: 160px;
   font-size: 15px;
   height: 37px;
@@ -243,7 +243,7 @@ div.req_area a {
       {/foreach}
     </div>
   {/if}
-  
+
   {*** ジャンル絞り込み ***}
   {if !empty($genreList)}
     <div class='genre_area'>
@@ -284,7 +284,7 @@ div.req_area a {
         *}
         <div class="catalog">
           <a href='catalog_pdf.php?id={$c.id}' target='_blank'  class='catalog_image' data-name="{$c.maker}_{$c.id}">
-            <img class="lazy" src='imgs/blank.png' data-original="/media/catalog_thumb/{$c.thumbnail}" alt='PDF' />
+            <img class="lazy" src='imgs/blank.png' data-original="{$_conf.media_dir}catalog_thumb/{$c.thumbnail}" alt='PDF' />
             <noscript><img src="{$c.thumbnail}" alt='PDF' /></noscript>
           </a>
           <div class='hidden genre_id'>{$c.genre_ids}</div>
@@ -315,7 +315,7 @@ div.req_area a {
       <th class='button'></th>
     </tr>
   </thead>
-  
+
   {foreach $catalogList as $c}
     <tbody class="catalog">
       <tr class="separator"><td colspan="5"></td></tr>
@@ -323,11 +323,11 @@ div.req_area a {
         <td class='img'>
           {if $c.file && $c.thumbnail}
             <a href='catalog_pdf.php?id={$c.id}' target='_blank' class='catalog_image' data-name="{$c.maker}_{$c.id}">
-              <img class="lazy" src='/imgs/blank.png' data-original="/media/catalog_thumb/{$c.thumbnail}" alt='PDF' />
-              <noscript><img src="/media/catalog_thumb/{$c.thumbnail}" alt='PDF' /></noscript>
+              <img class="lazy" src='/imgs/blank.png' data-original="{$_conf.media_dir}catalog_thumb/{$c.thumbnail}" alt='PDF' />
+              <noscript><img src="{$_conf.media_dir}catalog_thumb/{$c.thumbnail}" alt='PDF' /></noscript>
             </a>
             <a href='catalog_pdf.php?id={$c.id}&dl=1' class='button' data-name="{$c.maker}_{$c.id}">Download</a>
-            
+
             {*** test ***}
             {*
             {if preg_match('/^(213[5-9]|214[01]|222[2-9]|2230)/', $c['uid']) }
@@ -337,7 +337,7 @@ div.req_area a {
               <a href='catalog_pdf.php?id={$c.id}&s=2' target='_blank'>印刷用</a>
             {/if}
             *}
-                                           
+
           {/if}
         </td>
         <td class='genre'>

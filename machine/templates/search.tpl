@@ -12,11 +12,13 @@
 " />
 
 <!-- Google Maps APL ver 3 -->
-<script src="http://maps.google.com/maps/api/js?sensor=false&language=ja" type="text/javascript"></script>
+{*
+<script src="https://maps.google.com/maps/api/js?sensor=false&language=ja" type="text/javascript"></script>
+*}
 
 <script type="text/javascript" src="{$_conf.libjs_uri}/jsrender.js"></script>
 
-<script type="text/javascript" src="{$_conf.site_uri}{$_conf.js_dir}search.js?20170323"></script>
+<script type="text/javascript" src="{$_conf.site_uri}{$_conf.js_dir}search.js?20181109"></script>
 <script type="text/javascript" src="{$_conf.site_uri}{$_conf.js_dir}mylist_handler.js"></script>
 <script type="text/javascript" src="{$_conf.site_uri}{$_conf.js_dir}ekikaiMylist.js"></script>
 <link href="{$_conf.site_uri}{$_conf.css_dir}machines.css" rel="stylesheet" type="text/css" />
@@ -183,10 +185,10 @@ table.machines button.mylist {
               <div class='name'>{$m.name}</div>
               {if !empty($m.top_img)}
                 <img class="top_image hover lazy" src='imgs/blank.png'
-                  data-original="media/machine/thumb_{$m.top_img}"
-                  data-source="media/machine/{$m.top_img}"
+                  data-original="{$_conf.media_dir}machine/thumb_{$m.top_img}"
+                  data-source="{$_conf.media_dir}machine/{$m.top_img}"
                   alt="中古{$m.name} {$m.maker} {$m.model}" title="{$m.name} {$m.maker} {$m.model}" />
-                <noscript><img src="media/machine/thumb_{$m.top_img}" alt="" /></noscript>
+                <noscript><img src="{$_conf.media_dir}machine/thumb_{$m.top_img}" alt="" /></noscript>
               {else}
                 <img class='top_image noimage' src='./imgs/noimage.png'
                   alt="中古{$m.name} {$m.maker} {$m.model}" title="{$m.name} {$m.maker} {$m.model}" />
@@ -236,10 +238,10 @@ table.machines button.mylist {
             <a href='/machine_detail.php?m={$m.id}' target="_blank">
               {if !empty($m.top_img)}
                 <img class="top_image hover lazy" src='imgs/blank.png'
-                  data-original="media/machine/thumb_{$m.top_img}"
-                  data-source="media/machine/{$m.top_img}"
+                  data-original="{$_conf.media_dir}machine/thumb_{$m.top_img}"
+                  data-source="{$_conf.media_dir}machine/{$m.top_img}"
                   alt="中古{$m.name} {$m.maker} {$m.model}" />
-                <noscript><img src="media/machine/thumb_{$m.top_img}" alt="" /></noscript>
+                <noscript><img src="{$_conf.media_dir}machine/thumb_{$m.top_img}" alt="" /></noscript>
               {else}
                 <img class='top_image noimage' src='./imgs/noimage.png'
                   alt="中古{$m.name} {$m.maker} {$m.model}" />
@@ -266,8 +268,16 @@ table.machines button.mylist {
         <div>{$m.spec|mb_strimwidth :0:120:"…"}</div>
 
         {*** youtube ***}
+        {*
         {if !empty($m.youtube) && preg_match("/https?:\/\/youtu.be\/(.+)/", $m.youtube, $res)}
           <a href="javascript:void(0)" data-youtubeid="{$res[1]}" class="label movie">動画</a>
+        {/if}
+        *}
+
+        {if !empty($m.youtube) && preg_match_all('/([\w\-]{11})/', $m.youtube, $res)}
+          {foreach $res[0] as $y}
+            <a href="javascript:void(0)" data-youtubeid="{$y}" class="label movie" title="クリックで動画再生します">動画</a>
+          {/foreach}
         {/if}
 
         {*** 入札会 ***}

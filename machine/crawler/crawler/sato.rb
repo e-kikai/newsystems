@@ -46,6 +46,7 @@ class Sato < Base
 
         temp = {
           :uid   => uid,
+          :no    => (m%'td:nth(1)').text.f,
           :maker => (m%'td:nth(4)').text.f,
           :year  => (m%'td:nth(5)').text.f,
           :spec  => (m%'td:nth(6)').text.f,

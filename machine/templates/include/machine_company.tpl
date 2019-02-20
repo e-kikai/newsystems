@@ -34,7 +34,7 @@ $(function() {
 
   まとめて：
   <button class='contact_full_company' value='search'>問い合わせする</button>
-  
+
   {if Auth::check('mylist')}
     {if $smarty.server.PHP_SELF == '/mylist_company.php'}
       <button class='mylist_delete_company' value='mylist'>マイリストから削除</button>
@@ -48,21 +48,25 @@ $(function() {
   <table class='machines'>
     <tr>
       <th class='checkbox'></th>
-      
+
+      {*
       {if preg_match('/company_list.php/', $smarty.server.PHP_SELF) }
         <th class='img'></th>
       {/if}
+      *}
+      <th class='img'></th>
+
       <th class="company">会社名</th>
       <th class='group'>所属団体</th>
       <th class='address'>住所・TEL・FAX</th>
       <th class='count'>在庫件数</th>
       <th class='buttons' class='reset'></th>
     </tr>
-    
+
     {foreach $companyList as $c}
       <tr class='separator machine_{$c.id}'>
         {if !$c@index || B::get50onRow($c.company_kana) != B::get50onRow($companyList[$c@key-1].company_kana)}
-          <td colspan="6">
+          <td colspan="7">
             <h3 id="{B::get50onRow($c.company_kana)}">{B::get50onRow($c.company_kana)}</h3>
           </td>
         {/if}
@@ -72,20 +76,34 @@ $(function() {
         <td class='checkbox'>
           <input type='checkbox' class='machine_check' name='machine_check' value='{$c.id}' />
         </td>
-        
+
+        {*
         {if preg_match('/company_list.php/', $smarty.server.PHP_SELF) }
+          <td class='img'>
+            <a href='/company_detail.php?c={$c.id}'>
+              {if !empty($c.top_img)}
+                <img class="top_image hover lazy" src='imgs/blank.png'
+                  data-original="{$_conf.media_dir}company/{$c.top_img}" alt="{$c.company}" title="{$c.company}" />
+                  <noscript><img src="{$_conf.media_dir}machine/thumb_{$m.top_img}" alt="" /></noscript>
+                  <br />
+              {/if}
+              会社情報を見る
+            </a>
+          </td>
+        {/if}
+        *}
         <td class='img'>
           <a href='/company_detail.php?c={$c.id}'>
             {if !empty($c.top_img)}
               <img class="top_image hover lazy" src='imgs/blank.png'
-                data-original="media/company/{$c.top_img}" alt="{$c.company}" title="{$c.company}" />
-                <noscript><img src="media/machine/thumb_{$m.top_img}" alt="" /></noscript>
+                data-original="{$_conf.media_dir}company/{$c.top_img}" alt="{$c.company}" title="{$c.company}" />
+                <noscript><img src="{$_conf.media_dir}machine/thumb_{$m.top_img}" alt="" /></noscript>
                 <br />
             {/if}
             会社情報を見る
           </a>
         </td>
-        {/if}
+
         <td class="company"><a href='/company_detail.php?c={$c.id}'>{$c.company}</a></td>
         <td class="group">{$c.rootname}<br />{$c.groupname}</td>
         <td class="address">

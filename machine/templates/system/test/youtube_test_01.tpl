@@ -5,7 +5,7 @@
 <meta name="keywords" content="中古機械,used_machine,全機連,{$pageTitle}" />
 
 <!-- Google Maps APL ver 3 -->
-<script src="http://maps.google.com/maps/api/js?sensor=false&language=ja" type="text/javascript"></script>
+<script src="https://maps.google.com/maps/api/js?sensor=false&language=ja" type="text/javascript"></script>
 <script type="text/javascript" src="{$_conf.libjs_uri}/jsrender.js"></script>
 
 <script type="text/javascript" src="{$_conf.site_uri}{$_conf.js_dir}search.js"></script>

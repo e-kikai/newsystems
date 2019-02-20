@@ -20,9 +20,9 @@ function MachineList()
     var self = this;
 
     // ローカル変数の初期化
-    var mapDefault = new google.maps.LatLng(37.44446074079564, 137.2412109375);
-    var mapMarker   = 'http://maps.google.co.jp/mapfiles/ms/icons/red-dot.png';
-    var mapBMarker  = 'http://maps.google.co.jp/mapfiles/ms/icons/blue-dot.png';
+    // var mapDefault = new google.maps.LatLng(37.44446074079564, 137.2412109375);
+    // var mapMarker   = 'https://maps.google.co.jp/mapfiles/ms/icons/red-dot.png';
+    // var mapBMarker  = 'https://maps.google.co.jp/mapfiles/ms/icons/blue-dot.png';
 
     var pageLimit = 30;
     var page      = 1;
@@ -42,7 +42,7 @@ function MachineList()
     });
     var cUri = $('input.curi').val();
 
-    $.get('/js/tmpl/list_tmpl_02.tpl?bbb', function(data) {
+    $.get('/js/tmpl/list_tmpl_02.tpl?cccc', function(data) {
        $.templates({list_tmpl: data});
     });
 
@@ -54,9 +54,9 @@ function MachineList()
     //    $.templates({map_tmpl: data});
     // });
 
-    $.get('/js/tmpl/maplocation_area_tmpl.tpl', function(data) {
-       $.templates({maplocation_area_tmpl: data});
-    });
+    // $.get('/js/tmpl/maplocation_area_tmpl.tpl', function(data) {
+    //    $.templates({maplocation_area_tmpl: data});
+    // });
 
     //// 機械一覧の初期化 ///
     var search = location.search;

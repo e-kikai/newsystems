@@ -591,7 +591,7 @@ img.hoverimg {
   background: -o-linear-gradient(-90deg, #EAEAEA, #C5C5C5);
   background: linear-gradient(to bottom, #EAEAEA, #C5C5C5);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#EAEAEA', endColorstr='#C5C5C5');
-  
+
   font-size: 12px;
   font-weight: normal;
   width: 130px;
@@ -618,6 +618,7 @@ img.hoverimg {
 
 /* セパレータ */
 .machine_list tr.separator td {
+  border-width: 1px 0;
   border-color: #BBB #FFF;
   height: 4px;
   padding: 0;
@@ -1002,7 +1003,7 @@ button.genre_open {
 a.movie {
   display: block;
   float: left;
-  margin-right: 8px; 
+  margin-right: 8px;
 }
 
 /****/

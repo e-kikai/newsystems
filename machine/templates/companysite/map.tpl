@@ -26,8 +26,8 @@
 <h1>{$site.company}　 アクセスMAP</h1>
 
 <iframe class="gmap2" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-  src="http://maps.google.co.jp/maps?f=q&amp;q={$site.addr1} {$site.addr2} {$site.addr3}+({$site.company})&source=s_q&amp;hl=ja&amp;geocode=ie=UTF8&amp;t=m&amp;output=embed"></iframe><br />
- 
+  src="https://maps.google.co.jp/maps?f=q&amp;q={$site.addr1} {$site.addr2} {$site.addr3}+({$site.company})&source=s_q&amp;hl=ja&amp;geocode=ie=UTF8&amp;t=m&amp;output=embed"></iframe><br />
+
 
 <table class="mysite map">
   <tr>
@@ -43,7 +43,7 @@
       {if !empty($site.infos.access_train)}
         {$site.infos.access_train|escape|default:""|nl2br nofilter}<br />
       {/if}
-      <a href='http://www.google.co.jp/maps?daddr={$site.addr1|urlencode}{$site.addr2|urlencode}{$site.addr3|urlencode}+({$site.company})&hl=ja&ie=UTF8' target='_blank'>Google乗換案内</a>
+      <a href='https://www.google.co.jp/maps?daddr={$site.addr1|urlencode}{$site.addr2|urlencode}{$site.addr3|urlencode}+({$site.company})&hl=ja&ie=UTF8' target='_blank'>Google乗換案内</a>
     </td>
   </tr>
   </tr>
@@ -52,7 +52,7 @@
       {if !empty($site.infos.access_train)}
         {$site.infos.access_car|escape|default:""|nl2br nofilter}<br />
       {/if}
-      <a href='http://www.google.co.jp/maps?daddr={$site.addr1|urlencode}{$site.addr2|urlencode}{$site.addr3|urlencode}+({$site.company})&hl=ja&ie=UTF8&dirflg=d' target='_blank'>Googleルート案内</a>
+      <a href='https://www.google.co.jp/maps?daddr={$site.addr1|urlencode}{$site.addr2|urlencode}{$site.addr3|urlencode}+({$site.company})&hl=ja&ie=UTF8&dirflg=d' target='_blank'>Googleルート案内</a>
     </td>
   </tr>
 </table>
@@ -61,7 +61,7 @@
   {foreach $site.offices as $o}
     <h2 id="{$o.name}">{$o.name}</h2>
     <iframe class="gmap2" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-      src="http://maps.google.co.jp/maps?f=q&amp;q={$o.addr1} {$o.addr2} {$o.addr3}+({$o.name})&source=s_q&amp;hl=ja&amp;geocode=ie=UTF8&amp;t=m&amp;output=embed"></iframe><br />
+      src="https://maps.google.co.jp/maps?f=q&amp;q={$o.addr1} {$o.addr2} {$o.addr3}+({$o.name})&source=s_q&amp;hl=ja&amp;geocode=ie=UTF8&amp;t=m&amp;output=embed"></iframe><br />
 
     <table class="mysite map">
       <tr>
@@ -74,14 +74,14 @@
       </tr>
         <th>交通機関：最寄り駅</th>
         <td>
-          <a href='http://www.google.co.jp/maps?daddr={$o.addr1|urlencode}{$o.addr2|urlencode}{$o.addr3|urlencode}+({$o.name})&hl=ja&ie=UTF8' target='_blank'>Google乗換案内</a>
+          <a href='https://www.google.co.jp/maps?daddr={$o.addr1|urlencode}{$o.addr2|urlencode}{$o.addr3|urlencode}+({$o.name})&hl=ja&ie=UTF8' target='_blank'>Google乗換案内</a>
         </td>
         </td>
       </tr>
       </tr>
         <th>交通機関：車</th>
         <td>
-          <a href='http://www.google.co.jp/maps?daddr={$o.addr1|urlencode}{$o.addr2|urlencode}{$o.addr3|urlencode}+({$o.name})&hl=ja&ie=UTF8&dirflg=d' target='_blank'>Googleルート案内</a>        
+          <a href='https://www.google.co.jp/maps?daddr={$o.addr1|urlencode}{$o.addr2|urlencode}{$o.addr3|urlencode}+({$o.name})&hl=ja&ie=UTF8&dirflg=d' target='_blank'>Googleルート案内</a>
         </td>
       </tr>
     </table>

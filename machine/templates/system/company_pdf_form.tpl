@@ -30,8 +30,11 @@ $(function() {
 <table class="member form">
    <tr class="">
     <th>支払日<span class="required">(必須)</span></th>
+    {*
     <td><input type="text" name="date" value="平成{date('Y')-1988}年{date('n月t日')}" required /></td>
-  </tr> 
+    *}
+    <td><input type="text" name="date" value="{date('Y年n月t日')}" required /></td>
+  </tr>
 </table>
 <button type="submit" class="submit" value="">PDFをダウンロード</button>
 </form>

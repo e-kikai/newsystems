@@ -203,7 +203,7 @@ fieldset.search {
   <tr class="bid_machine_id_{$m.id}{if !empty($seri_result)} result{/if}">
     <td class="img">
       {if !empty($m.top_img)}
-        <img class="lazy" src='imgs/blank.png' data-original="http://www.zenkiren.net/media/machine/thumb_{$m.top_img}" alt='' />
+        <img class="lazy" src='imgs/blank.png' data-original="{$_conf.media_dir}machine/thumb_{$m.top_img}" alt='' />
         <noscript><img src="{$_conf.media_dir}machine/thumb_{$m.top_img}" alt='PDF' /></noscript>
       {/if}
     </td>

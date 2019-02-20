@@ -1,7 +1,7 @@
 <?php
 /**
  * 在庫機械設定ファイル
- * 
+ *
  * @access  public
  * @author  川端洋平
  * @version 0.0.4

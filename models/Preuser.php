@@ -1,7 +1,7 @@
 <?php
 /**
  * 仮登録ユーザモデルクラス
- * 
+ *
  * @access public
  * @author 川端洋平
  * @version 0.0.4
@@ -11,13 +11,14 @@ class Preuser extends Zend_Db_Table_Abstract
 {
     protected $_name = 'preusers';
     protected $_primary = 'preuser_id';
-    
+
     // フィルタ条件
     protected $_filter = array('rules' => array(
-        'メールアドレス' => array('fields' => 'mail', 'EmailAddress', 'NotEmpty', ),
+        // 'メールアドレス' => array('fields' => 'mail', 'EmailAddress', 'NotEmpty', ),
+        'メールアドレス' => array('fields' => 'mail', 'NotEmpty', ),
         '会社名、氏名' => array('fields' => 'user_name',),
     ));
-    
+
     /**
      * 仮ユーザ一覧を取得
      *
@@ -35,7 +36,7 @@ class Preuser extends Zend_Db_Table_Abstract
         } else {
             $where.= $this->_db->quoteInto(' AND c.company_id = ? ', $companyId);
         }
-        
+
         if (empty($month) || $month == 'now') {
             $where.= $this->_db->quoteInto(' AND CAST(c.created_at as DATE) >= ?', date('Y-m-d', strtotime('- 1month')));
             $where.= $this->_db->quoteInto(' AND CAST(c.created_at as DATE) <= ?', date('Y-m-d'));
@@ -45,26 +46,26 @@ class Preuser extends Zend_Db_Table_Abstract
             $where.= $this->_db->quoteInto(' AND CAST(c.created_at as DATE) >= ?', date('Y-m-01', strtotime($month)));
             $where.= $this->_db->quoteInto(' AND CAST(c.created_at as DATE) <= ?', date('Y-m-t', strtotime($month)));
         }
-        
+
         // メッセージ内容(タグ)から取得
         if (!empty($q['message'])) {
             $where.= $this->_db->quoteInto(' AND c.message LIKE ? ', '%' . $q['message'] . '%');
         }
         */
-        
+
         // SQLクエリを作成
         $sql = "SELECT u.* FROM preusers u WHERE u.deleted_at IS NULL ORDER BY u.created_at ASC, u.preuser_id ASC;";
         $result = $this->_db->fetchAll($sql);
         if (empty($result)) {
             throw new Exception('仮ユーザ情報を取得できませんでした');
         }
-        
+
         return $result;
     }
-    
+
     /**
      * 仮ユーザ保存
-     * 
+     *
      * @access public
      * @param array $data 内容
      * @param integer $id 仮ユーザID
@@ -74,7 +75,7 @@ class Preuser extends Zend_Db_Table_Abstract
     {
         // フィルタリング・バリデーション
         $data = MyFilter::filter($data, $this->_filter);
-        
+
         //// 仮ユーザの保存 ////
         if (empty($id)) {
             // 新規処理
@@ -86,14 +87,14 @@ class Preuser extends Zend_Db_Table_Abstract
                 $this->_db->quoteInto('preuser_id = ?', $id)
             ));
         }
-        
+
         if (empty($res)) {
             throw new Exception("ユーザ情報が保存できませんでした id:{$id}");
         }
-        
+
         return $this;
     }
-    
+
     /**
      * 仮ユーザ論理削除
      *
@@ -105,12 +106,12 @@ class Preuser extends Zend_Db_Table_Abstract
         if (empty($id)) {
             throw new Exception('削除する仮ユーザIDが設定されていません');
         }
-    
+
         $this->update(
             array('deleted_at' => new Zend_Db_Expr('current_timestamp')),
             array($this->_db->quoteInto(' preuser_id IN(?) ', $id))
         );
-        
+
         return $this;
     }
 }

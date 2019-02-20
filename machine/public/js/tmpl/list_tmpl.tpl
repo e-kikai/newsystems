@@ -10,8 +10,8 @@
         <div class='name'>{{>name}}</div>
         {{if top_img}}
           <img class="top_image hover lazy" src='imgs/blank.png'
-            data-original="media/machine/thumb_{{>top_img}}"
-            data-source="media/machine/{{>top_img}}"
+            data-original="{{>media_dir}}machine/thumb_{{>top_img}}"
+            data-source="{{>media_dir}}machine/{{>top_img}}"
             alt="中古{{>name}} {{>maker}} {{>model}}" />
         {{else}}
           <img class='top_image noimage' src='./imgs/noimage.png'
@@ -62,10 +62,10 @@
     {{if view_option == 2}}<div class="label vo2">商談中</div>{{/if}}
     {{if commission == 1}}<div class="label commission">試運転可</div>{{/if}}
     {{for _render_pdfs}}
-      <a href="media/machine/{{>data}}"
+      <a href="{{>media_dir}}machine/{{>data}}"
         class="label pdf" target="_blank">PDF:{{>key}}</a>
     {{/for}}
-    
+
     {{if catalog_id}}
     <a href="http://catalog.zenkiren.net/catalog_pdf.php?id={{>catalog_id}}"
       class="label catalog" target="_blank">電子カタログ(会員のみ公開)</a>

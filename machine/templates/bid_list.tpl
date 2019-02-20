@@ -449,7 +449,7 @@ a.mylist_text_link {
     {if $key == $q.order || ($key == 'name' && empty($q.order))}
       <span class="order_selected">{$o}</span>
     {else}
-      <a class="order" href="bid_list.php?o={$bidOpenId}{$siteUrl}&order={$key}">{$o}</a>
+      <a class="order" href="bid_list.php?o={$bidOpenId}{$siteUrl}&k={Req::query('k')}&order={$key}">{$o}</a>
     {/if}
   {/foreach}
 </div>

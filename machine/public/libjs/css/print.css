@@ -23,6 +23,10 @@ div.search,
 .bid_timer,
 .mylist_link,
 .bid_detail_02,
+.same_machine_label,
+.same_area,
+a.accessmap,
+a.click,
 #topcontrol {
   display:none !important;
 }

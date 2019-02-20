@@ -4,7 +4,7 @@
 <link href="{$_conf.site_uri}{$_conf.css_dir}admin_form.css" rel="stylesheet" type="text/css" />
 
 <!-- Google Maps APL ver 3 -->
-<script src="http://maps.google.com/maps/api/js?sensor=false&language=ja" type="text/javascript"></script>
+<script src="https://maps.google.com/maps/api/js?sensor=false&language=ja" type="text/javascript"></script>
 
 {literal}
 <script language="JavaScript" type="text/JavaScript">

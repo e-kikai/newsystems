@@ -20,7 +20,8 @@ class Yms < Base
 
     @company    = '株式会社ワイ・エム・エス'
     @company_id = 22
-    @start_uri  = 'http://www.yms-net.com/list.html'
+    # @start_uri  = 'http://www.yms-net.com/list.html'
+    @start_uri  = 'http://yms-net.com/list/'
 
     @crawl_allow = /^xxxxx$/
     @crawl_deny  = nil
@@ -33,31 +34,35 @@ class Yms < Base
   #
   def scrape
     #### ページ情報のスクレイピング ####
-    (@p/'#productListBox table tr').each do |m|
+    (@p/'table.kikai-list tr').each do |m|
       begin
         next unless m%'td:nth(4)'
 
-        # next if (m%'td:nth(5)').document   =~ /売約済/
+        # next if (m%'td:nth(3)').text.f =~ /売約済|在庫状況/
+        next if (m%'td:nth(3)').text.f =~ /在庫状況/
         # log.debug((m%'td:nth(5)').to_s)
 
         #### 既存情報の場合スキップ ####
-        uid = (m%'td:nth(1)').text.f == '' ? (m%'td:nth(2)').text.f : (m%'td:nth(1)').text.f.gsub(/[^0-9a-zA-Z]/, '')
+        # uid = (m%'td:nth(1)').text.f == '' ? (m%'td:nth(2)').text.f : (m%'td:nth(1)').text.f.gsub(/[^0-9a-zA-Z]/, '')
+        uid = (m%'td:nth(1)').text.f
         next unless check_uid(uid)
 
         temp = {
           :uid   => uid,
-          :no    => (m%'td:nth(1)').text.f.gsub(/[^0-9a-zA-Z]/, ''),
+          :no    => uid,
           :name  => (m%'td:nth(2)').text.f,
-          :maker => (m%'td:nth(3)').text.f,
-          :model => (m%'td:nth(4)').text.f,
-          :spec  => (m%'td:nth(5)').text.f,
-          :year  => (m%'td:nth(6)').text.f,
+          :comment => (m%'td:nth(3)').text.f,
+          :maker => (m%'td:nth(4)').text.f,
+          :model => (m%'td:nth(5)').text.f,
+          :spec  => (m%'td:nth(6)').text.f,
+          :year  => (m%'td:nth(7)').text.f,
+          # :price => (m%'td:nth(8)').text.f,
           :location => '本社',
         }
 
         temp[:maker] = '' if temp[:maker] == '-'
         temp[:model] = '' if temp[:model] == '-'
-        temp[:hint] = temp[:name].gsub(/(^\#[0-9.]+|^[0-9.]+″)/, '')
+        temp[:hint]  = temp[:name]
 
         # 主能力
         if /旋盤/ =~ temp[:name] && /NC/ !~ temp[:name]
@@ -100,12 +105,17 @@ class Yms < Base
         detail_uri = join_uri(@p.uri, (m%'td:nth(2) a')[:href])
         p2 = nokogiri(detail_uri)
 
-        next if NKF.nkf("-wZX--cp932", open(detail_uri).read) =~ /売約済/
+        # next if NKF.nkf("-wZX--cp932", open(detail_uri).read) =~ /売約済/
 
         # 画像
         temp[:used_imgs] = []
-        (p2/'#itemPhotos img').each do |i|
-          temp[:used_imgs] << join_uri(detail_uri, i[:src])
+        (p2/'.photos a').each do |i|
+          temp[:used_imgs] << join_uri(detail_uri, i[:href])
+        end
+
+        temp[:used_pdfs] = {}
+        (p2/'.items a').each do |a|
+          temp[:used_pdfs]["仕様書(PDF)"] = join_uri(detail_uri, a[:href]) if a[:href] =~ /pdf$/
         end
 
         @d << temp

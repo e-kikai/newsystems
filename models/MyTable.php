@@ -1,7 +1,7 @@
 <?php
 /**
  * テーブル基底クラス
- * 
+ *
  * @access public
  * @author 川端洋平
  * @version 0.2.0
@@ -15,7 +15,7 @@ class MyTable extends Zend_Db_Table_Abstract
     protected $_filters           = array(); // フィルタ・バリデータ条件
     protected $_jsonColumns       = array(); // 内容をJSONエンコード・デコードするカラム
     protected $_orderBys          = array(); // 検索SQLのORDER BY句の候補配列(先頭の要素がデフォルト)
-    
+
     protected $_canCheckDeletedAt = true;    // 取得条件に'deleted_at IS NULL'を含めるかどうか
     protected $_canSetChangedAt   = true;    // 保存時に'changed_at'を入れるかどうか
 
@@ -26,7 +26,7 @@ class MyTable extends Zend_Db_Table_Abstract
 
         parent::__construct();
     }
-    
+
     /**
      * 情報一覧を取得
      *
@@ -62,7 +62,7 @@ class MyTable extends Zend_Db_Table_Abstract
      *
      * @access protected
      * @param  array   $q 検索クエリ
-     * @param  boolean $check 検索条件チェック     
+     * @param  boolean $check 検索条件チェック
      * @return string  生成したwhere句
      */
     protected function _makeWhereSql($q, $check=false)
@@ -86,7 +86,7 @@ class MyTable extends Zend_Db_Table_Abstract
      *
      * @access protected
      * @param  array   $q 検索クエリ
-     * @param  boolean $check 検索条件チェック     
+     * @param  boolean $check 検索条件チェック
      * @return string  生成したwhere句
      */
     protected function _makeWhereSqlArray($q, $check=false)
@@ -99,7 +99,7 @@ class MyTable extends Zend_Db_Table_Abstract
         if (!empty($q['xl_genre_id'])) {
             $whereArr[] = $this->_db->quoteInto(' m.xl_genre_id IN(?) ', $q['xl_genre_id']);
         }
-        
+
         // TOP画像があるかどうか
         if (!empty($q['is_img'])) {
             $whereArr[] = " m.top_img IS NOT NULL AND m.top_img <> '' ";
@@ -125,7 +125,7 @@ class MyTable extends Zend_Db_Table_Abstract
     {
         // 何も指定していない時のデフォルトは、IDの降順
         $orderBy = " t.{$this->_primary} DESC ";
-        
+
         if (!empty($this->_orderBys)) {
             if (!empty($q['sort']) && array_key_exists($q['sort'], $this->_orderBys)) {
                 $orderBy = $this->_orderBys[$q['sort']];
@@ -157,18 +157,18 @@ class MyTable extends Zend_Db_Table_Abstract
 
         return $limitSql;
     }
-    
+
     /**
      * 総件数を取得
      *
      * @param  array   $q 検索クエリ
      * @return integer 総件数
-     */        
+     */
     public function getCount($q)
     {
         //// WHERE句 ////
         $whereSql = $this->_makeWhereSql($q);
-        
+
         //// SQLクエリを作成・一覧を取得 ////
         $sql = "SELECT count(t.*) AS count FROM {$this->_view} t {$whereSql};";
         $result = $this->_db->fetchOne($sql);
@@ -186,7 +186,7 @@ class MyTable extends Zend_Db_Table_Abstract
     public function get($id)
     {
         if (empty($id)) { throw new Exception("{$this->_jname}のIDが設定されていません"); }
-        
+
         // 削除日チェック
         $deletedAtSql = '';
         if ($this->_canCheckDeletedAt) {
@@ -201,10 +201,10 @@ class MyTable extends Zend_Db_Table_Abstract
         if (!empty($this->_jsonColumns)) {
             $result = B::decodeRowJson($result, $this->_jsonColumns);
         }
-        
+
         return $result;
     }
-        
+
     /**
      * 論理削除(deleted_atにcurrent_timestampを入れる処理)
      *
@@ -225,22 +225,22 @@ class MyTable extends Zend_Db_Table_Abstract
             array('deleted_at' => new Zend_Db_Expr('current_timestamp')),
             $whereArr
         );
-        
+
         return $this;
     }
-    
+
     /**
      * 情報を保存(新規・変更)
-     * 
-     * @access public     
+     *
+     * @access public
      * @param  array   $data 保存する情報
      * @param  integer $id   保存対象のID(NULLの場合は新規登録)
      * @return $this
-     */                    
+     */
     public function set($id=null, $data)
     {
         //// 保存する情報のフィルタリング・バリデーション・JSONエンコード ////
-        $data = MyFilter::filtering($data, $this->_filters, $this->_jsonColumns);        
+        $data = MyFilter::filtering($data, $this->_filters, $this->_jsonColumns);
 
         //// 保存処理 ////
         if (empty($id)) {
@@ -255,7 +255,7 @@ class MyTable extends Zend_Db_Table_Abstract
         }
 
         if (empty($res)) { throw new Exception("{$this->_jname}が保存できませんでした id:{$id}"); }
-        
+
         return $this;
     }
 }

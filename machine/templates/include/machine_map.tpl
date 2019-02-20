@@ -1,6 +1,6 @@
 {literal}
 <!-- Google Maps APL ver 3 -->
-<script src="http://maps.google.com/maps/api/js?sensor=false&language=ja" type="text/javascript"></script>
+<script src="https://maps.google.com/maps/api/js?sensor=false&language=ja" type="text/javascript"></script>
 
 <script language="JavaScript" type="text/JavaScript">
 var infowindow = [];
@@ -218,8 +218,8 @@ function attachSetCenter(id, name, center)
       <div class='company_info'>
         <a href='/machine_detail.php?m={$m.id}'>
           {if !empty($m.top_img)}
-            <img class="top_image lazy" src='img/blank.png' data-original="media/machine/{$m.top_img}" alt="" />
-            <noscript><img src="media/machine/{$m.top_img}" alt="" /></noscript>
+            <img class="top_image lazy" src='img/blank.png' data-original="{$_conf.media_dir}machine/{$m.top_img}" alt="" />
+            <noscript><img src="{$_conf.media_dir}machine/{$m.top_img}" alt="" /></noscript>
           {else}
             <img class='top_image noimage' src='./img/noimage.jpg' />
           {/if}

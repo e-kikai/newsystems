@@ -62,7 +62,7 @@ set_uri = URI(config['set_uri'])
 thread = []
 
 # ['onuma', 'kobayashi', 'mechany'].each_with_index do |o, i|
-['mechany'].each_with_index do |o, i|
+['yms'].each_with_index do |o, i|
 # ['ekikai', 'onuma', 'kobayashi', 'okabe', 'yms', 'sato', 'mechany', 'tachikawa'].each_with_index do |o, i|
 # ['ehorikawa', 'ekikai', 'onuma', 'kobayashi', 'okabe', 'yms', 'sato', 'sanwa', 'sanwakitakanto',
 #  'sanwafukuyama', 'mechany', 'tachikawa', 'teng'].each_with_index do |o, i|

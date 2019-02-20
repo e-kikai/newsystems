@@ -119,7 +119,11 @@ table.form td input.mininum {
 }
 
 table.form td input.accessory {
-  width : 360px;
+  width : 96%;
+}
+
+table.form td input.youtube {
+  width : 96%;
 }
 
 table.form td input.text,

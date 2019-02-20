@@ -22,7 +22,8 @@ class Flyer extends Zend_Db_Table_Abstract
         'メール表題'           => array('fields' => 'subject', 'NotEmpty'),
 
         '送信元名称'           => array('fields' => 'from_name', 'NotEmpty'),
-        '送信元メールアドレス' => array('fields' => 'from_mail', 'EmailAddress', 'NotEmpty'),
+        // '送信元メールアドレス' => array('fields' => 'from_mail', 'EmailAddress', 'NotEmpty'),
+        '送信元メールアドレス' => array('fields' => 'from_mail', 'NotEmpty'),
         '送信日時'             => array('fields' => 'send_date'),
 
         'ステータス'           => array('fields' => 'status'),

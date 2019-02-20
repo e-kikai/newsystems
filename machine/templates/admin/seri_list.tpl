@@ -310,7 +310,7 @@ fieldset.search {
 
       <div class="img">
         {if !empty($m.top_img)}
-          <img class="lazy" src='imgs/blank.png' data-original="http://www.zenkiren.net/media/machine/{$m.top_img}" alt='' />
+          <img class="lazy" src='imgs/blank.png' data-original="{$_conf.media_dir}machine/{$m.top_img}" alt='' />
           <noscript><img src="{$_conf.media_dir}machine/thumb_{$m.top_img}" /></noscript>
         {/if}
       </div>

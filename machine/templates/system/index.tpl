@@ -70,6 +70,11 @@ $(function() {
     <a href="/system/bidinfo_form.php">新規登録</a>
   </li>
 
+  <li>
+    <a href="/system/formula.php">実績用データ集計</a>
+  </li>
+
+
   <h2>電子カタログ</h2>
   <li><a href="/system/catalog_csv_form.php">電子カタログCSV一括登録・変更</a></li>
   <li><a href="/system/catalog_request_list.php">カタログリクエストログ</a></li>

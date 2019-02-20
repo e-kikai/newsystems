@@ -14,9 +14,9 @@
           <div class='name'>{$m.name}</div>
           {if !empty($m.top_img)}
             <img class="top_image hover lazy" src='imgs/blank.png'
-              data-original="media/machine/{$m.top_img}"
+              data-original="{$_conf.media_dir}machine/{$m.top_img}"
               alt="{$m.name} {$m.maker} {$m.model}" title="{$m.name} {$m.maker} {$m.model}" />
-            <noscript><img src="media/machine/{$m.top_img}" alt="" /></noscript>
+            <noscript><img src="{$_conf.media_dir}machine/{$m.top_img}" alt="" /></noscript>
           {else}
             <img class='top_image noimage' src='./imgs/noimage.png'
               alt="中古{$m.name} {$m.maker} {$m.model}" title="{$m.name} {$m.maker} {$m.model}" />

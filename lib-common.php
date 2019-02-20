@@ -1,7 +1,7 @@
 <?php
 /**
  * 共通設定ファイル
- * 
+ *
  * @access public
  * @author 川端洋平
  * @version 0.0.4
@@ -18,7 +18,7 @@ $autoloader = Zend_Loader_Autoloader::getInstance()
     ->pushAutoloader(NULL, array('Smarty_', 'FPDF'))
     ->unregisterNamespace(array('Zend_', 'ZendX_'))
     ->setFallbackAutoloader(true);
-  
+
 // 定数設定
 define('APP_PATH', realpath(dirname(__FILE__)));
 
@@ -38,7 +38,7 @@ set_include_path(implode(PATH_SEPARATOR, array(
 )));
 
 //// セッションの設定 ////
-$lifetime = 60 * 60 * 24 * 30; // 2ヶ月
+$lifetime = 30 * 60 * 24 * 30; // 2ヶ月
 // $lifetime = 0;
 session_save_path($_conf->session_path);
 ini_set('session.gc_maxlifetime', $lifetime);
@@ -46,11 +46,14 @@ ini_set('session.gc_probability', 1);
 ini_set('session.gc_divisor', 100);
 ini_set('session.cookie_lifetime', 0);
 ini_set('session.cookie_domain', $_conf->cookie_domain);
-@session_start();
+
+if (!empty($_SERVER['HTTP_USER_AGENT']) && !preg_match("/(bot|yahoo|google|spider|dummy|crawl)/i", $_SERVER['HTTP_USER_AGENT'])) {
+  @session_start();
+}
 
 // セッションの有効期限をcookieを再送信することで、無理やり延長
 // if (!empty($_SESSION['session_persistence'])) {
-    setcookie(session_name(), session_id(), time() + $lifetime, '/', $_conf->cookie_domain);
+//     setcookie(session_name(), session_id(), time() + $lifetime, '/', $_conf->cookie_domain);
 // }
 
 //// リファラ処理 ////
@@ -74,7 +77,7 @@ Zend_Db_Table::setDefaultAdapter($_db);
 $translator = new Zend_Translate(
     'array',
     realpath(APP_PATH . '/library/lang/Zend_Validate.php'),
-    'ja', 
+    'ja',
     array('scan' => Zend_Translate::LOCALE_FILENAME)
 );
 // デフォルトのトランスレータを設定

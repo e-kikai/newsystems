@@ -166,7 +166,7 @@ class Companysites extends MyTable
             $data['company_configs']['top_img'] = $f->checkOne(
                 $data['company_configs']['top_img'], array(),
                 $_conf->tmp_path,
-                $_conf->htdocs_path . '/media/companysite',
+                $_conf->htdocs_path . '{$_conf.media_dir}companysite',
                 true);
         }
         

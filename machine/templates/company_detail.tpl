@@ -134,20 +134,20 @@ a.contact {
 
   <div class='message_area'>
     {if !empty($company.infos.pr)}
-      <strong>{$company.infos.pr|escape|nl2br nofilter}</strong>
+      <strong>{$company.infos.pr|escape|nl2br|auto_link nofilter}</strong>
     {/if}
     {if !empty($company.infos.comment)}
-      <p>{$company.infos.comment|escape|nl2br nofilter}</p>
+      <p>{$company.infos.comment|escape|nl2br|auto_link nofilter}</p>
     {/if}
 
     <div class='img_area'>
       {if !empty($company.top_img)}
-        <img src='{$_conf.media_dir}/company/{$company.top_img}' alt="中古機械登録会社 {$company.company} {$company.addr1} {$company.addr2} {$company.addr3}" />
+        <img src='{$_conf.media_dir}company/{$company.top_img}' alt="中古機械登録会社 {$company.company} {$company.addr1} {$company.addr2} {$company.addr3}" />
       {/if}
 
       {if !empty($company.imgs)}
         {foreach $company.imgs as $i}
-          <img src='{$_conf.media_dir}/company/{$i}' alt="中古機械登録会社 {$company.company} {$company.addr1} {$company.addr2} {$company.addr3}" />
+          <img src='{$_conf.media_dir}company/{$i}' alt="中古機械登録会社 {$company.company} {$company.addr1} {$company.addr2} {$company.addr3}" />
         {/foreach}
       {/if}
     </div>
@@ -208,7 +208,7 @@ a.contact {
           {if !empty($company.infos.access_train)}
             {$company.infos.access_train|escape|default:""|nl2br nofilter}<br />
           {/if}
-          <a href='http://www.google.co.jp/maps?daddr={$company.addr1|urlencode}{$company.addr2|urlencode}{$company.addr3|urlencode}&hl=ja&ie=UTF8' target='_blank'>Google乗換案内</a>
+          <a href='https://www.google.co.jp/maps?daddr={$company.addr1|urlencode}{$company.addr2|urlencode}{$company.addr3|urlencode}&hl=ja&ie=UTF8' target='_blank'>Google乗換案内</a>
         </td>
       </tr>
 
@@ -218,7 +218,7 @@ a.contact {
           {if !empty($company.infos.access_car)}
             {$company.infos.access_car|escape|default:""|nl2br nofilter}<br />
           {/if}
-          <a href='http://www.google.co.jp/maps?daddr={$company.addr1|urlencode}{$company.addr2|urlencode}{$company.addr3|urlencode}&hl=ja&ie=UTF8&dirflg=d' target='_blank'>Googleルート案内</a>
+          <a href='https://www.google.co.jp/maps?daddr={$company.addr1|urlencode}{$company.addr2|urlencode}{$company.addr3|urlencode}&hl=ja&ie=UTF8&dirflg=d' target='_blank'>Googleルート案内</a>
         </td>
       </tr>
 
@@ -239,6 +239,13 @@ a.contact {
       </tr>
       {/if}
 
+      {if !empty($companysite.subdomain)}
+        <tr class='officer'>
+          <th>マシンライフ<br />ウェブサイト</th>
+          <td><a href="{$_conf.site_uri}s/{$companysite.subdomain}/" target=="_blank">{$_conf.site_uri}s/{$companysite.subdomain}/</a></td>
+        </tr>
+      {/if}
+
       <tr class='infos license'>
         <th>古物免許</th>
         <td>{$company.infos.license}</td>
@@ -255,17 +262,17 @@ a.contact {
 
     {*
     <iframe id="gmap2" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-      src="http://maps.google.co.jp/maps?f=q&amp;q={$company.addr1|escape:"url"}{$company.addr2|escape:"url"}{$company.addr3|escape:"url"}+({$company.company|escape:"url"})&source=s_q&amp;hl=ja&amp;geocode=ie=UTF8&amp;t=m&amp;output=embed"></iframe><br />
+      src="https://maps.google.co.jp/maps?f=q&amp;q={$company.addr1|escape:"url"}{$company.addr2|escape:"url"}{$company.addr3|escape:"url"}+({$company.company|escape:"url"})&source=s_q&amp;hl=ja&amp;geocode=ie=UTF8&amp;t=m&amp;output=embed"></iframe><br />
     <a href="https://maps.google.co.jp/maps?f=q&amp;q={$company.addr1|escape:"url"}{$company.addr2|escape:"url"}{$company.addr3|escape:"url"}+({$company.company|escape:"url"})&source=embed&amp;hl=ja&amp;geocode=&amp;ie=UTF8&amp;t=m" style="color:#0000FF;text-align:left" target="_blank">大きな地図で見る</a>
     *}
 
     {if preg_match('/^[a-zA-Z0-9]/',$company.addr1)}
       <iframe id="gmap2" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-        src="http://maps.google.co.jp/maps?f=q&amp;q={$company.lat|escape:"url"} {$company.lng|escape:"url"}+({$company.company|escape:"url"})&source=s_q&amp;hl=ja&amp;geocode=ie=UTF8&amp;t=m&amp;output=embed"></iframe><br />
+        src="https://maps.google.co.jp/maps?f=q&amp;q={$company.lat|escape:"url"} {$company.lng|escape:"url"}+({$company.company|escape:"url"})&source=s_q&amp;hl=ja&amp;geocode=ie=UTF8&amp;t=m&amp;output=embed"></iframe><br />
       <a href="https://maps.google.co.jp/maps?f=q&amp;q={$company.lat|escape:"url"} {$company.lng|escape:"url"}+({$company.company|escape:"url"})&source=embed&amp;hl=ja&amp;geocode=&amp;ie=UTF8&amp;t=m" style="color:#0000FF;text-align:left" target="_blank">大きな地図で見る</a>
     {else}
       <iframe id="gmap2" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-        src="http://maps.google.co.jp/maps?f=q&amp;q={$company.addr1|escape:"url"}{$company.addr2|escape:"url"}{$company.addr3|escape:"url"}+({$company.company|escape:"url"})&source=s_q&amp;hl=ja&amp;geocode=ie=UTF8&amp;t=m&amp;output=embed"></iframe><br />
+        src="https://maps.google.co.jp/maps?f=q&amp;q={$company.addr1|escape:"url"}{$company.addr2|escape:"url"}{$company.addr3|escape:"url"}+({$company.company|escape:"url"})&source=s_q&amp;hl=ja&amp;geocode=ie=UTF8&amp;t=m&amp;output=embed"></iframe><br />
       <a href="https://maps.google.co.jp/maps?f=q&amp;q={$company.addr1|escape:"url"}{$company.addr2|escape:"url"}{$company.addr3|escape:"url"}+({$company.company|escape:"url"})&source=embed&amp;hl=ja&amp;geocode=&amp;ie=UTF8&amp;t=m" style="color:#0000FF;text-align:left" target="_blank">大きな地図で見る</a>
     {/if}
   </div>

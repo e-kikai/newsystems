@@ -1,5 +1,5 @@
 <link href="{$_conf.site_uri}{$_conf.css_dir}mycarousel.css" rel="stylesheet" type="text/css" />
-<script src="http://maps.google.com/maps/api/js?sensor=false&language=ja" type="text/javascript"></script>
+<script src="https://maps.google.com/maps/api/js?sensor=false&language=ja" type="text/javascript"></script>
 
 <script type="text/javascript" src="{$_conf.libjs_uri}/jquery.jqzoom-core.js"></script>
 <link href="{$_conf.libjs_uri}/css/jquery.jqzoom.css" rel="stylesheet" type="text/css" />
@@ -152,8 +152,8 @@ $(function() {
           <li>
             <a class='zoom' href='/machine_detail.php?m={$m.id}'>
               {if !empty($m.top_img)}
-                <img class="top_image lazy" src='img/blank.png' data-original="media/machine/{$m.top_img}" alt="" />
-                <noscript><img src="media/machine/{$m.top_img}" alt="" /></noscript>
+                <img class="top_image lazy" src='img/blank.png' data-original="{$_conf.media_dir}machine/{$m.top_img}" alt="" />
+                <noscript><img src="{$_conf.media_dir}machine/{$m.top_img}" alt="" /></noscript>
               {else}
                 <img class='top_image noimage' src='./img/noimage.jpg' />
               {/if}
@@ -164,8 +164,8 @@ $(function() {
             {foreach $m.imgs as $i}
               <li>
                 <a class='zoom' href='/machine_detail.php?m={$m.id}'>
-                  <img class="lazy" src='img/blank.png' data-original="media/machine/{$i}" alt="" />
-                  <noscript><img src="media/machine/{$i}" alt="" /></noscript>
+                  <img class="lazy" src='img/blank.png' data-original="{$_conf.media_dir}machine/{$i}" alt="" />
+                  <noscript><img src="{$_conf.media_dir}machine/{$i}" alt="" /></noscript>
                   {if $i@last && $i@total > 1}
                     <img  class='triangle' src='./img/triangle2.gif' />
                   {/if}

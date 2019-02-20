@@ -5,9 +5,9 @@
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  
-  <base href="http://test-machine.etest.wjg.jp/" />
-  
+
+  <base href="https://www.zenkiren.net" />
+
 <meta name="robots" content="noindex, nofollow" />
 
 {literal}
@@ -91,7 +91,7 @@
       <th class="min_price">最低入札金額</th>
     </tr>
   </thead>
-  
+
   {foreach $bidMachineList as $m}
     <tr>
       <td class="no">{$m.list_no}</td>
@@ -105,5 +105,5 @@
     </tr>
   {/foreach}
 </table>
-</body> 
+</body>
 </html>

@@ -27,15 +27,15 @@ $(function() {
     $('button.bid').click(function() {
         var data = {
             'bid_machine_id': $.trim($('input.bid_machine_id').val()),
-            
+
             'amount': $.trim($('input.amount').change().val()),
             'charge': $.trim($('input.charge').val()),
             'comment': $.trim($('input.comment').val()),
         };
-        
+
         // 表示切替
         $('input.amount').val(cjf.numberFormat(data.amount));
-        
+
         //// 入力のチェック ////
         var e = '';
         $('input[required]').each(function() {
@@ -44,7 +44,7 @@ $(function() {
                 return false;
             }
         });
-        
+
         if (!data['amount']) {
             e += '入札金額が入力されていません\n';
         } else if (data['amount'] < parseInt($('input.min_price').val())) {
@@ -53,19 +53,19 @@ $(function() {
         } else if ((data['amount'] % parseInt($('input.rate').val())) != 0) {
             e += '入札金額が、入札レートの倍数ではありません\n';
         }
-        
+
         //// エラー表示 ////
         if (e != '') { alert(e); return false; }
-        
+
         // 送信確認
         if (!confirm('この内容で入札します。よろしいですか。')) { return false; }
-        
+
         if (data['amount'] > parseInt($('input.min_price').val()) * 5) {
             if (!confirm("入札金額が最低入札金額の5倍を超えています。\nこの内容で入札してよろしいですか。")) { return false; }
         }
-        
+
         $('button.bid').attr('disabled', 'disabled').text('保存処理中');
-        
+
         $.post('/admin/ajax/bid.php', {
             'target': 'member',
             'action': 'bid',
@@ -76,16 +76,16 @@ $(function() {
                 alert(res);
                 return false;
             }
-            
+
             // 登録完了
             alert('入札が完了しました');
             location.href = '/admin/bid_list.php?o=' + $('input.bid_open_id').val();
             return false;
         }, 'text');
-        
+
         return false;
     });
-    
+
     //// 数値のみに自動整形 ////
     $('input.number').change(function() {
         var price = mb_convert_kana($(this).val(), 'KVrn').replace(/[^0-9.]/g, '');
@@ -148,7 +148,7 @@ table.form td input.amount {
       {/if}
       </div>
     </div>
-  
+
     <div class='images'>
     {if !empty($machine.imgs) || (!empty($machine.youtube) && preg_match("/http:\/\/youtu.be\/(.+)/", $machine.youtube, $res))}
       {if !empty($machine.top_img)}
@@ -163,7 +163,7 @@ table.form td input.amount {
           <img src="{$_conf.media_dir}machine/thumb_{$machine.top_img}" alt="{$alt}" />
         </a>
       {/if}
-    
+
       {foreach $machine.imgs as $i}
         <a class="img" href='{$_conf.media_dir}machine/{$i}'
           {*
@@ -177,33 +177,33 @@ table.form td input.amount {
         </a>
       {/foreach}
     {/if}
-    
+
     {if !empty($machine.youtube) && preg_match("/http:\/\/youtu.be\/(.+)/", $machine.youtube, $res)}
       <a href="javascript:void(0)" data-youtubeid="{$res[1]}" class="movie" title="クリックで動画再生します"><img src="imgs/youtube_icon_48.png" /></a>
     {/if}
     </div>
   {/if}
-  
+
   {*** youtube ***}
   {if !empty($machine.youtube) && preg_match("/http:\/\/youtu.be\/(.+)/", $machine.youtube, $res)}
     <div class="youtube">
-      <iframe width="400" height="300" 
-        src="http://www.youtube.com/embed/{$res[1]}?rel=0" 
+      <iframe width="400" height="300"
+        src="https://www.youtube.com/embed/{$res[1]}?rel=0"
         frameborder="0" allowfullscreen></iframe>
     </div>
   {/if}
-  
+
   </div>
-  
+
   <div class="spec_area">
   {*
     {include "include/bid_announce.tpl"}
   *}
-    
+
     {*
     <table class='machine'>
       <tr>
-        <th class="no">出品番号</th>    
+        <th class="no">出品番号</th>
         <th class='name'>機械名</th>
         <th class='maker'>メーカー</th>
         <th class='model'>型式</th>
@@ -218,7 +218,7 @@ table.form td input.amount {
       </tr>
     </table>
     *}
-    
+
     <table class="spec">
       <tr class="price">
         <th>最低入札金額</th>
@@ -229,7 +229,7 @@ table.form td input.amount {
         <td class="">{$bidOpen.user_bid_date|date_format:'%Y/%m/%d %H:%M'}</td>
       </tr>
     </table>
-    
+
     <table class="spec">
       <tr class="" >
         <th>出品番号</th>
@@ -252,7 +252,7 @@ table.form td input.amount {
         <td>{$machine.year}</td>
       </tr>
     </table>
-        
+
     <table class="spec">
       {if !empty($machine.capacity_label)}
         <tr class="capacity number" >
@@ -260,7 +260,7 @@ table.form td input.amount {
           <td>{if empty($machine.capacity)}-{else}{$machine.capacity}{$machine.capacity_unit}{/if}</td>
         </tr>
       {/if}
-      
+
       <tr class="spec">
         <th>仕様</th>
         <td>
@@ -272,22 +272,22 @@ table.form td input.amount {
           {/if}
         </td>
       </tr>
-      
+
       <tr class="accessory">
         <th>附属品</th>
         <td>{$machine.accessory}</td>
       </tr>
-  
+
       <tr class="comment">
         <th>コメント</th>
         <td>{$machine.comment}</td>
       </tr>
-      
+
       <tr class="carryout_note">
         <th>引取留意事項</th>
         <td>{$machine.carryout_note}</td>
       </tr>
-      
+
       <tr class="">
         <th>在庫場所</th>
         <td class='location'>
@@ -298,7 +298,7 @@ table.form td input.amount {
           {/if}
         </td>
       </tr>
-      
+
       <tr class="label_area">
         <td colspan="2">
           {if $machine.commission == 1}<div class="label commission">試運転可</div>{/if}
@@ -310,12 +310,12 @@ table.form td input.amount {
           {/if}
         </td>
       </tr>
-      
+
     </table>
   </div>
-    
+
   <br class="clear" />
-  
+
   <div class="img_area">
     <h2>出品商品についてのお問い合せ</h2>
     <p class="contents">
@@ -340,7 +340,7 @@ table.form td input.amount {
       <input type="hidden" class="rate" value="{$bidOpen.rate}" />
       <input type="hidden" class="bid_open_id" value="{$bidOpenId}" />
       <input type="hidden" class="bid_machine_id" value="{$machineId}" />
-      
+
       <table class="form spec">
         <tr class="bid">
           <th>入札金額<span class="required">(必須)</span></th>
@@ -382,7 +382,7 @@ table.form td input.amount {
           <td>{if $result.same_count > 1}あり{/if}</td>
         </tr>
       </table>
-    
+
       {if !empty($resultCompany)}
         <h2>自社の入札</h2>
         <table class="spec">
@@ -408,18 +408,18 @@ table.form td input.amount {
       <h2>入札</h2>
       <p class="contents">下見・入札期間の開始前です。</p>
     {/if}
-    
-    
+
+
     {*
     {if $machine.addr3}
     <iframe id="gmap2" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
       src="https://maps.google.co.jp/maps?f=q&amp;q={$machine.addr1|escape:"url"}{$machine.addr2|escape:"url"}{$machine.addr3|escape:"url"}+({$machine.location|escape:"url"})&source=s_q&amp;hl=ja&amp;geocode=ie=UTF8&amp;t=m&amp;output=embed"></iframe><br />
-    <a href="https://maps.google.co.jp/maps?f=q&amp;q={$machine.addr1|escape:"url"}{$machine.addr2|escape:"url"}{$machine.addr3|escape:"url"}+({$machine.location|escape:"url"})&source=embed&amp;hl=ja&amp;geocode=&amp;ie=UTF8&amp;t=m" style="color:#0000FF;text-align:left" target="_blank">大きな地図で見る</a> 
+    <a href="https://maps.google.co.jp/maps?f=q&amp;q={$machine.addr1|escape:"url"}{$machine.addr2|escape:"url"}{$machine.addr3|escape:"url"}+({$machine.location|escape:"url"})&source=embed&amp;hl=ja&amp;geocode=&amp;ie=UTF8&amp;t=m" style="color:#0000FF;text-align:left" target="_blank">大きな地図で見る</a>
     {/if}
     *}
   </div>
   <br class="clear" />
-  
+
   <div class="img_area">
   {if $machine.addr3}
     <h2 id="gmap_label">
@@ -431,7 +431,7 @@ table.form td input.amount {
         src="https://maps.google.co.jp/maps?f=q&amp;q={$machine.addr1|escape:"url"}{$machine.addr2|escape:"url"}{$machine.addr3|escape:"url"}+({$machine.location|escape:"url"})&source=s_q&amp;hl=ja&amp;geocode=ie=UTF8&amp;t=m&amp;output=embed&z=14"></iframe><br />
     </div>
   {/if}
-  
+
   </div>
   <div class="spec_area">
     <h2>出品会社情報</h2>
@@ -450,7 +450,7 @@ table.form td input.amount {
            {$company.addr1} {$company.addr2} {$company.addr3}
         </td>
       </tr>
-      
+
       <tr class="">
         <th>お問い合せTEL</th>
         <td>{$company.contact_tel}</td>
@@ -459,34 +459,34 @@ table.form td input.amount {
         <th>お問い合せFAX</th>
         <td>{$company.contact_fax}</td>
       </tr>
-            
+
       <tr class="">
         <th>担当者</th>
         <td>{$company.officer}</td>
       </tr>
-  
+
       <tr class='infos opening'>
         <th>営業時間</th>
         <td>{$company.infos.opening}</td>
       </tr>
-      
+
       <tr class='infos holiday'>
         <th>定休日</th>
         <td>{$company.infos.holiday}</td>
       </tr>
-      
+
       <tr class='infos license'>
         <th>古物免許</th>
         <td>{$company.infos.license}</td>
       </tr>
-      
+
       <tr class='infos complex'>
         <th>所属団体</th>
         <td>{$company.treenames}</td>
       </tr>
     </table>
   </div>
-  
+
   <br class="clear" />
 </div>
 {else}

@@ -194,7 +194,7 @@ a.contact {
   {if !empty($machine.youtube)}
     <div class="youtube">
       <iframe width="400" height="300" 
-        src="http://www.youtube.com/embed/{'/http:\/\/youtu.be\//'|preg_replace:'':$machine.youtube}?rel=0" 
+        src="https://www.youtube.com/embed/{'/http:\/\/youtu.be\//'|preg_replace:'':$machine.youtube}?rel=0" 
         frameborder="0" allowfullscreen></iframe>
     </div>
   {/if}

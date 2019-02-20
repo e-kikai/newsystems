@@ -180,7 +180,7 @@ table.histories td input[type=text] {
         {if !empty($site.company_configs.top_img)}
           <div class="top_img">
             <a href='{$_conf.media_dir}companysite/{$site.company_configs.top_img}' target="_blank">
-              <img src='/media/companysite/{$site.company_configs.top_img}' />
+              <img src='{$_conf.media_dir}companysite/{$site.company_configs.top_img}' />
             </a>
             <input type="hidden" name="company_configs[top_img]" value="{$site.company_configs.top_img}" />
           </div>

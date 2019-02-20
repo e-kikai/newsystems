@@ -33,12 +33,21 @@ try {
     //// ファイル名 ////
     // ダウンロードさせる元ファイル
     if ($style == 1) {
-        $source = $_conf->catalog_path . '/' . $catalog['uid'] . '_s.pdf';
+        $source = $_conf->catalog_dir . $catalog['uid'] . '_s.pdf';
     } else if ($style == 2) {
-        $source = $_conf->catalog_path . '/' . $catalog['uid'] . '_p.pdf';
+        $source = $_conf->catalog_dir . $catalog['uid'] . '_p.pdf';
     } else {
-        $source = $_conf->catalog_path . '/' . $catalog['uid'] . '.pdf';
+        $source = $_conf->catalog_dir . $catalog['uid'] . '.pdf';
     }
+
+    // // ダウンロードさせる元ファイル
+    // if ($style == 1) {
+    //     $source = $_conf->catalog_path . '/' . $catalog['uid'] . '_s.pdf';
+    // } else if ($style == 2) {
+    //     $source = $_conf->catalog_path . '/' . $catalog['uid'] . '_p.pdf';
+    // } else {
+    //     $source = $_conf->catalog_path . '/' . $catalog['uid'] . '.pdf';
+    // }
 
     // 保存時のファイル名(デフォルト)
     $filename = "{$catalog['maker']}_{$catalog['uid']}.pdf";
@@ -46,39 +55,28 @@ try {
     //// ファイル有無のチェック ////
     if (empty($catalog)) {
         throw new Exception("カタログ情報が取得できませんでした(id : {$id})");
-    } else if (!file_exists($source)) {
-        throw new Exception("カタログPDFファイルがありません(id : {$source}, file : {$filename})");
+    // } else if (!file_exists($source)) {
+    //     throw new Exception("カタログPDFファイルがありません(id : {$source}, file : {$filename})");
     }
 
-    //// 電子透かし ////
-    /*
-    try {
-        $pdf = Zend_Pdf::load($source);
-    } catch (Exception $e) {
-        $temp = file_get_contents($source);
-        $pdf  = Zend_Pdf::parse(preg_replace("/\%\%EOF\n(.*)$/", "%%EOF\n", $temp));
-    }
-    */
+    // //// 電子透かし ////
+    // $pdf = Zend_Pdf::load($source);
+    //
+    // // $font = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA);
+    // $img  = Zend_Pdf_Image::imageWithPath('./imgs/header_logo_over.png');
+    //
+    // // 電子透かし画像の埋め込み
+    // foreach($pdf->pages as $key => $p) {
+    //     $pdf->pages[$key]->drawImage($img, 10, 10, 130, 60);
+    // }
 
-    /*
-    $temp = file_get_contents($source);
-    $pdf  = Zend_Pdf::parse(preg_replace("/\%\%EOF\n(.*)$/", "%%EOF\n", $temp));
-    */
-
-    $pdf = Zend_Pdf::load($source);
-
-    // $font = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA);
-    $img  = Zend_Pdf_Image::imageWithPath('./imgs/header_logo_over.png');
-
-    // 電子透かし画像の埋め込み
-    foreach($pdf->pages as $key => $p) {
-        $pdf->pages[$key]->drawImage($img, 10, 10, 130, 60);
-    }
+    $res = file_get_contents($source);
 
     //// ファイルのダウンロード処理 ////
     header("Content-type: application/pdf");
     header("Content-Disposition: {$disposition}; filename=\"{$filename}\"");
-    echo $pdf->render();
+    // echo $pdf->render();
+    echo $res;
 
     // アクションロギング
     $lModel = new Actionlog();

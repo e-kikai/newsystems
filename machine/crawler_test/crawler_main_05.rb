@@ -60,7 +60,7 @@ set_uri = URI(config['set_uri'])
 thread = []
 
 # ['onuma', 'kobayashi', 'yms', 'sato', 'okabe' ].each_with_index do |o, i|
-['mechany'].each_with_index do |o, i|
+['yms'].each_with_index do |o, i|
 # ['onuma', 'kobayashi', 'okabe', 'yms', 'sato', 'sanwa', 'sanwakitakanto', 'sanwafukuyama', 'mechany', 'tachikawa'].each_with_index do |o, i|
   thread[i] = Thread.new do |t|
     #### クローラオブジェクト作成 ####

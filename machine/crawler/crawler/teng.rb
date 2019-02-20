@@ -20,7 +20,7 @@ class Teng < Base
 
     @company    = '株式会社東京エンジニアリング'
     @company_id = 76
-    @start_uri  = 'http://www.t-eng.co.jp/products/used/list.cgi'
+    @start_uri  = 'http://www.t-eng.co.jp/products/used/list.cgi?c1=999&c2=999&page=1'
 
     @crawl_allow = /list\.cgi\?c1=999&c2=999&page=[0-9]+$/
     @crawl_deny  = nil
@@ -33,45 +33,39 @@ class Teng < Base
   #
   def scrape
     #### ページ情報のスクレイピング ####
-    (@p/'table.usedlist tr').each do |m|
+    # (@p/'table.usedlist tr').each do |m|
+    (@p/'ul.usedlist li').each do |m|
       begin
-        next if m%'th'
+        # next if m%'th'
+        # next if m%'th'
 
         #### 名前に「売約済」が入っていたらスキップ ####
-        name = (m%'td:nth(3)').text.f
-        next if /売約/ =~ name
+        # name = (m%'td:nth(3)').text.f
+        name = (m%'p:nth(3)').text.f.gsub(/NEW/, '')
+        next if /売約|機械名/ =~ name
 
         #### 既存情報の場合スキップ ####
-        detail_uri = join_uri(@p.uri, m.%('td:nth(3) a')[:href])
+        # detail_uri = join_uri(@p.uri, m.%('td:nth(3) a')[:href])
+        detail_uri = join_uri(@p.uri, m.%('p:nth(3) a')[:href])
         next unless /detail.cgi\?id=([0-9]+)/ =~ detail_uri
         uid = $1
         next unless check_uid(uid)
 
         temp = {
           :uid   => uid,
-          :no    => (m%'td:nth(2)').text.f,
+          # :no    => (m%'td:nth(2)').text.f,
           :name  => name,
-          :maker => (m%'td:nth(4)').text.f,
-          :model => (m%'td:nth(5)').text.f,
-          :year  => (m%'td:nth(6)').text.f,
-          :spec  => (m%'td:nth(7)').text.f.gsub('★', ''),
+          # :maker => (m%'td:nth(4)').text.f,
+          # :model => (m%'td:nth(5)').text.f,
+          # :year  => (m%'td:nth(6)').text.f,
+          # :spec  => (m%'td:nth(7)').text.f.gsub('★', ''),
+          :no    => (m%'p:nth(2)').text.f,
+          :maker => (m%'p:nth(4)').text.f,
+          :model => (m%'p:nth(5)').text.f,
+          :year  => (m%'p:nth(6)').text.f,
           :location => '',
+          :spec     => '',
         }
-
-        # 機械名から情報を分離
-        if /(新古品)/ =~ temp[:name]
-          temp[:name].gsub!('(新古品)', '')
-          temp[:spec] += ' | 新古品'
-        end
-        if /新品/ =~ temp[:name]
-          temp[:name].gsub!('新品', '')
-          temp[:spec] += ' | 新品'
-        end
-        if  /商談中/ =~ temp[:name]
-          temp[:name].gsub!('商談中', '')
-          temp[:view_option] = 2
-        end
-        temp[:name].gsub!(/(\<\>|《》)/, '')
 
         temp[:hint] = temp[:name]
 
@@ -82,7 +76,8 @@ class Teng < Base
         p2 = nokogiri(detail_uri)
 
         #### 仕様 ####
-        (p2/'table.detail th').each do |n|
+        # (p2/'table.detail th').each do |n|
+        (p2/'.list_basic li span:nth(1)').each do |n|
           nlabel = n.text.f
           ndata  = n.next_element.text.f
 
@@ -108,8 +103,25 @@ class Teng < Base
             temp[:price] = ndata
           elsif nlabel == '現状'
             temp[:spec] += ' | 現状:' + ndata
+          elsif nlabel == '主仕様'
+            temp[:spec] += ndata.gsub('★', '')
           end
         end
+
+        # 機械名から情報を分離
+        if /(新古品)/ =~ temp[:name]
+          temp[:name].gsub!('(新古品)', '')
+          temp[:spec] += ' | 新古品'
+        end
+        if /新品/ =~ temp[:name]
+          temp[:name].gsub!('新品', '')
+          temp[:spec] += ' | 新品'
+        end
+        if  /商談中/ =~ temp[:name]
+          temp[:name].gsub!('商談中', '')
+          temp[:view_option] = 2
+        end
+        temp[:name].gsub!(/(\<\>|《》)/, '')
 
         # 主能力
         if /旋盤/ =~ temp[:name] && /NC/ !~ temp[:name]
@@ -156,7 +168,8 @@ class Teng < Base
 
         # 画像
         temp[:used_imgs] = []
-        (p2/'#tabindex img').each do |i|
+        # (p2/'#tabindex img').each do |i|
+        (p2/'img.sp-image').each do |i|
           temp[:used_imgs] << join_uri(@p.uri, i[:src])
         end
 
