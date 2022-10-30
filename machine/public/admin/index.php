@@ -22,11 +22,11 @@ try {
 
     //// 事務局お知らせ ////
     $iModel   = new Info();
-    $infoList = $iModel->getList('member', $company['group_id'], 20);
+    $infoList = $iModel->getList('member', $company['group_id'], 20, true);
 
     //// 売りたし買いたし ////
     $uModel     = new Urikai();
-    $urikaiList = $uModel->getList(array('limit' => 20));
+    $urikaiList = $uModel->getList(array('period' => 30, 'limit' => 20));
 
     //// 在庫総数 ////
     $mModel = new Machine();

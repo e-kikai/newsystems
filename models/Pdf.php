@@ -317,7 +317,9 @@ class Pdf
             $this->_p->Cell(self::SUM_LABEL_WIDTH ,6, B::u2s('出品支払額(イ)'),1,1,'L');
             $this->_p->Cell(self::SUM_LABEL_WIDTH ,6, B::u2s('デメ半(ロ)'),1,1,'L');
             $this->_p->Cell(self::SUM_LABEL_WIDTH ,6, B::u2s('小計(イ)-(ロ)=(ハ)'),1,1,'L');
+            $this->_p->SetFont(MINCHO,'',11);
             $this->_p->Cell(self::SUM_LABEL_WIDTH ,6, B::u2s('出品料(ニ)事務局手数料'),1,1,'L');
+            $this->_p->SetFont(MINCHO,'',12);
             $this->_p->Cell(self::SUM_LABEL_WIDTH ,6, B::u2s('出品料(ニ)販売手数料'),1,1,'L');
             $this->_p->Cell(self::SUM_LABEL_WIDTH ,6, B::u2s('差引(ハ)-(ニ)'),1,1,'L');
             $this->_p->Cell(self::SUM_LABEL_WIDTH ,6, B::u2s('消費税 : ' . $bidOpen["tax"] . '%'),1,1,'L');
@@ -380,18 +382,30 @@ class Pdf
                 $this->_p->Text(self::SUM_UNDER_X, 197, B::u2s(date('Y年n月j日', strtotime($bidOpen["billing_date"]))."までにご入金下さい。"));
 
                 $this->_p->SetFont(GOTHIC,'',12);
-                $this->_p->Text(self::SUM_UNDER_X, 205, B::u2s("北陸銀行今里支店"));
+                // $this->_p->Text(self::SUM_UNDER_X, 205, B::u2s("北陸銀行今里支店"));
+                $this->_p->Text(self::SUM_UNDER_X, 205, B::u2s("北陸銀行"));
 
                 $this->_p->SetFont(MINCHO,'',12);
-                $this->_p->Text(self::SUM_UNDER_X, 210, B::u2s("普通預金 6007122"));
+                # $this->_p->Text(self::SUM_UNDER_X, 210, B::u2s("普通預金 6007122"));
+                $this->_p->Text(self::SUM_UNDER_X, 210, B::u2s("今里支店 普通預金 6007122"));
                 $this->_p->Text(self::SUM_UNDER_X, 215, B::u2s("口座名称 全日本機械業連合会マシンライフ委員会(略称：全機連マシンライフ委員会)"));
                 $this->_p->Text(self::SUM_UNDER_X, 220, B::u2s("銀行振込略称 ゼンキレンマシンライフ"));
 
+                $this->_p->SetFont(GOTHIC,'',12);
+                $this->_p->Text(self::SUM_UNDER_X, 230, B::u2s("ゆうちょ銀行"));
+
+                $this->_p->SetFont(MINCHO,'',12);
+                $this->_p->Text(self::SUM_UNDER_X, 235, B::u2s("店名 四〇八 (ヨンゼロハチ) 店番 408 普通預金 口座番号 7761858"));
+                $this->_p->Text(self::SUM_UNDER_X, 240, B::u2s("口座名称 マシンライフ委員会"));
+                $this->_p->Text(self::SUM_UNDER_X, 245, B::u2s("銀行振込略称 マシンライフイインカイ"));
+
                 $this->_p->SetFont( GOTHIC,"",15);
-                $this->_p->Text(self::SUM_UNDER_X, 229,  B::u2s("※ 振込手数料は貴社負担でお願いします。"));
+                // $this->_p->Text(self::SUM_UNDER_X, 229,  B::u2s("※ 振込手数料は貴社負担でお願いします。"));
+                $this->_p->Text(self::SUM_UNDER_X, 255,  B::u2s("※ 振込手数料は貴社負担でお願いします。"));
 
                 $this->_p->SetFont( GOTHIC,"",11);
-                $this->_p->Text(self::SUM_UNDER_X, 236,  B::u2s("※ 落札請求額と出品支払額の双方がある場合は、相殺し差額決済とします。"));
+                // $this->_p->Text(self::SUM_UNDER_X, 236,  B::u2s("※ 落札請求額と出品支払額の双方がある場合は、相殺し差額決済とします。"));
+                $this->_p->Text(self::SUM_UNDER_X, 262,  B::u2s("※ 落札請求額と出品支払額の双方がある場合は、相殺し差額決済とします。"));
             }
 
             //// 落札・出品明細 ////
@@ -655,18 +669,30 @@ class Pdf
                 $this->_p->Text(self::SUM_UNDER_X, 197, B::u2s(date('Y年n月j日', strtotime($bidOpen["billing_date"]))."までにご入金下さい。"));
 
                 $this->_p->SetFont(GOTHIC,'',12);
-                $this->_p->Text(self::SUM_UNDER_X, 205, B::u2s("北陸銀行今里支店"));
+                // $this->_p->Text(self::SUM_UNDER_X, 205, B::u2s("北陸銀行今里支店"));
+                $this->_p->Text(self::SUM_UNDER_X, 205, B::u2s("北陸銀行"));
 
                 $this->_p->SetFont(MINCHO,'',12);
-                $this->_p->Text(self::SUM_UNDER_X, 210, B::u2s("普通預金 6007122"));
+                # $this->_p->Text(self::SUM_UNDER_X, 210, B::u2s("普通預金 6007122"));
+                $this->_p->Text(self::SUM_UNDER_X, 210, B::u2s("今里支店 普通預金 6007122"));
                 $this->_p->Text(self::SUM_UNDER_X, 215, B::u2s("口座名称 全日本機械業連合会マシンライフ委員会(略称：全機連マシンライフ委員会)"));
                 $this->_p->Text(self::SUM_UNDER_X, 220, B::u2s("銀行振込略称 ゼンキレンマシンライフ"));
 
+                $this->_p->SetFont(GOTHIC,'',12);
+                $this->_p->Text(self::SUM_UNDER_X, 230, B::u2s("ゆうちょ銀行"));
+
+                $this->_p->SetFont(MINCHO,'',12);
+                $this->_p->Text(self::SUM_UNDER_X, 235, B::u2s("店名 四〇八 (ヨンゼロハチ) 店番 408 普通預金 口座番号 7761858"));
+                $this->_p->Text(self::SUM_UNDER_X, 240, B::u2s("口座名称 マシンライフ委員会"));
+                $this->_p->Text(self::SUM_UNDER_X, 245, B::u2s("銀行振込略称 マシンライフイインカイ"));
+
                 $this->_p->SetFont( GOTHIC,"",15);
-                $this->_p->Text(self::SUM_UNDER_X, 229,  B::u2s("※ 振込手数料は貴社負担でお願いします。"));
+                // $this->_p->Text(self::SUM_UNDER_X, 229,  B::u2s("※ 振込手数料は貴社負担でお願いします。"));
+                $this->_p->Text(self::SUM_UNDER_X, 255,  B::u2s("※ 振込手数料は貴社負担でお願いします。"));
 
                 $this->_p->SetFont( GOTHIC,"",11);
-                $this->_p->Text(self::SUM_UNDER_X, 236,  B::u2s("※ 落札請求額と出品支払額の双方がある場合は、相殺し差額決済とします。"));
+                // $this->_p->Text(self::SUM_UNDER_X, 236,  B::u2s("※ 落札請求額と出品支払額の双方がある場合は、相殺し差額決済とします。"));
+                $this->_p->Text(self::SUM_UNDER_X, 262,  B::u2s("※ 落札請求額と出品支払額の双方がある場合は、相殺し差額決済とします。"));
             }
 
             //// 落札・出品明細 ////
@@ -995,11 +1021,45 @@ class Pdf
             $this->_p->Cell(26.5, 8, B::u2s(number_format($price)), 0, 0, 'R');
             $this->_p->Cell(26.5, 8, B::u2s(number_format($price)), 0, 0, 'R');
 
+            $this->_p->SetXY(159.5, 108);
+            $this->_p->SetFont(GOTHIC,'', 9);
+            $this->_p->Cell(26.5, 8, B::u2s("(消費税 不課税)"), 0, 0, 'L');
+
             $this->_p->SetXY(158.5, 185);
+            $this->_p->SetFont(GOTHIC,'', 10);
             $this->_p->Cell(26.5, 8, B::u2s(number_format($price)), 0, 0, 'R');
 
             $this->_p->SetXY(55, 200);
             $this->_p->Cell(30, 3, B::u2s($date), 'B', 0, 'C');
+
+            /// お振込先 追加 ///
+            $this->_p->SetFillColor(255, 255, 255);
+
+            $rectX = 35;
+            $rectY = 214;
+            $bankX = $rectX + 2;
+            $bankY = $rectY + 5;
+            $this->_p->Rect($rectX, $rectY, 140, 52, 'DF');
+
+            $this->_p->SetFont(GOTHIC,'',10);
+            $this->_p->Text($bankX, $bankY, B::u2s("<< お振込先 >>"));
+            $this->_p->Text($bankX, $bankY + 5, B::u2s("北陸銀行"));
+
+            $this->_p->SetFont(MINCHO,'',10);
+            $this->_p->Text($bankX, $bankY + 10, B::u2s("今里支店 普通預金 6007122"));
+            $this->_p->Text($bankX, $bankY + 15, B::u2s("口座名称 全日本機械業連合会マシンライフ委員会(略称：全機連マシンライフ委員会)"));
+            $this->_p->Text($bankX, $bankY + 20, B::u2s("銀行振込略称 ゼンキレンマシンライフ"));
+
+            $this->_p->SetFont(GOTHIC,'',10);
+            $this->_p->Text($bankX, $bankY + 30, B::u2s("ゆうちょ銀行"));
+
+            $this->_p->SetFont(MINCHO,'',10);
+            $this->_p->Text($bankX, $bankY + 35, B::u2s("店名 四〇八 (ヨンゼロハチ) 店番 408 普通預金 口座番号 7761858"));
+            $this->_p->Text($bankX, $bankY + 40, B::u2s("口座名称 マシンライフ委員会"));
+            $this->_p->Text($bankX, $bankY + 45, B::u2s("銀行振込略称 マシンライフイインカイ"));
+
+            $this->_p->SetFont( GOTHIC,"",10);
+            $this->_p->Text($bankX, $bankY + 52,  B::u2s("※ 振込手数料は貴社負担でお願いします。"));
 
 
             // 領収証
@@ -1016,6 +1076,10 @@ class Pdf
             $this->_p->Cell(97, 9, B::u2s($title), 0, 0, 'L');
             $this->_p->Cell(53, 9, B::u2s(number_format($price)), 0, 0, 'R');
 
+            $this->_p->SetFont(GOTHIC,'', 9);
+            $this->_p->SetXY(131, 62.5);
+            $this->_p->Cell(53, 8, B::u2s("(消費税 不課税)"), 0, 0, 'R');
+
             $this->_p->SetFont(GOTHIC,'', 12);
             $this->_p->SetXY(131, 102);
             $this->_p->Cell(53, 10, B::u2s(number_format($price) . '円'), 0, 0, 'R');
@@ -1031,9 +1095,15 @@ class Pdf
             $this->_p->Cell(97, 9, B::u2s($title), 0, 0, 'L');
             $this->_p->Cell(53, 9, B::u2s(number_format($price)), 0, 0, 'R');
 
+            $this->_p->SetFont(GOTHIC,'', 9);
+            $this->_p->SetXY(131, 147 + 62.5);
+            $this->_p->Cell(53, 8, B::u2s("(消費税 不課税)"), 0, 0, 'R');
+
             $this->_p->SetFont(GOTHIC,'', 12);
             $this->_p->SetXY(131, 147 + 102);
             $this->_p->Cell(53, 10, B::u2s(number_format($price) . '円'), 0, 0, 'R');
+
+
         }
 
         // インライン形式でPDFファイルを出力

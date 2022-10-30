@@ -146,6 +146,61 @@ class Contact extends Zend_Db_Table_Abstract
     }
 
     /**
+     * お問い合わせメールアドレスリスト(トップ大ジャンル)一覧
+     *
+     * @access public
+     * @return array   問い合わせメールアドレスリスト一覧
+     */
+    public function getContactMailList()
+    {
+        // SQLクエリを作成
+        $sql = "SELECT
+            mail,
+            user_company,
+            user_name,
+            xl_genre_id
+        FROM
+            (
+            SELECT
+                c.mail,
+                c.user_company,
+                c.user_name,
+                vm.xl_genre_id,
+                ROW_NUMBER() OVER(
+                PARTITION BY c.mail
+                ORDER BY
+                count(*) DESC
+                ) AS rno
+            FROM
+                contacts c
+            LEFT JOIN view_machines vm
+        ON
+                vm.id = c.machine_id
+            WHERE
+                c.machine_id IS NOT NULL
+                AND c.mailuser_flag IS NOT NULL
+                AND c.mailuser_flag = 1
+            GROUP BY
+                c.mail,
+                c.user_company,
+                c.user_name,
+                xl_genre_id
+            ) tbl
+        WHERE
+            rno = 1
+            AND xl_genre_id IS NOT NULL
+        ORDER BY
+            mail;";
+        $result = $this->_db->fetchAll($sql);
+
+        if (empty($result)) {
+            throw new Exception('お問い合わせメールリストを取得できませんでした');
+        }
+
+        return $result;
+    }
+
+    /**
      * お問い合わせログ集計表を取得
      *
      * @access public
@@ -257,6 +312,9 @@ class Contact extends Zend_Db_Table_Abstract
      */
     public function sendMachine($data)
     {
+        // メールブラックリスト
+        if ($data['mail'] == '07.05.15.oga@gmail.com') { return $this; }
+
         //// お問い合せ内容の整理 ////
         $d = array(
             'user_name'     => $data['name'],
@@ -528,9 +586,25 @@ EOS;
         // メールブラックリスト
         if ($data['mail'] == '07.05.15.oga@gmail.com') { return $this; }
 
-        //// お問い合わせ内容の保存 ////
+        /// お問い合わせ内容の保存 ///
         if (!$result = $this->insert($data)) {
             throw new Exception('お問い合わせ情報が保存できませんでした');
+        }
+
+        /// Mailchimpリスト登録 ///
+        if ($data["mailuser_flag"] == 1) {
+            $fModel      = new Flyer();
+            $json = array(
+                "email_address" => $data["mail"],
+                "status"        => "subscribed",
+                "merge_fields"  => array(
+                    "FNAME" => $data["user_name"],
+                    "LNAME" => $data["user_company"],
+                ),
+            );
+            $_mconf = new Zend_Config_Ini(APP_PATH . '/config/mailchimp.ini');
+
+            $res = $fModel->doAPI('lists/' . $_mconf->mailchimp_list_id . '/members/' . md5($data["mail"]), 'PUT', $json, $_mconf);
         }
 
         return $this;

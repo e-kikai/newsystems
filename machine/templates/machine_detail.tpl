@@ -26,7 +26,7 @@
 <script type="text/javascript" src="{$_conf.site_uri}{$_conf.js_dir}ekikaiMylist.js"></script>
 <script type="text/javascript" src="{$_conf.site_uri}{$_conf.js_dir}detail.js"></script>
 <script type="text/javascript" src="{$_conf.site_uri}{$_conf.js_dir}same_list.js"></script>
-<link href="{$_conf.site_uri}{$_conf.css_dir}detail.css" rel="stylesheet" type="text/css" />
+<link href="{$_conf.site_uri}{$_conf.css_dir}detail.css?13" rel="stylesheet" type="text/css" />
 <link href="{$_conf.site_uri}{$_conf.css_dir}same_list.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="{$_conf.libjs_uri}/jquery.jqzoom-core.js"></script>
@@ -144,7 +144,9 @@ h1.detail_h1 {
   {if !empty($machine.youtube) && preg_match_all('/([\w\-]{11})/', $machine.youtube, $res)}
     <div>
       {foreach $res[0] as $y}
-        <a href="javascript:void(0)" data-youtubeid="{$y}" class="movie" title="クリックで動画再生します"><img src="imgs/youtube_icon_48.png" /></a>
+        <a href="javascript:void(0)" data-youtubeid="{$y}" class="movie" title="クリックで動画再生します">
+          <img src="http://img.youtube.com/vi/{$y}/mqdefault.jpg" class="youtube_thumb" />
+          <img src="imgs/youtube_icon_48.png" class="youtube_icon"/></a>
       {/foreach}
     </div>
   {/if}
@@ -309,6 +311,16 @@ h1.detail_h1 {
             <a href="{$_conf.catalog_uri}/catalog_pdf.php?id={$machine.catalog_id}"
               class="label catalog" target="_blank" title="クリックで電子カタログを閲覧できま">電子カタログ</a>
           {/if}
+
+          {*
+          {if $machine.label_title}
+            {if $machine.label_url}
+              <a class="label org" href="{$machine.label_url}" target="_blank" style="background:{$machine.label_color};">{$machine.label_title}</a>
+            {else}
+              <div class="label org" style="background:{$machine.label_color};">{$machine.label_title}</div>
+            {/if}
+          {/if}
+          *}
         </td>
       </tr>
 
@@ -359,7 +371,6 @@ h1.detail_h1 {
   </div>
   <br class="clear" />
 
-
   {if !empty($sameMachineList)}
     <h2 class="same_machine_label">この機械と同じ機械はこちら</h2>
     <div class="same_area">
@@ -367,7 +378,7 @@ h1.detail_h1 {
       <div class='carousel_products'>
       {foreach $sameMachineList as $sm}
         <div class="same_machine">
-          <a href="machine_detail.php?m={$sm.id}"
+          <a href="machine_detail.php?m={$sm.id}&r=dtl_same"
             {* onClick="_gaq.push(['_trackEvent', 'log_detail', 'same', '{$sm.id}', 1, true]);" *}
             onClick="ga('send', 'event', 'log_detail', 'same', '{$sm.id}', 1, true);"
             >
@@ -393,6 +404,42 @@ h1.detail_h1 {
     </div>
   {/if}
 
+  {if !empty($nitamonoList)}
+    <h2 class="same_machine_label">この機械と<span style="color:forestgreen;">見た目が似ている</span>機械はこちら</h2>
+    <div class="same_area">
+      <div class='image_carousel'>
+      <div class='carousel_products'>
+      {foreach $nitamonoList as $sm}
+        <div class="same_machine">
+          <a href="machine_detail.php?m={$sm.id}&r=dtl_mnr"
+            {* onClick="_gaq.push(['_trackEvent', 'log_detail', 'nitamono', '{$sm.id}', 1, true]);" *}
+            onClick="ga('send', 'event', 'log_detail', 'nitamono', '{$sm.id}', 1, true);"
+            >
+            {if !empty($sm.top_img)}
+              <img src="{$_conf.media_dir}machine/thumb_{$sm.top_img}" alt="" />
+            {else}
+              <img class='noimage' src='./imgs/noimage.png' alt="" />
+            {/if}
+            <div class="names">
+              {if !empty($sm.name)} <div class="name">{$sm.name}</div>{/if}
+              {if !empty($sm.maker)}<div class="name">{$sm.maker}</div>{/if}
+              {if !empty($sm.model)}<div class="name">{$sm.model}</div>{/if}
+              {if !empty($sm.year)}<div class="name">{$sm.year}年式</div>{/if}
+              {if !empty($sm.addr1)}<div class="name">{$sm.addr1}</div>{/if}
+              {if !empty($sm.company)}<div class="name">{$sm.company|regex_replace:'/(株式|有限|合.)会社/u':''}</div>{/if}
+              {if !empty($sm.no)}<div class="name">({$sm.no})</div>{/if}
+            </div>
+          </a>
+        </div>
+      {/foreach}
+      </div>
+      </div>
+      {if $sm@total > 6}
+        <div class="scrollRight"></div><div class="scrollLeft"></div>
+      {/if}
+    </div>
+  {/if}
+
   {if !empty($logMachineList)}
     <h2 class="same_machine_label">この機械を見た人は、こちらの機械も見ています</h2>
     <div class="same_area">
@@ -400,7 +447,7 @@ h1.detail_h1 {
       <div class='carousel_products'>
       {foreach $logMachineList as $sm}
         <div class="same_machine">
-          <a href="machine_detail.php?m={$sm.id}"
+          <a href="machine_detail.php?m={$sm.id}&r=dtl_oth"
             {* onClick="_gaq.push(['_trackEvent', 'log_detail', 'others', '{$sm.id}', 1, true]);" *}
             onClick="ga('send', 'event', 'log_detail', 'others', '{$sm.id}', 1, true);"
             >
@@ -487,4 +534,10 @@ h1.detail_h1 {
   </div>
 {/if}
 
+{assign "keywords" "{$machine.name}|{$machine.hint}|{$machine.maker}|{$machine.model}|{$machine.genre}|{$machine.maker_master}|{$machine.maker_master_kana}"}
+{include file="include/mnok_ads.tpl"}
+
+<div class="keywords">
+  {$machine.name} {$machine.hint} {$machine.maker} {$machine.model} {$machine.genre} {$machine.maker_master} {$machine.genre_kana} {$machine.maker_master_kana}
+</div>
 {/block}

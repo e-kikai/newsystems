@@ -17,7 +17,7 @@ $(function() {
             'account': $.trim($('input.account').val()),
             'passwd': $.trim($('input.passwd').val()),
         }
-        
+
         //// 入力のチェック ////
         var e = '';
         $('input[required]').each(function() {
@@ -26,15 +26,15 @@ $(function() {
                 return false;
             }
         });
-        
+
         //// エラー表示 ////
         if (e != '') { alert(e); return false; }
 
         // 送信確認
         if (!confirm('入力したユーザ情報を保存します。よろしいですか。')) { return false; }
-        
+
         $('button.submit').attr('disabled', 'disabled').text('保存処理中、終了までそのままお待ち下さい');
-        
+
         $.post('/system/ajax/user.php', {
             'target': 'system',
             'action': 'set',
@@ -45,13 +45,13 @@ $(function() {
                 alert(res);
                 return false;
             }
-            
+
             // 保存完了
             alert('ユーザ情報を保存が完了しました');
             location.href = '/system/user_list.php';
             return false;
         }, 'text');
-        
+
         return false;
     });
 });
@@ -74,7 +74,7 @@ $(function() {
     <td><input type="text" name="user_name" class="user_name" value="{$user.user_name}"
       placeholder="ユーザ名" required /></td>
   </tr>
-  
+
   <tr class="company_kana">
     <th>会社ID</th>
     <td>
@@ -101,17 +101,17 @@ $(function() {
     <th>権限<span class="required">(必須)</span></th>
     <td>
       {html_options selected=$user.role class='role' name='role'
-         options=['guest' => 'guest : 権限なし', 'user' => 'user : 一般ユーザ' , 'catalog' => 'catalog : 電子カタログのみユーザ', 'member' => 'member : 全機連会員'] 
+         options=['guest' => 'guest : 権限なし', 'user' => 'user : 一般ユーザ' , 'catalog' => 'catalog : 電子カタログのみユーザ', 'member' => 'member : 全機連会員', 'system' => 'system : 管理者']
       }
     </td>
   </tr>
-  
+
   <tr class="company">
     <th>アカウント<span class="required">(必須)</span></th>
     <td><input type="text" name="account" class="account" value="{$user.account}"
       placeholder="ユーザ名" required /></td>
   </tr>
-  
+
   <tr class="company">
   {if empty($user.id)}
     <th>パスワード<span class="required">(必須)</span></th>

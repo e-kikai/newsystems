@@ -122,7 +122,7 @@ hr {
     機械詳細ページアクセス数について、<br />
     総アクセス数は {$res.ActionlogMachine|number_format}アクセス (一日平均約 {($res.ActionlogMachine / $dateCount)|number_format:0}件)、<br />
     アクセスしたユーザ数は {$res.ActionlogMachineUniq|number_format}人 (一人平均約 {($res.ActionlogMachine / $res.ActionlogMachineUniq)|number_format:0|floatval}件)、<br />
-    (年間累計ユーザ数 {$res.ActionlogMachineUniqTotal|number_format}人 )<br />
+    年間累計ユーザ数(月累計の合算値)は、 {$res.ActionlogMachineUniqTotal|number_format}人、<br />
     アクセス数上位{$lank|number_format}位の機械は、以下のとおりです。
   </p>
   <ol class="lanking">

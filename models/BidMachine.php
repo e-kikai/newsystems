@@ -107,11 +107,11 @@ class BidMachine extends Zend_Db_Table_Abstract
             throw new Exception('入札会開催IDが設定されていません');
         }
 
-        //// WHERE句 ////
+        /// WHERE句 ////
         $where = $this->_makeWhere($q);
         if (!empty($where)) { $where = ' AND ' . $where; }
 
-        //// ORDER BY 句 ////
+        /// ORDER BY 句 ////
         if (!empty($q['order'])) {
             if ($q['order'] == 'name') {
                 $orderBy = " ORDER BY xl_order_no, large_order_no, genre_order_no, bm.name, coalesce(bm.capacity, '999999'), bm.maker, bm.model, bm.id ASC ";
@@ -137,23 +137,23 @@ class BidMachine extends Zend_Db_Table_Abstract
                 $orderBy = " ORDER BY coalesce(list_no, '999999'), xl_order_no, large_order_no, genre_order_no, coalesce(capacity, '999999'), bm.maker, bm.model, bm.id ASC";
             } else if ($q['order'] == 'random') {
                 $orderBy = ' ORDER BY random() ';
-            } else if ($q['order'] == 'reccomend') {
-                // ML結果
-                $trackingUserTable = new TrackingUser();
-                $trackingUser = $trackingUserTable->checkTrackingTag();
-                $caseWhere = "";
+            // } else if ($q['order'] == 'reccomend') {
+            //     // ML結果
+            //     $trackingUserTable = new TrackingUser();
+            //     $trackingUser = $trackingUserTable->checkTrackingTag();
+            //     $caseWhere = "";
 
-                if (!empty($trackingUser)) {
-                    $tbuTable = new TrackingBidResult();
-                    $recommendIds = $tbuTable->getBidMachineIds($q['bid_open_id'], 'user', $trackingUser['id']);
+            //     if (!empty($trackingUser)) {
+            //         $tbuTable = new TrackingBidResult();
+            //         $recommendIds = $tbuTable->getBidMachineIds($q['bid_open_id'], 'user', $trackingUser['id']);
 
-                    if (!empty($recommendIds)) {
-                        $recommendIdsArray = implode(", ", $recommendIds);
-                        $caseWhere = " CASE WHEN bm.id IN ( " . $recommendIdsArray . " ) THEN 1 ELSE 2 END, ";
-                    }
-                }
+            //         if (!empty($recommendIds)) {
+            //             $recommendIdsArray = implode(", ", $recommendIds);
+            //             $caseWhere = " CASE WHEN bm.id IN ( " . $recommendIdsArray . " ) THEN 1 ELSE 2 END, ";
+            //         }
+            //     }
 
-                $orderBy = " ORDER BY " . $caseWhere . " coalesce(list_no, '999999'),  bm.id, xl_order_no, large_order_no, genre_order_no, coalesce(capacity, '999999'), bm.maker, bm.model, bm.id ASC ";
+            //     $orderBy = " ORDER BY " . $caseWhere . " coalesce(list_no, '999999'),  bm.id, xl_order_no, large_order_no, genre_order_no, coalesce(capacity, '999999'), bm.maker, bm.model, bm.id ASC ";
             } else {
                 // $orderBy = ' ORDER BY bm.id ASC ';
                 $orderBy = " ORDER BY coalesce(list_no, '999999'),  bm.id, xl_order_no, large_order_no, genre_order_no, coalesce(capacity, '999999'), bm.maker, bm.model, bm.id ASC ";
@@ -501,6 +501,18 @@ class BidMachine extends Zend_Db_Table_Abstract
                 $arr[] = $this->_db->quoteInto($temp, '%'.$val.'%');
             }
         }
+        //
+        // // ORキーワード検索
+        // if (!empty($q['orkeyword'])) {
+        //     $temp = " bm.name || ' ' || coalesce(bm.maker, '') || ' ' || coalesce(bm.model, '') || ' ' || coalesce(bm.model2, '') || ' ' || " .
+        //         " coalesce(bm.addr1, '') || ' ' || coalesce(bm.addr2, '') || ' ' || " .
+        //         " coalesce(bm.location, '')  || ' ' || " .
+        //         " bm.genre || ' ' || cast(bm.list_no as text) ~ ? ";
+        //     $ork = trim(preg_replace("/(\s|　|\||｜)+/", '|', $q['orkeyword']));
+        //     if (!empty($ork)) {
+        //       $arr[] = $this->_db->quoteInto($temp, 'xxxxx|' . $ork . '|xxxxx');
+        //     }
+        // }
 
         // セリ出品
         if (!empty($q['is_seri'])) {

@@ -16,20 +16,20 @@ class Ibuki < Base
   def initialize()
     # 親クラスのコンストラクタ
     super()
-    
+
     @company    = '伊吹産業株式会社'
     @company_id = 301
     @start_uri  = 'http://www.ibuki-in.co.jp/product/data.php?c=search-list&page=1'
-    
+
     @crawl_allow = /c=search-list&page=[0-9]+$/
     @crawl_deny  = nil
   end
-  
+
   #
   # スクレイピング処理
   # Param:: String uri URI
   # Return:: self
-  #  
+  #
   def scrape
     #### ページ情報のスクレイピング ####
     (@p/'a.btnDtl[href*="detail"]').each do |m|
@@ -37,18 +37,18 @@ class Ibuki < Base
         #### 既存情報の場合スキップ ####
         detail_link = m
         detail_uri  = detail_link[:href].f
-        
+
         next unless /item=([A-Za-z0-9]+)$/ =~ detail_uri
         uid         = $1
-        
+
         next unless check_uid(uid)
-        
+
         #### ディープクロール ####
         detail_uri = join_uri(@p.uri, detail_uri)
         p2 = nokogiri(detail_uri)
-        
+
         (p2%'.pType').remove if p2%'.pType'
-        
+
         temp = {
           :uid   => uid,
           :no    => uid,
@@ -59,9 +59,11 @@ class Ibuki < Base
           :year  => (p2%'table.bgBlue tr:nth(3) td').text.f.gsub(/[^0-9]/, ''),
           :spec  => (p2%'table.bgBlue tr:nth(4) td').text.f,
           :location => (p2%'table.bgBlue tr:nth(5) td').text.f,
-          :comment => (p2%'table.bgBlue tr:nth(6) td').text.f + (p2%'#machineState p').text.f,
+          :comment => (p2%'table.bgBlue tr:nth(6) td').text.f + " " + (p2%'#machineState p').text.f,
+          addr1:    "大阪府",
+          addr2:    "東大阪市",
         }
-        
+
         # 主能力
         if /旋盤/ =~ temp[:name] && /NC/ !~ temp[:name]
           temp[:capacity] = $2.gsub(/[^0-9.]/, '').to_f if /(心間|芯間)([0-9\,.]+)/ =~ temp[:spec]
@@ -70,7 +72,7 @@ class Ibuki < Base
             temp[:hint] = $2.f
             temp[:capacity] = $1.gsub(/[^0-9.]/, '').to_f
           elsif /([0-9\,.]+)ton/i =~ temp[:model] || /([0-9\,.]+)ton/i =~ temp[:spec]
-            temp[:capacity] = $1.gsub(/[^0-9.]/, '').to_f 
+            temp[:capacity] = $1.gsub(/[^0-9.]/, '').to_f
           end
         elsif /ベンダー/ =~ temp[:name] && /NC/ !~ temp[:name]
           temp[:capacity] = $1.gsub(/[^0-9.]/, '').to_f if /([0-9\,.]+)mm/i =~ temp[:spec]
@@ -96,33 +98,33 @@ class Ibuki < Base
           if /([0-9\,.]+)(×|\*)([0-9\,.]+)(×|\*)?/i =~ temp[:model] + ' ' +  temp[:spec]
             le1 = $1
             le2 = $3
-          
+
             le1 = le1.gsub(/[^0-9.]/, '').to_f
             le2 = le2.gsub(/[^0-9.]/, '').to_f
-            
+
             temp[:capacity] = le1 > le2 ? le1 : le2
           end
         end
-        
+
         # 画像
         temp[:used_imgs] = []
         (p2/'img#staffMainL').each do |i|
           next if /noimage/ =~ i[:src]
-          temp[:used_imgs] << join_uri(detail_uri, i[:src]) 
+          temp[:used_imgs] << join_uri(detail_uri, i[:src])
         end
-        
+
         (p2/'#machineStatePhoto img').each do |i|
           next if /noimage/ =~ i[:src]
-          temp[:used_imgs] << join_uri(detail_uri, i[:src]) 
+          temp[:used_imgs] << join_uri(detail_uri, i[:src])
         end
-        
+
         @d << temp
         @log.debug(temp)
       rescue => exc
         error_report("scrape error (#{temp[:uid]})", exc)
       end
     end
-    
+
     return self
   end
 end

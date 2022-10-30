@@ -100,10 +100,10 @@ foreach($result['machineList'] as $key => $m) {
         'capacity_unit'  => $m['capacity_unit'],
         'capacity_label' => $m['capacity_label'],
 
-        'media_dir'      => $_conf->media_dir,
+        // 'media_dir'      => $_conf->media_dir,
         'top_img'        => $m['top_img'],
-        // 'imgs'           =>  $m['imgs'],
-        // 'pdfs'           => $m['pdfs'],
+        // 'imgs'           => $m['imgs'],
+        'pdfs'           => $m['pdfs'],
 
         'youtube'        => $m['youtube'],
 
@@ -124,6 +124,10 @@ foreach($result['machineList'] as $key => $m) {
         // 'deleted_at'     =>  strtotime($m['deleted_at']),
 
         'catalog_id' => $m['catalog_id'],
+
+        // 'label_title'    =>  $m['label_title'],
+        // 'label_url'      =>  $m['label_url'],
+        // 'label_color'    =>  $m['label_color'],
     );
 
     // Web入札会商品

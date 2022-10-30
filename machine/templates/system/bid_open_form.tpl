@@ -52,12 +52,12 @@ $(function() {
     //     $('input.date.display_start').datepicker( "option", "maxDate", selectedDate);
     // });
 
-    $('input.date.seri_start').datepicker("option", 'onClose', function(selectedDate) {
-        $('input.date.seri_end').datepicker( "option", "minDate", selectedDate);
-    });
-    $('input.date.seri_end').datepicker("option", 'onClose', function(selectedDate) {
-        $('input.date.seri_start').datepicker( "option", "maxDate", selectedDate);
-    });
+    // $('input.date.seri_start').datepicker("option", 'onClose', function(selectedDate) {
+    //     $('input.date.seri_end').datepicker( "option", "minDate", selectedDate);
+    // });
+    // $('input.date.seri_end').datepicker("option", 'onClose', function(selectedDate) {
+    //     $('input.date.seri_start').datepicker( "option", "maxDate", selectedDate);
+    // });
 
     // 時間コンボボックスのイベント設定
     var timeArray = [];
@@ -127,10 +127,10 @@ $(function() {
             'display_end_time': $.trim($('input.display_end.time').val()),
             */
 
-            'seri_start_date': $.trim($('input.seri_start.date').val()),
-            'seri_start_time': $.trim($('input.seri_start.time').val()),
-            'seri_end_date': $.trim($('input.seri_end.date').val()),
-            'seri_end_time': $.trim($('input.seri_end.time').val()),
+            // 'seri_start_date': $.trim($('input.seri_start.date').val()),
+            // 'seri_start_time': $.trim($('input.seri_start.time').val()),
+            // 'seri_end_date': $.trim($('input.seri_end.date').val()),
+            // 'seri_end_time': $.trim($('input.seri_end.time').val()),
 
             'min_price': $.trim($('input.min_price').val()),
             'rate': $.trim($('input.rate').val()),
@@ -277,6 +277,7 @@ table.form td textarea.fee_calc {
     </td>
   </tr>
 
+  {*
   <tr class="bid">
     <th>企業間売り切り期間</th>
     <td>
@@ -287,6 +288,7 @@ table.form td textarea.fee_calc {
       <input type="text" name="seri_end_time" class="seri_end time" value="{$bidOpen.seri_end_date|date_format:'%H:%M'}" />
     </td>
   </tr>
+  *}
 
   <tr class="billing_date">
     <th>請求日<span class="required">(必須)</span></th>
@@ -360,6 +362,7 @@ table.form td textarea.fee_calc {
   </tr>
   *}
 
+  {*
   <tr class="deme">
     <th>デメ<span class="required">(必須)</span></th>
     <td>
@@ -367,6 +370,7 @@ table.form td textarea.fee_calc {
       落札者 : <span class="deme2"></span>%
     </td>
   </tr>
+  *}
 
 {*
   <tr class="fee_calc">

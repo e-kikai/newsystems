@@ -112,9 +112,9 @@ class File
         if (exif_imagetype($filename) == IMAGETYPE_JPEG) {
 
             // EXIFがあるかどうか
-            $exif = exif_read_data($filename);
+            $exif = @exif_read_data($filename);
 
-            if (!empty($exif['Orientation']) && $exif['Orientation'] != 1) {
+            if (!empty($exif) && !empty($exif['Orientation']) && $exif['Orientation'] != 1) {
                   $imgCmd = '/usr/bin/convert -auto-orient -strip ';
                   $cmd = $imgCmd . ' ' . escapeshellcmd($filename). ' ' . escapeshellcmd($filename. '');
                   exec($cmd);

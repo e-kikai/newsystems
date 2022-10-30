@@ -3,9 +3,14 @@ php_value error_reporting 6143
 
 RewriteEngine on
 RewriteCond %{HTTP_HOST} ^zenkiren\.net [NC]
-RewriteRule (.*) http://www.zenkiren.net/$1 [R=301,L]
+RewriteRule (.*) https://www.zenkiren.net/$1 [R=301,L]
+
 
 RewriteRule ^s/([^/]*)(.*?)$ /companysite/$2 [L]
+
+RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+RewriteRule ^companybid_index https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
+
 
 <IfModule mod_expires.c>
 ExpiresActive On
@@ -43,3 +48,47 @@ AddOutputFilterByType DEFLATE application/atom_xml
 AddOutputFilterByType DEFLATE application/x-javascript
 AddOutputFilterByType DEFLATE application/x-httpd-php
 </IfModule>
+
+SetEnvIf User-Agent "SemrushBot" jogai
+SetEnvIf User-Agent "AhrefsBot" jogai
+SetEnvIf User-Agent "Linguee" jogai
+SetEnvIf User-Agent "proximic" jogai
+SetEnvIf User-Agent "BLEXBot" jogai
+SetEnvIf User-Agent "GrapeshotCrawler" jogai
+SetEnvIf User-Agent "Mappy" jogai
+SetEnvIf User-Agent "MJ12bot" jogai
+SetEnvIf User-Agent "MegaIndex" jogai
+SetEnvIf User-Agent "bidswitchbot" jogai
+SetEnvIf User-Agent "SMTBot" jogai
+SetEnvIf User-Agent "ltx71" jogai
+SetEnvIf User-Agent "integralads" jogai
+SetEnvIf User-Agent "jet-bot" jogai
+SetEnvIf User-Agent "trendictionbot" jogai
+SetEnvIf User-Agent "PetalBot" jogai
+SetEnvIf User-Agent "Bing" jogai
+SetEnvIf User-Agent "bing" jogai
+SetEnvIf User-Agent "MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727;" jogai
+SetEnvIf User-Agent "Linespider" jogai
+
+SetEnvIf X-Forwarded-For "^45\.55\.122\." deny_ip
+SetEnvIf X-Forwarded-For "^159\.203\.149\." deny_ip
+SetEnvIf X-Forwarded-For "^216\.244\.66\." deny_ip
+
+# SetEnvIf X-Forwarded-Host "." allow_host
+# SetEnvIf host "jp" allow_host
+
+
+order Allow,Deny
+Allow from all
+
+# order Deny,Allow
+# Deny from all
+# Allow from env=allow_host
+
+Deny from env=jogai
+deny from 51.143.12.24
+# deny from 45.55.122.252
+# deny from 159.203.149.94
+
+deny from env=deny_ip
+# deny from env=deny_host

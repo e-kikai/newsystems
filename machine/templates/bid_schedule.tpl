@@ -1,7 +1,9 @@
 {extends file='include/layout.tpl'}
 
 {block name='header'}
+{*
 <meta name="robots" content="noindex, nofollow" />
+*}
 
 <link href="{$_conf.libjs_uri}/css/login.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="{$_conf.libjs_uri}/login.js?1"></script>
@@ -46,7 +48,7 @@
   {/foreach}
 </table>
 <div class="right">
-  <a class="form_button" href="{$_conf.media_dir}pdf/2018schedule.pdf" target="_blank"><img src="./imgs/2014schedule.png" alt="2018年Web入札会日程(スケジュール)"></a>
+  <a class="form_button" href="../imgs/2022schedule.pdf" target="_blank"><img src="./imgs/2014schedule.png" alt="2022年Web入札会日程(スケジュール)"></a>
 </div>
 
 {*

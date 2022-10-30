@@ -1,7 +1,7 @@
 {include "include/html_header.tpl"}
 
 <link href="{$_conf.site_uri}{$_conf.css_dir}admin_list.css" rel="stylesheet" type="text/css" />
-  
+
 <script type="text/JavaScript">
 {literal}
 $(function() {
@@ -10,9 +10,9 @@ $(function() {
         effect: "fadeIn",
         threshold : 200
     });
-    
+
     $('select.order').change(function() { $('#sort_form').submit(); });
-    
+
     setTimeout(function() {
         $(window).triggerHandler('scroll');
     }, 100);
@@ -386,12 +386,12 @@ button.delete_mylist {
   font-weight: normal;
   width: 130px;
   margin: auto;
-  
+
   display: block;
   position: absolute;
   top: 72px;
   right: 20px;
-  
+
   width: 100px;
   height: 48px;
   padding: 0;
@@ -464,20 +464,20 @@ body.mini {
           <a href="{$k}" onClick="_gaq.push(['_trackEvent', 'pankuzu', 'other', '{$k}', 1, true])">{$p}</a> &gt;
         {/foreach}
       {/if}
-      
+
       {if !empty($pankuzuTitle)}
         <strong>{$pankuzuTitle|truncate:50:" ほか"}</strong>
       {elseif !empty($pageTitle)}
         <strong>{$pageTitle|truncate:50:" ほか"}</strong>
       {/if}
     </div>
-    
+
     {if !empty($h1Title)}
       <h1>{$h1Title|truncate:50:" ほか"}</h1>
     {elseif !empty($pageTitle)}
       <h1>{$pageTitle|truncate:50:" ほか"}</h1>
     {/if}
-    
+
     {if isset($pageDescription)}
       <div class="description">{$pageDescription}</div>
     {/if}
@@ -485,7 +485,7 @@ body.mini {
 
 <div class="companybid-area">
   <div class="companybid-strong">
-    下見期間 : 
+    下見期間 :
     {$companybidOpen.preview_start_date|date_format:'%Y年%m月%d日'} ({B::strtoweek($companybidOpen.preview_start_date)})
      ～
     {$companybidOpen.preview_end_date|date_format:'%m月%d日'} ({B::strtoweek($companybidOpen.preview_end_date)})
@@ -493,7 +493,7 @@ body.mini {
   {$companybidOpen.preview_date_comment}
 
   <div class="companybid-strong">
-    入札日時 : 
+    入札日時 :
     {$companybidOpen.bid_date|date_format:'%Y年%m月%d日'}
     ({B::strtoweek($companybidOpen.bid_date)})
     {$companybidOpen.bid_date|date_format:'%H:%M'}
@@ -501,8 +501,8 @@ body.mini {
   {$companybidOpen.bid_date_comment}
 
   <div class="companybid-strong">入札会場 : {$companybidOpen.bid_location}</div>
-  {if !empty($companybidOpen.bid_address)} 
-    {$companybidOpen.bid_address} 
+  {if !empty($companybidOpen.bid_address)}
+    {$companybidOpen.bid_address}
     <a class="accessmap" href="https://maps.google.co.jp/maps?f=q&amp;q={$companybidOpen.bid_address|escape:"url"}+({$companybidOpen.bid_location|escape:"url"})&source=embed&amp;hl=ja&amp;geocode=&amp;ie=UTF8&amp;t=m&z=14" target="_blank">MAPはこちら</a>
   {/if}
 </div>
@@ -543,25 +543,25 @@ body.mini {
     <a class="bid" href="companybid_detail.php?m={$m.companybid_machine_id}">
       {($m.name|cat:" "|cat:$m.maker|cat:" "|cat:$m.model)|mb_strimwidth :0:60:"..."}
     </a>
-    
+
     <div class="id">出品番号 : {$m.list_no}</div>
-    
+
     {if !empty($m.imgs) && count($m.imgs) > 1}
       <div class="imgs_num">{count($m.imgs)}photos</div>
     {/if}
-    
+
     {*** 最低入札金額 ***}
     {*
     <div class="price_label">最低入札金額</div>
     *}
     <div class="min_price">{$m.min_price|number_format}円</div>
-    
+
     <div class="spec">{$m.spec|escape|mb_strimwidth:0:200:"..."|regex_replace:"/alert\((.*)\)/":'<span style="color:red;">$1</span>' nofilter}</div>
-    
+
     <div class="year">{if $m.year}年式 {$m.year}{/if}</div>
-    
+
     <div class="region">{$m.location}</div>
-    
+
     <a class="companybid_detail_02" href="companybid_detail.php?m={$m.companybid_machine_id}" target="_blank">商品詳細ページ</a>
   </div>
 {/foreach}
@@ -571,7 +571,7 @@ body.mini {
 
 </div>
 
-<a title="Web Analytics" href="http://clicky.com/100784739"><img alt="Web Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<a title="Web Analytics" href="https://clicky.com/100784739"><img alt="Web Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
 <script src="//static.getclicky.com/js" type="text/javascript"></script>
 <script type="text/javascript">try{ clicky.init(100784739); }catch(e){}</script>
 <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100784739ns.gif" /></p></noscript>
@@ -584,6 +584,5 @@ body.mini {
   </p>
 </footer>
 
-</body> 
+</body>
 </html>
-

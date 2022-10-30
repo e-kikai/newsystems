@@ -20,7 +20,7 @@ try {
         throw new Exception('入札会情報が取得出来ません');
     }
 
-    //// 入札会情報を取得 ////
+    /// 入札会情報を取得 ////
     $boModel = new BidOpen();
     $bidOpen = $boModel->get($bidOpenId);
 
@@ -71,20 +71,20 @@ try {
         $lModel->set('machine', 'bid_door', $bidOpenId);
     }
 
-    // トラッキングログ
-    $tlModel = new TrackingLog();
-    $tlModel->set(array("bid_open_id" => $bidOpen["id"]));
+    /// トラッキングログ
+    // $tlModel = new TrackingLog();
+    // $tlModel->set(array("bid_open_id" => $bidOpen["id"]));
 
-    // ML結果
-    $trackingUserTable = new TrackingUser();
-    $trackingUser = $trackingUserTable->checkTrackingTag();
+    // // ML結果
+    // $trackingUserTable = new TrackingUser();
+    // $trackingUser = $trackingUserTable->checkTrackingTag();
 
-    if (!empty($trackingUser)) {
-        $tbuTable = new TrackingBidResult();
-        $recommends = $tbuTable->getRecommends($bidOpenId, 'user', $trackingUser['id']);
-    }
+    // if (!empty($trackingUser)) {
+    //     $tbuTable = new TrackingBidResult();
+    //     $recommends = $tbuTable->getRecommends($bidOpenId, 'user', $trackingUser['id']);
+    // }
 
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ////
     $_smarty->assign(array(
         'pageTitle'        => $bidOpen['title'] . ' 会場',
         // 'pageDescription' => '入札会商品リストです。入札、出品者へのお問い合せは、全機連会員を通して行なってください',
@@ -102,7 +102,7 @@ try {
         'IPLogMachineList' => $IPLogMachineList,
         'FaviMachineList'  => $FaviMachineList,
 
-        'recommends'       => $recommends,
+        // 'recommends'       => $recommends,
     ))->display("bid_door.tpl");
 } catch (Exception $e) {
     //// エラー画面表示 ////

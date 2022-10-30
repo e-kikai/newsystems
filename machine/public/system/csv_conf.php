@@ -178,7 +178,7 @@ try {
             $temp['genre_id'] = $uGenreList[$usedCode]['genre_id'];
             $temp['genre']    = $uGenreList[$usedCode]['genre'];
         } else if (!empty($uGList[$sUsedName])) {
-            // 20171031 機械名(頭の英数字を除外したもの)を機械名(ヒント)テーブルから取得 
+            // 20171031 機械名(頭の英数字を除外したもの)を機械名(ヒント)テーブルから取得
             $temp['genre_id'] = $uGList[$sUsedName];
             $temp['genre']    = $genreList[$temp['genre_id']]['genre'];
         } else if (!empty($uGList[$usedName])) {
@@ -233,8 +233,9 @@ try {
             }
 
             // 選択・自由記入(入力されたものそのまま)
-            $name = preg_replace('/(%free%|%select.*%)/', $usedName, $name);
-            $temp['name'] = preg_replace('/(%.*%)/', '', $name);
+            // $name = preg_replace('/(%free%|%select.*%)/', $usedName, $name);
+            // $temp['name'] = preg_replace('/(%.*%)/', '', $name);
+            $temp['name'] = $usedName;
         } else {
             $temp['name'] = $usedName;
         }
@@ -247,7 +248,7 @@ try {
             $temp['id'] = $now['id'];
             $temp += array(
                 'top_img'    => $now['top_img'],
-                'imgs'       => $now['imgs'],
+                'imgs'       => array(),
                 'pdfs'       => $now['pdfs'],
                 'catalog_id' => $now['catalog_id'],
                 'others'     => $now['others'],

@@ -1,7 +1,7 @@
 <?php
 /**
  * メンバーログイン処理
- * 
+ *
  * @access public
  * @author 川端洋平
  * @version 0.0.4
@@ -15,7 +15,7 @@ if ($auth->login($_POST['mail'], $_POST['passwd'], $_POST['check'])) {
     // ロギング
     $lModel = new Actionlog();
     $lModel->set('machine', 'login');
-    
+
     if (Auth::check('system')) {
         header('Location: /system/');
     } else if (Auth::check('member')) {

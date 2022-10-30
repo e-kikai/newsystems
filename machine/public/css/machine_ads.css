@@ -1,0 +1,177 @@
+@charset "utf-8";
+
+body.ads_body {
+  border: 1px solid #27367B;
+  overflow: hidden;
+  margin: 0;
+}
+
+.thumbnail {
+  display: block;
+  padding: 4px;
+  margin-bottom: 20px;
+  line-height: 1.42857;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  -webkit-transition: border 0.2s ease-in-out;
+  -o-transition: border 0.2s ease-in-out;
+  transition: border 0.2s ease-in-out;
+}
+
+.thumbnail.product-pannel {
+  width: 172px;
+  height: 172px;
+  margin: 0;
+  white-space: normal;
+  display: inline-block;
+  vertical-align: top;
+  padding: 0;
+  border-radius: 0;
+  border: 0;
+  position: relative;
+}
+
+.thumbnail.product-pannel a {
+  color: #337ab7;
+  text-decoration: none;
+
+  display: block;
+  padding: 4px;
+  border: 1px solid #FFF;
+  height: 100%;
+
+  box-sizing: border-box;
+}
+
+.thumbnail.product-pannel a:hover {
+  background: #FFFFE0;
+  text-decoration: none;
+  border: 1px solid #27367B;
+  color: #23527c;
+}
+
+.thumbnail.product-pannel img {
+  max-width: 120px;
+  max-height: 90px;
+  display: block;
+  margin: auto;
+}
+
+.thumbnail.product-pannel .maker {
+  height: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  position: absolute;
+  bottom: 52px;
+  width: 166px;
+  font-size: 15px;
+}
+
+.thumbnail.product-pannel .name {
+  height: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  position: absolute;
+  bottom: 30px;
+  width: 166px;
+  font-size: 15px;
+}
+
+.thumbnail.product-pannel .bid_name {
+  height: 18px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  position: absolute;
+  bottom: 24px;
+  width: 170px;
+}
+
+.thumbnail.product-pannel .bid_list_no {
+  height: 18px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  position: absolute;
+  bottom: 45px;
+  width: 170px;
+  color: #333;
+}
+
+.thumbnail.product-pannel .price {
+  font-size: 11px;
+  color: #333;
+  position: absolute;
+  bottom: 0;
+}
+
+.thumbnail.product-pannel .min_price {
+  font-size: 16px;
+  margin-left: 1px;
+  color: #E81F18;
+  font-weight: normal;
+}
+
+.thumbnail.product-pannel .model {
+  height: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  position: absolute;
+  bottom: 8px;
+  width: 166px;
+  font-size: 15px;
+}
+
+a.ads_logo {
+  display: block;
+}
+
+a.ads_logo img {
+  height: 50px;
+  margin-left: 8px;
+}
+
+.site {
+  position: absolute;
+  bottom: 8px;
+  left: 230px;
+}
+
+.desc {
+  position: absolute;
+  color: #333;
+  font-size: 15px;
+  bottom: 32px;
+  left: 230px;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.bid_title {
+  display: block;
+  position: absolute;
+  color: #FFF;
+  font-size: 28px;
+  font-weight: bold;
+  text-decoration: none;
+  text-shadow: 4px 4px 4px #000;
+
+  top: 176px;
+  left: 370px;
+  background-image: url(/imgs/bid_door.png);
+  height: 50px;
+  line-height: 50px;
+  width: 460px;
+  text-align: center;
+}
+
+.bid_title:hover {
+  opacity: 0.5;
+  color: #FFF;
+}

@@ -13,11 +13,13 @@
   content="全国機械業連合会が運営する中古機械の情報サイト。中古機械のスペシャリスト全機連会員が、購入・販売をご支援します。" />
 *}
 <meta name="description"
-  content="全機連会員100社以上の中古機械検索を中心に、電子カタログ、Web入札会など工作機械に関する様々な情報を掲載。" />
+  content="全機連会員120社以上の中古機械・工具検索を中心に、電子カタログ、Web入札会など工作機械に関する様々な情報を掲載。" />
 
+{*
 <meta name="keywords" content="中古機械,全機連,中古旋盤,中古フライス,マシンライフ" />
+*}
 
-<link href="{$_conf.site_uri}{$_conf.css_dir}toppage.css?20150811" rel="stylesheet" type="text/css" />
+<link href="{$_conf.site_uri}{$_conf.css_dir}toppage.css?20190919" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="{$_conf.site_uri}{$_conf.js_dir}same_list.js"></script>
 <link href="{$_conf.site_uri}{$_conf.css_dir}same_list.css" rel="stylesheet" type="text/css" />
 
@@ -70,6 +72,12 @@ $(function() {
 <style>
 </style>
 {/literal}
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@zenkiren" />
+<meta name="twitter:title" content="マシンライフ - 全機連の中古機械・工具情報" />
+<meta name="twitter:description" content="全機連会員120社以上の中古機械・工具検索を中心に、電子カタログ、Web入札会など工作機械に関する様々な情報を掲載。" />
+<meta name="twitter:image" content="https://www.zenkiren.net/imgs/logo_machinelife.png" />
 {/block}
 
 {block 'main'}
@@ -157,7 +165,7 @@ $(function() {
           入札締切 : {$b.user_bid_date|date_format:'%Y年%m月%d日'}({B::strtoweek($b.user_bid_date)})
           {$b.user_bid_date|date_format:'%H:%M'}
         </div>
-        {if strtotime($b.preview_start_date) < time() && strtotime($b.user_bid_date) >= time()}}
+        {if strtotime($b.preview_start_date) < time() && strtotime($b.user_bid_date) >= time()}
           <div class="bid_banner_now"><span>ただいま開催中！ Click▶</span></div>
         {/if}
         {if strtotime($b.user_bid_date) < time()}
@@ -285,19 +293,31 @@ $(function() {
     <img src="./imgs/dst_02.jpg" alt="大阪機械団地協同組合 デッドストックツール.com" style="width:240px;height:60px;"/>
   </a>
   *}
-{if !empty($bidinfoList)}
-  {foreach $bidinfoList as $b}
-    {if !empty($b.banner_file)}
-      <a href="{$b.uri}"  target="_blank"
-        onClick="ga('send', 'event', 'banner', 'bid', 'bidinfo_{$b.id}', 1, true);">
-        <img src="{$_conf.media_dir}banner/{$b.banner_file}" alt="{$b.bid_name}" />
-      </a>
-    {/if}
-  {/foreach}
-{/if}
+
+  {if !empty($bidinfoList)}
+    {foreach $bidinfoList as $b}
+      {if !empty($b.banner_file)}
+        <a href="{$b.uri}"  target="_blank"
+          onClick="ga('send', 'event', 'banner', 'bid', 'bidinfo_{$b.id}', 1, true);">
+          <img src="{$_conf.media_dir}banner/{$b.banner_file}" alt="{$b.bid_name}" />
+        </a>
+      {/if}
+    {/foreach}
+  {/if}
+
   <a href="./bid_schedule.php"  target="_blank"
     onClick="ga('send', 'event', 'banner', 'bid', 'bid_schedule', 1, true);">
-    <img src="{$_conf.media_dir}banner/2018bid.png" alt="2018年度Web入札会スケジュール" />
+    <img src="./imgs/2022bid.png" alt="2022年度Web入札会スケジュール" />
+  </a>
+
+  <a href="./help_banner.php"  target="_blank"
+    onClick="ga('send', 'event', 'banner', 'bid', 'ad_rec', 1, true);">
+    <img src="./imgs/rec_02.gif" alt="広告バナー募集中" />
+  </a>
+
+  <a href="https://twitter.com/zenkiren"  target="_blank"
+    onClick="ga('send', 'event', 'banner', 'bid', 'twitter', 1, true);">
+    <img src="./imgs/twitter.png" alt="マシンライフ公式Twitter" />
   </a>
 
   <br style="clear:both;">
@@ -305,8 +325,11 @@ $(function() {
 
 <div class="left_area">
   <h2><div>新着中古機械</div></h2>
+
   <a onclick="ga('send', 'event','toppage', 'news', 'machine', 1, true);" class="news_link" href="news.php">>> 新着中古機械一覧</a>
   <a onclick="ga('send', 'event','toppage', 'news', 'tool', 1, true);" class="news_link tool" href="news.php?b=1">>> 新着中古工具一覧</a>
+  <a onclick="ga('send', 'event','toppage', 'news', 'rss', 1, true);" class="news_link rss" href="rss.php">新着RSS</a>
+
   <ul class="news2_area resized">
 
   {foreach $newMachineList as $m}

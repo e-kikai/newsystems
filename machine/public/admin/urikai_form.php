@@ -19,10 +19,18 @@ try {
     if ($id) {
         $urikai = $fModel->get($id);
     } else {
+        //// 会社情報を取得 ////
+        $cModel = new Company();
+        $company = $cModel->get($_user['company_id']);
+
         // 新規作成デフォルトを設定
         $urikai = array(
             'company_id' => $_user['company_id'],
             'goal'       => 'cell',
+            'imgs'       => array(),
+            'tel'        => $company["tel"],
+            'fax'        => $company["fax"],
+            'mail'       => $company["mail"],
         );
     }
 

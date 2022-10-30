@@ -8,7 +8,10 @@
 *}
 
 <meta name="description" content="{$bidOpen.title}に出品された{$siteName}の商品。全機連が主催する全国展開の中古工作機械・工具のWeb入札会開催中！下見期間{$bidOpen.preview_start_date|date_format:'%Y/%m/%d'}({B::strtoweek($bidOpen.preview_start_date)})～{$bidOpen.preview_end_date|date_format:'%m/%d'}({B::strtoweek($bidOpen.preview_end_date)})。" />
+
+{*
 <meta name="keywords" content="{$siteName},中古機械,Web入札会,工具,全機連,マシンライフ" />
+*}
 
 <script type="text/javaScript">
 {literal}
@@ -545,7 +548,8 @@ a.mylist_text_link {
     <div class="info_area"></div>
     *}
 
-    <a class="bid" href="bid_detail.php?m={$m.id}{if in_array($m.id, $recommendIds)}&recommend=1{/if}">
+    <a class="bid" href="bid_detail.php?m={$m.id}">
+    {* <a class="bid" href="bid_detail.php?m={$m.id}{if in_array($m.id, $recommendIds)}&recommend=1{/if}"> *}
       {($m.name|cat:" "|cat:$m.maker|cat:" "|cat:$m.model)|mb_strimwidth :0:60:"..."}
     </a>
 
@@ -614,5 +618,8 @@ a.mylist_text_link {
 
 {*** ページャ ***}
 {include file="include/pager.tpl"}
+
+{assign "keywords" "{$pankuzuTitle|regex_replace:"/[.\/,\s]+/":"|"}"}
+{include file="include/mnok_ads.tpl"}
 
 {/block}

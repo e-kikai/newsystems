@@ -115,7 +115,20 @@ try {
     // アクセス数
     $res["ActionlogMachine"]     = $_db->fetchOne("SELECT count(t.*) FROM actionlogs t WHERE action='machine_detail' AND t.hostname IS NOT NULL AND {$createMonth};"); // 総数
     $res["ActionlogMachineUniq"] = $_db->fetchOne("SELECT count(DISTINCT t.ip) FROM actionlogs t WHERE action='machine_detail' AND t.hostname IS NOT NULL AND {$createMonth};"); // ユニークユーザ数
-    $res["ActionlogMachineUniqTotal"] = $_db->fetchOne("SELECT count(DISTINCT t.ip) FROM actionlogs t WHERE action='machine_detail' AND t.hostname IS NOT NULL AND {$createTotal};"); // ユーザ数累計
+
+    // ユニークユーザ年累計(月累計の合算値)
+    $res["ActionlogMachineUniqTotal"] = $res["ActionlogMachineUniq"];
+    $m = 1;
+    while ($m < $monthMonth) {
+        $ms  = "{$monthYear}-{$m}-01 00:00:00";
+        $me  = date('Y-m-t 23:59:59',  strtotime($ms));
+
+        $res["ActionlogMachineUniqTotal"] += $_db->fetchOne("SELECT count(DISTINCT t.ip) FROM actionlogs t WHERE action='machine_detail' AND t.hostname IS NOT NULL AND t.created_at BETWEEN '{$ms}' AND '{$me}' ;");
+
+        $m++;
+    }
+
+    // $res["ActionlogMachineUniqTotal"] = $_db->fetchOne("SELECT count(DISTINCT t.ip) FROM actionlogs t WHERE action='machine_detail' AND t.hostname IS NOT NULL AND {$createTotal};"); // ユーザ数累計
 
     // echo "<pre>";
     // var_dump($_db->fetchAll("EXPLAIN ANALYZE SELECT count(t.*) FROM actionlogs t WHERE action='machine_detail' AND t.hostname IS NOT NULL AND {$createMonth};")); // ユニークユーザ数

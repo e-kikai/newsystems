@@ -1,5 +1,5 @@
 {**
- * 共通ヘッダ部分 
+ * 共通ヘッダ部分
  *
  * @access public
  * @author 川端洋平
@@ -7,11 +7,17 @@
  * @since 2012/04/19
  *}
 {* Google Analytics *}
+
 {*
 {include file="include/google_analytics.tpl"}
 *}
-{literal}
+
+{*
 <script type="text/javascript" src="http://www.zenkiren.net/acc/catalog/acctag.js"></script>
+*}
+
+{literal}
+
 <script language="JavaScript" type="text/JavaScript">
 $(function() {
     //// textresizer ////
@@ -39,7 +45,7 @@ $(function() {
   display: inline;
   font-size: 17px;
 }
-  
+
 ul.textresizer {
   list-style: none;
   display: inline;
@@ -61,16 +67,16 @@ ul.textresizer a {
   text-decoration: none;
   background: #FFF;
 }
-  
+
 ul.textresizer a:hover {
   background: #e5e5e5;
-  border: solid 1px #cccccc;    
+  border: solid 1px #cccccc;
 }
 
 ul.textresizer .small-text {
   font-size: 13px;
 }
-	
+
 ul.textresizer .medium-text {
   font-size: 17px;
 }
@@ -86,7 +92,7 @@ ul.textresizer .larger-text {
 ul.textresizer a.textresizer-active {
   border: solid 1px #2B562B;
   background: #FFCA6F;
-  color: #000000;				
+  color: #000000;
 }
 </style>
 {/literal}
@@ -103,22 +109,22 @@ ul.textresizer a.textresizer-active {
     <a href='' class='header_logo'>
       <img src='imgs/logo_catalog.png' alt='信頼と実績 全機連'/>
     </a>
-    
+
     <div class='discription'>機械のカタログをメーカー名・型式から検索できます</div>
     <div class="header_title">電子カタログ</div>
-    
+
     <div class='sitemap_menu'>
       <a href='passwd_change.php'>パスワード変更</a>
       <a href='logout_do.php'>ログアウト</a>
-{* 
+{*
       <a href='help.php?p=beginner_01'>初めての方へ</a>
       <a href='sitemap.php'>サイトマップ</a>
       <a href='contact.php'>お問い合わせ</a>
  *}
     </div>
-    
+
     <div class='header_menu'></div>
-    
+
     {*** textsizer ***}
     <div id="textsizer">
       <p>文字サイズ</p>
@@ -129,9 +135,9 @@ ul.textresizer a.textresizer-active {
         <li><a href="#nogo" class="larger-text" title="特大">特大</a></li>
       </ul>
     </div>
-    
+
   </header>
-  
+
   {*** マイリスト***}
   <div class='header_mypage'>
     <div class="mylist_menu">
@@ -141,37 +147,37 @@ ul.textresizer a.textresizer-active {
       </ul>
     </div>
   </div>
-  
-  
+
+
   {*** パンくず ***}
   {if !isset($pankuzu) || $pankuzu !== false}
     <div class="pankuzu">
       <a href="./">{$_conf.site_name}</a> &gt;
-      
+
       {if !empty($pankuzu)}
         {foreach from=$pankuzu key=k item=p name='pun'}
           <a href="{$k}">{$p}</a> &gt;
         {/foreach}
       {/if}
-      
+
       {if !empty($pankuzuTitle)}
         <strong>{$pankuzuTitle}</strong>
       {elseif !empty($pageTitle)}
         <strong>{$pageTitle}</strong>
       {/if}
     </div>
-    
+
     {if !empty($h1Title)}
       <h1>{$h1Title}</h1>
     {elseif !empty($pageTitle)}
       <h1>{$pageTitle}</h1>
     {/if}
-    
+
     {if isset($pageDescription)}
       <div class="description">{$pageDescription}</div>
     {/if}
   {/if}
-  
+
   {*** メッセージ枠 ***}
   {if isset($message)}
     <div class="message">
@@ -184,7 +190,7 @@ ul.textresizer a.textresizer-active {
       {/if}
     </div>
   {/if}
-  
+
   {*** エラーメッセージ枠 ***}
   {if isset($errorMes)}
     <div class="error_mes">
@@ -197,5 +203,5 @@ ul.textresizer a.textresizer-active {
       {/if}
     </div>
   {/if}
-  
+
   <div class="center_container">

@@ -4,18 +4,18 @@
 
 <script type="text/javascript" src="{$_conf.libjs_uri}/scrolltopcontrol.js"></script>
 <link href="{$_conf.site_uri}{$_conf.css_dir}admin_list.css" rel="stylesheet" type="text/css" />
-  
+
 <script type="text/JavaScript">
 {literal}
 $(function() {
     //// テーブルスクロール ////
     $(window).resize(function() {
-        $('div.table_area').css('height', $(window).height() - 270);
+        $('div.table_area').css('height', $(window).height() - 210);
     }).triggerHandler('resize');
-    
-     $('div.table_area').scroll(function() {
+
+    $('div.table_area').scroll(function() {
         $(window).triggerHandler('scroll');
-     });
+    });
 });
 </script>
 <style type="text/css">
@@ -43,7 +43,7 @@ $(function() {
       <th class="sepa2" colspan="2" style="width:200px;">結果</th>
       <th class="company sepa2" rowspan="2">会社名</th>
       <th class="sepa2" colspan="7" style="width:700px;">支払口座(支払の場合のみ表示)</th>
-      
+
     <tr>
       <th class="min_price sepa2">落札代金請求額</th>
       <th class="min_price">デメ半</th>
@@ -52,7 +52,7 @@ $(function() {
       <th class="min_price">差引</th>
       <th class="min_price">消費税({$bidOpen.tax}%)</th>
       <th class="min_price">差引落札請求額</th>
-      
+
       <th class="min_price sepa2">出品支払額</th>
       <th class="min_price">デメ半</th>
       <th class="min_price">小計</th>
@@ -61,10 +61,10 @@ $(function() {
       <th class="min_price">差引</th>
       <th class="min_price">消費税({$bidOpen.tax}%)</th>
       <th class="min_price">差引出品支払額</th>
-      
+
       <th class="min_price sepa2">結果</th>
       <th class="min_price">金額</th>
-      
+
       <th class="sepa2">出品担当者</th>
       <th class="">銀行名</th>
       <th class="">支店名</th>
@@ -74,7 +74,7 @@ $(function() {
       <th class="">銀行振込略称</th>
     </tr>
   {/if}
-  
+
   <tr>
     <td class="id">{$s.company_id}</td>
     <td class="company">{$s.company.company}</td>
@@ -85,7 +85,7 @@ $(function() {
     <td class="min_price">{$s.billing|number_format}円</td>
     <td class="min_price">{$s.billing_tax|number_format}円</td>
     <td class="min_price">{$s.final_billing|number_format}円</td>
-    
+
     <td class="min_price sepa2">{$s.payment_amount|number_format}円</td>
     <td class="min_price">{$s.payment_demeh|number_format}円</td>
     <td class="min_price">{($s.payment_amount - $s.payment_demeh)|number_format}円</td>
@@ -94,13 +94,13 @@ $(function() {
     <td class="min_price">{$s.payment|number_format}円</td>
     <td class="min_price">{$s.payment_tax|number_format}円</td>
     <td class="min_price">{$s.final_payment|number_format}円</td>
-    
-    
+
+
     <td class="min_price sepa2">{$s.result_type}</td>
     <td class="min_price">{$s.result|number_format}円</td>
-      
+
     <td class="company sepa2">{$s.be_company}</td>
-    
+
     {if $s.final_payment > $s.final_billing}
       <td class="sepa2">{$s.be_officer}</td>
       <td class="">{$s.be_bank}</td>
@@ -120,7 +120,7 @@ $(function() {
       <td class=""></td>
     {/if}
   </tr>
-  
+
   {if $s@last}
     </table>
   {/if}
@@ -131,4 +131,3 @@ $(function() {
 {include file="include/pager.tpl"}
 
 {/block}
-

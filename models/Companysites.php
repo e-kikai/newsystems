@@ -1,7 +1,7 @@
 <?php
 /**
  * 自社サイトテーブルクラス
- * 
+ *
  * @access public
  * @author 川端洋平
  * @version 0.2.0
@@ -16,7 +16,7 @@ class Companysites extends MyTable
     protected $_jname         = '自社サイト';
     protected $_view          = 'view_companysites';
     protected $_jsonColumns   = array('page_configs', 'company_configs');
-    
+
     protected $_filters       = array('rules' => array(
         '会社ID'       => array('fields' => 'company_id', 'Digits', 'NotEmpty'),
         'サブドメイン' => array('fields' => 'subdomain',  'Alnum',  'NotEmpty'),
@@ -70,14 +70,14 @@ class Companysites extends MyTable
      *
      * @access protected
      * @param  array   $q 検索クエリ
-     * @param  boolean $check 検索条件チェック     
+     * @param  boolean $check 検索条件チェック
      * @return string  生成したwhere句
      */
     protected function _makeWhereSqlArray($q, $check=false) {
         $whereArr = array();
 
         // 会員条件によって
-        
+
         return $whereArr;
     }
 
@@ -94,11 +94,11 @@ class Companysites extends MyTable
         if (empty($companyId)) {
             throw new Exception('取得する会社IDがありません');
         }
-        
+
         // SQLクエリを作成
         $sql = "SELECT s.* FROM view_companysites s WHERE s.company_id = ?; ";
         $result = $this->_db->fetchRow($sql, $companyId);
-        
+
         // JSON展開
         $result = B::decodeRowJson($result, $this->_jsonColumns);
 
@@ -118,7 +118,7 @@ class Companysites extends MyTable
 
         //// URLからサブドメイン取得 ////
         if (!preg_match(self::URL_RULE, $url, $re)) { throw new Exception('このURLのサイトはありません'); }
-        
+
         //// 取得したサブドメインから、サイト情報を取得する ////
         return $this->getBySubdomain($re[1]);
     }
@@ -133,14 +133,14 @@ class Companysites extends MyTable
     public function getBySubdomain($subdomain)
     {
         if (empty($subdomain)) { throw new Exception('取得するサイト名がありません'); }
-        
+
         // SQLクエリを作成
         $sql = "SELECT s.* FROM view_companysites s WHERE s.subdomain = ?;";
         $result = $this->_db->fetchRow($sql, $subdomain);
 
         if (empty($result))            { throw new Exception('サイト情報を取得できませんでした'); }
         if (!empty($result['closed'])) { throw new Exception('このサイトは、現在閉鎖されています'); }
-        
+
         // JSON展開
         $result = B::decodeRowJson($result, $this->_jsonColumns);
 
@@ -149,16 +149,16 @@ class Companysites extends MyTable
 
     /**
      * 自社サイト情報をセット(会員ページ用、会社IDで識別する)
-     * 
+     *
      * @access public
-     * @param  intetger $companyId 会社ID      
+     * @param  intetger $companyId 会社ID
      * @param  array    $data      入力データ
      * @return $this
-     */                    
+     */
     public function memberSetByCompanyId($companyId, $data)
     {
         if (empty($companyId)) { throw new Exception('会社IDがありません'); }
-        
+
         /// 画像ファイルを実ディレクトリに移動 ////
         if (!empty($data['company_configs']['top_img'])) {
             $_conf = Zend_Registry::get('_conf');
@@ -169,26 +169,26 @@ class Companysites extends MyTable
                 $_conf->htdocs_path . '{$_conf.media_dir}companysite',
                 true);
         }
-        
+
         //// フィルタリング・バリデーション・JSONエンコード(会員ページ用の保存項目)  ////
         $data = MyFilter::filtering($data, $this->_memberFilters, $this->_jsonColumns);
 
-        // 会員ページ用なので変更のみ、新規登録は行えない        
+        // 会員ページ用なので変更のみ、新規登録は行えない
         $data['changed_at'] = new Zend_Db_Expr('current_timestamp');
         $result = $this->update($data, $this->_db->quoteInto('company_id = ?', $companyId));
 
         if (empty($result)) { throw new Exception('会社情報が保存できませんでした'); }
-        
+
         return $this;
     }
     /**
      * 情報を保存(管理者ページ用)
-     * 
-     * @access public 
+     *
+     * @access public
      * @param  integer $id   保存対象のID(NULLの場合は新規登録)
      * @param  array   $data 保存する情報
      * @return $this
-     */                    
+     */
     public function set($id=null, $data)
     {
         // 保存するサブドメインがすでに使われていないかチェックする
@@ -210,12 +210,12 @@ class Companysites extends MyTable
 
     /**
      * サブドメイン・会社IDがすでに使用されているかチェックする
-     * 
+     *
      * @access public
      * @param  string  $subdomain     チェックするサブドメイン
      * @param  integer $companysiteId 更新時、現在使用中のサブドメインをチェックから除外する
      * @return $this
-     */                    
+     */
     public function checkSubdomain($subdomain, $companysiteId=null)
     {
         $sql = 'SELECT companysite_id FROM view_companysites WHERE subdomain = ? AND companysite_id <> ?;';
@@ -235,11 +235,11 @@ class Companysites extends MyTable
             $var_h = $h * 6;
             $i = (int)$var_h;
             $f = $var_h - $i;
-             
+
             $p = $v * ( 1 - $s );
             $q = $v * ( 1 - $s * $f );
             $t = $v * ( 1 - $s * ( 1 - $f ) );
-             
+
             switch($i){
                 case 0:
                     $var_r = $v;
@@ -277,7 +277,7 @@ class Companysites extends MyTable
 
             $r = floor($var_r * 255);
             $g = floor($var_g * 255);
-            $b = floor($var_b * 255);  
+            $b = floor($var_b * 255);
         }
         //return array($r, $g, $b);
         if ($a < 1) { return "rgba({$r}, {$g}, {$b}, {$a});"; }

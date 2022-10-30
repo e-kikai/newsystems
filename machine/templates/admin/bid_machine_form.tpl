@@ -657,6 +657,7 @@ table.form td input.seri_price:disabled {
     <td style="position:relative;">
       <input type="text" name="min_price" class="min_price number" value="{$machine.min_price}"
         placeholder="金額(数字で入力)" required />円<br />
+      {*
       <a href="/admin/bid_fee_sim.php?o={$b.id}" onclick="window.open('/admin/bid_fee_sim.php?o={$bidOpenId}','','scrollbars=yes,width=850,height=450,');return false;">
         支払・請求額シミュレータ
       </a>
@@ -667,6 +668,7 @@ table.form td input.seri_price:disabled {
       <label class="seri_label" for="is_seri">売り切りに出品</label>
       <input type="text" class="min_price number seri_price" value="{$machine.seri_price}" placeholder="金額(数字で入力)" />
       <div class="seri_yen">円</div>
+      *}
 
     </td>
   </tr>

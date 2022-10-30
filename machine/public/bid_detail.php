@@ -35,7 +35,7 @@ try {
     $mModel  = new Machine();
     $others  = $mModel->makerOthers($machine['spec_labels'], $machine['others']);
 
-    //// 入札会情報を取得 ////
+    /// 入札会情報を取得 ////
     $boModel = new BidOpen();
     $bidOpen = $boModel->get($machine['bid_open_id']);
 
@@ -114,16 +114,16 @@ try {
     $lModel = new Actionlog();
     $lModel->set('machine', 'bid_detail', $machineId);
 
-    // トラッキングログ
-    $tlModel = new TrackingLog();
-    $tlModel->set(array(
-        "bid_open_id"     => $bidOpen["id"],
-        "bid_machine_ids" => $machine["id"],
-    ));
+    // // トラッキングログ
+    // $tlModel = new TrackingLog();
+    // $tlModel->set(array(
+    //     "bid_open_id"     => $bidOpen["id"],
+    //     "bid_machine_ids" => $machine["id"],
+    // ));
 
-    // ML結果
-    $tbuTable = new TrackingBidResult();
-    $recommends = $tbuTable->getRecommends($bidOpen["id"], 'machine', $machineId);
+    // // ML結果
+    // $tbuTable = new TrackingBidResult();
+    // $recommends = $tbuTable->getRecommends($bidOpen["id"], 'machine', $machineId);
 
     //// 表示変数アサイン ////
     $_smarty->assign(array(
@@ -151,7 +151,7 @@ try {
         'nextMachine'      => $nextMachine,
         'prevMachine'      => $prevMachine,
 
-        'recommends'       => $recommends,
+        // 'recommends'       => $recommends,
     ))->display("bid_detail.tpl");
 } catch (Exception $e) {
     //// エラー画面表示 ////

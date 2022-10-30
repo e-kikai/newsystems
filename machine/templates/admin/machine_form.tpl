@@ -345,14 +345,15 @@ $(function() {
                     }
 
                     // カタログ一覧の作成
-                    var curi = 'http://catalog.zenkiren.net';
+                    var curi = 'https://catalog.zenkiren.net';
+                    var muri = 'https://s3-ap-northeast-1.amazonaws.com/machinelife/catalog/public/media/';
                     $.each(catalogList, function(i, val) {
                         $('.catalog_list tbody').append(
                             '<tr>' +
                             '<td class="maker">'+ (val['maker']?val['maker']:'') + '<br />' + (val['genres']?val['genres']:'') +
                             '<br /><button class="catalog_select" value="' + val['id'] + '">選択</button>' + '</td>' +
                             '<td class="img"><a href="' + curi + '/catalog_pdf.php?id=' + val['id'] + '" target="_blank">' +
-                            '<img class="catalog_tumbnail" src="' + curi + '/media/catalog_thumb/' + val['thumbnail'] + '" alt="PDF" /></a></td>' +
+                            '<img class="catalog_tumbnail" src="' + muri + 'catalog_thumb/' + val['thumbnail'] + '" alt="PDF" /></a></td>' +
                             '<td class="model">' + val['models'] + '</td>' +
                             '<td class="year">' + (val['year']?val['year']:'') + '<br />' + (val['catalog_no']?val['catalog_no']:'') + '</td>' +
                             '</tr>'
@@ -422,6 +423,12 @@ $(function() {
         var price = mb_convert_kana($(this).val(), 'KVrn').replace(/[^0-9]/g, '');
         $(this).val(price ? parseInt(price) : '');
     });
+
+    // 独自ラベル
+    $(".org_label input").change(function() {
+        org_label_change();
+    });
+    org_label_change();
 });
 
 //// アップロード後のコールバック ////
@@ -464,6 +471,26 @@ function upload_callback (target, data)
         });
     }
 }
+/*
+function org_label_change() {
+    var h;
+    if ($(".label_title").val() != "") {
+        if ($(".label_url").val() != "") {
+            h = '<a class="label org" href="' + $('.label_url').val() + '" target="_blank"' +
+              'style="background:' + $('.label_color').val() + ';">' +
+              $('.label_title').val() + '</a>';
+        } else {
+            h = '<div class="label org"' +
+              'style="background:' + $('.label_color').val() + ';">' +
+              $('.label_title').val() + '</div>';
+        }
+    } else {
+        h = "";
+    }
+
+    $(".label_sample").html(h);
+}
+*/
 </script>
 <style type="text/css">
 div.uid {
@@ -762,6 +789,24 @@ button.machine_search {
        selected=$machine.view_option separator=' '}
     </td>
   </tr>
+
+{*
+  <tr class="org_label">
+    <th rowspan=2>独自ラベル</th>
+    <td>
+      テキスト :
+      <input type="text" name="label_title" class="label_title" value="{$machine.label_title}"
+        placeholder="表示されるテキスト" /><br />
+      リンク先URL :
+      <input type="text" name="label_url" class="label_url" value="{$machine.label_url}"
+        placeholder="リンク先URL(あれば)" /><br />
+      文字色 :
+      <input type="color" class="label_color" name="label_color" value="{$machine.label_color|default:'#ffffff'}" />
+
+      <h4>表示サンプル</h4>
+      <div class="label_sample"></div>
+  </tr>
+*}
 </table>
 
 <button type="submit" name="submit" class="submit" value="member">変更を反映</button>

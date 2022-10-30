@@ -13,7 +13,9 @@
 *}
 <meta name="description" content="出品番号 {$machine.list_no}, 最低入札金額 {$machine.min_price|number_format}円 | {$machine.addr1}・{$machine.company|regex_replace:'/(株式|有限|合.)会社/u':''}。入札依頼は{$bidOpen.user_bid_date|date_format:'%Y/%m/%d %H:%M'}まで。" />
 
+{*
 <meta name="keywords" content="{$machine.name},{$machine.maker},{$machine.model},{$machine.addr1},中古機械,Web入札会,工具,全機連,マシンライフ" />
+*}
 
 <script type="text/javascript" src="{$_conf.site_uri}{$_conf.js_dir}same_list.js"></script>
 <script type="text/javascript" src="{$_conf.site_uri}{$_conf.js_dir}detail.js"></script>
@@ -895,11 +897,18 @@ a.button.contact_tel {
       >電話で問い合わせ</a>
   </div>
 </div>
+
+{assign "keywords" "{$machine.name}|{$machine.maker}|{$machine.model}|{$machine.genre}"}
+{include file="include/mnok_ads.tpl"}
+
 {else}
   <div class="error_mes">
     指定された方法では、入札会商品情報の特定ができませんでした<br />
     誠に申し訳ありませんが、再度ご検索のほどよろしくお願いします
   </div>
+
+  {assign "keywords" "中古"}
+  {include file="include/mnok_ads.tpl"}
 {/if}
 
 {/block}

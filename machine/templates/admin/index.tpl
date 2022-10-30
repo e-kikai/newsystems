@@ -66,7 +66,6 @@ ul.top_menu li {
   height: 600px;
 }
 
-
 .info {
   padding: 3px 0;
   border-bottom: 1px dotted #CCC;
@@ -228,31 +227,33 @@ div.logininfo {
     {/if}
   </div>
 
-  <div class="infotitle">売りたし買いたし</div>
-  <div class="infomations">
-    {if !empty($urikaiList)}
-      {foreach $urikaiList as $uk}
-        <div class="info">
-          {if !empty($uk.end_date)}
-            <div class="info_end_date">(解決済)</div>
-          {elseif strtotime($uk.created_at) > strtotime('-1week')}
-            <div class="cjf_new">NEW!</div>
-          {/if}
-          <div class="info_goal {$uk.goal}">{if $uk.goal == "cell"}売りたし{else}買いたし{/if}</div>
-          <div class="info_no">No.{$uk.id}</div>
-          <div class="info_name">{'/(株式|有限|合.)会社/u'|preg_replace:'':$uk.company}</div>
-          <div class="info_date">{$uk.created_at|date_format:'%Y/%m/%d'}</div>
+  {if Companies::checkRank($rank, 'B会員')}
+    <div class="infotitle">売りたし買いたし</div>
+    <div class="infomations">
+      {if !empty($urikaiList)}
+        {foreach $urikaiList as $uk}
+          <div class="info">
+            {if !empty($uk.end_date)}
+              <div class="info_end_date">(解決済)</div>
+            {elseif strtotime($uk.created_at) > strtotime('-1week')}
+              <div class="cjf_new">NEW!</div>
+            {/if}
+            <div class="info_goal {$uk.goal}">{if $uk.goal == "cell"}売りたし{else}買いたし{/if}</div>
+            <div class="info_no">No.{$uk.id}</div>
+            <div class="info_name">{'/(株式|有限|合.)会社/u'|preg_replace:'':$uk.company}</div>
+            <div class="info_date">{$uk.created_at|date_format:'%Y/%m/%d'}</div>
 
-          <div class="info_contents" data-id="{$uk.id}">
-            {$uk.contents|mb_substr:0:26}
-            <a href="/admin/urikai_detail.php?id={$uk.id}" class="info_link">→詳細を見る</a>
+            <div class="info_contents" data-id="{$uk.id}">
+              {$uk.contents|mb_substr:0:26}
+              <a href="/admin/urikai_detail.php?id={$uk.id}" class="info_link">→詳細を見る</a>
+            </div>
           </div>
-        </div>
-      {/foreach}
-    {else}
-      <div class="info">まだ書きこみはありません</div>
-    {/if}
-  </div>
+        {/foreach}
+      {else}
+        <div class="info">まだ書きこみはありません</div>
+      {/if}
+    </div>
+  {/if}
 
   <div class="infotitle">書きこみ</div>
   <div class="infomations miniblog">
@@ -284,7 +285,7 @@ div.logininfo {
     <a href="/search.php?c={$_user.company_id}" target="_blank">自社在庫一覧(確認用)</a>
   </li>
   <li>
-    <a href="/admin/machine_list.php?output=csv&limit=999999999">在庫機械一覧CSV出力</a>
+    <a href="/admin/machine_list.php?output=csv&limit=999999999"><i class="fas fa-file-csv"></i> 在庫機械一覧CSV出力</a>
   </li>
 
   <li><a href="#" data-youtubeid="UbWiwrTvjiU" class="movie">[ヘルプ動画] Internet Explorerでの在庫情報登録</a></li>
@@ -296,13 +297,13 @@ div.logininfo {
   <li><a href="admin/contact_list.php">お問い合わせ一覧</a></li>
 
   {if Companies::checkRank($rank, 'B会員')}
-    <h2>売りたし買いたし</h2>
-    <li>
-      <a href="admin/urikai_list.php">売りたし買いたし書き込み一覧</a> |
-      <a href="admin/urikai_form.php">書き込む</a>
-    </li>
+    <h2><span class="cjf_new" style="text-indent:0;">NEW!</span>売りたし買いたし</h2>
+    <li><a href="admin/urikai_form.php">書き込む</a></li>
+    <li><a href="admin/urikai_list.php">売りたし買いたし書き込み一覧</a></li>
+    <li><a href="imgs/urikai_manual.pdf" target="_blank"><i class="fas fa-file-pdf"></i> 売りたし買いたしマニュアルPDF</a></li>
   {/if}
 
+  {*** Web入札会 ***}
   <h2>Web入札会</h2>
   {if !empty($bidOpenList)}
     <li>▼▼▼現在開催中の入札会▼▼▼</li>
@@ -338,86 +339,104 @@ div.logininfo {
 
             <li>
               <a href="/admin/bid_machine_list.php?o={$b.id}">出品商品一覧(変更・削除)<span class="count">({$b.count})</span></a> >>
-              <a href="/admin/bid_machine_list.php?o={$b.id}&output=csv">CSV出力</a>
+              <a href="/admin/bid_machine_list.php?o={$b.id}&output=csv"><i class="fas fa-file-csv"></i> CSV出力</a>
             </li>
-            <li><a href="/admin/bid_machine_list.php?o={$b.id}&output=pdf" target="_blank"><div class="label pdf">印刷用PDF</div>下げ札</a></li>
+            <li><a href="/admin/bid_machine_list.php?o={$b.id}&output=pdf" target="_blank"><i class="fas fa-file-pdf"></i> 下げ札印刷用PDF</a></li>
             {/if}
 
-          {elseif $b.status == 'margin'}
+          {elseif $b.status == 'margin'} {* 下見前 *}
             <li>
               <a href="/bid_door.php?o={$b.id}" target="_blank">Web入札会トップページ</a> >>
-              <a href="/admin/bid_list.php?o={$b.id}&output=csv&limit=999999999">印刷用CSV出力</a>
+              <a href="/admin/bid_list.php?o={$b.id}&output=csv&limit=999999999"><i class="fas fa-file-csv"></i> 印刷用CSV出力</a>
             </li>
+
+            {*
             <li><a href="/admin/bid_list.php?o={$b.id}">商品リスト</a></li>
+            *}
 
             {if Companies::checkRank($rank, 'A会員')}
               {if Auth::check('system')}
-                <li><a href="/admin/bid_machine_form.php?o={$b.id}">新規商品登録</a></li>
+                <li><a href="/admin/bid_machine_form.php?o={$b.id}">新規出品商品登録</a></li>
               {/if}
               <li>
                 <a href="/admin/bid_machine_list.php?o={$b.id}">出品商品一覧<span class="count">({$b.count})</span></a> >>
-                <a href="/admin/bid_machine_list.php?o={$b.id}&output=csv">CSV出力</a>
+                <a href="/admin/bid_machine_list.php?o={$b.id}&output=csv"><i class="fas fa-file-csv"></i> CSV出力</a>
               </li>
-              <li><a href="/admin/bid_machine_list.php?o={$b.id}&output=pdf" target="_blank"><div class="label pdf">印刷用PDF</div>下げ札</a></li>
+              <li><a href="/admin/bid_machine_list.php?o={$b.id}&output=pdf" target="_blank"><i class="fas fa-file-pdf"></i> 下げ札印刷用PDF</a></li>
             {/if}
 
-          {elseif $b.status == 'bid'}
+          {elseif $b.status == 'bid'} {* 入札期間 *}
             <li>
               <a href="/bid_door.php?o={$b.id}" target="_blank">Web入札会トップページ</a> >>
-              <a href="/admin/bid_list.php?o={$b.id}&output=csv&limit=999999999">印刷用CSV出力</a>
+              <a href="/admin/bid_list.php?o={$b.id}&output=csv&limit=999999999"><i class="fas fa-file-csv"></i> 印刷用CSV出力</a> |
+              <a href="{$_conf.media_dir}pdf/list_pdf_{$b.id}.pdf" target="_blank"><i class="fas fa-file-pdf"></i> 印刷用PDF出力</a>
             </li>
+
+            {*
             <li>
               <a href="/admin/bid_list.php?o={$b.id}">商品リスト(入札・お問い合せ)</a>
             </li>
             <li><a href="{$_conf.media_dir}pdf/list_pdf_{$b.id}.pdf" target="_blank"><div class="label pdf">印刷用PDF</div>商品リスト</a></li>
-            {*
-            <li><a href="{$_conf.media_dir}pdf/bid_flyer_03.pdf" target="_blank"><div class="label pdf">印刷用PDF</div>第3回 Web入札会チラシ</a></li>
             *}
+
+            {*
+            <li><a href="/admin/bid_bid_list.php?o={$b.id}">入札履歴(入札の取消)</a></li>
+            *}
+
+
             {if Companies::checkRank($rank, 'B会員')}
               {if Auth::check('system')}
-                <li><a href="/admin/bid_machine_form.php?o={$b.id}">新規商品登録</a></li>
+                <li><a href="/admin/bid_machine_form.php?o={$b.id}">新規出品商品登録</a></li>
               {/if}
-            {/if}
-
-            <li><a href="/admin/bid_bid_list.php?o={$b.id}">入札履歴(入札の取消)</a></li>
-
-            {if Companies::checkRank($rank, 'B会員')}
               <li>
                 <a href="/admin/bid_machine_list.php?o={$b.id}">出品商品一覧<span class="count">({$b.count})</span></a> >>
-                <a href="/admin/bid_machine_list.php?o={$b.id}&output=csv">CSV出力</a>
+                <a href="/admin/bid_machine_list.php?o={$b.id}&output=csv"><i class="fas fa-file-csv"></i> CSV出力</a>
               </li>
-              <li><a href="/admin/bid_machine_list.php?o={$b.id}&output=pdf" target="_blank"><div class="label pdf">印刷用PDF</div>下げ札</a></li>
+
+              <li><a href="/admin/bid_machine_list.php?o={$b.id}&output=pdf" target="_blank"><i class="fas fa-file-pdf"></i> 下げ札印刷用PDF</a></li>
             {/if}
 
           {elseif $b.status == 'carryout'}
             <li>
               <a href="/bid_door.php?o={$b.id}" target="_blank">Web入札会トップページ</a> >>
-              <a href="/admin/bid_list.php?o={$b.id}&output=csv&limit=999999999">印刷用CSV出力</a>
+              <a href="/admin/bid_list.php?o={$b.id}&output=csv&limit=999999999"><i class="fas fa-file-csv"></i> 印刷用CSV出力</a> |
+              <a href="{$_conf.media_dir}pdf/list_pdf_{$b.id}.pdf" target="_blank"><i class="fas fa-file-pdf"></i> 印刷用PDF出力</a>
             </li>
             <li><a href="/admin/bid_list.php?o={$b.id}">落札結果一覧</a></li>
+            {*
             <li><a href="{$_conf.media_dir}pdf/list_pdf_{$b.id}.pdf" target="_blank"><div class="label pdf">印刷用PDF</div>商品リスト</a></li>
+            *}
 
+            {*
             <li>
               <a href="/admin/bid_bid_list.php?o={$b.id}">落札商品 個別計算表</a> >>
               <a href="/admin/bid_bid_list.php?o={$b.id}&output=csv">CSV出力</a>
             </li>
+            *}
 
             {if Companies::checkRank($rank, 'B会員')}
               <li>
                 <a href="/admin/bid_machine_list.php?o={$b.id}">出品商品 個別計算表<span class="count">({$b.count})</span></a> >>
-                <a href="/admin/bid_machine_list.php?o={$b.id}&output=csv">CSV出力</a>
+                <a href="/admin/bid_machine_list.php?o={$b.id}&output=csv"><i class="fas fa-file-csv"></i> CSV出力</a>
               </li>
             {/if}
 
+            {*
             <li>
               <a href="/admin/bid_result.php?o={$b.id}">落札・出品集計表</a>
             </li>
+            *}
+
+            {*
             <li>
               {if empty($b.sashizu_flag)}<span><div class="label pdf">印刷用PDF</div>引取・指図書 ＜事務局の承認待ち＞</span>
               {else}<a href="/admin/bid_bid_list.php?o={$b.id}&output=pdf" target="_blank"><div class="label pdf">印刷用PDF</div>引取・指図書</a>
               {/if}
             </li>
+            *}
           {/if}
+
+          {*
           <li>
             <a href="/admin/bid_moushikomi.php?o={$b.id}" target="_blank"><div class="label pdf">印刷用PDF</div>入札会申込書</a> >> <a href="{$_conf.media_dir}pdf/moushikomi_sample.pdf" target="_blank">記入例</a>
           </li>
@@ -425,9 +444,11 @@ div.logininfo {
             <a href="/admin/bid_fee_help.php?o={$b.id}">入札会手数料について</a> >>
             <a href="/admin/bid_fee_sim.php?o={$b.id}" onclick="window.open('/admin/bid_fee_sim.php?o={$b.id}','','scrollbars=yes,width=850,height=450,');return false;">支払・請求額シミュレータ</a>
           </li>
+          *}
         {/if}
       </div>
 
+      {*
       <div class="bid_open">
         <h3>{$b.title} :: 企業間売り切りシステム</h3>
         {if !empty($b.seri_start_date) && !empty($b.seri_end_date)}
@@ -463,19 +484,21 @@ div.logininfo {
           <div>企業間売り切りは開催されません</div>
         {/if}
       </div>
+      *}
     {/foreach}
   {else}
     <li>現在開催中の入札会はありません</li>
   {/if}
 
 
-  <li><a href="/admin/bid_open_list.php">過去のWeb入札会一覧</a></li>
+
+  <li><a href="/admin/bid_open_list.php"><i class="fas fa-list"></i> 過去のWeb入札会一覧</a></li>
   {if !empty($smarty.session[Auth::getNamespace()].bid_first_flag)}
-    <li><a href="/admin/bid_first_help.php">Web入札会 運用規程</a></li>
-    <li><a href="/admin/bid_entry_form.php">Web入札会 商品出品登録</a></li>
+    <li><a href="/admin/bid_first_help.php"><i class="fas fa-book"></i> Web入札会 運用規程</a></li>
+    <li><a href="/admin/bid_entry_form.php"><i class="fas fa-square-check"></i> Web入札会 商品出品登録</a></li>
   {/if}
 
-  <li><a href="admin/bid_manual.pdf" target="_blank"><div class="label pdf">ヘルプ資料</div>Web入札会 取扱説明書</a></li>
+  <li><a href="admin/bid_manual.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Web入札会 取扱説明書</a></li>
 
   {if Companies::checkRank($rank, 'B会員')}
     {if !empty($companysite.subdomain)}
@@ -515,8 +538,19 @@ div.logininfo {
     <a href="/company_detail.php?c={$_user.company_id}" target="_blank">会社情報ページ(確認用)</a>
   </li>
   <li>
-    <a href="admin/company_form.pdf" target="_blank"><div class="label pdf">ヘルプ資料</div>会社情報変更手順</a>
+    <a href="admin/company_form.pdf" target="_blank"><i class="fas fa-file-pdf"></i>  会社情報変更手順PDF</a>
   </li>
+
+  {if $_user.company_id == 320}
+    <h2>◯ 自社ページ 追加情報 (test)</h2>
+    <li>
+      <a href="admin/d_info_list.php">お知らせ一覧</a> >>
+      <a href="admin/d_info_form.php">新規登録</a>
+    </li>
+    <li>
+      <a href="https://www.zenkiren.net/daihou/" target="_blank">自社ページ(確認用)</a>
+    </li>
+  {/if}
 
   <h2>ユーザ情報</h2>
   <li><a href="admin/passwd_form.php">パスワード変更</a></li>

@@ -43,6 +43,12 @@ a.news_link.tool {
   right: 16px;
 }
 
+a.news_link.rss {
+  right: 320px;
+  background: url('../../imgs/feed-icon-14x14.png') transparent 0 3px no-repeat;
+  padding-left: 17px;
+}
+
 a.news_link:hover {
   color: #F60;
 }
@@ -51,7 +57,7 @@ a.news_link:hover {
 .right_area {
   float: left;
   position: relative;
-  width: 400px; 
+  width: 400px;
   margin-left: 12px;
 }
 
@@ -133,7 +139,7 @@ img.banner {
   display: inline-block;
   position: relative;
   z-index: 100;
-  
+
   width: 220px;
   height: 36px;
   line-height: 36px;
@@ -157,11 +163,11 @@ img.banner {
 
   top: 48px;
   left: 0;
-  
+
   width: 220px;
   border: 1px solid #FF6633;
   background: #FFFFCC;
-  
+
 }
 
 .xl_area .xl_large_genre_area:after {
@@ -194,7 +200,7 @@ img.banner {
   line-height: 22px;
   font-size: 14px;
 }
-      
+
 .keyword_area {
   width: 250px;
   float: left;
@@ -309,18 +315,18 @@ span.bid_banner_title_mini {
   z-index: 50;
 }
 
-.bid_auto_banner .bid_banner_end span {  
+.bid_auto_banner .bid_banner_end span {
   color: #FF0000;
   font-size: 52px;
   font-weight: bold;
   text-align: center;
   line-height: 148px;
   display: block;
-  
+
   transform: rotate(-10deg);
   -moz-transform: rotate(-10deg);
   -webkit-transform: rotate(-10deg);
-  
+
   text-shadow: -1px -1px #FFF, 1px -1px #FFF, -1px 1px #FFF, 1px 1px #FFF;
 }
 
@@ -412,4 +418,3 @@ h1 {
   overflow: auto;
   padding:0 16px;
 }
-

@@ -1,7 +1,7 @@
 <?php
 /**
  * 会員入札会商品リスト
- * 
+ *
  * @access public
  * @author 川端洋平
  * @version 0.2.0
@@ -11,11 +11,12 @@ require_once '../lib-machine.php';
 try {
     //// 認証処理 ////
     Auth::isAuth('machine');
-    
+
     //// 変数を取得 ////
     $companybidOpenId = Req::query('o');
     if (empty($companybidOpenId)) { throw new Exception('会員入札会情報が指定されていません'); }
-    
+    $output    = Req::query('output');
+
     //// 入札会情報を取得 ////
     $companybidOpenTable = new CompanybidOpens();
     $companybidOpen      = $companybidOpenTable->get($companybidOpenId);
@@ -24,7 +25,7 @@ try {
     } else if (date('Y/m/d', strtotime($companybidOpen['bid_date'])) < date('Y/m/d')) {
         throw new Exception($companybidOpen['title'] . 'は、終了しました');
     }
-    
+
    //// 出品商品情報一覧を取得 ////
     $companybidMachineTable = new CompanybidMachines();
     $q = array(
@@ -34,7 +35,7 @@ try {
         'location'           => Req::query('lo'),
 
         'list_no'            => Req::query('no'),
-        
+
         'limit'              => Req::query('limit', 50),
         'page'               => Req::query('page', 1),
         'order'              => Req::query('order'),
@@ -44,11 +45,11 @@ try {
     $sq = array('companybid_open_id' => $companybidOpenId);
     $xlGenreList    = $companybidMachineTable->getXlGenreList($sq);
     $largeGenreList = $companybidMachineTable->getLargeGenreList($sq);
-    
+
     //// 会場選択 ////
     $siteUrl  = '';
     $siteName = '';
-    
+
     // 会場
     if (!empty($q['location'])) {
         $siteName .= $q['location'];
@@ -56,7 +57,7 @@ try {
     } else {
         $siteName .= '全国';
     }
-    
+
     $siteName .= '/';
 
     // ジャンル
@@ -79,24 +80,39 @@ try {
     } else {
         $siteName .= 'すべての商品';
     }
-    
+
     // 会場情報をセッションに格納
     $_SESSION['bid_siteName'] = $siteName;
     $_SESSION['bid_siteUrl']  = $siteUrl;
-    
+
     $companybidMachineList = $companybidMachineTable->getList($q);
     $count                 = $companybidMachineTable->getCount($q);
-    
+
+    if ($output == 'pdf') {
+       //// PDF出力準備 ////
+       $filename = 'cb_' . $companybidOpenId . '_sagefuda.pdf';
+
+       require_once('fpdf/MBfpdi.php'); //PDF
+       $pdf = new Pdf();
+       $res = $pdf->makeCompanybidSagefuda($companybidOpen, $companybidMachineList);
+
+       //// ファイルのダウンロード処理 ////
+       header("Content-type: application/pdf");
+       header('Content-Disposition: inline; filename="' . $filename . '"');
+       echo $res;
+       exit;
+   }
+
     //// ページャ ////
     Zend_Paginator::setDefaultScrollingStyle('Sliding');
     $pgn = Zend_Paginator::factory(intval($count));
     $pgn->setCurrentPageNumber($q['page'])
         ->setItemCountPerPage($q['limit'])
         ->setPageRange(15);
-    
+
     $cUri = preg_replace("/(\&?page=[0-9]+)/", '', $_SERVER["REQUEST_URI"]);
     if (!preg_match("/\?/", $cUri)) { $cUri.= '?'; }
-    
+
     //// 表示変数アサイン ////
     $_smarty->assign(array(
         'pageTitle'             =>  $companybidOpen['title'] . ' 商品リスト : ' . $siteName,
@@ -108,10 +124,10 @@ try {
         'count'                 => $count,
         'pager'                 => $pgn->getPages(),
         'cUri'                  => $cUri,
-        
+
         'siteName'              => $siteName,
         'siteUrl'               => $siteUrl,
-        
+
         'q' => $q,
     ))->display("companybid_list.tpl");
 } catch (Exception $e) {

@@ -9,10 +9,10 @@
  */
 require_once '../lib-machine.php';
 try {
-    //// 認証処理 ////
+    /// 認証処理 ////
     Auth::isAuth('machine');
 
-    //// 変数を取得 ////
+    /// 変数を取得 ////
     $bidOpenId     = Req::query('o');
     // $site         = Req::query('site');
     $yamaFlag      = Req::query('yama');
@@ -24,7 +24,7 @@ try {
         throw new Exception('入札会情報が取得出来ません');
     }
 
-    //// 入札会情報を取得 ////
+    /// 入札会情報を取得 ////
     $boModel = new BidOpen();
     $bidOpen = $boModel->get($bidOpenId);
 
@@ -47,14 +47,14 @@ try {
         }
 
         if (empty($bidMachineIds)) { $e = "マイリストに、商品が登録されていません2"; }
-    } else if (!empty($yamaFlag)) {
-        // 一山(第7回テスト)
-        $bidMachineIds = array(3117,3116,3110,3105,3104,3093,3090,3088,3085,3080,3079,3078,3077,3063,3061,3060,3055,3048,3040,3039,3038,3036,3035,3032,3030,3029,3027,3026,3025,3023,3020,3018,3014,3013,3012,3010,3009,3008,3006,3005,3004,3003,3002,3000,2999,2997,2996,2995,2994,2993,2992,2990,2989,2987,2986,2974,2972,2971,2946,2945,2944,2943,2942,2941,2940,2933,2923,2921,2920,2914,2884,2759,2746,2714,2674,2711,2710,2644,2643,2640,2639,2638,2635,2631,2629,2561,2601,2600,2599,2598,2597,2596,2595,2594,2593,2592,2591,2590,2589,2588,2587,2586,2585,2584,2583,2582,2581,2579,2578,2577,2576,2575,2574,2573,2571,2570,2569,2567,2565,2564,2563,2562,2508,2492,2491,2490,2489,2488,2709,2708,2707,2706,2705,2704,2703,2702,2642,2636,2699,2698,2697,2696,2694,2692,2691,2690,2689,2687,2685,2684,2682,2673,2672,2670,2667,2666,2665,2664,2663,2662,2661,2660,2659,2658,2657,2656,2655,2654,2653,2652,2651,2650,2649,2648,2645,2471);
+    // } else if (!empty($yamaFlag)) {
+    //     // 一山(第7回テスト)
+    //     $bidMachineIds = array(3117,3116,3110,3105,3104,3093,3090,3088,3085,3080,3079,3078,3077,3063,3061,3060,3055,3048,3040,3039,3038,3036,3035,3032,3030,3029,3027,3026,3025,3023,3020,3018,3014,3013,3012,3010,3009,3008,3006,3005,3004,3003,3002,3000,2999,2997,2996,2995,2994,2993,2992,2990,2989,2987,2986,2974,2972,2971,2946,2945,2944,2943,2942,2941,2940,2933,2923,2921,2920,2914,2884,2759,2746,2714,2674,2711,2710,2644,2643,2640,2639,2638,2635,2631,2629,2561,2601,2600,2599,2598,2597,2596,2595,2594,2593,2592,2591,2590,2589,2588,2587,2586,2585,2584,2583,2582,2581,2579,2578,2577,2576,2575,2574,2573,2571,2570,2569,2567,2565,2564,2563,2562,2508,2492,2491,2490,2489,2488,2709,2708,2707,2706,2705,2704,2703,2702,2642,2636,2699,2698,2697,2696,2694,2692,2691,2690,2689,2687,2685,2684,2682,2673,2672,2670,2667,2666,2665,2664,2663,2662,2661,2660,2659,2658,2657,2656,2655,2654,2653,2652,2651,2650,2649,2648,2645,2471);
     }
 
     if (!empty($e)) { throw new Exception($e); }
 
-   //// 出品商品情報一覧を取得 ////
+   /// 出品商品情報一覧を取得 ////
     $bmModel = new BidMachine();
     // $list_no = Req::query('no');
     $list_no = !empty($list_no) ? Req::query('no') : null;
@@ -85,7 +85,7 @@ try {
     $regionList     = $bmModel->getRegionList($sq);
     $countAll       = $bmModel->getCount($sq);
 
-    //// 会場選択 ////
+    /// 会場選択 ////
     $siteUrl  = '';
     $siteName = '';
 
@@ -158,7 +158,7 @@ try {
         }
     }
 
-    //// ページャ ////
+    /// ページャ ////
     Zend_Paginator::setDefaultScrollingStyle('Sliding');
     $pgn = Zend_Paginator::factory(intval($count));
     $pgn->setCurrentPageNumber($q['page'])
@@ -172,29 +172,29 @@ try {
     $lModel = new Actionlog();
     $lModel->set('machine', 'bid_list', $bidOpenId, $siteName);
 
-    // トラッキングログ
-    $machine_ids = [];
-    foreach($bidMachineList as $key => $m) {
-        $machine_ids[$key] = $m['id'];
-    }
-    $tlModel = new TrackingLog();
-    $tlModel->set(array(
-        "bid_open_id"     => $bidOpen["id"],
-        "bid_machine_ids" => implode(",", $machine_ids)
-    ));
+    /// トラッキングログ
+    // $machine_ids = [];
+    // foreach($bidMachineList as $key => $m) {
+    //     $machine_ids[$key] = $m['id'];
+    // }
+    // $tlModel = new TrackingLog();
+    // $tlModel->set(array(
+    //     "bid_open_id"     => $bidOpen["id"],
+    //     "bid_machine_ids" => implode(",", $machine_ids)
+    // ));
 
-    // ML結果
-    $trackingUserTable = new TrackingUser();
-    $trackingUser = $trackingUserTable->checkTrackingTag();
+    // // ML結果
+    // $trackingUserTable = new TrackingUser();
+    // $trackingUser = $trackingUserTable->checkTrackingTag();
 
-    if (!empty($trackingUser)) {
-        $tbuTable     = new TrackingBidResult();
-        $recommendIds = $tbuTable->getBidMachineIds($bidOpenId, 'user', $trackingUser['id']);
-    } else {
-        $recommendIds = array();
-    }
+    // if (!empty($trackingUser)) {
+    //     $tbuTable     = new TrackingBidResult();
+    //     $recommendIds = $tbuTable->getBidMachineIds($bidOpenId, 'user', $trackingUser['id']);
+    // } else {
+    //     $recommendIds = array();
+    // }
 
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ////
     $_smarty->assign(array(
         'pageTitle'      => $siteName. 'の出品商品｜' . $bidOpen['title'],
         'pankuzuTitle'   => $siteName,
@@ -214,7 +214,7 @@ try {
         'siteName'       => $siteName,
         'siteUrl'        => $siteUrl,
 
-        'recommendIds'   => $recommendIds,
+        // 'recommendIds'   => $recommendIds,
 
         'q' => $q,
     ))->display("bid_list.tpl");

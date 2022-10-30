@@ -4,7 +4,7 @@
 
 <script type="text/javascript" src="{$_conf.libjs_uri}/scrolltopcontrol.js"></script>
 <link href="{$_conf.site_uri}{$_conf.css_dir}admin_list.css" rel="stylesheet" type="text/css" />
-  
+
 <script type="text/JavaScript">
 {literal}
 $(function() {
@@ -12,7 +12,7 @@ $(function() {
     $('button.delete').click(function() {
         var $_self = $(this);
         var $_parent = $_self.closest('tr');
-        
+
         var data = {
             'machine_id': $.trim($_self.val()),
         }
@@ -28,9 +28,9 @@ $(function() {
         mes += $_parent.find('td.maker').text() + ' ' + $_parent.find('td.model').text() + "\n\n";
         mes += "この入札会商品を削除します。よろしいですか。";
         if (!confirm(mes)) { return false; }
-        
+
         $_self.attr('disabled', 'disabled');
-        
+
         $.post('/admin/ajax/bid.php', {
             'target': 'member',
             'action': 'delete',
@@ -41,30 +41,32 @@ $(function() {
                 alert(res);
                 return false;
             }
-            
+
             // 登録完了
             alert('削除が完了しました');
             $_parent.remove();
             return false;
         }, 'text');
-        
+
         return false;
     });
-    
+
     //// テーブルスクロール ////
     $(window).resize(function() {
-        $('div.table_area').css('height', $(window).height() - 270);
+        $('div.table_area').css('height', $(window).height() - 240);
     }).triggerHandler('resize');
-    
-     $('div.table_area').scroll(function() {
+
+    $('div.table_area').scroll(function() {
         $(window).triggerHandler('scroll');
-     });
+    });
 });
 </script>
 <style type="text/css">
 table.list .company {
   width: 80px;
 }
+
+
 </style>
 {/literal}
 {/block}
@@ -99,9 +101,15 @@ table.list .company {
         <th class="location">在庫場所</th>
       {/if}
       <th class="min_price">最低入札金額</th>
+
+      {if in_array($bidOpen.status, array('margin', 'bid'))}
+        <th class="cancel">キャンセル</th>
+      {/if}
+
       {if $bidOpen.status == 'entry' || (in_array($bidOpen.status, array('margin', 'bid')) && Auth::check('system'))}
         <th class="delete">削除</th>
       {/if}
+
       {if in_array($bidOpen.status, array('carryout', 'after'))}
         {if Companies::checkRank($rank, 'A会員')}
           <th class="b2m">在庫に<br />登録</th>
@@ -112,10 +120,11 @@ table.list .company {
         <th class="min_price">事務局<br />手数料</th>
         <th class="min_price">落札会社<br />手数料</th>
         <th class="min_price sepa">支払金額</th>
+
       {/if}
     </tr>
   {/if}
-  
+
   <tr>
     <td class="img">
       {if !empty($m.top_img)}
@@ -137,7 +146,13 @@ table.list .company {
       <td class="year">{$m.year}</td>
       <td class="location">{$m.addr1}<br />({$m.location})</td>
     {/if}
+
     <td class="min_price">{$m.min_price|number_format}円</td>
+
+    {if in_array($bidOpen.status, array('margin', 'bid'))}
+      <td class="cancel"><button class="cancel" value="{$m.id}"><i class="fas store-slash"></i> キャンセル</button></td>
+    {/if}
+
     {if $bidOpen.status == 'entry' || (in_array($bidOpen.status, array('margin', 'bid')) && Auth::check('system'))}
       <td class='delete'><button class="delete" value="{$m.id}">削除</button></td>
     {/if}
@@ -167,9 +182,10 @@ table.list .company {
       <td class="min_price">{if !empty($m.jFee)}{$m.jFee|number_format}円<br />({$m.jPer|number_format}%){/if}</td>
       <td class="min_price">{if !empty($m.rFee)}{$m.rFee|number_format}円<br />({$m.rPer|number_format}%){/if}</td>
       <td class="min_price sepa">{if !empty($m.payment)}{$m.payment|number_format}円{/if}</td>
+
     {/if}
   </tr>
-  
+
   {if $m@last}
     {if in_array($bidOpen.status, array('carryout', 'after')) && !empty($sum)}
       <tr>
@@ -190,10 +206,10 @@ table.list .company {
     {/if}
     </table>
   {/if}
+
 {/foreach}
 </div>
 {*** ページャ ***}
 {include file="include/pager.tpl"}
 
 {/block}
-

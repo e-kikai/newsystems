@@ -20,13 +20,17 @@ class Kobayashi < Base
 
     @company    = '株式会社小林機械'
     @company_id = 9
-    # @start_uri  = 'http://www.kkmt.co.jp/site/list?c1=1'
-    @start_uri  = 'http://www.kkmt.co.jp/site/list?mode=tool&page=1'
+    # @start_uri  = 'https://www.kkmt.co.jp/products?display_mode=table&page=1'
+    @start_uri  = 'https://www.kkmt.co.jp/products?display_mode=table&pictures=no_own&page=1'
 
-    @crawl_allow = /site\/list\?mode=tool(\&page=[0-9]+)?$/
-    @crawl_deny  = nil
+    # @crawl_allow = /\/products\?display\_mode\=table\&page\=[0-9]+$/
+    @crawl_allow = /\/products\?display_mode\=table\&page\=[0-9]+\&pictures\=no_own$/
 
-    @depth       = 100 # クロール深度
+    @crawl_deny  = /translate/
+
+    @depth       = 300 # クロール深度
+
+    @comment = "内容と現品に相違がある場合は、現品を優先させていただきます。"
   end
 
   #
@@ -37,40 +41,77 @@ class Kobayashi < Base
   def scrape
     #### ページ情報のスクレイピング ####
     # (@p/'table.tableColor tr').each do |m|
-    (@p/'table.table.table-bordered tr').each do |m|
+    (@p/'table.product_list tr').each do |m|
       begin
         next if m%'th'
 
-        #### 名前に「売約済」が入っていたらスキップ ####
-        next if m%'img[alt=Soldout]'  # SOLDOUT除外
-        next if /入荷風景/ =~ m.text  # 「入荷風景」を除外
+        uid = (m%'td:nth(1)').text.f
+
+        # log.info("UID :: #{uid}")
+        #### 既存情報の場合スキップ ####
+        # if uid !~ /^C14/
+          next unless check_uid(uid)
+        # end
+
+        # 売約済みスキップ
+        next if uid =~ /売約済/
+
+        # 「新品」表記の削除
+        name = (m%'td:nth(2)').text.f
+        hint = name.gsub(/(新品|一山|1山|未使用品|大量入荷|中\!|各種|[0-9]+本$|他$|セット$)/, "").f
+
+        #### ディープクロール ####
+        detail_uri = join_uri(@p.uri, (m%'td:nth(1) a')[:href])
+        # log.info("detail :: #{detail_uri}")
+        p2 = nokogiri(detail_uri)
 
         # 初期化
         temp = {
-          :uid   => (m%'td:nth(2)').text.f,
-          :no    => (m%'td:nth(2)').text.f,
-          :name  => (m%'td:nth(3)').text.f,
-          :hint  => (m%'td:nth(3)').text.f,
-          :maker => (m%'td:nth(4)').text.f,
-          :model => (m%'td:nth(5)').text.f,
-          :year  => (m%'td:nth(6)').text.f.to_i,
-          :price  => (m%'td:nth(7)').text.f.to_i,
-          :location => '',
+          :uid   => uid,
+          :no    => uid,
+          :name  => name,
+          :hint  => hint,
+          :maker => (m%'td:nth(3)').text.f,
+          :model => (m%'td:nth(4)').text.f,
         }
 
-        #### 既存情報の場合スキップ ####
-        next unless check_uid(temp[:uid])
+        price = 0
 
-        #### ディープクロール ####
-        detail_uri = join_uri(@p.uri, (m%'td:nth(2) a')[:href])
-        p2 = nokogiri(detail_uri)
+        (p2/'.product_spec table tr').each do |tr|
+          th = (tr%'th').text.f
+          td = (tr%'td').text.f
+
+          # log.info("dt : #{dt.text.f}, dd : #{dd_text}")
+
+          case th
+          when /年式/;     temp[:year]     = td
+          when /倉庫/;     temp[:location] = td
+          when /仕様/;     temp[:spec]     = (tr%'td p').text.f
+          when /価格/;     price           = td.gsub(/[^0-9]/, '').to_i
+          end
+        end
 
         temp[:youtube] = 'http://youtu.be/' + (p2%'iframe')[:src].f.gsub(/^.*\//, '') if p2%'iframe'
 
-        (p2/'.media-body').each_with_index do |n, key|
-          if n.text.f =~ /主仕様(.*)/
-            temp[:spec] = $1
-          end
+        # price = (p2%'.card.mt-3 dd.col-sm-9:nth(1)')
+        # if price && price.text.f.gsub(/[^0-9]/, '').to_i > 0
+        #   temp[:price] = price.text.f.gsub(/[^0-9]/, '').to_i
+        #   temp[:ekikai_price] = temp[:price]
+        # end
+
+        # if price && price > 0
+        if price && price > 0 && price <= 100_000_000
+          temp[:price]        = price
+          temp[:ekikai_price] = price
+        end
+
+        # maker
+        temp[:maker] = temp[:maker].delete("--").f
+
+        # spec, comment
+        if temp[:spec].include?(@comment)
+          temp[:spec]    = temp[:spec].delete(@comment).f
+          temp[:comment] = @comment
         end
 
         # 主能力
@@ -106,15 +147,18 @@ class Kobayashi < Base
 
         # 画像
         temp[:used_imgs] = []
-        (p2/'#slider img').each do |i|
-          temp[:used_imgs] << join_uri(detail_uri, i[:src].gsub(/\?.*$/, "")) unless i[:src] =~ /noimage/
+        # (p2/'#disp_img img').each do |i|
+        (p2/'.carousel-item img').each do |i|
+            temp[:used_imgs] << join_uri(detail_uri, i[:src].gsub(/\?.*$/, "")) unless i[:src] =~ /noimage/
         end
 
         @d << temp
         @log.debug(temp)
 
+
       rescue => exc
-        error_report("scrape error (#{temp[:uid]})", exc)
+        # error_report("scrape error (#{temp[:uid]})", exc)
+        error_report("", exc)
       end
     end
 

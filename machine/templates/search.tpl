@@ -7,18 +7,20 @@
 *}
 <meta name="description"
   content="{$keywords}、中古機械、{$keywords}の中古機械に関する情報が満載。{$keywords}の中古機械検索や中古機械販売などの中古機械情報ならマシンライフ！全機連が運営する中古機械情報サイトです。{$keywords}の中古機械が様々な条件で検索可能。" />
+{*
 <meta name="keywords"
   content="{$keywords},中古機械,中古機械販売,中古機械情報,中古機械検索,中古工作機械,機械選び,工作機械,マシンライフ
 " />
+*}
 
-<!-- Google Maps APL ver 3 -->
 {*
+<!-- Google Maps APL ver 3 -->
 <script src="https://maps.google.com/maps/api/js?sensor=false&language=ja" type="text/javascript"></script>
 *}
 
 <script type="text/javascript" src="{$_conf.libjs_uri}/jsrender.js"></script>
 
-<script type="text/javascript" src="{$_conf.site_uri}{$_conf.js_dir}search.js?20181109"></script>
+<script type="text/javascript" src="{$_conf.site_uri}{$_conf.js_dir}search.js?202009022"></script>
 <script type="text/javascript" src="{$_conf.site_uri}{$_conf.js_dir}mylist_handler.js"></script>
 <script type="text/javascript" src="{$_conf.site_uri}{$_conf.js_dir}ekikaiMylist.js"></script>
 <link href="{$_conf.site_uri}{$_conf.css_dir}machines.css" rel="stylesheet" type="text/css" />
@@ -146,6 +148,8 @@ table.machines button.mylist {
   {*** 一括問い合わせ／マイリスト ***}
   {include file="include/mylist_buttons.tpl"}
 
+  <input id="media_dir" type="hidden" value="{$_conf.media_dir}" />
+
   <table class='machines list'>
     <thead>
       <tr>
@@ -267,6 +271,7 @@ table.machines button.mylist {
       <td class=''>
         <div>{$m.spec|mb_strimwidth :0:120:"…"}</div>
 
+
         {*** youtube ***}
         {*
         {if !empty($m.youtube) && preg_match("/https?:\/\/youtu.be\/(.+)/", $m.youtube, $res)}
@@ -299,11 +304,21 @@ table.machines button.mylist {
           <a href="{$_conf.catalog_uri}/catalog_pdf.php?id={$m.catalog_id}"
             class="label catalog" target="_blank">電子カタログ</a>
         {/if}
+
+        {*
+        {if !empty($m.label_title)}
+          {if $m.label_url}
+            <a class="label org" href="{$m.label_url}" target="_blank" style="background:{$m.label_color};">{$m.label_title}</a>
+          {else}
+            <div class="label org" style="background:{$m.label_color};">{$m.label_title}</div>
+          {/if}
+        {/if}
+        *}
       </td>
 
       <td class="company">
         <a href='/company_detail.php?c={$m.company_id}' target="_blank">
-          {'/(株式|有限|合.)会社/u'|preg_replace:'':$m.company}
+          {'/(株式|有限|合.)会社/u'|preg_replace:'':$m.company|trim}
         </a>
         <div class="addr1">{$m.addr1}</div>
         {if $m.location}(<span class="location">{$m.location}</span>){/if}
@@ -366,4 +381,9 @@ table.machines button.mylist {
   {include file="include/machine_company.tpl"}
 </div>
 {/if}
+
+{assign "keywords" "{$keywords|regex_replace:"/[.,\s]+/":"|"}"}
+{include file="include/mnok_ads.tpl"}
+
+<div class="keywords">{$keywords|regex_replace:"/[.,\s]+/":"|"}</div>
 {/block}

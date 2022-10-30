@@ -43,6 +43,10 @@ class Machine extends Zend_Db_Table_Abstract
     //const ORDER_BY_CAPACITY    = " large_order_no, genre_order_no, coalesce(m.capacity, 99999999), m.maker_master, m.model2, m.model ";
     const ORDER_BY_CREATED_AT  = ' m.created_at DESC, ';
     // const ORDER_DEFAULT = " large_order_no, genre_order_no, m.capacity, m.maker_master, m.model2, m.model ";
+    const ORDER_BY_RANDOM      = ' RANDOM(), ';
+
+    const ORDER_BY_IMG_RANDOM  = " CASE WHEN m.top_img = '' OR m.top_img IS NULL THEN 9 ELSE 1 END, RANDOM(), ";
+
     const ORDER_DEFAULT        = " large_order_no, genre_order_no,
      CASE WHEN m.capacity = 0 OR m.capacity IS NULL THEN 9 ELSE 1 END, m.capacity,
      CASE WHEN m.maker_master_kana = '' OR m.maker_master_kana IS NULL THEN 9 ELSE 1 END, m.maker_master_kana, m.maker_master,
@@ -55,7 +59,7 @@ class Machine extends Zend_Db_Table_Abstract
     private $_viewOptions = array('表示', '非表示', '商談中');
 
     // 年式用元号一覧
-    private $_gengoList   = array('平成' => 1988, '昭和' => 1925, '大正' => '1911', '明治' => 1867);
+    private $_gengoList   = array('令和' => 2018, '平成' => 1988, '昭和' => 1925, '大正' => '1911', '明治' => 1867);
 
     // その他能力
     private $_otherSpecs = array(
@@ -148,6 +152,23 @@ class Machine extends Zend_Db_Table_Abstract
                 $orderBy.= self::ORDER_BY_COMPANY_ASC;
             } else if ($q['sort'] == 'created_at') {
                 $orderBy.= self::ORDER_BY_CREATED_AT;
+            } else if ($q['sort'] == 'random') {
+                $orderBy.= self::ORDER_BY_RANDOM;
+            } else if ($q['sort'] == 'img_random') {
+                $orderBy.= self::ORDER_BY_IMG_RANDOM;
+
+            } else if ($q['sort'] == 'no') {
+                $orderBy.= ' m.no, ';
+            } else if ($q['sort'] == 'no_int') {
+                $orderBy.= " CAST(REGEXP_REPLACE(m.no, '[^0-9]', '') as INTEGER), ";
+            } else if ($q['sort'] == 'name') {
+                $orderBy.= ' m.name COLLATE "ja_JP.utf8" , ';
+            } else if ($q['sort'] == 'maker') {
+                $orderBy.= ' m.maker COLLATE "ja_JP.utf8" , ';
+            } else if ($q['sort'] == 'model') {
+                $orderBy.= ' m.model, ';
+            } else if ($q['sort'] == 'year') {
+                $orderBy.= ' m.year, ';
             }
         }
         $orderBy.= self::ORDER_DEFAULT;
@@ -265,10 +286,10 @@ class Machine extends Zend_Db_Table_Abstract
         $where = $this->_makeWhere($q);
 
         ///// ORDER BY句 ////
-        $orderBy = 'ORDER BY count DESC, maker_kana ';
+        $orderBy = 'ORDER BY count DESC, maker_kana collate "ja_JP.utf8" ASC ';
         if (!empty($q['sort'])) {
             if ($q['sort'] == 'maker') {
-                $orderBy = 'ORDER BY maker_kana, maker, count DESC ';
+                $orderBy = 'ORDER BY maker_kana collate "ja_JP.utf8" ASC, maker, count DESC ';
             }
         }
 
@@ -779,6 +800,14 @@ class Machine extends Zend_Db_Table_Abstract
      * @return string INSERT数、UPDATE数の表示
      */
     public function setCrawledData($companyId, $dataJson) {
+        $context = stream_context_create(
+            [
+            'ssl' => [
+                'verify_peer'      => false,
+                'verify_peer_name' => false
+            ]
+        ]);
+
         //// データをJSONからデコード ////
         if (empty($dataJson))       { throw new Exception('データJSONがありません'); }
         $data = json_decode($dataJson, true);
@@ -812,6 +841,9 @@ class Machine extends Zend_Db_Table_Abstract
         $headFlag  = in_array($companyId, array(232));
         // 三善機械 : ファイル命名規則を変更
         $namedFlag = in_array($companyId, array(23));
+
+        // 立川商店 : ファイル命AWS
+        $awsFlag = in_array($companyId, array(13));
 
         //// 登録件数・変更件数の初期化 ////
         $insertNum = 0;
@@ -862,6 +894,11 @@ class Machine extends Zend_Db_Table_Abstract
                     if ($namedFlag) {
                         // 三善機械 : 命名規則が特殊
                         $img = 'c_' . $companyId . '_' . preg_replace('/[^0-9a-zA-Z_]/', '', $m['uid']) . '__' . preg_replace('/[^0-9a-zA-Z_]/', '', preg_replace('/^(.*(\/|\?))/', '', $i));
+                    } else if ($awsFlag) {
+                        // 立川商店 : AWSなのでファイル名が長い
+                        $ftemp = preg_replace('/(\?.*)$/', '', $i);
+                        $img = 'c_' . $companyId . '_' . preg_replace('/[^0-9a-zA-Z]/', '', $m['uid']) . '_' . preg_replace('/^(.*(\/|\?))/', '', $ftemp);
+
                     } else {
                         $img = 'c_' . $companyId . '_' . preg_replace('/[^0-9a-zA-Z]/', '', $m['uid']) . '_' . preg_replace('/^(.*(\/|\?))/', '', $i);
                     }
@@ -899,7 +936,7 @@ class Machine extends Zend_Db_Table_Abstract
                         // if ($response === false) {
                         // if (empty($response)) {
                         if (strpos($headers[0], 'OK') == false) {
-                            if ($fileData = @file_get_contents($i)) {
+                            if ($fileData = @file_get_contents($i, false, $context)) {
                                 file_put_contents(($tempPath . '/' . $img), $fileData);
 
                                 // サムネイル生成
@@ -934,7 +971,7 @@ class Machine extends Zend_Db_Table_Abstract
                         // if (empty($response)) {
                         if (strpos($headers[0], 'OK') == false) {
 
-                            if ($fileData = @file_get_contents($i)) {
+                            if ($fileData = @file_get_contents($i, false, $context)) {
                                 file_put_contents($filePath, $fileData);
                             } else { continue; }
                         }
@@ -1175,6 +1212,20 @@ class Machine extends Zend_Db_Table_Abstract
             }
         }
 
+        // ORキーワード検索
+        if (!empty($q['orkeyword'])) {
+            $temp = " m.name || ' ' || coalesce(m.maker, '') || ' ' || coalesce(m.model, '') || ' ' || coalesce(m.model2, '') || ' ' || " .
+                " coalesce(m.no, '') || ' ' || coalesce(m.hint, '') || ' ' || " .
+                " coalesce(m.addr1, '') || ' ' || coalesce(m.addr2, '') || ' ' || " .
+                " coalesce(m.location, '')  || ' ' || " .
+                // " g.genre || ' ' || coalesce(c.company, '') ILIKE ? ";
+                " m.genre || ' ' || coalesce(m.company, '') ~ ? ";
+            $ork = trim(preg_replace("/(\s|　|\||｜)+/", '|', $q['orkeyword']));
+            if (!empty($ork)) {
+              $arr[] = $this->_db->quoteInto($temp, 'xxxxx|' . $ork . '|xxxxx');
+            }
+        }
+
         // 管理番号OR
         if (!empty($q['no'])) {
             $nos = preg_replace("/(\s|　)+/", ' ', $q['no']);
@@ -1304,6 +1355,11 @@ class Machine extends Zend_Db_Table_Abstract
         // 検索キーワード
         if (isset($q['keyword'])) {
             $res['keyword'] = B::f($q['keyword']);
+        }
+
+        // ORキーワード
+        if (isset($q['orkeyword'])) {
+            $res['orkeyword'] = B::f($q['orkeyword']);
         }
 
         // 管理番号

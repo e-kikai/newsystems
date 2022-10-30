@@ -1,7 +1,7 @@
 <?php
 /**
  * 在庫機械一覧情報ページ
- * 
+ *
  * @access public
  * @author 川端洋平
  * @version 0.0.4
@@ -11,7 +11,7 @@ require_once '../lib-machine.php';
 try {
     //// 認証 ////
     Auth::isAuth('machine');
-    
+
     //// 在庫情報を検索 ////
     $q = array(
         'large_genre_id' => Req::query('l'),
@@ -20,11 +20,11 @@ try {
     );
     $mModel = new Machine();
     $result = $mModel->search($q);
-    
+
     //// 大ジャンル一覧を取得 ////
     $gModel = new Genre();
     $largeGenreList = $gModel->getLargeList(Genre::HIDE_CATALOG);
-    
+
     // テンプレートの格納・取得
     $p = Req::query('p');
     if (!empty($p)) {
@@ -35,7 +35,7 @@ try {
     } else {
         $tp = 'list';
     }
-    
+
     // カレントURL、ページタイトル生成
     $cUri = array();
     $pageTitle = array();
@@ -43,21 +43,21 @@ try {
         $pageTitle[] = $val['label'];
         $cUri[] = $val['key'] . '[]=' . $val['id'];
     }
-    
+
     if (empty($result['machineList'])) {
         $_smarty->assign('message', 'この条件の機械は現在登録されていません');
     }
-    
+
     //// リファラ処理 ////
     // デフォルト
     $backUri   = '';
     $backTitle = '';
     $pankuzu = array();
-    
+
     // ジャンルと会社で検索した時のみ
     if (!empty($q['large_genre_id']) && !empty($q['company_id']) && !empty($_SERVER['HTTP_REFERER'])) {
         $ref = urldecode($_SERVER['HTTP_REFERER']);
-        
+
         if (strstr($ref, 'machine_list.php')) {
             $backUri   = $ref;
             $backTitle = '検索結果';
@@ -80,7 +80,7 @@ try {
             $pankuzu = array($ref => 'マイリスト(会社)');
         }
     }
-    
+
     //// 表示変数アサイン ////
     $_smarty->assign(array(
         'pageTitle'   => implode(' /', $pageTitle) . ' :: 検索結果',

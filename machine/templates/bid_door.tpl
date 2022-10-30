@@ -4,9 +4,12 @@
 
 <meta name="description"
   content="信頼と安心の全機連が年4回主催する中古機械・工具のWeb入札会開催中！下見期間{$bidOpen.preview_start_date|date_format:'%Y/%m/%d'}({B::strtoweek($bidOpen.preview_start_date)})～{$bidOpen.preview_end_date|date_format:'%m/%d'}({B::strtoweek($bidOpen.preview_end_date)})。アッと驚く、こんな値段で!!入札をするのはあなたです。是非お見逃しなく！" />
+
+{*
 <meta name="keywords"
   content="Web入札会,中古機械,中古機械販売,中古機械情報,工具,中古工作機械,機械選び,工作機械,マシンライフ
 " />
+*}
 
 <script type="text/javascript" src="{$_conf.libjs_uri}/scrolltopcontrol.js"></script>
 <link href="{$_conf.site_uri}{$_conf.css_dir}admin_list.css" rel="stylesheet" type="text/css" />
@@ -633,8 +636,7 @@ h3.bid_open_title {
   </div>
 {/if}
 
-<a href="https://www.mnok.net/?r=bnr" target="_blank" onclick="ga('send', 'event','banner', 'sp', 'auction_02', 1, true);">
-  <img src="{$_conf.media_dir}banner/auction_02.jpg" alt="ものづくりオークション" style="width:250px;"/>
-</a>
+{assign "keywords" ""}
+{include file="include/mnok_ads.tpl"}
 
 {/block}

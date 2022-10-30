@@ -19,7 +19,9 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Cache-Control" content="no-cache">
   <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Expires" content="0">
 
+  <meta name="theme-color" content="#27367B">
   {if !empty($pageDescription)}
     <meta name="description" content="{$pageDescription}" />
   {/if}
@@ -43,7 +45,7 @@
       {*
       マシンライフ | 中古機械検索・情報サイト
       *}
-      マシンライフ｜全機連の中古機械情報サイト
+      全機連の中古機械・工具の在庫情報｜マシンライフ
     {/if}
   </title>
 
@@ -95,7 +97,7 @@
 
 {* StyleSeet *}
 <link href="{$_conf.libjs_uri}/css/html5reset.css" rel="stylesheet" type="text/css" />
-<link href="{$_conf.libjs_uri}/css/common.css?20130701" rel="stylesheet" type="text/css" />
+<link href="{$_conf.libjs_uri}/css/common.css?2021051007" rel="stylesheet" type="text/css" />
 
 {* 印刷用CSS *}
 <link href="{$_conf.libjs_uri}/css/print.css?20180717" rel="stylesheet" type="text/css" media="print" />
@@ -121,3 +123,5 @@
 {*
 <script src="//cdn.optimizely.com/js/2382360201.js"></script>
 *}
+
+<script src="https://kit.fontawesome.com/083f5541f5.js" crossorigin="anonymous"></script>

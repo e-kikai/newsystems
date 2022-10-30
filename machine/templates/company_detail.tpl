@@ -121,6 +121,32 @@ button.mylist {
 a.contact {
   width: 240px;
 }
+
+a.e-kikai_sticker {
+  border: 3px double #009c0c;
+  background: #e9fee7;
+  margin: 8px 0;
+  text-decoration: none;
+  width: 394px;
+  display: block;
+}
+
+a.e-kikai_sticker img.sticker_img {
+  display: inline-block;
+  vertical-align: top;
+}
+
+a.e-kikai_sticker .sticker_name {
+  font-size: 21px;
+  color: #005f07;
+  display: inline-block;
+  line-height: 61px;
+  font-weight: bold;
+  vertical-align: top;
+  width: 222px;
+  text-align: center;
+}
+
 </style>
 {/literal}
 
@@ -154,6 +180,13 @@ a.contact {
   </div>
 
   <div class='contents_area' itemscope itemtype="http://data-vocabulary.org/Organization">
+    {if $company.id == 1}
+      <a href="{$company.website}" target="_blank" class="e-kikai_sticker">
+        <img class="sticker_img" src="https://www.e-kikai.com/images/e-kikai-header-logo.gif" alt="e-kikai" />
+        <span class="sticker_name">{$company.company}</span>
+      </a>
+    {/if}
+
     <table class='contents'>
       <tr class='name'>
         <th>名称</th>
@@ -235,7 +268,9 @@ a.contact {
       {if $company.website}
       <tr class='officer'>
         <th>ウェブサイト</th>
-        <td><a href="{$company.website}" target="_blank" itemprop="url">{$company.website}</a></td>
+        <td>
+          <a href="{$company.website}" target="_blank" itemprop="url">{$company.website}</a>
+        </td>
       </tr>
       {/if}
 
@@ -256,6 +291,7 @@ a.contact {
         <td>{$company.treenames}</td>
       </tr>
     </table>
+
     {*
     <div id="gmap"></div>
     *}
@@ -277,5 +313,12 @@ a.contact {
     {/if}
   </div>
   <br style='clear:both;' />
+
+  {if $company.id == 1}
+    <div>ものづくりオークション 出品中</div>
+    {assign "keywords" "堀川機械"}
+    {include file="include/mnok_ads.tpl"}
+  {/if}
+
 </div>
 {/block}

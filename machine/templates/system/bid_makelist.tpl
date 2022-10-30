@@ -26,9 +26,9 @@ $(function() {
 
         // 送信確認
         if (!confirm('リストNo付加の処理と、リストPDF生成処理を行います。よろしいですか。')) { return false; }
-        
+
         $('button.submit').attr('disabled', 'disabled');
-        
+
         $.post('/system/ajax/bid.php', {
             'target': 'system',
             'action': 'makeList',
@@ -39,13 +39,13 @@ $(function() {
                 alert(res);
                 return false;
             }
-            
+
             // 処理完了
             alert('処理が完了しました');
             location.href = '/system/';
             return false;
         }, 'text');
-        
+
         return false;
     });
 });
@@ -63,12 +63,12 @@ $(function() {
     <th>タイトル</th>
     <td>{$bidOpen.title}</td>
   </tr>
-  
+
   <tr class="announce_list">
     <th>商品リストPDF</th>
     <td>
       {if !empty($bidOpen.list_pdf)}
-        <a href="media/pdf/{$bidOpen.list_pdf}" target="_blank">{$bidOpen.list_pdf}</a>
+        <a href="{$_conf.media_dir}pdf/{$bidOpen.list_pdf}" target="_blank">{$bidOpen.list_pdf}</a>
       {else}
         出品番号,PDF未作成
       {/if}

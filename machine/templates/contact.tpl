@@ -449,7 +449,7 @@ _gaq.push(['_trackPageview']);
           <input type="radio" name="s" class="select" value="" checked/> その他の質問・要望
         </label></div>
       {/if}
-      <textarea name='message' class='other_message'>{* {if !empty($bidMachineId)}Web入札会出品番号 : {$bidMachineId}{/if} *}</textarea>
+      <textarea name='message' class='other_message'>{if !empty($mes)}{$mes}{/if}{* {if !empty($bidMachineId)}Web入札会出品番号 : {$bidMachineId}{/if} *}</textarea>
     </td>
   </tr>
 
@@ -512,6 +512,8 @@ _gaq.push(['_trackPageview']);
         <input type='checkbox' class='mailuser_flag' name='mailuser_flag' value="1" checked="checked"/>
         マシンライフからのお知らせメールを受信する
       </label>
+      <div>マシンライフ内外の機械・工具業界のさまざまな情報をお送りいたします</div>
+
     </td>
   </tr>
 </table>

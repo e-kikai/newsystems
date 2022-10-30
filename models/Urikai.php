@@ -15,10 +15,19 @@ class Urikai extends Zend_Db_Table
     protected $_filter = array('rules' => array(
         '*'        => array(),
         '会社情報' => array('fields' => 'company_id', 'NotEmpty', 'Int'),
-        '目的'     => array('fields' => 'goal',       'NotEmpty'),
+        '売り買い' => array('fields' => 'goal',       'NotEmpty'),
         '内容'     => array('fields' => 'contents',   'NotEmpty'),
+        '画像'     => array('fields' => 'imgs',),
+        'TEL'      => array('fields' => 'tel',),
+        'FAX'      => array('fields' => 'fax',),
+        'メールアドレス' => array('fields' => 'mail',),
+
         // '解決日'   => array('fields' => 'end_date',),
     ));
+
+    // 内容がJSONのカラム
+    private $_jsonColumn = array('imgs');
+
 
     /**
      * 売り買い一覧を取得
@@ -53,6 +62,9 @@ class Urikai extends Zend_Db_Table
           {$where}
           {$orderBy};";
         $result = $this->_db->fetchAll($sql);
+
+        $result = B::decodeTableJson($result, $this->_jsonColumn);
+
         return $result;
     }
 
@@ -74,6 +86,10 @@ class Urikai extends Zend_Db_Table
         // 目的
         if (!empty($q['goal'])) {
             $arr[] = $this->_db->quoteInto(' uk.goal = ? ', $q['goal']);
+        }
+
+        if (!empty($q['period']) && $q['period'] > 0) {
+            $arr[] = $this->_db->quoteInto(' uk.created_at > current_date - ? ', intval($q['period']));
         }
 
         // 終了していない
@@ -125,7 +141,7 @@ class Urikai extends Zend_Db_Table
         $result = $this->_db->fetchRow($sql, $id);
 
         // JSON展開
-        // $result = B::decodeRowJson($result, array_merge($this->_jsonColumn));
+        $result = B::decodeRowJson($result, $this->_jsonColumn);
 
         return $result;
     }
@@ -141,6 +157,11 @@ class Urikai extends Zend_Db_Table
     {
         // フィルタリング・バリデーション
         $data = MyFilter::filter($data, $this->_filter);
+
+        // JSONデータ保管
+        foreach ($this->_jsonColumn as $val) {
+            $data[$val] = !empty($data[$val]) ? json_encode($data[$val], JSON_UNESCAPED_UNICODE) : null;
+        }
 
         if (empty($id)) {
             // 新規処理
@@ -158,33 +179,65 @@ class Urikai extends Zend_Db_Table
         }
 
         // メール通知
-//         $mailsend = new Mailsend();
-//         $uModel   = new User();
-//         $user     = $uModel->get($data['user_id']);
-//         $now      = date('Y/m/d H:i:s');
-//
-//         //// 通知メール送信内容 ////
-//         $body = <<< EOS
-// マシンライフに書きこみがありました。
-//
-// 書き込み場所 : {$data['target']}
-// 書き込みユーザ : {$user['user_name']}
-// 書き込み時間 : {$now}
-//
-// ＜内容＞
-// {$data['contents']}
-//
-//
-// 全日本機械業連合会
-// http://www.zenkiren.org/
-// EOS;
-//         $subject = 'マシンライフ:書き込み通知';
-//
-//         //// メール送信 ////
-//         $sends = array("bata44883@gmail.com", "kazuyoshih@gmail.com");
-//         foreach ($sends as $to) {
-//             $mailsend->sendMail($to, null, $body, $subject);
-//         }
+        //// 新規登録用の会社一覧(ランクB以上) ////
+        $companyTable = new Companies();
+        $companyList  = $companyTable->getList(array('rank' => $companyTable::RANK_B));
+
+        $mailsend = new Mailsend();
+        $company  = $companyTable->get($data['company_id']);
+        $now      = date('Y/m/d H:i');
+        $uk       = $data['goal'] == "cell" ? "売りたし" : "買いたし";
+        $maxId    = $this->_db->fetchOne('SELECT max(id) FROM urikais LIMIT 1;');
+
+        //// 通知メール送信内容 ////
+        $body = <<< EOS
+マシンライフに売りたし買いたしの書きこみがありました。
+
+No. {$maxId} {$uk}
+依頼主: {$company['company']}
+https://www.zenkiren.net/company_detail.php?c={$company['id']}
+書きこみ日時: {$now}
+
+＜内容＞
+{$data['contents']}
+
+画像ありの詳細情報はこちら
+http://www.zenkiren.net/admin/urikai_detail.php?id={$maxId}
+
+この書きこみへのお問い合わせは、以下の問い合わせ先へお願いいたします。
+※ このメールへの返信ではお問い合わせできません。
+
+問い合わせTEL: {$data['tel']}
+問い合わせFAX: {$data['fax']}
+問い合わせメールアドレス: {$data['mail']}
+
+問い合わせフォーム:
+http://www.zenkiren.net/contact.php?c={$data["company_id"]}&mes=No.{$maxId}[[{$uk}]]について問合せ
+
+
+マシンライフ｜全機連の中古機械情報サイト
+http://www.zenkiren.net/
+
+全日本機械業連合会
+http://www.zenkiren.org/
+EOS;
+        $subject = 'マシンライフ:売りたし買いたし通知';
+
+        //// メール送信 ////
+        // $sends = array("bata44883@gmail.com", "kazuyoshih@gmail.com");
+        // foreach ($sends as $to) { $mailsend->sendMail($to, null, $body, $subject); }
+
+        foreach ($companyList as $co) {
+            if (empty($co["contact_mail"])) { continue; }
+
+            $b = <<< EOS
+{$co["company"]} 様
+
+{$body}
+EOS;
+
+            $mailsend->sendMail($co["contact_mail"], null, $b, $subject);
+        }
 
         return $this;
     }

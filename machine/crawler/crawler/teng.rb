@@ -41,7 +41,7 @@ class Teng < Base
 
         #### 名前に「売約済」が入っていたらスキップ ####
         # name = (m%'td:nth(3)').text.f
-        name = (m%'p:nth(3)').text.f.gsub(/NEW/, '')
+        name = (m%'p:nth(3)').text.f.gsub(/NEW/i, '')
         next if /売約|機械名/ =~ name
 
         #### 既存情報の場合スキップ ####

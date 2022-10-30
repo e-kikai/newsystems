@@ -98,6 +98,9 @@ try {
           // 'created_at' => $machine['created_at'],
           'top_img'    => $machine['top_img'],
           'youtube'    => $machine['youtube'],
+          'start_price' => $machine['ekikai_price'],
+          // 'prompt_dicision_price' => $machine['ekikai_price'],
+
         );
 
         $res['name']  = trim($machine['name'] . " " . $machine['maker'] . " " . $machine['model']);

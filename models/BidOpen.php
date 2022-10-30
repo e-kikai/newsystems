@@ -37,14 +37,14 @@ class BidOpen extends Zend_Db_Table_Abstract
         // '表示開始日時' => array('fields' => 'display_start_date', 'NotEmpty'),
         // '表示終了日時' => array('fields' => 'display_end_date', 'NotEmpty'),
 
-        'セリ分かれ開始日時' => array('fields' => 'seri_start_date'),
-        'セリ分かれ終了日時' => array('fields' => 'seri_end_date'),
+        // 'セリ分かれ開始日時' => array('fields' => 'seri_start_date'),
+        // 'セリ分かれ終了日時' => array('fields' => 'seri_end_date'),
 
         '最低入札金額' => array('fields' => 'min_price', 'Digits', 'NotEmpty'),
         '入札レート'   => array('fields' => 'rate', 'Digits', 'NotEmpty'),
         '消費税'       => array('fields' => 'tax', 'Digits', 'NotEmpty'),
         // '元引き手数料' => array('fields' => 'motobiki', 'Digits', 'NotEmpty'),
-        'デメ'         => array('fields' => 'deme', 'Digits', 'NotEmpty'),
+        // 'デメ'         => array('fields' => 'deme', 'Digits', 'NotEmpty'),
 
         // '出品点数制限方法' => array('fields' => 'entry_limit_style', 'Digits'),
         // '出品点数制限数'   => array('fields' => 'entry_limit_num', 'Digits'),
@@ -131,18 +131,18 @@ class BidOpen extends Zend_Db_Table_Abstract
         //// WHERE句 ////
         $where = $this->_makeWhere($q);
 
-        //// SQLクエリを作成・一覧を取得 ////
+        /// SQLクエリを作成・一覧を取得 ////
         $sql = "SELECT
-          count(m.*) AS count
+            count(m.*) AS count
         FROM
-          machines m
-          LEFT JOIN companies c
-            ON m.company_id = c.id
-          LEFT JOIN genres g
-            ON (m.genre_id = g.id)
+            machines m
+            LEFT JOIN companies c
+                ON m.company_id = c.id
+            LEFT JOIN genres g
+                ON (m.genre_id = g.id)
         WHERE
-          m.company_id IN ( SELECT id FROM companies WHERE deleted_at IS NULL ) AND
-          {$where};";
+            m.company_id IN ( SELECT id FROM companies WHERE deleted_at IS NULL ) AND
+            {$where};";
         $result = $this->_db->fetchOne($sql);
         return $result;
     }
@@ -238,19 +238,35 @@ class BidOpen extends Zend_Db_Table_Abstract
         //// SQLクエリを作成・一覧を取得 ////
         $sql = "SELECT
           bo.*,
-          count(bb.*) AS count,
-          count(DISTINCT bb.company_id) AS company_count
+          bbt1.count,
+          bbt1.company_count,
+          bbt1.result_count,
+          bbt2.result_price_sum
         FROM
           bid_opens bo
-          LEFT JOIN bid_machines bm
-            ON bm.bid_open_id = bo.id
-          LEFT JOIN bid_bids bb
-            ON bb.bid_machine_id = bm.id
+          LEFT JOIN (
+            SELECT
+              bm1.bid_open_id,
+              count(bb1.*) AS count,
+              count(DISTINCT bb1.company_id) AS company_count,
+              count(DISTINCT bb1.bid_machine_id) AS result_count
+            FROM       bid_bids bb1
+            INNER JOIN bid_machines bm1 ON bm1.id = bb1.bid_machine_id
+            WHERE      bb1.deleted_at IS NULL AND bm1.deleted_at IS NULL
+            GROUP BY   bm1.bid_open_id
+          ) bbt1 ON bbt1.bid_open_id = bo.id
+          LEFT JOIN (
+            SELECT
+              bm2.bid_open_id,
+              sum(bb2.result_price) AS result_price_sum
+            FROM
+              (SELECT bb21.bid_machine_id, max(bb21.amount) as result_price FROM bid_bids bb21 WHERE bb21.deleted_at IS NULL GROUP BY bb21.bid_machine_id) bb2
+            INNER JOIN bid_machines bm2 ON bm2.id = bb2.bid_machine_id
+             WHERE     bm2.deleted_at IS NULL
+            GROUP BY   bm2.bid_open_id
+          ) bbt2 ON bbt2.bid_open_id = bo.id
         WHERE
-          bb.deleted_at IS NULL AND
           bo.deleted_at IS NULL
-        GROUP BY
-          bo.id
         ORDER BY
           bo.id DESC;";
         $result = $this->_db->fetchAll($sql);

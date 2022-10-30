@@ -20,7 +20,7 @@ class Mechany < Base
 
     @company    = '株式会社メカニー'
     @company_id = 232
-    @start_uri  = 'https://www.mechany.com/inventory.html'
+    @start_uri  = 'https://www.mechany.com/?s=&post_type=products&search_type=free'
 
     @crawl_allow = /xxxxxxxx/
     @crawl_deny  = nil
@@ -33,89 +33,106 @@ class Mechany < Base
   #
   def scrape
     #### ページ情報のスクレイピング ####
-    (@p/'#item .name a').each do |m|
+    # (@p/'a.com-panel-01').each do |m|
+    (@p/'.com-panel-01 a').each do |m|
       begin
         #### ディープクロール ####
         detail_uri = m[:href]
         p2 = nokogiri(detail_uri)
 
-        # 初期化
+        next if (p2%'.info-dl-02').text.f =~ /現状渡し機械/
+
         temp = {
-          hint:  (p2/'#area_1 table:nth(1) td:nth(2)').text.f,
-          uid:   (p2/'#area_1 table:nth(3) td:nth(1)').text.f,
-          no:    (p2/'#area_1 table:nth(3) td:nth(1)').text.f,
-          name:  (p2/'#area_1 table:nth(1) td:nth(2)').text.f,
-          maker: (p2/'#area_1 table:nth(1) td:nth(1)').text.f,
-          model: (p2/'#area_1 table:nth(1) td:nth(3)').text.f,
-          year:  (p2/'#area_1 table:nth(1) td:nth(4)').text.f,
-          spec:  (p2/'#area_1 table:nth(2) td:nth(1)').text.f.gsub('【仕様・その他】', ""),
-          used_pdfs: {},
+          location:  '',
           used_imgs: [],
-          location: ''
+          used_pdfs: {},
         }
+
+        (p2/'dt').each do |dt|
+          next unless (dt%'+ dd')
+
+          dd_text = (dt%'+ dd').text.f
+
+          case dt.text.f
+          when /在庫番号/; temp[:no]      = dd_text
+          when /機械名/;   temp[:name]    = dd_text
+          # when /カテゴリ/; temp[:hint]    = dd_text
+          when /メーカー/; temp[:maker]   = dd_text
+          when /型番/;     temp[:model]   = dd_text
+          when /年式/;     temp[:year]    = dd_text
+          when /仕様/;     temp[:spec]    = dd_text
+          when /コメント/; temp[:comment] = dd_text
+          end
+        end
+
+        temp[:uid] = temp[:no]
+        temp[:hint] = temp[:name].gsub(/\(新品\)|/, '')
 
         next unless check_uid(temp[:uid])
 
-        # 主能力
-        if /旋盤/ =~ temp[:name] && /NC/ !~ temp[:name]
-          temp[:capacity] = $1.gsub(/[^0-9.]/, '').to_f if /芯間\:([0-9\,.]+)/ =~ temp[:spec]
-        elsif /万能.*プレスブレーキ/ =~ temp[:name] && /NC/ !~ temp[:name]
-          temp[:capacity] = $1.gsub(/[^0-9.]/, '').to_f if /([0-9\,.]+)ton/i =~ temp[:spec]
-        elsif /プレスブレーキ/ =~ temp[:name]
-          temp[:capacity] = $3.gsub(/[^0-9.]/, '').to_f if /([0-9\,.]+)(ton|T)\*([0-9\,.]+)/i =~ temp[:spec]
-        elsif /(プレス|ハンマーパンチ)/ =~ temp[:name]
-          temp[:capacity] = $1.gsub(/[^0-9.]/, '').to_f if /([0-9\,.]+)ton/i =~ temp[:spec]
-        elsif /ラジアル/ =~ temp[:name] && /NC/ !~ temp[:name]
-          temp[:capacity] = $1.gsub(/[^0-9.]/, '').to_f if /振り\:([0-9\,.]+)/i =~ temp[:spec]
-        elsif /万能.*ベンダー/ =~ temp[:name] && /NC/ !~ temp[:name]
-          temp[:capacity] = $1.gsub(/[^0-9.]/, '').to_f if /([0-9\,.]+)ton/i =~ temp[:spec]
-        elsif /本ロール/ =~ temp[:name] && /NC/ !~ temp[:name]
-          temp[:capacity] = $1.gsub(/[^0-9.]/, '').to_f if /L\:([0-9\,.]+)/i =~ temp[:spec]
-        elsif /ベンダー/ =~ temp[:name] && /NC/ !~ temp[:name]
-          temp[:capacity] = $2.gsub(/[^0-9.]/, '').to_f if /([0-9\,.]+)ton\*([0-9\,.]+)/i =~ temp[:spec]
-        elsif /(コンプレッサ|モーター)/ =~ temp[:name]
-          temp[:capacity] = $1.gsub(/[^0-9.]/, '').to_f if /([0-9\,.]+)kw/i =~ temp[:spec]
-        elsif /シャーリング/ =~ temp[:name]
-          temp[:capacity] = $1.gsub(/[^0-9.]/, '').to_f if /\*([0-9\,.]+)/i =~ temp[:spec]
-        elsif /スポット溶接/ =~ temp[:name]
-          temp[:capacity] = $1.gsub(/[^0-9.]/, '').to_f if /([0-9\,.]+)KVA/i =~ temp[:spec]
-        elsif /溶接/ =~ temp[:name]
-          temp[:capacity] = $1.gsub(/[^0-9.]/, '').to_f if /([0-9\,.]+)A/i =~ temp[:spec]
-        elsif /エアータンク/ =~ temp[:name]
-          temp[:capacity] = $1.gsub(/[^0-9.]/, '').to_f if /([0-9\,.]+)リットル/i =~ temp[:spec]
-        elsif /フォーク|ローリフト|ホイスト|クレーン|チェーンブロック/ =~ temp[:name]
-          if /([0-9\,.]+)(ton|トン)/i =~ temp[:spec]
-            temp[:capacity] = $1.gsub(/[^0-9.]/, '').to_f
-          elsif /([0-9\,.]+)kg/i =~ temp[:spec]
-            temp[:capacity] = ($1.gsub(/[^0-9.]/, '').to_f) / 1000
-          end
-        elsif /放電加工/ =~ temp[:name]
-          temp[:genre_id] = 220
-        elsif /定.?盤/ =~ temp[:name]
-          if /([0-9\,.]+)\*([0-9\,.]+)/i =~ temp[:spec]
-            le1 = $1
-            le2 = $2
+        # # 主能力
+        # if /旋盤/ =~ temp[:name] && /NC/ !~ temp[:name]
+        #   temp[:capacity] = $1.gsub(/[^0-9.]/, '').to_f if /芯間\:([0-9\,.]+)/ =~ temp[:spec]
+        # elsif /万能.*プレスブレーキ/ =~ temp[:name] && /NC/ !~ temp[:name]
+        #   temp[:capacity] = $1.gsub(/[^0-9.]/, '').to_f if /([0-9\,.]+)ton/i =~ temp[:spec]
+        # elsif /プレスブレーキ/ =~ temp[:name]
+        #   temp[:capacity] = $3.gsub(/[^0-9.]/, '').to_f if /([0-9\,.]+)(ton|T)\*([0-9\,.]+)/i =~ temp[:spec]
+        # elsif /(プレス|ハンマーパンチ)/ =~ temp[:name]
+        #   temp[:capacity] = $1.gsub(/[^0-9.]/, '').to_f if /([0-9\,.]+)ton/i =~ temp[:spec]
+        # elsif /ラジアル/ =~ temp[:name] && /NC/ !~ temp[:name]
+        #   temp[:capacity] = $1.gsub(/[^0-9.]/, '').to_f if /振り\:([0-9\,.]+)/i =~ temp[:spec]
+        # elsif /万能.*ベンダー/ =~ temp[:name] && /NC/ !~ temp[:name]
+        #   temp[:capacity] = $1.gsub(/[^0-9.]/, '').to_f if /([0-9\,.]+)ton/i =~ temp[:spec]
+        # elsif /本ロール/ =~ temp[:name] && /NC/ !~ temp[:name]
+        #   temp[:capacity] = $1.gsub(/[^0-9.]/, '').to_f if /L\:([0-9\,.]+)/i =~ temp[:spec]
+        # elsif /ベンダー/ =~ temp[:name] && /NC/ !~ temp[:name]
+        #   temp[:capacity] = $2.gsub(/[^0-9.]/, '').to_f if /([0-9\,.]+)ton\*([0-9\,.]+)/i =~ temp[:spec]
+        # elsif /(コンプレッサ|モーター)/ =~ temp[:name]
+        #   temp[:capacity] = $1.gsub(/[^0-9.]/, '').to_f if /([0-9\,.]+)kw/i =~ temp[:spec]
+        # elsif /シャーリング/ =~ temp[:name]
+        #   temp[:capacity] = $1.gsub(/[^0-9.]/, '').to_f if /\*([0-9\,.]+)/i =~ temp[:spec]
+        # elsif /スポット溶接/ =~ temp[:name]
+        #   temp[:capacity] = $1.gsub(/[^0-9.]/, '').to_f if /([0-9\,.]+)KVA/i =~ temp[:spec]
+        # elsif /溶接/ =~ temp[:name]
+        #   temp[:capacity] = $1.gsub(/[^0-9.]/, '').to_f if /([0-9\,.]+)A/i =~ temp[:spec]
+        # elsif /エアータンク/ =~ temp[:name]
+        #   temp[:capacity] = $1.gsub(/[^0-9.]/, '').to_f if /([0-9\,.]+)リットル/i =~ temp[:spec]
+        # elsif /フォーク|ローリフト|ホイスト|クレーン|チェーンブロック/ =~ temp[:name]
+        #   if /([0-9\,.]+)(ton|トン)/i =~ temp[:spec]
+        #     temp[:capacity] = $1.gsub(/[^0-9.]/, '').to_f
+        #   elsif /([0-9\,.]+)kg/i =~ temp[:spec]
+        #     temp[:capacity] = ($1.gsub(/[^0-9.]/, '').to_f) / 1000
+        #   end
+        # elsif /放電加工/ =~ temp[:name]
+        #   temp[:genre_id] = 220
+        # elsif /定.?盤/ =~ temp[:name]
+        #   if /([0-9\,.]+)\*([0-9\,.]+)/i =~ temp[:spec]
+        #     le1 = $1
+        #     le2 = $2
 
-            le1 = le1.gsub(/[^0-9.]/, '').to_f
-            le2 = le2.gsub(/[^0-9.]/, '').to_f
+        #     le1 = le1.gsub(/[^0-9.]/, '').to_f
+        #     le2 = le2.gsub(/[^0-9.]/, '').to_f
 
-            temp[:capacity] = le1 > le2 ? le1 : le2
-          end
+        #     temp[:capacity] = le1 > le2 ? le1 : le2
+        #   end
+        # end
+
+        (p2/'span.cat-ico-01.red').each do |sp|
+          temp[:commission] = 1 if sp.text.f =~ /試運転/
         end
 
         # 動画、PDF
-        (p2/'.shiyou a').each do |a|
-          # if /v=([0-9a-zA-Z_-]*)/ =~ a[:href]
-          #   temp[:youtube] = 'http://youtu.be/' + $1
-          if /youtu.*\/([0-9a-zA-Z_-]{11})/ =~ a[:href]
-            temp[:youtube] = $1
-          elsif /\.pdf$/ =~ a[:href]
-            temp[:used_pdfs]["PDF"] = join_uri(detail_uri, a[:href])
-          end
+        (p2/'a.pdf').each do |a|
+          temp[:used_pdfs]["カタログ・仕様書"] = join_uri(detail_uri, a[:href])
+        end
+
+        (p2/'#machine-video').each do |i|
+          @log.debug i["data-video"]
+          temp[:youtube] = i["data-video"]
         end
 
         # 画像
-        (p2/'#area_2 img, #area_3 img').each do |i|
+        (p2/'img.attachment-full').each do |i|
           temp[:used_imgs] << join_uri(detail_uri, i[:src]) unless /gif$/ =~ i[:src]
         end
 

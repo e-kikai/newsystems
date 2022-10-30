@@ -1111,9 +1111,21 @@ input.number {
   display: inline-block;
   padding: 0.16em 0.5em;
   background: #FFF;
-  margin: 0 2px 0 0;
+  margin: 2px 2px 0 0;
   height: 1.4em;
   line-height: 1.4;
+
+  text-decoration: none;
+  color: rgba(0,0,0,0.6);
+  border: solid 1px rgba(0,0,0,0.6);
+}
+
+a.label {
+  color: rgba(0,0,0,0.6);
+}
+
+a.label:hover {
+  color: rgba(0,0,0,0.6);
 }
 
 .label.vo2 {
@@ -1504,4 +1516,51 @@ table.tender_schedule td {
 .right {
   width: 100%;
   text-align :right;
+}
+
+.mnok_ads {
+  display:block;
+
+  width: 862px;
+  /*
+  height: 224px;
+  margin:16px auto;
+  */
+  height: 222px;
+}
+
+.mnok_area {
+  border: 1px solid #cc64ff;
+  width: 862px;
+  margin: 16px auto;
+}
+
+.mnok_ads_logo {
+  width: 862px;
+  margin: auto;
+  display: block;
+  position: relative;
+}
+
+.mnok_ads_logo img {
+  height: 50px;
+  margin-left: 16px;
+}
+
+.mnok_ads_logo .desc {
+ position: absolute;
+ color: #333;
+ bottom: 32px;
+ left: 310px;
+ white-space: nowrap;
+ text-overflow: ellipsis;
+ font-size: 14px;
+}
+
+.mnok_ads_logo .site {
+  position: absolute;
+  bottom: 8px;
+  left: 310px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

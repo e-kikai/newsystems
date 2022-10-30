@@ -308,9 +308,9 @@ div.req_area a {
   <thead>
     <tr>
       <th class="img"></th>
-      <th class="genre"><a class="sort" href="#index-asc">ジャンル</a></th>
+      <th class="genre">ジャンル</th>
       <th class='maker'>メーカー</th>
-      <th class='model'>型式</th>
+      <th class='model'><a class="sort" href="#index-asc">型式</a></th>
       <th class='year_td'><a class="sort" href="#year-asc">作成年・カタログNo</a></th>
       <th class='button'></th>
     </tr>

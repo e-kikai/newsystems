@@ -57,6 +57,7 @@ class Onuma < Base
           :model => (m%'td:nth(8)').text.f,
           :year  => (m%'td:nth(7)').text.f,
           :spec  => '',
+          :location => '本社',
         }
         temp[:hint] = temp[:name].gsub(/\((.*?)\)$/, '').strip
 

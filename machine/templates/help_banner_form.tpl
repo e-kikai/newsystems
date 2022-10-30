@@ -23,12 +23,13 @@ $(function() {
             'fax'          : '',
             'ret'          : '',
             'addr1'        : $.trim($('select.addr1').val()),
-            
+
             'message'      : "広告バナー掲載のお申込み\n\n" +
                 "サイトURI : " + $.trim($('input.uri').val()) + "\n" +
                 "ご希望サービス : " + $.trim($('input.service:checked').val()) + "\n" +
-                "バナー作成 : " + $.trim($('input.make_banner:checked').val()) + "\n\n" + $.trim(message),
-            
+                "バナー作成 : " + $.trim($('input.make_banner:checked').val()) + "\n" +
+                "メール配信 : " + $.trim($('input.send_mail:checked').val()) + "\n\n" + $.trim(message),
+
             'keystring'    : $.trim($('input.keystring').val()),
             'mailuser_flag': 0,
         }
@@ -39,7 +40,7 @@ $(function() {
         if (data.company == '')   { e += "会社名が入力されていません\n"; }
         if (data.name == '')      { e += "担当者名が入力されていません\n"; }
         if (data.mail == '')      { e += "メールアドレスが入力されていません\n"; }
-        
+
         if (data.addr1 == '')     { e += "都道府県が選択されていません\n"; }
         if (data.keystring == '') { e += "セキュリティコードが入力されていません\n"; }
 
@@ -63,7 +64,7 @@ $(function() {
 
         return false;
     });
-    
+
     //// seccodeの再表示 ///
     $('button.seccode_reflesh').click(function() {
         var date = new Date();
@@ -96,21 +97,21 @@ $(function() {
       <input type='text' name='name' class='name' id='name' value='' required />
     </td>
   </tr>
-  
+
   <tr class='tel'>
     <th>TEL<span class='required'>(必須)</span></th>
     <td>
       <input type='text' name='tel' class='tel' id='tel' maxlength='12' value='' required />
     </td>
   </tr>
-  
+
   <tr class='mail'>
     <th>メールアドレス<span class='required'>(必須)</span></th>
     <td>
       <input type='email' name='mail' class='mail' id='mail' value='' required />
     </td>
   </tr>
-  
+
   <tr class='addr1'>
     <th>都道府県<span class='required'>(必須)</span></th>
     <td>
@@ -123,28 +124,37 @@ $(function() {
       </select>
     </td>
   </tr>
-  
+
   <tr class='uri'>
     <th>サイトURI</th>
     <td>
       <input type='text' name='uri' class='uri' id='uri' value='' />
     </td>
   </tr>
-  
+
   <tr class='service'>
     <th>ご希望サービス<span class='required'>(必須)</span></th>
     <td>
       <label><input type='radio' class='service' name='service' value='大バナー掲載' checked /> 大バナー掲載</label>
       <label><input type='radio' class='service' name='service' value='小バナー掲載' /> 小バナー掲載</label>
       <label><input type='radio' class='service' name='service' value='入札会バナー掲載' /> 入札会バナー掲載</label>
+      <label><input type='radio' class='service' name='service' value='入札会バナー掲載 + 入札会ご案内ページ作成' /> 入札会バナー掲載 + 入札会ご案内ページ作成</label>
     </td>
   </tr>
-  
+
   <tr class='make_banner'>
     <th>バナー作成<span class='required'>(必須)</span></th>
     <td>
       <label><input type='radio' class='make_banner' name='make_banner' value='希望する' checked /> 希望する</label>
       <label><input type='radio' class='make_banner' name='make_banner' value='希望しない' /> 希望しない</label>
+    </td>
+  </tr>
+
+  <tr class='send_mail'>
+    <th>メール配信<span class='required'>(必須)</span></th>
+    <td>
+      <label><input type='radio' class='send_mail' name='send_mail' value='希望する' checked /> 希望する</label>
+      <label><input type='radio' class='send_mail' name='send_mail' value='希望しない' /> 希望しない</label>
     </td>
   </tr>
 
@@ -154,7 +164,7 @@ $(function() {
       <textarea name='message' class='other_message'></textarea>
     </td>
   </tr>
-  
+
   <tr class='mail'>
     <th>セキュリティコード<span class='required'>(必須)</span></th>
     <td>
@@ -166,7 +176,7 @@ $(function() {
       <input type='text' name='keystring' class='keystring' id='keystring' value='' required />
     </td>
   </tr>
-  
+
 </table>
 
 <div class='terms'>

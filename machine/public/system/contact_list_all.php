@@ -21,12 +21,14 @@ try {
 
     //// CSVに出力する場合 ////
     if ($output == 'csv') {
-        $mailuserList = $cModel->getMailuserList();
+        // $mailuserList = $cModel->getMailuserList();
+        $mailuserList = $cModel->getContactMailList();
 
         $header = array(
+            'mail'         => 'mail',
             'user_company' => '会社名',
             'user_name'    => 'ユーザ名',
-            'mail'         => 'メールアドレス',
+            'xl_genre_id'  => 'xl_genre_id',
         );
 
         B::downloadCsvFile($header, $mailuserList, 'contact_all_mailuser.csv');

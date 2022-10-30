@@ -42,7 +42,7 @@ function MachineList()
     });
     var cUri = $('input.curi').val();
 
-    $.get('/js/tmpl/list_tmpl_02.tpl?cccc', function(data) {
+    $.get('/js/tmpl/list_tmpl_02.tpl', function(data) {
        $.templates({list_tmpl: data});
     });
 
@@ -284,7 +284,7 @@ function MachineList()
                 // テンプレート用にデータ整形
                 if (m['pdfs'] && !m['_render_pdfs']) {
                     m['_render_pdfs'] = $.map(m['pdfs'], function(d, key) {
-                         return {'key':key, 'data':d};
+                         return {'key': key, 'data': ($('#media_dir').val() + "machine/" + d)};
                     });
                 }
 
@@ -298,6 +298,7 @@ function MachineList()
                     }
                     // console.log(m['_render_youtube']);
                 }
+                m["media_dir"] = $('#media_dir').val();
 
                 // その他能力枠
                 /*

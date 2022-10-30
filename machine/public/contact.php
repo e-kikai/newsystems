@@ -17,6 +17,7 @@ try {
     $bidMachineId = Req::query('bm');
     $bidOpenId    = Req::query('o');
     $batch        = Req::query('batch');
+    $mes          = Req::query('mes');
 
     $machineList = array();
     $companyList = array();
@@ -174,6 +175,8 @@ try {
 
         'batch'        => $batch,
         'bidMachineList' => $bidMachineList,
+
+        'mes'          => $mes,
     ))->display($template);
 } catch (Exception $e) {
     //// 表示変数アサイン ////

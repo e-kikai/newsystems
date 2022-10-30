@@ -88,7 +88,7 @@ class Catalog extends Zend_Db_Table_Abstract
         GROUP BY
           c.id
         ORDER BY
-          c.maker_kana COLLATE \"ja_JP.utf8\",
+          c.maker_kana COLLATE \"ja_JP.utf8\" asc,
           c.models,
           c.created_at DESC
         {$limit};";
@@ -174,7 +174,7 @@ class Catalog extends Zend_Db_Table_Abstract
           c.maker,
           c.maker_kana
         ORDER BY
-          c.maker_kana COLLATE \"ja_JP.utf8\",
+          c.maker_kana COLLATE \"ja_JP.utf8\" asc,
           c.maker;";
         $result = $this->_db->fetchAll($sql);
         return $result;
@@ -250,7 +250,7 @@ class Catalog extends Zend_Db_Table_Abstract
           a.maker_kana
         ORDER BY
           count DESC,
-          a.maker_kana COLLATE \"ja_JP.utf8\";";
+          a.maker_kana COLLATE \"ja_JP.utf8\" asc;";
         $result = $this->_db->fetchAll($sql);
         return $result;
     }

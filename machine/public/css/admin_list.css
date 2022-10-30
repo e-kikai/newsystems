@@ -24,7 +24,7 @@ table.list th a:visited,
 table.list th a {
   color: #EFE;
   text-decoration: none;
-  border-bottom: 1px dotted #EFE; 
+  border-bottom: 1px dotted #EFE;
 }
 
 table.list tr:nth-child(even) td {
@@ -92,8 +92,14 @@ table.list .img {
   padding: 0;
 }
 
+/* table.list .img img {
+  width: 60px;
+} */
+
 table.list .img img {
   width: 60px;
+  height: 60px;
+  content-fit: cover;
 }
 
 table.list .genre_id {

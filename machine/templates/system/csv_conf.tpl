@@ -8,7 +8,7 @@ $(function() {
     //// 一括削除処理 ////
     $('button.csv_submit').click(function() {
         if (!confirm("一括登録を開始します。よろしいですか？")) { return false; }
-        
+
         // 処理を実行
         $.post('/system/ajax/csv.php',
             {"target": "system", "action": "setCsv", "data": ''},
@@ -155,7 +155,7 @@ select.company {
         <th class="imgs">画像</th>
       </tr>
     </thead>
-    
+
     {foreach $machineList as $m}
       {* (変更)変更しない、処理を飛ばす *}
       <tr class='{cycle values='even, odd'}'>
@@ -175,7 +175,7 @@ select.company {
         <td class="imgs">
           {if !empty($m.used_imgs)}
             {foreach $m.used_imgs as $i}
-              <a href="http://www.jp.usedmachinery.bz/img/jpmachines/{$i}" target="_blank">◎</a>            
+              <a href="https://www.jp.usedmachinery.bz/assets/images/jpmachines/{$i}" target="_blank">◎</a>            
             {/foreach}
           {/if}
         </td>

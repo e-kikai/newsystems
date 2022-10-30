@@ -99,7 +99,7 @@ EOS;
         $subject = 'マシンライフ:書き込み通知';
 
         //// メール送信 ////
-        $sends = array("bata44883@gmail.com", "kazuyoshih@gmail.com");
+        $sends = array("bata44883@gmail.com", "kazuyoshih@gmail.com", "jimukyoku@zenkiren.net");
         foreach ($sends as $to) {
             $mailsend->sendMail($to, null, $body, $subject);
         }

@@ -42,12 +42,20 @@
     {{if view_option == 2}}<div class="label vo2">商談中</div>{{/if}}
     {{if commission == 1}}<div class="label commission">試運転可</div>{{/if}}
     {{for _render_pdfs}}
-      <a href="{{>media_dir}}machine/{{>data}}"
+      <a href="{{>data}}"
         class="label pdf" target="_blank">PDF:{{>key}}</a>
     {{/for}}
 
     {{if catalog_id}}
-      <a href="http://catalog.zenkiren.net/catalog_pdf.php?id={{>catalog_id}}" class="label catalog" target="_blank">電子カタログ</a>
+      <a href="https://catalog.zenkiren.net/catalog_pdf.php?id={{>catalog_id}}" class="label catalog" target="_blank">電子カタログ</a>
+    {{/if}}
+
+    {{if label_title}}
+      {{if label_url}}
+        <a class="label org" href="{{>label_url}}" target="_blank" style="background:{{>label_color}};">{{>label_title}}</a>
+      {{else}}
+        <div class="label org" style="background:{{>label_color}};">{{>label_title}}</div>
+      {{/if}}
     {{/if}}
   </td>
 

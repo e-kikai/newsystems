@@ -8,7 +8,7 @@
     <input type='checkbox' class='machine_check' name='machine_check' value='{$m.id}' />
   </td>
   <td class='img' rowspan='2'>
-    {if empty($m.deleted_at)}  
+    {if empty($m.deleted_at)}
       <div class='img_area'>
         <a href='/machine_detail.php?m={$m.id}'>
           <div class='name'>{$m.name}</div>
@@ -83,7 +83,7 @@
               {/if}
             </td>
           {/if}
-        
+
           {foreach $m.spec_labels as $d}
             <td class="others_{$d@key} {$d.type}">
               {if empty($m.others[$d@key])}
@@ -101,7 +101,7 @@
         </tr>
       </table>
     {/if}
-    
+
     {*** ラベル枠 ***}
     {if $m.view_option == 2}<div class="label vo2">商談中</div>{/if}
     {if $m.commission == 1}<div class="label commission">試運転可</div>{/if}
@@ -115,7 +115,7 @@
       <a href="{$_conf.catalog_uri}/catalog_pdf.php?id={$m.catalog_id}"
         class="label catalog" target="_blank">電子カタログ(会員のみ公開)</a>
     {/if}
-    
+
     {$m.spec}
   </td>
 </tr>

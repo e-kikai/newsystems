@@ -272,14 +272,14 @@ table.spec th {
   /display : inline;  /* for IE6,7 */
   /zoom : 1;          /* for IE6,7 */
 
-  width : 512px;
-  margin : 20px 0 0 0;
   text-align: left;
 
   margin-top: 2px;
 
   border: 1px solid #CCC;
+  /*
   height: 80px;
+  */
   overflow: auto;
 
   letter-spacing: -.40em;
@@ -290,11 +290,17 @@ table.spec th {
   display: block;
   float: left;
   background: #FFF;
+  /*
   width: 64px;
   height: 48px;
-  border: 0;
-  margin: 0;
   border: 3px solid #FFF;
+  */
+
+  width: 80px;
+  height: 60px;
+  border: 2px solid #FFF;
+
+  margin: 0;
 }
 
 .images a.movie {
@@ -302,17 +308,41 @@ table.spec th {
 }
 
 .images a.img.selected {
+  /*
   border: 3px solid #777;
+  */
+  border: 2px solid #777;
 }
 
 .images a.img img {
   max-width: 64px;
   max-height: 48px;
+  max-width: 80px;
+  max-height: 60px;
+
   margin: 0 auto;
 }
 
 .youtube {
   margin-top: 8px;
+}
+
+a.movie {
+  display: block;
+  position: relative;
+  width: 250px;
+  margin-right: 4px;
+}
+
+img.youtube_thumb {
+  width: 250px;
+}
+
+img.youtube_icon {
+  display: block;
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
 }
 
 table.machine {

@@ -108,14 +108,14 @@ try {
     $lModel = new Actionlog();
     $lModel->set('machine', 'bid_detail_tel', $machineId);
 
-    // トラッキングログ
-    $tlModel = new TrackingLog();
-    $tlModel->set(array(
-        "bid_open_id"     => $bidOpen["id"],
-        "bid_machine_ids" => $machine["id"],
-    ));
+    // // トラッキングログ
+    // $tlModel = new TrackingLog();
+    // $tlModel->set(array(
+    //     "bid_open_id"     => $bidOpen["id"],
+    //     "bid_machine_ids" => $machine["id"],
+    // ));
 
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ////
     $_smarty->assign(array(
         // 'pageTitle' => $bidOpen['title'] . ' : 商品詳細',
         'pageTitle'        => $pageTitle,

@@ -33,6 +33,12 @@ table.form td textarea {
 
 .imgs {
   margin: 8px auto;
+  width: 640px;
+}
+
+a.contact {
+  width: 280px;
+  margin: 4px 0;
 }
 </style>
 {/literal}
@@ -56,7 +62,9 @@ table.form td textarea {
 
   <tr class="">
     <th>依頼主</th>
-    <td>{$company.company}</td>
+    <td>
+      <a href="../company_detail.php?c={$company.id}">{$company.company}</a>
+    </td>
   </tr>
 
   <tr class="info_date">
@@ -70,10 +78,29 @@ table.form td textarea {
   </tr>
 
   <tr class="">
-    <th>問い合わせ</th>
+    <th>問い合わせTEL</th>
+    <td>{$urikai.tel}</td>
+  </tr>
+
+  <tr class="">
+    <th>問い合わせFAX</th>
+    <td>{$urikai.fax}</td>
+  </tr>
+
+  <tr class="">
+    <th>問い合わせメールアドレス</th>
+    <td>
+      {if !empty($urikai.mail)}
+        <a href="mailto:{$urikai.mail}" target="_blank">{$urikai.mail}</a>
+      {/if}
+    </td>
+  </tr>
+
+  <tr class="">
+    <th>問い合わせフォーム</th>
     <td>
       {if empty($urikai.end_date)}
-        <a href="/contact.php?c={$urikai.company_id}">→この{if $urikai.goal == "cell"}売りたし{else}買いたし{/if}について問合せ</a>
+        <a href="/contact.php?c={$urikai.company_id}&mes=No.{$urikai.id}[[{if $urikai.goal == "cell"}売りたし{else}買いたし{/if}]]について問合せ" class="contact">→ この{if $urikai.goal == "cell"}売りたし{else}買いたし{/if}について問合せ</a>
       {else}
         この{if $urikai.goal == "cell"}売りたし{else}買いたし{/if}は解決済みです({$urikai.end_date|date_format:'%Y/%m/%d %H:%M'})
       {/if}
@@ -82,6 +109,11 @@ table.form td textarea {
 </table>
 
 <div class="imgs">
+  {foreach $urikai.imgs as $i}
+    <a class="img" href='{$_conf.media_dir}machine/{$i}'>
+      <img src="{$_conf.media_dir}machine/{$i}" alt="" />
+    </a>
+  {/foreach}
 </div>
 
 

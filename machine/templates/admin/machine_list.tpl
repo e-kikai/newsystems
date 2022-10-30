@@ -4,7 +4,7 @@
 
 <script type="text/javascript" src="{$_conf.libjs_uri}/scrolltopcontrol.js"></script>
 <link href="{$_conf.site_uri}{$_conf.css_dir}admin_list.css" rel="stylesheet" type="text/css" />
-  
+
 <script type="text/JavaScript">
 //// 変数の設定 ////
 var checkList = {
@@ -20,38 +20,38 @@ var checkList = {
       {/foreach}
     {/if}
 }
-    
+
 {literal}
 $(function() {
     //// サムネイル画像の遅延読み込み（Lazyload） ////
     $('img.lazy').css('display', 'block').lazyload({
         effect: "fadeIn"
     });
-    
+
     //// すべて表示：メーカー ////
     $('a.maker_all').click(function() {
         $('.maker_area input:checked').removeAttr('checked');
         $('.maker_area input:checkbox').first().change();
         return false;
     });
-    
+
     //// すべて表示：ジャンル ////
     $('a.genre_all').click(function() {
         $('.genre_area input:checked').removeAttr('checked');
         $('.genre_area input:checkbox').first().change();
         return false;
     });
-    
+
     //// ジャンル・メーカーで絞り込む ////
     $('.genre_area input:checkbox, .maker_area input:checkbox').change(function() {
         // 前処理、すべて表示
         $('.machine').show();
-        
+
         // ジャンル絞り込み
         var searchGenre = $('.genre_area input:checked')
           .map(function() { return $(this).val(); })
           .get().join('|');
-          
+
         if (searchGenre != '') {
             var re = new RegExp("([^0-9]|^)(" + searchGenre + ")([^0-9]|$)");
             // console.log("([^0-9]|^)(" + searchGenre + ")([^0-9]|$)");
@@ -60,32 +60,32 @@ $(function() {
                 $(this).find('.genre_id').each(function() {
                     if ($(this).text().match(re)) { flg = false; return false; }
                 });
-                
+
                 return flg;
             }).hide();
         }
-        
+
         // メーカー絞り込み
         var searchMaker = $('.maker_area input:checked')
           .map(function() { return $(this).val(); })
           .get().join('|');
-          
+
         if (searchMaker != '') {
             var re = new RegExp('(^|\|)(' + searchMaker + ')($|\|)');
             $('.machine').filter(function(i) {
                 return !$(this).find('.maker').text().match(re);
             }).hide();
         }
-        
+
         // 色分けの再編
         $('.machine:visible').removeClass('even').removeClass('odd');
         $('.machine:visible:even').addClass('even');
         $('.machine:visible:odd').addClass('odd');
-        
+
         // Lazyload用スクロール
         $(window).triggerHandler('scroll');
     });
-    
+
     /*
     $('form.delete').submit(function() {
         if (confirm('この在庫機械情報を削除しますか？')) {
@@ -96,27 +96,27 @@ $(function() {
         }
     });
     */
-    
+
     //// 一括処理 ////
     /*
     $('select.action').change(function() {
         var action = $(this).val();
-        
+
         if (!action) { return false; }
-        
+
         // チェック情報を取得
         var vals = $('input.m:visible:checked').map(function() {
             return $(this).val();
         }).get();
-        
+
         if (!vals.length) {
             alert('処理を行いたい在庫機械情報にチェックを入れてください');
             $(this).val('');
             return false;
         }
-    
+
         if (confirm($(
-            'select.action option:selected').text() + 
+            'select.action option:selected').text() +
             "\nチェックした " + vals.length + "件 の在庫機械にこの処理を行いますか？"
         )) {
             // 処理を実行
@@ -132,14 +132,14 @@ $(function() {
         }
     });
     */
-    
+
     //// 一括チェック ////
     $('select.check').change(function() {
         var action = $(this).val();
-        
+
         // チェックをリセット
         $('input.m').removeAttr('checked');
-        
+
         if (action == 'all') {
             $('input.m:visible').attr('checked', 'checked');
         } else if (checkList[action]){
@@ -150,19 +150,19 @@ $(function() {
             });
         }
     });
-    
+
     //// 一括削除 ////
     $('button.delete').click(function() {
         // チェック情報を取得
         var vals = $('input.m:visible:checked').map(function() {
             return $(this).val();
         }).get();
-        
+
         if (!vals.length) {
             alert('削除を行いたい在庫機械情報にチェックを入れてください');
             return false;
         }
-    
+
         if (confirm("チェックした " + vals.length + "件 の在庫機械の削除を行いますか？")) {
             // 処理を実行
             $.post('../ajax/admin_machine_list.php',
@@ -218,6 +218,17 @@ table.list td.count {
     {/foreach}
   </select>
   <input type="text" class="keyword_search" name="k" value="{$q.keyword}" placeholder="キーワード検索">
+   -
+  <select class="order" name="order">
+    <option value="">▼並び順▼</option>
+    <option value="no"{if $q.sort=="no"} selected="selected"{/if}>管理番号</option>
+    <option value="name"{if $q.sort=="name"} selected="selected"{/if}>機械名</option>
+    <option value="maker"{if $q.sort=="maker"} selected="selected"{/if}>メーカー</option>
+    <option value="model"{if $q.sort=="model"} selected="selected"{/if}>型式</option>
+    <option value="year"{if $q.sort=="year"} selected="selected"{/if}>年式</option>
+    <option value="created_at"{if $q.sort=="created_at"} selected="selected"{/if}>登録日時</option>
+  </select>
+
   <br />
   登録日{html_select_date prefix='start' field_order='YMD' time=$q.start_date
     year_empty='年' month_empty='月' day_empty='日' month_format='%m'
@@ -225,10 +236,10 @@ table.list td.count {
   {html_select_date prefix='end' field_order='YMD' time=$q.end_date
     year_empty='年' month_empty='月' day_empty='日' month_format='%m'
     start_year='2012' reverse_years=true field_separator=" / "}
-    
+
 
   <button type="submit" class="company_list_submit">検索</button>
-  
+
   <a href="/admin/machine_list.php">条件リセット</a>
 </form>
 </fieldset>
@@ -263,7 +274,7 @@ table.list td.count {
       <th class="count">閲覧数<br />過去7日</th>
     </tr>
   {/if}
-  
+
   <tr>
     <td class="check"><input type="checkbox" class="m" value="{$m.id}" /></td>
     <td class="img">
@@ -286,7 +297,7 @@ table.list td.count {
     <td class="created_at">{$m.created_at|date_format:'%Y/%m/%d'}</td>
     <td class="count">{$actionCountPair[$m.id]|number_format}</td>
   </tr>
-  
+
   {if $m@last}
     </table>
   <button class="delete">削除</button>
@@ -297,4 +308,3 @@ table.list td.count {
 {include file="include/pager.tpl"}
 
 {/block}
-

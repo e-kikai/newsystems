@@ -19,7 +19,7 @@ $(function() {
     //// 印刷ボタン ////
     $('<button class="print"><img src="./imgs/print_icon3.png" />ページを印刷</button>')
         .appendTo('.center_container');
-    
+
     $('button.print').click(function() {
         $('img.lazy').each(function() {
             $(this).attr('src', $(this).data('original'));
@@ -27,7 +27,7 @@ $(function() {
         window.print();
         _gaq.push(['_trackEvent', 'common', 'print', 'button', 1, true]);
     });
-    
+
     // foe IE
     document.body.onbeforeprint = function() {
         $('img.lazy').each(function() {
@@ -102,20 +102,20 @@ body.mini {
           <a href="{$k}" onClick="_gaq.push(['_trackEvent', 'pankuzu', 'other', '{$k}', 1, true])">{$p}</a> &gt;
         {/foreach}
       {/if}
-      
+
       {if !empty($pankuzuTitle)}
         <strong>{$pankuzuTitle|truncate:50:" ほか"}</strong>
       {elseif !empty($pageTitle)}
         <strong>{$pageTitle|truncate:50:" ほか"}</strong>
       {/if}
     </div>
-    
+
     {if !empty($h1Title)}
       <h1>{$h1Title|truncate:50:" ほか"}</h1>
     {elseif !empty($pageTitle)}
       <h1>{$pageTitle|truncate:50:" ほか"}</h1>
     {/if}
-    
+
     {if isset($pageDescription)}
       <div class="description">{$pageDescription}</div>
     {/if}
@@ -123,7 +123,7 @@ body.mini {
 
 <div class="companybid-area">
   <div class="companybid-strong">
-    下見期間 : 
+    下見期間 :
     {$companybidOpen.preview_start_date|date_format:'%Y年%m月%d日'} ({B::strtoweek($companybidOpen.preview_start_date)})
      ～
     {$companybidOpen.preview_end_date|date_format:'%m月%d日'} ({B::strtoweek($companybidOpen.preview_end_date)})
@@ -131,7 +131,7 @@ body.mini {
   {$companybidOpen.preview_date_comment}
 
   <div class="companybid-strong">
-    入札日時 : 
+    入札日時 :
     {$companybidOpen.bid_date|date_format:'%Y年%m月%d日'} ({B::strtoweek($companybidOpen.bid_date)})
     {$companybidOpen.bid_date|date_format:'%H:%M'}
   </div>
@@ -139,14 +139,14 @@ body.mini {
 
   <div class="companybid-strong">入札会場 : {$companybidOpen.bid_location}</div>
   {if !empty($companybidOpen.bid_address)}
-    {$companybidOpen.bid_address} 
+    {$companybidOpen.bid_address}
     <a class="accessmap" href="https://maps.google.co.jp/maps?f=q&amp;q={$companybidOpen.bid_address|escape:"url"}+({$companybidOpen.bid_location|escape:"url"})&source=embed&amp;hl=ja&amp;geocode=&amp;ie=UTF8&amp;t=m&z=14" target="_blank">MAPはこちら</a>
   {/if}
 </div>
 
 {if !empty($machine)}
 
-<div class='detail_container'>    
+<div class='detail_container'>
   <div class="spec_area">
     <table class="spec">
       <tr class="" >
@@ -170,14 +170,14 @@ body.mini {
         <td>{$machine.year}</td>
       </tr>
     </table>
-        
+
     <table class="spec">
       <tr class="price">
         <th>最低入札金額</th>
         <td class="detail_min_price">{$machine.min_price|number_format}円</td>
       </tr>
     </table>
-    
+
     <table class="spec">
       {if !empty($machine.capacity_label)}
         <tr class="capacity number" >
@@ -185,7 +185,7 @@ body.mini {
           <td>{if empty($machine.capacity)}-{else}{$machine.capacity}{$machine.capacity_unit}{/if}</td>
         </tr>
       {/if}
-      
+
       <tr class="spec">
         <th>仕様</th>
         <td>
@@ -238,7 +238,7 @@ body.mini {
            {$company.addr1} {$company.addr2} {$company.addr3}
         </td>
       </tr>
-      
+
       <tr class="">
         <th>お問い合せTEL</th>
         <td>{$company.contact_tel}</td>
@@ -247,27 +247,27 @@ body.mini {
         <th>お問い合せFAX</th>
         <td>{$company.contact_fax}</td>
       </tr>
-      
+
       <tr class="">
         <th>担当者</th>
         <td>{$company.officer}</td>
       </tr>
-  
+
       <tr class='infos opening'>
         <th>営業時間</th>
         <td>{$company.infos.opening}</td>
       </tr>
-      
+
       <tr class='infos holiday'>
         <th>定休日</th>
         <td>{$company.infos.holiday}</td>
       </tr>
-      
+
       <tr class='infos license'>
         <th>古物免許</th>
         <td>{$company.infos.license}</td>
       </tr>
-      
+
       <tr class='infos complex'>
         <th>所属団体</th>
         <td>{$company.treenames}</td>
@@ -276,7 +276,7 @@ body.mini {
   </div>
   *}
   <br class="clear" />
-  
+
 
   {*** 画像 ***}
   <div class="large_img_area">
@@ -304,7 +304,7 @@ body.mini {
 
 </div>
 
-<a title="Web Analytics" href="http://clicky.com/100784739"><img alt="Web Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<a title="Web Analytics" href="https://clicky.com/100784739"><img alt="Web Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
 <script src="//static.getclicky.com/js" type="text/javascript"></script>
 <script type="text/javascript">try{ clicky.init(100784739); }catch(e){}</script>
 <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100784739ns.gif" /></p></noscript>
@@ -317,5 +317,5 @@ body.mini {
   </p>
 </footer>
 
-</body> 
+</body>
 </html>

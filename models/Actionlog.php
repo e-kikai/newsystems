@@ -7,7 +7,7 @@ require_once 'Zend/Db/Table.php';
 class Actionlog extends Zend_Db_Table_Abstract
 {
     protected $_name = 'actionlogs';
-    
+
     /**
      * アクションログをに挿入
      *
@@ -20,27 +20,30 @@ class Actionlog extends Zend_Db_Table_Abstract
      */
     public function set($target, $action, $id=NULL, $contents=NULL)
     {
+        $ip = isset($_SERVER["HTTP_X_FORWARDED_FOR"]) ? $_SERVER["HTTP_X_FORWARDED_FOR"] : $_SERVER["REMOTE_ADDR"];
         // ロボットをエスケープ
-        $hostname = gethostbyaddr($_SERVER['REMOTE_ADDR']);
+        // $hostname = gethostbyaddr($_SERVER['REMOTE_ADDR']);
+        $hostname = gethostbyaddr($ip);
         if (preg_match('/(google|yahoo|naver|msnbot|ahrefs|baidu)/', $hostname)) { return $this; }
 
         // エスケープ
         $user_id = !empty($_SESSION['user']['id']) ? $_SESSION['user']['id'] : NULL;
-        
+
         $q = array(
             'target'    => B::filter($target),
             'action'    => B::filter($action),
             'user_id'   => $user_id,
-            'ip'        => $_SERVER['REMOTE_ADDR'],
+            // 'ip'        => $_SERVER['REMOTE_ADDR'],
+            'ip'        => $ip,
             'hostname'  => $hostname,
             'action_id' => B::filter($id),
             'contents'  => B::filter($contents)
         );
         $result = $this->_db->insert('actionlogs', $q);
-        
+
         return $this;
     }
-    
+
     /**
      * access_logチェック（再読み込み対策）
      *
@@ -56,7 +59,7 @@ class Actionlog extends Zend_Db_Table_Abstract
         // エスケープ
         $url        = urldecode($url);
         $referer    = urldecode($referer);
-        
+
         // 正規表現でページURLとリファラを比較する
         if (!preg_match('/' . preg_quote($url, '/') . '$/', $referer)) {
             return true;
@@ -67,7 +70,7 @@ class Actionlog extends Zend_Db_Table_Abstract
         }
     }
     */
-    
+
     /**
      * access_log一覧を取得する
      *
@@ -80,14 +83,14 @@ class Actionlog extends Zend_Db_Table_Abstract
         //// 検索クエリからWHERE句の生成 ////
         $arr = array();
         $limit = '';
-        
+
         // Googlebot,yahooを除外
         $arr[] = " hostname NOT LIKE '%google%' ";
         $arr[] = " hostname NOT LIKE '%yahoo%' ";
         $arr[] = " hostname NOT LIKE '%naver%' ";
         $arr[] = " hostname NOT LIKE '%ahrefs%' ";
         $arr[] = " hostname NOT LIKE '%msnbot%' ";
-        
+
         if (empty($q['month']) || $q['month'] == 'now') {
             $arr[] = $this->_db->quoteInto(' CAST(l.created_at as DATE) >= ?', date('Y-m-d', strtotime('- 7day')));
             $arr[] = $this->_db->quoteInto(' CAST(l.created_at as DATE) <= ?', date('Y-m-d'));
@@ -95,44 +98,44 @@ class Actionlog extends Zend_Db_Table_Abstract
             $arr[] = $this->_db->quoteInto(' CAST(l.created_at as DATE) >= ?', date('Y-m-01', strtotime($q['month'])));
             $arr[] = $this->_db->quoteInto(' CAST(l.created_at as DATE) <= ?', date('Y-m-t', strtotime($q['month'])));
         }
-        
+
         if (!empty($q['action'])) {
             $arr[] = $this->_db->quoteInto(' l.action = ?', $q['action']);
         }
-        
+
         if (!empty($q['target'])) {
             $arr[] = $this->_db->quoteInto(' l.target = ?', $q['target']);
         }
-        
+
         if (!empty($q['user_id'])) {
             $arr[] = $this->_db->quoteInto(' l.user_id = ?', $q['user_id']);
         }
-        
+
         $where = !empty($arr) ? ' WHERE ' . implode(' AND ', $arr) : '';
-        
+
         //// LIMIT句、OFFSET句を作成 ////
         if (!empty($q['limit'])) {
             $offset = intval($q['limit'] * ($q['page'] - 1));
             $limit  = $this->_db->quoteInto(' LIMIT ? ', $q['limit']);
             $limit .= $this->_db->quoteInto(' OFFSET ? ', $offset);
         }
-        
+
         //// 検索クエリを作成・実行 ////
         $sql = "SELECT
-          l.*, 
-          u.user_name, 
-          u.role 
+          l.*,
+          u.user_name,
+          u.role
         FROM
-          actionlogs l 
-          LEFT JOIN users u 
+          actionlogs l
+          LEFT JOIN users u
             ON u.id = l.user_id
         {$where}
         ORDER BY created_at DESC {$limit};";
         $result = $this->_db->fetchAll($sql);
-        
+
         return $result;
     }
-    
+
     /**
      * access_log総数を取得する
      *
@@ -145,31 +148,31 @@ class Actionlog extends Zend_Db_Table_Abstract
         //// 検索クエリからWHERE句の生成 ////
         $arr = array();
         $where = '';
-        
+
         if (!empty($q['action'])) {
             $arr[] = $this->_db->quoteInto(' l.action = ?', $q['action']);
         }
-        
+
         if (!empty($q['target'])) {
             $arr[] = $this->_db->quoteInto(' l.target = ?', $q['target']);
         }
-        
+
         if (!empty($q['user_id'])) {
             $arr[] = $this->_db->quoteInto(' l.user_id = ?', $q['user_id']);
         }
-        
+
         if (!empty($arr)) {
             $where = ' WHERE ' . implode(' AND ', $arr);
         }
-        
+
         //// 検索クエリを作成・実行 ////
         $db = $this->getAdapter();
         $sql = "SELECT count(*) FROM actionlogs l {$where};";
         $result = $this->_db->fetchOne($sql);
-        
+
         return $result;
     }
-    
+
     /**
      * 各会社の機械ごと詳細ページ表示数を取得する
      *
@@ -183,7 +186,7 @@ class Actionlog extends Zend_Db_Table_Abstract
         $arr = array();
         $where = '';
         $limit = '';
-        
+
         // Googlebot,yahooを除外
         /*
         $arr[] = " hostname NOT LIKE '%google%' ";
@@ -192,32 +195,157 @@ class Actionlog extends Zend_Db_Table_Abstract
         $arr[] = " hostname NOT LIKE '%ahrefs%' ";
         $arr[] = " hostname NOT LIKE '%msnbot%' ";
         */
-        
+
         if (!empty($arr)) { $where = ' AND ' . implode(' AND ', $arr); }
-        
+
         //// 検索クエリを作成・実行 ////
         $sql = "SELECT
-          a.action_id, 
-          count(*) 
+          a.action_id,
+          count(*)
         FROM
-          actionlogs a 
+          actionlogs a
         WHERE
           a.target = 'machine' AND
           a.ACTION = 'machine_detail' AND
           a.created_at > CURRENT_TIMESTAMP + '-1week' AND
-          a.action_id IN ( 
+          a.action_id IN (
             SELECT
-              m.id 
+              m.id
             FROM
-              machines m 
+              machines m
             WHERE
               m.company_id = ? AND
               m.deleted_at IS NULL {$where}
-          ) 
+          )
         GROUP BY
           a.action_id;";
         $result = $this->_db->fetchPairs($sql, $companyId);
-        
+
         return $result;
+    }
+
+    public function getIPDetail($days="1days", $minCount=5, $maxCount=99999999) {
+        //// 検索クエリを作成・実行 ////
+        $sql = "SELECT DISTINCT
+          a.ip,
+          -- a.hostname,
+          a.action_id
+        FROM
+          actionlogs a
+        INNER JOIN (
+          SELECT
+            ax.ip
+          FROM
+            actionlogs ax
+          WHERE
+            ax.target = 'machine'
+            AND ax.action = 'machine_detail'
+            AND ax.ip <> ''
+            AND ax.hostname <> ''
+            AND ax.ip <> ax.hostname
+            AND ax.hostname !~* '(crawl|bot|seo|webnx|jgn-x)'
+            AND ax.created_at > CURRENT_TIMESTAMP + '-{$days}'
+          GROUP BY
+            ax.ip
+          HAVING
+            count(DISTINCT ax.action_id) BETWEEN {$minCount} AND {$maxCount}
+          ) a2 ON a.ip = a2.ip
+        WHERE
+          a.target = 'machine'
+          AND a.action = 'machine_detail'
+          AND a.ip <> ''
+          AND a.hostname <> ''
+          AND a.ip <> a.hostname
+          AND a.hostname !~* '(crawl|bot|seo|webnx|jgn-x)'
+          AND a.created_at > CURRENT_TIMESTAMP + '-{$days}'
+
+        ORDER BY
+          a.ip;";
+        $result = $this->_db->fetchAll($sql);
+
+        return $result;
+    }
+
+    public function getDetailByNow($days="1days", $minCount=5, $maxCount=99999999) {
+        //// 検索クエリを作成・実行 ////
+        $sql = "SELECT DISTINCT
+          a.action_id
+        FROM
+          actionlogs a
+        LEFT JOIN machines m
+          ON m.id = a.action_id
+        INNER JOIN (
+          SELECT
+            ax.ip
+          FROM
+            actionlogs ax
+          WHERE
+            ax.target = 'machine'
+            AND ax.action = 'machine_detail'
+            AND ax.ip <> ''
+            AND ax.hostname <> ''
+            AND ax.ip <> ax.hostname
+            AND ax.hostname !~* '(crawl|bot|seo|webnx|jgn-x)'
+            AND ax.created_at > CURRENT_TIMESTAMP + '-{$days}'
+          GROUP BY
+            ax.ip
+          HAVING
+            count(DISTINCT ax.action_id) BETWEEN {$minCount} AND {$maxCount}
+          ) a2 ON a.ip = a2.ip
+        WHERE
+          m.deleted_at IS NULL
+          AND a.target = 'machine'
+          AND a.action = 'machine_detail'
+          AND a.ip <> ''
+          AND a.hostname <> ''
+          AND a.ip <> a.hostname
+          AND a.hostname !~* '(crawl|bot|seo)'
+          AND a.created_at > CURRENT_TIMESTAMP + '-{$days}'
+        ORDER BY
+          a.action_id;";
+        $result = $this->_db->fetchAll($sql);
+
+        return $result;
+    }
+
+    public function getDetailCount($days="1days", $minCount=5, $maxCount=99999999) {
+      $sql = "SELECT
+          count(DISTINCT a.action_id)
+        FROM
+          actionlogs a
+        LEFT JOIN machines m
+          ON m.id = a.action_id
+        INNER JOIN (
+          SELECT
+            ax.ip
+          FROM
+            actionlogs ax
+          WHERE
+            ax.target = 'machine'
+            AND ax.action = 'machine_detail'
+            AND ax.ip <> ''
+            AND ax.hostname <> ''
+            AND ax.ip <> ax.hostname
+            AND ax.hostname !~* '(crawl|bot|seo|webnx|jgn-x)'
+            AND ax.created_at > CURRENT_TIMESTAMP + '-{$days}'
+          GROUP BY
+            ax.ip
+          HAVING
+            count(DISTINCT ax.action_id) BETWEEN {$minCount} AND {$maxCount}
+          ) a2 ON a.ip = a2.ip
+        WHERE
+          m.deleted_at IS NULL
+          AND a.target = 'machine'
+          AND a.action = 'machine_detail'
+          AND a.ip <> ''
+          AND a.hostname <> ''
+          AND a.ip <> a.hostname
+          AND a.hostname !~* '(crawl|bot|seo)'
+          AND a.created_at > CURRENT_TIMESTAMP + '-{$days}'
+        ;";
+        $result = $this->_db->fetchOne($sql);
+
+        return $result;
+
     }
 }

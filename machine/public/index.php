@@ -1,7 +1,7 @@
 <?php
 /**
  * トップページ
- * 
+ *
  * @access  public
  * @author  川端洋平
  * @version 0.0.4
@@ -11,11 +11,11 @@ require_once '../lib-machine.php';
 try {
     //// 認証 ////
     Auth::isAuth('machine');
-    
+
     //// パラメータ取得 ////
     // 新着情報取得日数
     $news = $_conf->news;
-    
+
     //// 特大ジャンル・大ジャンル一覧を取得 ////
     $gModel         = new Genre();
     // $xlGenreList    = $gModel->getXlList(Genre::HIDE_CATALOG);
@@ -35,20 +35,20 @@ try {
 
     // 最近見た機械
     // $IPLogMachineList = $mModel->getIPLogList();
-    
+
     //// 在庫総数 ////
     $mModel        = new Machine();
     $mCountAll     = $mModel->getCountAll();
     $cCountByEntry = $mModel->getCountCompany();
-    
+
     //// 事務局お知らせ ////
     // $iModel   = new Info();
     // $infoList = $iModel->getList('machine', null, 20);
-    
+
     //// SELECT用都道府県一覧 ////
     $stateTable  = new States();
     $addr1List   = $stateTable->getListByTop();
-    
+
     //// 入札会開催情報の取得 ////
     $cModel      = new BidOpen();
     $bidOpenList = $cModel->getList(array('isopen' => true));
@@ -67,11 +67,11 @@ try {
 
     //// 入札会バナー情報を取得 ////
     $bModel      = new Bidinfo();
-    $bidinfoList = $bModel->getList(array('sort' => "bid_date", 'limit' => 4));
+    $bidinfoList = $bModel->getList(array('sort' => "bid_date"));
 
     // $temp        = $bModel->getList();
     // $bidinfoList = array($temp[3], $temp[0], $temp[2], $temp[1],);
-    
+
     //// 表示変数アサイン ////
     $_smarty->assign(array(
         'pankuzu'          => false,
@@ -80,13 +80,13 @@ try {
         'largeGenreId'     => array(),
         'newMachineList'   => $newMachineList,
         // 'newToolList'      => $newToolList,
-        
+
         'mCountAll'        => $mCountAll,
         'cCountByEntry'    => $cCountByEntry,
         // 'infoList'         => $infoList,
-        
+
         'addr1List'        => $addr1List,
-        
+
         // 'IPLogMachineList' => $IPLogMachineList,
         'bidOpenList'      => $bidOpenList,
         'bidinfoList'      => $bidinfoList,

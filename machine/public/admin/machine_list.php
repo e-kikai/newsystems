@@ -39,7 +39,7 @@ try {
         'start_date'     => $start_date,
         'end_date'       => $end_date,
 
-        // 'sort'        => 'created_at'
+        'sort'           => Req::query('order'),
 
         'limit'          => Req::query('limit', 50),
         'page'           => Req::query('page', 1),

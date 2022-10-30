@@ -125,7 +125,9 @@ $(function() {
         {elseif in_array($b.status, array('margin', 'bid', 'carryoff'))}
           <li><a href="/bid_door.php?o={$b.id}" target="_blank">Web入札会トップページ</a></li>
           <li><a href="/system/bid_list.php?o={$b.id}">商品リスト</a></li>
+          {*
           <li><a href="system/bid_makelist.php?o={$b.id}">出品番号付加、リストPDF生成</a></li>
+          *}
           <li><a href="/system/bid_mylist_log.php?o={$b.id}">マイリスト使用状況</a></li>
         {elseif $b.status == 'carryout'}
           <li><a href="/bid_door.php?o={$b.id}" target="_blank">Web入札会トップページ</a></li>
@@ -139,12 +141,13 @@ $(function() {
           </li>
           <li><a href="system/bid_result.php?o={$b.id}&output=pdf&type=sum" target="_blank">落札・出品集計表印刷(PDF)</a></li>
           <li><a href="system/bid_result.php?o={$b.id}&output=pdf&type=receipt" target="_blank">領収証印刷(PDF)</a></li>
-          <li><a href="system/bid_makelist.php?o={$b.id}">出品番号付加、リストPDF生成</a></li>
           <li><a href="/system/bid_mylist_log.php?o={$b.id}">マイリスト使用状況</a></li>
         {/if}
+        <li><a href="system/bid_makelist.php?o={$b.id}">出品番号付加、リストPDF生成</a></li>
         <li><a href="system/bid_announce_form.php?o={$b.id}">お知らせ・引取指図書フラグ変更</a></li>
       </div>
 
+      {*
       <div class="bid_open">
         <h3>{$b.title} :: 企業間売り切りシステム</h3>
         {if !empty($b.seri_start_date) && !empty($b.seri_end_date)}
@@ -174,7 +177,7 @@ $(function() {
           <div>企業間売り切りは設定されていません</div>
         {/if}
       </div>
-
+      *}
 
     {/foreach}
   {else}
