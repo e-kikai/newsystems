@@ -9,30 +9,30 @@ table.list {
 table.list td,
 table.list th {
   padding: 2px;
-  border: 1px dotted #BBB;
+  border: 1px dotted #bbb;
   vertical-align: middle;
-  background: #FFF;
+  background: #fff;
 }
 
 table.list th {
   text-align: center;
-  color: #EFE;
+  color: #efe;
   background: #040;
 }
 
 table.list th a:visited,
 table.list th a {
-  color: #EFE;
+  color: #efe;
   text-decoration: none;
-  border-bottom: 1px dotted #EFE;
+  border-bottom: 1px dotted #efe;
 }
 
 table.list tr:nth-child(even) td {
-  background: #EFE
+  background: #efe;
 }
 
 table.list tr:hover td {
-  background : #FFFFAD;
+  background: #ffffad;
 }
 
 table.list .no,
@@ -99,7 +99,7 @@ table.list .img {
 table.list .img img {
   width: 60px;
   height: 60px;
-  content-fit: cover;
+  object-fit: cover;
 }
 
 table.list .genre_id {
@@ -108,11 +108,11 @@ table.list .genre_id {
 
 table.list .commission,
 table.list .view_option {
-  width : 38px;
+  width: 38px;
 }
 
 table.list .created_at {
-  width : 80px;
+  width: 80px;
 }
 
 table.list td.check,
@@ -147,14 +147,14 @@ input.keyword_search {
 }
 
 button.delete {
-  width : 64px;
-  text-align : center;
+  width: 64px;
+  text-align: center;
   padding: 2px;
 }
 
 fieldset.search {
   width: 640px;
-  border: 1px solid #AAA;
+  border: 1px solid #aaa;
   margin: 2px auto;
   padding: 4px 8px;
   border-radius: 8px;
@@ -213,12 +213,12 @@ table.list .company_min {
 
 /*** 入札 ***/
 .bid_true {
-  color: #C00;
+  color: #c00;
   font-weight: bold;
 }
 
 .bid_false {
-  color: #00C;
+  color: #00c;
   font-weight: bold;
 }
 
@@ -281,7 +281,6 @@ table.list .mail {
   word-wrap: break-word;
 }
 
-
 table.list .website {
   width: 40px;
   text-align: center;
@@ -321,7 +320,7 @@ table.list .res {
 table.list tr:nth-child(even) td.blank,
 table.list tr:nth-child(odd) td.blank,
 table.list td.blank {
-  background: #FFF;
+  background: #fff;
   border-style: solid;
   border-width: 1px 0 0 0;
 }
@@ -361,5 +360,9 @@ th.rank {
   width: 50px;
 }
 
-.rank-200 { color: red; }
-.rank-100 { color: blue; }
+.rank-200 {
+  color: red;
+}
+.rank-100 {
+  color: blue;
+}

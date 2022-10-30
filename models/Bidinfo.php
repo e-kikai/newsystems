@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 入札会バナーモデルクラス
  *
@@ -40,7 +41,8 @@ class Bidinfo extends MyTable
      * @param  boolean $check 検索条件チェック
      * @return string  生成したwhere句
      */
-    protected function _makeWhereSqlArray($q, $check=false) {
+    protected function _makeWhereSqlArray($q, $check = false)
+    {
         $whereArr = array();
 
         // 終了した入札会も表示する
@@ -60,7 +62,7 @@ class Bidinfo extends MyTable
      * @param  integer $id   入札会バナーID
      * @return $this
      */
-    public function set($id=null, $data, $file=null)
+    public function set($id = null, $data, $file = null)
     {
         //// 画像をアップロードする前に、情報のフィルタリング・バリデーションを行う ////
         if (!empty($this->_filter)) {

@@ -1,6 +1,6 @@
 @charset "utf-8";
 .detail_container {
-  position : relative;
+  position: relative;
 }
 
 button.mylist {
@@ -9,58 +9,70 @@ button.mylist {
   right: 0;
 
   width: 224px;
-  background: #FFF;
-  background: -webkit-gradient(linear, left top, left bottom, from(#EAEAEA), to(#C5C5C5) );
-  background: -moz-linear-gradient(-90deg, #EAEAEA, #C5C5C5);
-  background: -o-linear-gradient(-90deg, #EAEAEA, #C5C5C5);
-  background: linear-gradient(to bottom, #EAEAEA, #C5C5C5);
+  background: #fff;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#eaeaea),
+    to(#c5c5c5)
+  );
+  background: -moz-linear-gradient(-90deg, #eaeaea, #c5c5c5);
+  background: -o-linear-gradient(-90deg, #eaeaea, #c5c5c5);
+  background: linear-gradient(to bottom, #eaeaea, #c5c5c5);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#EAEAEA', endColorstr='#C5C5C5');
-  color: #EA570F;
-  border: 1px solid #C5C5C5;
+  color: #ea570f;
+  border: 1px solid #c5c5c5;
   margin-left: 6px;
 }
 
-button.mylist:hover  {
-  background: #EAEAEA;
-  background: -webkit-gradient(linear, left top, left bottom, from(#C5C5C5), to(#EAEAEA) );
-  background: -moz-linear-gradient(-90deg, #C5C5C5, #EAEAEA);
-  background: -o-linear-gradient(-90deg, #C5C5C5, #EAEAEA);
-  background: linear-gradient(to bottom, #C5C5C5, #EAEAEA);
+button.mylist:hover {
+  background: #eaeaea;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#c5c5c5),
+    to(#eaeaea)
+  );
+  background: -moz-linear-gradient(-90deg, #c5c5c5, #eaeaea);
+  background: -o-linear-gradient(-90deg, #c5c5c5, #eaeaea);
+  background: linear-gradient(to bottom, #c5c5c5, #eaeaea);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#C5C5C5', endColorstr='#EAEAEA');
 }
 
 button.mylist:active {
-  background: #C5C5C5;
+  background: #c5c5c5;
 }
 
 /*** table ***/
 table.machine {
-  width : 880px;
-  margin : 10px auto;
+  width: 880px;
+  margin: 10px auto;
 }
 
 table.machine td,
 table.machine th {
-  vertical-align : middle;
-  border : 1px solid #CCC;
-  padding : 4px;
+  vertical-align: middle;
+  border: 1px solid #ccc;
+  padding: 4px;
 }
 
 table.machine th {
-  background : #EEE;
-  font-weight : bold;
-  text-align : center;
+  background: #eee;
+  font-weight: bold;
+  text-align: center;
 }
 
 table.machine td {
-  background : #FFF;
-  text-align : left;
-  min-height : 60px;
+  background: #fff;
+  text-align: left;
+  min-height: 60px;
 }
 
 table.machine td.company_info,
 .machine .company_info {
-  width : 220px;
+  width: 220px;
 }
 
 table.machine td.spec {
@@ -101,8 +113,8 @@ a.contact_link {
   width: 256px;
   height: auto;
 
-  color : #C00;
-  font-size : 20px;
+  color: #c00;
+  font-size: 20px;
   text-align: left;
 
   margin: 0 0 0 auto;
@@ -128,45 +140,45 @@ a.contact_link {
 
 /*** 画像 ***/
 .top_image img {
-  display : block;
-  margin : auto;
-  max-width : 384px;
-  max-height : 360px;
-  _height : 360px; /* for IE6 */
+  display: block;
+  margin: auto;
+  max-width: 384px;
+  max-height: 360px;
+  _height: 360px; /* for IE6 */
 }
 
 .images .img {
-  display : inline-block;
-  /display : inline;  /* for IE6,7 */
-  /zoom : 1;          /* for IE6,7 */
+  display: inline-block;
+  /display: inline; /* for IE6,7 */
+  /zoom: 1; /* for IE6,7 */
 
-  width : 170px;
-  height : 130px;
+  width: 170px;
+  height: 130px;
 
-  margin : 0 10px 10px 0;
+  margin: 0 10px 10px 0;
 
-  background : #FFF;
-  border : 1px solid #CCC;
+  background: #fff;
+  border: 1px solid #ccc;
 }
 
 .images .img img {
-  display : block;
-  margin : 5px auto auto auto;
-  max-width : 160px;
-  max-height : 120px;
-  _height : 120px; /* for IE6 */
+  display: block;
+  margin: 5px auto auto auto;
+  max-width: 160px;
+  max-height: 120px;
+  _height: 120px; /* for IE6 */
 }
 
 div.data_area {
-  font-weight : bold;
+  font-weight: bold;
 }
 
 a.back_button {
   display: block;
   float: left;
-  width : 130px;
-  height : 25px;
-  line-height : 25px;
+  width: 130px;
+  height: 25px;
+  line-height: 25px;
 }
 
 /*** 詳細メインテーブル ***/
@@ -181,7 +193,7 @@ table.machine .company_info {
 
 /*** others、仕様、コメント枠テーブル ***/
 table.spec th {
-  background: #EEE;
+  background: #eee;
   font-weight: bold;
   text-align: left;
   width: 160px;
@@ -191,7 +203,7 @@ table.spec th,
 table.spec td {
   height: auto;
   vertical-align: middle;
-  border: 1px solid #CCC;
+  border: 1px solid #ccc;
   padding: 4px;
 }
 
@@ -206,7 +218,7 @@ table.spec .label_area td {
 }
 
 span.memberonly {
-  color: #00E;
+  color: #00e;
 }
 
 /*** 画像枠 ***/
@@ -242,16 +254,16 @@ table.spec {
 }
 
 div.top_image {
-  position : relative;
+  position: relative;
 
-  margin : 20px 40px 0 0;
-  padding : 0;
+  margin: 20px 40px 0 0;
+  padding: 0;
 
-  vertical-align : top;
+  vertical-align: top;
 
-  padding : 0;
+  padding: 0;
 
-  width : 512px;
+  width: 512px;
   height: 384px;
   margin: 0 0 4px 0;
   text-align: center;
@@ -260,7 +272,7 @@ div.top_image {
 .top_image img.zoom_img {
   max-width: 512px;
   max-height: 384px;
-  border: 1px solid #CCC;
+  border: 1px solid #ccc;
 }
 
 table.spec th {
@@ -268,28 +280,28 @@ table.spec th {
 }
 
 .images {
-  display : inline-block;
-  /display : inline;  /* for IE6,7 */
-  /zoom : 1;          /* for IE6,7 */
+  display: inline-block;
+  /display: inline; /* for IE6,7 */
+  /zoom: 1; /* for IE6,7 */
 
   text-align: left;
 
   margin-top: 2px;
 
-  border: 1px solid #CCC;
+  border: 1px solid #ccc;
   /*
   height: 80px;
   */
   overflow: auto;
 
-  letter-spacing: -.40em;
+  letter-spacing: -0.4em;
 }
 
 .images a.img,
 .images a.movie {
   display: block;
   float: left;
-  background: #FFF;
+  background: #fff;
   /*
   width: 64px;
   height: 48px;
@@ -298,7 +310,7 @@ table.spec th {
 
   width: 80px;
   height: 60px;
-  border: 2px solid #FFF;
+  border: 2px solid #fff;
 
   margin: 0;
 }
@@ -376,23 +388,23 @@ td.bid_machine_id {
 }
 
 table.machine td:hover {
-  background : #FFFFAD;
+  background: #ffffad;
 }
 
 table.spec tr:hover td {
-  background : #FFFFAD;
+  background: #ffffad;
 }
 
 table.spec .label_area:hover td {
-  background : #FFF;
+  background: #fff;
 }
 
 /*** 地図表示 ***/
 #gmap2 {
-  width : 512px;
-  height : 386px;
-  border : 1px solid #CCC;
-  margin : 0 auto;
+  width: 512px;
+  height: 386px;
+  border: 1px solid #ccc;
+  margin: 0 auto;
 }
 
 a.map_link {
@@ -418,9 +430,9 @@ a.accessmap {
   top: 4px;
   right: 4px;
   vertical-align: middle;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 14px;
-  background: #076AB6;
+  background: #076ab6;
   border-radius: 3px;
   text-align: center;
   padding: 0;
@@ -443,7 +455,7 @@ a.accessmap {
 }
 
 td.detail_min_price {
-  color: #E81F18;
+  color: #e81f18;
   font-size: 19px;
   font-weight: normal;
 }

@@ -1,7 +1,7 @@
 @charset "utf-8";
 /*** print ***/
-input[type=checkbox],
-input[type=radio],
+input[type="checkbox"],
+input[type="radio"],
 select,
 div.keyword,
 .header_menu,
@@ -28,11 +28,11 @@ div.search,
 a.accessmap,
 a.click,
 #topcontrol {
-  display:none !important;
+  display: none !important;
 }
 
 body {
-  background: #FFF;
+  background: #fff;
 }
 
 a.header_title {
@@ -50,9 +50,12 @@ table.list {
   width: 940px;
 }
 
-thead {display: table-header-group;}
+thead {
+  display: table-header-group;
+}
 
-td, th,
+td,
+th,
 div.others {
   page-break-after: avoid;
   page-break-before: avoid;

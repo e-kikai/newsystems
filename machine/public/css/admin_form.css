@@ -12,15 +12,15 @@ table.form th {
 }
 
 span.memberonly {
-  color: #00E;
+  color: #00e;
 }
 
 span.required {
-  color: #EE0;
+  color: #ee0;
 }
 
 span.alert {
-  color: #D00;
+  color: #d00;
 }
 
 /* 会社情報 */
@@ -31,17 +31,17 @@ table.form td input.zip {
 table.form td input.mail,
 table.form td input.website,
 table.form td input.address {
-  width : 300px;
+  width: 300px;
 }
 
 table.form td input.tel,
 table.form td input.fax {
-  width : 180px;
+  width: 180px;
 }
 
-table.form td input[type=number] {
-  text-align : right;
-  width : 120px;
+table.form td input[type="number"] {
+  text-align: right;
+  width: 120px;
 }
 
 table.form td textarea {
@@ -51,7 +51,7 @@ table.form td textarea {
 
 /* 営業所 */
 .office {
-  background: #EFE;
+  background: #efe;
   border: #060 1px solid;
   border-radius: 4px;
   margin: 4px;
@@ -100,7 +100,7 @@ table.form td input.maker,
 table.form td input.model,
 table.form td input.location,
 table.form td input.degree {
-  width : 170px;
+  width: 170px;
 }
 
 table.form td input.capacity {
@@ -109,7 +109,7 @@ table.form td input.capacity {
 }
 
 table.form td input.number {
-  width : 112px;
+  width: 112px;
   text-align: right;
 }
 
@@ -119,11 +119,11 @@ table.form td input.mininum {
 }
 
 table.form td input.accessory {
-  width : 96%;
+  width: 96%;
 }
 
 table.form td input.youtube {
-  width : 96%;
+  width: 96%;
 }
 
 table.form td input.text,
@@ -137,9 +137,9 @@ table.form .others input.combo {
 }
 
 .maker_area {
-  width : 170px;
-  height : 24px;
-  position : relative;
+  width: 170px;
+  height: 24px;
+  position: relative;
 }
 
 /* 共通 */
@@ -148,14 +148,14 @@ select {
   padding: 3px 6px;
   background: white;
   border-radius: 4px;
-  box-shadow: 0 2px 3px rgba(0,0,0,0.1) inset;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1) inset;
 }
 
 textarea {
   overflow-y: scroll;
 }
 
-table.form td input.name[readonly=readonly] {
+table.form td input.name[readonly="readonly"] {
   border-color: transparent;
   background: transparent;
   box-shadow: none;
@@ -163,8 +163,8 @@ table.form td input.name[readonly=readonly] {
   width: 360px;
 }
 
-table.form td input[type=checkbox],
-table.form td input[type=radio] {
+table.form td input[type="checkbox"],
+table.form td input[type="radio"] {
   background: transparent;
   border: 0;
   box-shadow: none;
@@ -200,12 +200,12 @@ button.catalog_search {
 .catalog_list table {
   width: 640px;
   border: 1px solid #999;
-  background: #FFF;
+  background: #fff;
 }
 
 .catalog_list table th {
   border: 1px solid #999;
-  color: #FFF;
+  color: #fff;
   background: maroon;
   text-align: center;
   vertical-align: middle;
@@ -295,7 +295,7 @@ ul.ui-autocomplete {
   max-height: 200px;
   overflow-y: auto;
   box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.4);
-  background: #FFF;
+  background: #fff;
 }
 
 input.date {

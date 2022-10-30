@@ -20,7 +20,7 @@ $(function() {
         effect: "fadeIn",
         threshold : 200
     });
-    
+
     setTimeout(function() {
         $(window).triggerHandler('scroll');
     }, 100);
@@ -30,7 +30,7 @@ $(function() {
         var $_self       = $(this);
         var bidMachineid = $.trim($(this).val());
         var action       = $_self.hasClass('delete_mylist') ? 'delete' : 'set';
-            
+
         $.post('/ajax/bid_batch.php', {
             'target': 'machine',
             'action': action,
@@ -51,7 +51,7 @@ $(function() {
             } else {
                 contents = res;
             }
-                        
+
             $('<div class="mylist_alert">').text(contents).dialog({
                 show: "fade",
                 hide: "fade",
@@ -68,7 +68,7 @@ $(function() {
         });
         return false;
     });
-    
+
     //// 共通URLウィンドウ ////
     $('a.subwindow').on('click', function() {
         var $_self = $(this);

@@ -8,26 +8,38 @@ img.lazy {
 button.set_mylist {
   display: block;
   margin: 4px auto;
-  color: #EA570F;
-  background: #C5C5C5;
-  background: -webkit-gradient(linear, left top, left bottom, from(#EAEAEA), to(#C5C5C5) );
-  background: -moz-linear-gradient(-90deg, #EAEAEA, #C5C5C5);
-  background: -o-linear-gradient(-90deg, #EAEAEA, #C5C5C5);
+  color: #ea570f;
+  background: #c5c5c5;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#eaeaea),
+    to(#c5c5c5)
+  );
+  background: -moz-linear-gradient(-90deg, #eaeaea, #c5c5c5);
+  background: -o-linear-gradient(-90deg, #eaeaea, #c5c5c5);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#EAEAEA', endColorstr='#C5C5C5');
 }
 
 button.set_mylist:hover {
-  background: #EAEAEA;
-  background: -webkit-gradient(linear, left top, left bottom, from(#C5C5C5), to(#EAEAEA) );
-  background: -moz-linear-gradient(-90deg, #C5C5C5, #EAEAEA);
-  background: -o-linear-gradient(-90deg, #C5C5C5, #EAEAEA);
+  background: #eaeaea;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#c5c5c5),
+    to(#eaeaea)
+  );
+  background: -moz-linear-gradient(-90deg, #c5c5c5, #eaeaea);
+  background: -o-linear-gradient(-90deg, #c5c5c5, #eaeaea);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#C5C5C5', endColorstr='#EAEAEA');
 }
 
 button.set_mylist:active {
   position: relative;
   top: 1px;
-  background: #C5C5C5;
+  background: #c5c5c5;
 }
 
 button.set_mylist,
@@ -50,9 +62,9 @@ button.delete_mylist {
 
 .catalog_view a {
   display: inline-block;
-  background: #DDD;
+  background: #ddd;
   margin: 0 4px 0 0;
-  border: 2px solid #BBB;
+  border: 2px solid #bbb;
   border-bottom: 0;
   width: 160px;
   height: 30px;
@@ -67,7 +79,7 @@ button.delete_mylist {
 }
 
 .catalog_view a:hover {
-  background: RGB(227,249,204);
+  background: RGB(227, 249, 204);
 }
 
 .catalog_view a.selected {
@@ -75,7 +87,7 @@ button.delete_mylist {
   border-bottom: 0;
 
   background: #147543;
-  color: #FFF;
+  color: #fff;
 }
 
 /*** メイン一覧（共通） ****/
@@ -86,8 +98,8 @@ table.main_list {
 table.main_list th,
 table.main_list td {
   color: #333;
-  background: #EEE;
-  border: 1px solid #DDD;
+  background: #eee;
+  border: 1px solid #ddd;
   vertical-align: middle;
   padding: 4px;
 }
@@ -104,19 +116,19 @@ table.main_list td {
 }
 
 table.main_list tr.separator td {
-  border-color: #DDD white;
+  border-color: #ddd white;
   height: 6px;
   padding: 0;
-  background: #FFF;
+  background: #fff;
 }
 
 table.main_list tr:hover td,
 table.main_list tbody:hover td {
-  background : rgb(254,255,204);
+  background: rgb(254, 255, 204);
 }
 
 table.main_list tbody:hover tr.separator td {
-  background : #FFF;
+  background: #fff;
 }
 
 /*** メイン一覧（カタログ） ***/
@@ -135,8 +147,8 @@ table.main_list.catalogs .img img {
   margin: auto;
   max-width: 90px;
   max-height: 90px;
-  min-width : 60px;
-  min-height : 60px;
+  min-width: 60px;
+  min-height: 60px;
 }
 
 table.main_list.catalogs .genre,
@@ -151,27 +163,31 @@ table.main_list.catalogs .model {
 /*** 写真で表示 ***/
 .image_l .catalog {
   margin: 3px 1px;
-  background: #EEE;
-  border: 1px solid #AAA;
+  background: #eee;
+  border: 1px solid #aaa;
   display: inline-block;
-  #display: inline;  /* for IE6,7 */
+  /* for IE6,7 */
+  /* #display: inline;
   #zoom: 1;
+  #width: 290px;
+  */
   text-align: center;
   padding: 2px 2px 0 2px;
-  #width: 290px;
   vertical-align: middle;
 }
 
 .image_l .catalog:hover {
-  background : rgb(254,255,204);
+  background: rgb(254, 255, 204);
 }
 
 .image_l .catalog_image img {
   height: 284px;
   max-width: none;
+  /*
   #height: auto;
   #width: 284px;
-  border: 1px solid #AAA;
+  */
+  border: 1px solid #aaa;
 }
 
 /*** リスト・写真共通　***/
@@ -180,12 +196,11 @@ table.main_list.catalogs .model {
 }
 
 .catalog_image img:hover {
-  position :relative;
+  position: relative;
   top: -4px;
   left: -4px;
-  box-shadow: 4px 4px 8px rgba(0,0,0,0.4);
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
 }
-
 
 /*** ジャンル絞り込み ***/
 .area_label {
@@ -205,9 +220,11 @@ table.main_list.catalogs .model {
 .maker_area li,
 .model2_area li {
   display: inline-block;
-  #display: inline;  /* for IE6,7 */
-  #zoom: 1;          /* for IE6,7 */
-  /* width: 182px; */ 
+  /* for IE6,7 */
+  /*
+  #display: inline;
+  #zoom: 1;
+  */
   width: 152px;
   height: 20px;
   line-height: 20px;
@@ -245,8 +262,8 @@ table.main_list button.delete_mylist {
 }
 
 table.main_list.catalogs .button {
-width: 76px;
-text-align: center;
+  width: 76px;
+  text-align: center;
 }
 
 th.year_td,
@@ -260,15 +277,15 @@ td.year_td {
   margin-top: 8px;
 }
 
-.catalog_view  a {
-margin: 0 0 0 4px;
-border: 1px solid #BBB;
-border-bottom: 0;
-width: 136px;
-height: 24px;
-line-height: 24px;
-font-size: 15px;
-text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+.catalog_view a {
+  margin: 0 0 0 4px;
+  border: 1px solid #bbb;
+  border-bottom: 0;
+  width: 136px;
+  height: 24px;
+  line-height: 24px;
+  font-size: 15px;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
 }
 
 table.main_list tr.separator td {

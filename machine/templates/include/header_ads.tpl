@@ -55,11 +55,11 @@
 
   {if (shuffle($mAds))}
     {foreach array_rand($mAds, $num) as $key}
-      <a href="{$mAds[$key][2]}" target="_blank"{if $key@first && $num == 10} class="first"{/if}
+      <a href="{$mAds[$key][2]}" target="_blank" {if $key@first && $num == 10} class="first" {/if}
         {* onClick="_gaq.push(['_trackEvent', 'banner', 'micro', '{$mAds[$key][0]}', 1, true]);" *}
-        onClick="ga('send', 'event', 'banner', 'micro', '{$mAds[$key][0]}', 1, true);"
-        ><img class="banner" src="{$_conf.media_dir}banner/{$mAds[$key][1]}" alt="{$mAds[$key][0]}" /></a>
+        onClick="ga('send', 'event', 'banner', 'micro', '{$mAds[$key][0]}', 1, true);"><img class="banner"
+          src="{$_conf.media_dir}banner/{$mAds[$key][1]}" alt="{$mAds[$key][0]}" /></a>
     {/foreach}
   {/if}
-  <br class="clear"/>
+  <br class="clear" />
 </div>

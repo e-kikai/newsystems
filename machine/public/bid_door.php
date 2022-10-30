@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 入札会ドアページ
  *
@@ -30,11 +31,13 @@ try {
         $e = '入札会情報が取得出来ませんでした';
     } else if (!in_array($bidOpen['status'], array('margin', 'bid', 'carryout', 'after'))) {
         $e = "この入札会は現在、入札会の期間ではありません\n";
-        $e.= "下見期間 : " . date('Y/m/d', strtotime($bidOpen['preview_start_date'])) . " ～ " . date('m/d', strtotime($bidOpen['preview_end_date']));
+        $e .= "下見期間 : " . date('Y/m/d', strtotime($bidOpen['preview_start_date'])) . " ～ " . date('m/d', strtotime($bidOpen['preview_end_date']));
     } else if (in_array($bidOpen['status'], array('after'))) {
         $e = $bidOpen['title'] . "は、終了しました";
     }
-    if (!empty($e)) { throw new Exception($e); }
+    if (!empty($e)) {
+        throw new Exception($e);
+    }
 
     //// 出品商品情報一覧を取得 ////
     $q = array('bid_open_id' => $bidOpenId,);
@@ -49,7 +52,7 @@ try {
     $count          = $bmModel->getCount($sq);
 
     // 地域ごとにジャンル情報を取得
-    foreach($regionList as $key => $r) {
+    foreach ($regionList as $key => $r) {
         $rq = array('bid_open_id' => $bidOpenId, 'region' => $r['region']);
 
         $regionList[$key]['xl_genre_list']    = $bmModel->getXlGenreList($rq);
