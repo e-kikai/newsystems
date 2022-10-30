@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 入札会商品詳細TEL表示用
  *
@@ -9,14 +10,16 @@
  */
 require_once '../lib-machine.php';
 try {
-    //// 認証処理 ////
+    /// 認証処理 ///
     Auth::isAuth('machine');
 
-    //// 変数を取得 ////
+    /// 変数を取得 ///
     $machineId = Req::query('m');
-    if (empty($machineId)) { throw new Exception('入札会商品情報が取得出来ません'); }
+    if (empty($machineId)) {
+        throw new Exception('入札会商品情報が取得出来ません');
+    }
 
-    //// 入札商品情報を取得 ////
+    /// 入札商品情報を取得 ///
     $bmModel = new BidMachine();
     $machine = $bmModel->get($machineId);
 
@@ -37,7 +40,7 @@ try {
     $others  = $mModel->makerOthers($machine['spec_labels'], $machine['others']);
     */
 
-    //// 入札会情報を取得 ////
+    /// 入札会情報を取得 ///
     $boModel = new BidOpen();
     $bidOpen = $boModel->get($machine['bid_open_id']);
 
@@ -47,17 +50,19 @@ try {
         $e = '入札会情報が取得出来ませんでした';
     } else if (!in_array($bidOpen['status'], array('margin', 'bid', 'carryout', 'after'))) {
         $e = "この入札会は現在、入札会の期間ではありません\n";
-        $e.= "下見期間 : " . date('Y/m/d', strtotime($bidOpen['preview_start_date'])) . " ～ " . date('m/d', strtotime($bidOpen['preview_end_date']));
+        $e .= "下見期間 : " . date('Y/m/d', strtotime($bidOpen['preview_start_date'])) . " ～ " . date('m/d', strtotime($bidOpen['preview_end_date']));
     } else if (in_array($bidOpen['status'], array('after'))) {
         $e = $bidOpen['title'] . "は、終了しました";
     }
-    if (!empty($e)) { throw new Exception($e); }
+    if (!empty($e)) {
+        throw new Exception($e);
+    }
 
-    //// 会社情報を取得 ////
+    /// 会社情報を取得 ///
     $cModel  = new Companies();
     $company = $cModel->get($machine['company_id']);
 
-    //// メーカー情報取得 ////
+    /// メーカー情報取得 ///
     $maModel = new Maker();
     $makers  = $maModel->get($machine['maker']);
 
@@ -75,7 +80,7 @@ try {
     $siteName = !empty($_SESSION['bid_siteName']) ? $_SESSION['bid_siteName'] : '商品リスト';
     $siteUrl  = !empty($_SESSION['bid_siteUrl'])  ? $_SESSION['bid_siteUrl']   : '';
 
-    //// 次へ・前へリスト ////
+    /// 次へ・前へリスト ///
     $prevMachine = null;
     $nextMachine = null;
     if (!empty($_SESSION['bid_siteQuery']) && !empty($_SESSION['bid_siteQuery']['bid_open_id'])) {
@@ -115,7 +120,7 @@ try {
     //     "bid_machine_ids" => $machine["id"],
     // ));
 
-    /// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         // 'pageTitle' => $bidOpen['title'] . ' : 商品詳細',
         'pageTitle'        => $pageTitle,
@@ -147,7 +152,7 @@ try {
         */
     ))->display("bid_detail_tel.tpl");
 } catch (Exception $e) {
-    //// エラー画面表示 ////
+    /// エラー画面表示 ///
     header("HTTP/1.1 404 Not Found");
     $_smarty->assign(array(
         'pageTitle' => '電話でお問い合わせ',

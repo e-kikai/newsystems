@@ -6,11 +6,11 @@
   float: left;
   width: 120px;
   padding: 2px;
-  border: 1px solid #CCC;
+  border: 1px solid #ccc;
   height: 162px;
   margin: 0 4px;
   text-align: left;
-  background: #FFF;
+  background: #fff;
 }
 
 .log_machine a,
@@ -44,8 +44,8 @@
   position: absolute;
   right: 0;
   bottom: 0;
-  
-  color: #E81F18;
+
+  color: #e81f18;
   font-size: 17px;
   font-weight: normal;
 
@@ -83,7 +83,7 @@
   display: inline-block;
   width: auto;
   height: 170px;
-  letter-spacing: -.40em;
+  letter-spacing: -0.4em;
 }
 
 .carousel_products .same_machine {
@@ -93,18 +93,19 @@
   overflow: hidden;
   white-space: nowrap;
   letter-spacing: normal;
-  background: #EEE;
+  background: #eee;
 }
 
 .carousel_products .same_machine:hover {
-  background: rgb(254,255,204);
+  background: rgb(254, 255, 204);
 }
 
 .carousel_products .same_machine div {
   white-space: normal;
 }
 
-.scrollRight, .scrollLeft {
+.scrollRight,
+.scrollLeft {
   position: absolute;
   top: 0;
   width: 45px;
@@ -123,21 +124,20 @@
 
 .scrollLeft {
   left: 0px;
-  background: url('../imgs/img_prev2.png') no-repeat 18px 63px;
+  background: url("../imgs/img_prev2.png") no-repeat 18px 63px;
 }
 
 .scrollRight {
   right: 0px;
   text-align: right;
-  background: url('../imgs/img_next2.png') no-repeat 10px 63px;
+  background: url("../imgs/img_next2.png") no-repeat 10px 63px;
 }
-
 
 /*** bid banner ***/
 .search_bid_banner {
   display: block;
   position: relative;
-  background-image: url('/imgs/bid_banner_base.png');
+  background-image: url("/imgs/bid_banner_base.png");
   background-position: 0px -48px;
   height: 68px;
   margin-bottom: 4px;
@@ -150,7 +150,7 @@ a.search_bid_banner:hover {
 
 .search_bid_banner .bid_title {
   position: absolute;
-  color: #FFF;
+  color: #fff;
   font-size: 39px;
   font-weight: bold;
   text-shadow: 4px 4px 4px #000;
@@ -162,7 +162,7 @@ a.search_bid_banner:hover {
 }
 
 .search_bid_banner .bid_banner_now {
-  color: #FFF;
+  color: #fff;
   font-size: 19px;
   text-align: center;
   line-height: 148px;
@@ -176,11 +176,10 @@ a.search_bid_banner:hover {
 .bid_banner_click {
   font-size: 23px;
   font-weight: bold;
-  color: #CC0000;
-  text-shadow: -1px -1px #FFF, 1px -1px #FFF, -1px 1px #FFF, 1px 1px #FFF;
+  color: #cc0000;
+  text-shadow: -1px -1px #fff, 1px -1px #fff, -1px 1px #fff, 1px 1px #fff;
 }
 
 .min_price_title {
   color: #333;
 }
-

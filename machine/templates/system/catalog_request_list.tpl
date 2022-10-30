@@ -1,27 +1,27 @@
 {extends file='include/layout.tpl'}
 
 {block 'header'}
-<link href="{$_conf.site_uri}{$_conf.css_dir}system.css" rel="stylesheet" type="text/css" />
+  <link href="{$_conf.site_uri}{$_conf.css_dir}system.css" rel="stylesheet" type="text/css" />
 
-{literal}
-<script type="text/JavaScript">
-</script>
-<style type="text/css">
-</style>
-{/literal}
+  {literal}
+    <script type="text/javascript">
+    </script>
+    <style type="text/css">
+    </style>
+  {/literal}
 {/block}
 
 {block 'main'}
   {*
   {include file="include/pager.tpl"}
-  
+
   <div><a href="/system/actionlog_csv.php?t={$t}">CSVファイル出力</a></div>
   *}
   <table class='list'>
     <thead>
       <tr>
         <th class='id'>ID</th>
-        
+
         <th class=''>送信元</th>
         <th class='maker'>メーカー</th>
         <th class='model'>型式</th>
@@ -30,7 +30,7 @@
         <th class='created_at'>送信日時</th>
       </tr>
     </thead>
-    
+
     {foreach $requestList as $r}
       <tr class='{cycle values='even, odd'}'>
         <td class='id'>{$r.request_id}</td>
@@ -43,9 +43,9 @@
       </tr>
     {/foreach}
   </table>
-  
+
   {*
   {include file="include/pager.tpl"}
   *}
-  
+
 {/block}

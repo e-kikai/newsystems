@@ -1,4 +1,5 @@
 <?php
+
 /**
  * トップページ
  *
@@ -30,7 +31,7 @@ try {
     //// 新着情報を取得 ////
     $mModel         = new Machine();
     // $newMachineList = $mModel->getList(array('period' => $news, 'sort' => 'created_at', 'limit' => 50));
-    $newMachineList = $mModel->getList(array('xl_genre_id' => array(1,2,3,4,5), 'period' => $news, 'sort' => 'created_at', 'limit' => 6));
+    $newMachineList = $mModel->getList(array('xl_genre_id' => array(1, 2, 3, 4, 5), 'period' => $news, 'sort' => 'created_at', 'limit' => 6));
     //$newToolList    = $mModel->getList(array('xl_genre_id' => array(6,7,8,9,10,11), 'period' => $news, 'sort' => 'created_at', 'limit' => 5));
 
     // 最近見た機械
@@ -61,7 +62,9 @@ try {
     foreach ($tempList as $bo) {
         $tempDate = strtotime($bo['bid_end_date']);
         $tempYear = date('n', $tempDate) <= 3 ? date('Y', $tempDate) - 1 : date('Y', $tempDate);
-        if ($bidYear == $tempYear) { $bidOpenYearList[] = $bo; }
+        if ($bidYear == $tempYear) {
+            $bidOpenYearList[] = $bo;
+        }
     }
     $bidOpenYearList = array_reverse($bidOpenYearList);
 

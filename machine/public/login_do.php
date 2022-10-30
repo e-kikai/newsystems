@@ -1,4 +1,5 @@
 <?php
+
 /**
  * メンバーログイン処理
  *
@@ -9,7 +10,7 @@
  */
 require_once '../lib-machine.php';
 
-//// ログイン処理 ////
+/// ログイン処理 ///
 $auth = new Auth();
 if ($auth->login($_POST['mail'], $_POST['passwd'], $_POST['check'])) {
     // ロギング

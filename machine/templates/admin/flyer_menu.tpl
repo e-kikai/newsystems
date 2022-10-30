@@ -1,29 +1,28 @@
 {extends file='include/layout.tpl'}
 
 {block 'header'}
-<link href="{$_conf.site_uri}{$_conf.css_dir}admin_form.css" rel="stylesheet" type="text/css" />
+  <link href="{$_conf.site_uri}{$_conf.css_dir}admin_form.css" rel="stylesheet" type="text/css" />
 
-<script type="text/JavaScript">
-{literal}
-$(function() {
-});
-</script>
-<style type="text/css">
-  .flyer_menu a {
-    display: block;
-    font-size: 17px;
-    margin: 16px 16px;
-    text-decoration: none;
-    color: #FFF;
-    background: #3434da;
-    border: 2px solid #00A;
-    width: 240px;
-    height: 40px;
-    text-align: center;
-    line-height: 40px;
-  }
-</style>
-{/literal}
+  <script type="text/javascript">
+    {literal}
+      $(function() {});
+    </script>
+    <style type="text/css">
+      .flyer_menu a {
+        display: block;
+        font-size: 17px;
+        margin: 16px 16px;
+        text-decoration: none;
+        color: #FFF;
+        background: #3434da;
+        border: 2px solid #00A;
+        width: 240px;
+        height: 40px;
+        text-align: center;
+        line-height: 40px;
+      }
+    </style>
+  {/literal}
 {/block}
 
 {block 'main'}

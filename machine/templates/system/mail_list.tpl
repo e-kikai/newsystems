@@ -1,28 +1,27 @@
 {extends file='include/layout.tpl'}
 
 {block 'header'}
-<link href="{$_conf.site_uri}{$_conf.css_dir}system.css" rel="stylesheet" type="text/css" />
+  <link href="{$_conf.site_uri}{$_conf.css_dir}system.css" rel="stylesheet" type="text/css" />
 
-{literal}
-<script type="text/JavaScript">
-</script>
-<style type="text/css">
-table.list tr .subject {
-  width: 160px;
-}
+  {literal}
+    <script type="text/javascript">
+    </script>
+    <style type="text/css">
+      table.list tr .subject {
+        width: 160px;
+      }
 
-table.list tr .created_at {
-  width: 120px;
-}
-
-</style>
-{/literal}
+      table.list tr .created_at {
+        width: 120px;
+      }
+    </style>
+  {/literal}
 {/block}
 
 {block 'main'}
   {*
   {include file="include/pager.tpl"}
-  
+
   <div><a href="/system/actionlog_csv.php?t={$t}">CSVファイル出力</a></div>
   *}
   <table class='list'>
@@ -34,7 +33,7 @@ table.list tr .created_at {
         <th class='created_at'>送信日時</th>
       </tr>
     </thead>
-    
+
     {foreach $mailList as $m}
       <tr class='{cycle values='even, odd'}'>
         <td class='id'>{$m.id}</td>
@@ -49,9 +48,9 @@ table.list tr .created_at {
       </tr>
     {/foreach}
   </table>
-  
+
   {*
   {include file="include/pager.tpl"}
   *}
-  
+
 {/block}

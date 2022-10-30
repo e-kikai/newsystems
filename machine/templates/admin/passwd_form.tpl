@@ -1,52 +1,53 @@
 {extends file='include/layout.tpl'}
 
 {block name='header'}
-<link href="{$_conf.site_uri}{$_conf.css_dir}admin_form.css" rel="stylesheet" type="text/css" />
+  <link href="{$_conf.site_uri}{$_conf.css_dir}admin_form.css" rel="stylesheet" type="text/css" />
 
-{literal}
-<script language="JavaScript" type="text/JavaScript">
-$(function() {
-    $('.passwd_change').click(function() {
-        var error = '';
-        $('input[required]').each(function() {
+  {literal}
+    <script type="text/javascript">
+      $(function() {
+      $('.passwd_change').click(function() {
+          var error = '';
+          $('input[required]').each(function() {
             if ($(this).val() == '') {
-                error = '必須項目が入力されていません';
-                return false;
+              error = '必須項目が入力されていません';
+              return false;
             }
-        });
-        
-        if ($('input#passwd').val() != $('input#passwdChk').val()) {
+          });
+
+          if ($('input#passwd').val() != $('input#passwdChk').val()) {
             error = '確認用パスワードが違っています';
-        }
-        
-        if (error != '') { alert(error); return false; }
-        
-        if (!confirm('パスワードを変更してよろしいですか')) { return false; }
-        
-        $.post('../ajax/passwd.php',
+          }
+
+          if (error != '') { alert(error); return false; }
+
+          if (!confirm('パスワードを変更してよろしいですか')) { return false; }
+
+          $.post('../ajax/passwd.php',
             {"target": "catalog", "action": "changePasswd", "data": {
-                'account'   : $('input#account').val(),
-                'nowPasswd' : $('input#nowPasswd').val(),
-                'passwd'    : $('input#passwd').val(),
-                'passwdChk' : $('input#passwdChk').val(),
-            }},
-            function(data) {
-                if (data == 'success') {
-                    alert('パスワードを変更しました');
-                    location.href = '/admin/'
-                } else {
-                    alert(data);
-                }
-            }
-        );
-        
-        return false;
-    });
-});
-</script>
-<style type="text/css">
-</style>
-{/literal}
+            'account': $('input#account').val(),
+            'nowPasswd': $('input#nowPasswd').val(),
+            'passwd': $('input#passwd').val(),
+            'passwdChk': $('input#passwdChk').val(),
+          }
+        },
+        function(data) {
+          if (data == 'success') {
+            alert('パスワードを変更しました');
+            location.href = '/admin/'
+          } else {
+            alert(data);
+          }
+        }
+      );
+
+      return false;
+      });
+      });
+    </script>
+    <style type="text/css">
+    </style>
+  {/literal}
 {/block}
 
 {block 'main'}
@@ -68,6 +69,6 @@ $(function() {
       <td><input type="password" name="passwdChk" id="passwdChk" placeholder="新しいパスワード(確認)" required /></td>
     </tr>
   </table>
-  
+
   <button name="submit" class="passwd_change submit">パスワード変更</button>
 {/block}

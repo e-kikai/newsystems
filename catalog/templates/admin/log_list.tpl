@@ -1,70 +1,75 @@
 {extends file='include/layout.tpl'}
 
 {block 'header'}
-{literal}
-<script type="text/JavaScript"><!--
-//--></script>
-<style type="text/css"><!--
-table.list {
-  width: 900px;
-  margin: 8px auto;
-}
+  {literal}
+    <script type="text/javascript">
+      <!--
+  //
+  -->
+    </script>
+    <style type="text/css">
+      <!--
+  table.list {
+    width: 900px;
+    margin: 8px auto;
+  }
 
-table.list td,
-table.list th {
-  padding: 2px;
-  border: 1px dotted #BBB;
-  vertical-align: middle;
-  background: #FFF;
-}
+  table.list td,
+  table.list th {
+    padding: 2px;
+    border: 1px dotted #BBB;
+    vertical-align: middle;
+    background: #FFF;
+  }
 
-table.list th {
-  text-align: center;
-  color: #EFE;
-  background: #040;
-}
+  table.list th {
+    text-align: center;
+    color: #EFE;
+    background: #040;
+  }
 
-table.list tr:nth-child(even) td {
-  background: #EFE
-}
+  table.list tr:nth-child(even) td {
+    background: #EFE
+  }
 
-table.list .id {
-  width: 30px;
-}
+  table.list .id {
+    width: 30px;
+  }
 
-table.list .target,
-table.list .action,
-table.list .action_id {
-  width: 60px;
-}
+  table.list .target,
+  table.list .action,
+  table.list .action_id {
+    width: 60px;
+  }
 
-table.list td.id,
-table.list td.action_id {
-  text-align: right;
-}
+  table.list td.id,
+  table.list td.action_id {
+    text-align: right;
+  }
 
-table.list .ip {
-  width: 120px;
-}
+  table.list .ip {
+    width: 120px;
+  }
 
-table.list .contents {
-  width: 20px;
-}
+  table.list .contents {
+    width: 20px;
+  }
 
-table.list .user,
-table.list .created_at {
-  width: 150px;
-}
---></style>
-{/literal}
+  table.list .user,
+  table.list .created_at {
+    width: 150px;
+  }
+  -->
+    </style>
+  {/literal}
 {/block}
 
 {block 'main'}
   {*
   {include file="include/pager.tpl"}
   *}
-  
-  <div><a href="/admin/log_csv.php">CSVファイル出力</a></div>    
+
+  <div><a href="/admin/log_csv.php">CSVファイル出力</a></div>
   <table class='list'>
     <thead>
       <tr>
@@ -79,7 +84,7 @@ table.list .created_at {
         <th class='created_at'>created_at</th>
       </tr>
     </thead>
-    
+
     {foreach $logList as $l}
       <tr class='{cycle values='even, odd'}'>
         <td class='id'>{$l.id}</td>
@@ -94,9 +99,9 @@ table.list .created_at {
       </tr>
     {/foreach}
   </table>
-  
+
   {*
   {include file="include/pager.tpl"}
   *}
-  
+
 {/block}

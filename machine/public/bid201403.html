@@ -1,125 +1,172 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja"> 
-<head> 
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
-  <meta http-equiv="Content-Style-Type" content="text/css" /> 
-  <meta http-equiv="Content-Script-Type" content="text/javascript" /> 
-  <title>中古機械のWeb入札会｜中古機械情報 マシンライフ（全日本機械業連合会）</title> 
-  <meta name="description" content="中古機械のWeb入札会のご案内｜中古機械情報 マシンライフ（全機連）" /> 
-  <meta name="keywords" content="中古機械,Web,Web入札会,マシンライフ,全機連,全日本機械業連合会" /> 
-  <meta name="ROBOTS" content="INDEX,FOLLOW" /> 
-  
-  <base href="http://www.zenkiren.net/imgs/bid201403/" />
-  
-  <script src="../../libjs/jquery.js"></script>
-  <script type="text/javascript" src="../../libjs/jquery-ui.js"></script>
-  <link href="../../libjs/css/html5reset.css" rel="stylesheet" type="text/css" />
-  <link href="../../libjs/css/common.css" rel="stylesheet" type="text/css" />
-  <link href="../../libjs/css/ui-lightness/jquery-ui.css" rel="stylesheet" type="text/css" />
-  <link href="../../css/bid_mylist.css" rel="stylesheet" type="text/css" />
-  
-  <script type="text/javascript" src="../../js/google_analytics.js"></script>
-  <link rel="stylesheet" href="./default.css" type="text/css" />
-<script type="text/JavaScript">
-$(function() {
-    if (location.search) {
-        $('a').each(function() {
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta http-equiv="Content-Script-Type" content="text/javascript" />
+    <title>
+      中古機械のWeb入札会｜中古機械情報 マシンライフ（全日本機械業連合会）
+    </title>
+    <meta
+      name="description"
+      content="中古機械のWeb入札会のご案内｜中古機械情報 マシンライフ（全機連）" />
+    <meta
+      name="keywords"
+      content="中古機械,Web,Web入札会,マシンライフ,全機連,全日本機械業連合会" />
+    <meta name="ROBOTS" content="INDEX,FOLLOW" />
+
+    <base href="http://www.zenkiren.net/imgs/bid201403/" />
+
+    <script src="../../libjs/jquery.js"></script>
+    <script type="text/javascript" src="../../libjs/jquery-ui.js"></script>
+    <link
+      href="../../libjs/css/html5reset.css"
+      rel="stylesheet"
+      type="text/css" />
+    <link href="../../libjs/css/common.css" rel="stylesheet" type="text/css" />
+    <link
+      href="../../libjs/css/ui-lightness/jquery-ui.css"
+      rel="stylesheet"
+      type="text/css" />
+    <link href="../../css/bid_mylist.css" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="../../js/google_analytics.js"></script>
+    <link rel="stylesheet" href="./default.css" type="text/css" />
+    <script type="text/javascript">
+      $(function () {
+        if (location.search) {
+          $("a").each(function () {
             var $_self = $(this);
-            var href = $_self.attr('href');
+            var href = $_self.attr("href");
             if (!href.match(/(\#|\?)/)) {
-                $_self.attr('href', href + location.search);
+              $_self.attr("href", href + location.search);
             }
-        });
-    }
-    
-    //// マイリスト登録 ////
-    $('a.mylist').click(function() {
-        $('.preuser_form_area').dialog({
+          });
+        }
+
+        //// マイリスト登録 ////
+        $("a.mylist").click(function () {
+          $(".preuser_form_area").dialog({
             show: "fade",
             hide: "fade",
-            closeText: '閉じる',
-            title: 'メールアドレス登録',
+            closeText: "閉じる",
+            title: "メールアドレス登録",
             width: 540,
             height: 240,
             resizable: false,
             modal: true,
-        });
-        
-        $('input.mail').focus();
+          });
 
-        return false;
-    });
-    
-    //// ユーザ登録処理 ////
-    $('button.preuser_submit').click(function() {
-        var data = {
-            'mail': $.trim($('input.mail').val()),
-            'user_name': $.trim($('input.user_name').val()),
-        };
-        
-        //// 入力のチェック ////
-        var e = '';
-        if (data.mail == '') {
+          $("input.mail").focus();
+
+          return false;
+        });
+
+        //// ユーザ登録処理 ////
+        $("button.preuser_submit").click(function () {
+          var data = {
+            mail: $.trim($("input.mail").val()),
+            user_name: $.trim($("input.user_name").val()),
+          };
+
+          //// 入力のチェック ////
+          var e = "";
+          if (data.mail == "") {
             e += "メールアドレスが入力されていません\n";
-        } else if(!data.mail.match(/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/)){
-            e += "メールアドレスが間違っている可能性があります。\nもう一度お確かめください\n";
-        }
-        
-        /*
+          } else if (
+            !data.mail.match(
+              /^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/
+            )
+          ) {
+            e +=
+              "メールアドレスが間違っている可能性があります。\nもう一度お確かめください\n";
+          }
+
+          /*
         if ($('input.privacy_check').is(':checked') == false) {
             e += "プライバシーポリシーに同意されていません\n";
         }
         */
-        
-        //// エラー表示 ////
-        if (e != '') { alert(e); return false; }
-        
-        $('button.preuser_submit').attr('disabled', 'disabled').text('処理中、そのままお待ち下さい');
-        
-        $.post('../..//ajax/bid_mylist.php', {
-            'target': 'machine',
-            'action': 'setPreuser',
-            'data': data,
-        }, function(res) {
-            if (res != 'success') {
-                $('button.preuser_submit').removeAttr('disabled').text('メールアドレスを登録してマイリストを使う');
+
+          //// エラー表示 ////
+          if (e != "") {
+            alert(e);
+            return false;
+          }
+
+          $("button.preuser_submit")
+            .attr("disabled", "disabled")
+            .text("処理中、そのままお待ち下さい");
+
+          $.post(
+            "../..//ajax/bid_mylist.php",
+            {
+              target: "machine",
+              action: "setPreuser",
+              data: data,
+            },
+            function (res) {
+              if (res != "success") {
+                $("button.preuser_submit")
+                  .removeAttr("disabled")
+                  .text("メールアドレスを登録してマイリストを使う");
                 alert(res);
                 return false;
+              }
+
+              // cookie登録
+              // $.cookie('bid_preuser_check', 1, { expires: 31 });
+              $(".preuser_form_area").dialog("close");
+              $(
+                "button.mylist[value=" +
+                  $("input.preuser_bid_machine_id").val() +
+                  "]"
+              ).click();
+
+              // 登録完了
+              return false;
             }
-            
-            // cookie登録
-            // $.cookie('bid_preuser_check', 1, { expires: 31 });
-            $('.preuser_form_area').dialog('close');
-            $('button.mylist[value=' + $('input.preuser_bid_machine_id').val() + ']').click();
-            
-            // 登録完了
-            return false;
+          );
+
+          return false;
         });
-        
-        return false;
-    });
-});
-</script>
-<style>
-body {
-  background: #FFF;
-}
-</style>
-</head>
+      });
+    </script>
+    <style>
+      body {
+        background: #fff;
+      }
+    </style>
+  </head>
 
-<body>
-<div class="free_link"><a href="../../bid201403.html#"><img src="./img/pagetop.gif" width="50" height="200" alt=""></a></div>
-<div id="wrapper">
-<div id="white_bg">
-
-<!--
+  <body>
+    <div class="free_link">
+      <a href="../../bid201403.html#"
+        ><img src="./img/pagetop.gif" width="50" height="200" alt=""
+      /></a>
+    </div>
+    <div id="wrapper">
+      <div id="white_bg">
+        <!--
 <div><a href="https://s360.jp/form/31225-1005/" target="_blank"><img src="./img/c_01.png"　alt="第3回全機連Web入札会のご案内"></a></div>
 -->
-<div><a class="mylist" href="../../bid201403.html#" target="_blank"><img src="./img/c_01.png"　alt="第3回全機連Web入札会のご案内"></a></div>
-<div><a href="http://www.zenkiren.net/imgs/bid201403/photo.php"><img src="./img/c_02.png"　alt="取扱い機械の一覧"></a></div>
+        <div>
+          <a class="mylist" href="../../bid201403.html#" target="_blank"
+            ><img src="./img/c_01.png" 　alt="第3回全機連Web入札会のご案内"
+          /></a>
+        </div>
+        <div>
+          <a href="http://www.zenkiren.net/imgs/bid201403/photo.php"
+            ><img src="./img/c_02.png" 　alt="取扱い機械の一覧"
+          /></a>
+        </div>
 
-<div><img src="./img/c_contact_01_before.png" alt="Web入札会　出品機械を下見する"></div>
-<!--
+        <div>
+          <img
+            src="./img/c_contact_01_before.png"
+            alt="Web入札会　出品機械を下見する" />
+        </div>
+        <!--
 <div><img src="./img/c_pdf_before.png" alt="出品商品リストをダウンロードする"></div>
 
 <div><a href="http://www.zenkiren.net/bid_door.php?o=4" target="_blank"><img src="./img/c_contact_01.png" alt="Web入札会　出品機械を下見する"></a></div>
@@ -127,11 +174,15 @@ body {
 <div><a href="http://www.zenkiren.net/bid_door.php?o=4" target="_blank"><img src="./img/c_contact_01_after.png" alt="Web入札会　出品機械を下見する"></a></div>
 -->
 
-<div><img src="./img/c_03.png"　alt="全機連のWeb入札会とは？"></div>
-<div><img src="./img/c_04.png"　alt="全機連とは？"></div>
+        <div><img src="./img/c_03.png" 　alt="全機連のWeb入札会とは？" /></div>
+        <div><img src="./img/c_04.png" 　alt="全機連とは？" /></div>
 
-<div><img src="./img/c_contact_01_before.png" alt="Web入札会　出品機械を下見する"></div>
-<!--
+        <div>
+          <img
+            src="./img/c_contact_01_before.png"
+            alt="Web入札会　出品機械を下見する" />
+        </div>
+        <!--
 <div><img src="./img/c_pdf_before.png" alt="出品商品リストをダウンロードする"></div>
 
 <div><a href="http://www.zenkiren.net/bid_door.php?o=4" target="_blank"><img src="./img/c_contact_01.png" alt="Web入札会　出品機械を下見する"></a></div>
@@ -139,10 +190,14 @@ body {
 <div><a href="http://www.zenkiren.net/bid_door.php?o=4" target="_blank"><img src="./img/c_contact_01_after.png" alt="Web入札会　出品機械を下見する"></a></div>
 -->
 
-<div><img src="./img/c_06.png"　alt="全機連Web入札会 開催要項"></div>
+        <div><img src="./img/c_06.png" 　alt="全機連Web入札会 開催要項" /></div>
 
-<div><img src="./img/c_contact_01_before.png" alt="Web入札会　出品機械を下見する"></div>
-<!--
+        <div>
+          <img
+            src="./img/c_contact_01_before.png"
+            alt="Web入札会　出品機械を下見する" />
+        </div>
+        <!--
 <div><img src="./img/c_pdf_before.png" alt="出品商品リストをダウンロードする"></div>
 
 <div><a href="http://www.zenkiren.net/bid_door.php?o=4" target="_blank"><img src="./img/c_contact_01.png" alt="Web入札会　出品機械を下見する"></a></div>
@@ -150,11 +205,17 @@ body {
 <div><a href="http://www.zenkiren.net/bid_door.php?o=4" target="_blank"><img src="./img/c_contact_01_after.png" alt="Web入札会　出品機械を下見する"></a></div>
 -->
 
-<div><img src="./img/c_07.png"　alt="ユーザー企業のWeb入札会メリット"></div>
-<div><img src="./img/c_08.png"　alt="Web入札会参加のステップ"></div>
+        <div>
+          <img src="./img/c_07.png" 　alt="ユーザー企業のWeb入札会メリット" />
+        </div>
+        <div><img src="./img/c_08.png" 　alt="Web入札会参加のステップ" /></div>
 
-<div><img src="./img/c_contact_01_before.png" alt="Web入札会　出品機械を下見する"></div>
-<!--
+        <div>
+          <img
+            src="./img/c_contact_01_before.png"
+            alt="Web入札会　出品機械を下見する" />
+        </div>
+        <!--
 <div><img src="./img/c_pdf_before.png" alt="出品商品リストをダウンロードする"></div>
 
 <div><a href="http://www.zenkiren.net/bid_door.php?o=4" target="_blank"><img src="./img/c_contact_01.png" alt="Web入札会　出品機械を下見する"></a></div>
@@ -162,36 +223,55 @@ body {
 <div><a href="http://www.zenkiren.net/bid_door.php?o=4" target="_blank"><img src="./img/c_contact_01_after.png" alt="Web入札会　出品機械を下見する"></a></div>
 -->
 
-<div><img src="./img/c_10.png"　alt="注意事項"></div>
+        <div><img src="./img/c_10.png" 　alt="注意事項" /></div>
 
-<div><img src="./img/c_contact_01_before.png" alt="Web入札会　出品機械を下見する"></div>
-<!--
+        <div>
+          <img
+            src="./img/c_contact_01_before.png"
+            alt="Web入札会　出品機械を下見する" />
+        </div>
+        <!--
 <div><img src="./img/c_pdf_before.png" alt="出品商品リストをダウンロードする"></div>
 
 <div><a href="http://www.zenkiren.net/bid_door.php?o=4" target="_blank"><img src="./img/c_contact_01.png" alt="Web入札会　出品機械を下見する"></a></div>
 <div><a href="http://www.zenkiren.net/media/pdf/bid201401_list.pdf" target="_blank"><img src="./img/c_pdf.png" alt="出品商品リストをダウンロードする"></a></div>
 <div><a href="http://www.zenkiren.net/bid_door.php?o=4" target="_blank"><img src="./img/c_contact_01_after.png" alt="Web入札会　出品機械を下見する"></a></div>
 -->
-<div id="cont"><a href="http://www.zenkiren.net/">中古機械情報 マシンライフ</a>　｜　<a href="http://www.zenkiren.org/" target="_blank">全日本機械業連合会</a></div>
+        <div id="cont">
+          <a href="http://www.zenkiren.net/">中古機械情報 マシンライフ</a
+          >　｜　<a href="http://www.zenkiren.org/" target="_blank"
+            >全日本機械業連合会</a
+          >
+        </div>
 
-<div><a href="/"><img src="./img/c_footer.png"　alt="中古機械のWeb入札会 マシンライフ 全機連"></a></div>
-</div>
-</div>
+        <div>
+          <a href="/"
+            ><img
+              src="./img/c_footer.png"
+              　alt="中古機械のWeb入札会 マシンライフ 全機連"
+          /></a>
+        </div>
+      </div>
+    </div>
 
-
-<div class="preuser_form_area" style="display:none;text-align:left;font-size:13px;">
-  <div class="preuser_01">
-    マシンライフをご利用下さいましてありがとうございます。<br />
-    <!--
+    <div
+      class="preuser_form_area"
+      style="display: none; text-align: left; font-size: 13px">
+      <div class="preuser_01">
+        マシンライフをご利用下さいましてありがとうございます。<br />
+        <!--
     マイリストをご利用される前に、メールアドレス登録をお願いいたします。<br />
     -->
-    登録されたメールアドレスには、今後のWeb入札会のご案内等をお送りいたします。
-  </div>
-  
-  <input type="hidden" class="preuser_bid_machine_id" value="" />
-  <label>メールアドレス<span class="require">(必須)</span><input class="mail" value="" /></label>
-  <label>会社名、氏名<input class="user_name" value="" /></label>
-  <!--
+        登録されたメールアドレスには、今後のWeb入札会のご案内等をお送りいたします。
+      </div>
+
+      <input type="hidden" class="preuser_bid_machine_id" value="" />
+      <label
+        >メールアドレス<span class="require">(必須)</span
+        ><input class="mail" value=""
+      /></label>
+      <label>会社名、氏名<input class="user_name" value="" /></label>
+      <!--
   <div class="privacy">
     <p>
       個人情報の利用目的<br />
@@ -209,8 +289,7 @@ body {
   </div>
   <label class="checke_area"><input type="checkbox" class="privacy_check" checked="checked">プライバシーポリシーに同意する</label>
   -->
-  <button class='preuser_submit'>メールアドレスを登録する</button>
-</div>
-
-</body> 
+      <button class="preuser_submit">メールアドレスを登録する</button>
+    </div>
+  </body>
 </html>

@@ -2,55 +2,55 @@
 
 /*** admin access_log ***/
 table.accesslog th {
-  padding : 3px;
-  border : 1px solid #FFF;
-  border-width : 0 1px;
-  background : #29866B;
-  color : #FFF;
-  vertical-align : middle;
+  padding: 3px;
+  border: 1px solid #fff;
+  border-width: 0 1px;
+  background: #29866b;
+  color: #fff;
+  vertical-align: middle;
 }
 
 table.accesslog td {
-  padding : 3px;
-  border : 1px solid #FFF;
-  border-width : 0 1px;
-  vertical-align : middle;
+  padding: 3px;
+  border: 1px solid #fff;
+  border-width: 0 1px;
+  vertical-align: middle;
 }
 
 table.accesslog td.page a {
-  word-wrap : break-word;
-  display : block;
+  word-wrap: break-word;
+  display: block;
   width: 400px;
 }
 
 table.accesslog td.id {
-  width : 50px;
-  text-align : right;
+  width: 50px;
+  text-align: right;
 }
 
 table.accesslog .ip_addr {
-  width : 120px;
+  width: 120px;
 }
 
 table.accesslog .host {
-  width : 160px;
+  width: 160px;
 }
 
 table.accesslog .page {
-  width : 412px;
+  width: 412px;
 }
 
 table.accesslog td.entry {
-  width : 124px;
-  text-align : right;
+  width: 124px;
+  text-align: right;
 }
 
 table.accesslog table.accesslog tr.even td {
-  background : #FFF;
+  background: #fff;
 }
 
 table.accesslog tr.odd td {
-  background : #DFE;
+  background: #dfe;
 }
 
 /*** CSVテーブル ***/
@@ -62,21 +62,20 @@ table.list {
 table.list td,
 table.list th {
   padding: 2px;
-  border: 1px dotted #BBB;
+  border: 1px dotted #bbb;
   vertical-align: middle;
-  background: #FFF;
+  background: #fff;
 }
 
 table.list th {
   text-align: center;
-  color: #EFE;
+  color: #efe;
   background: #040;
 }
 
 table.list tr:nth-child(even) td {
-  background: #EFE
+  background: #efe;
 }
-
 
 table.list .no,
 table.list .capacity,
@@ -119,7 +118,7 @@ img.thumbnail {
 
 .csv_form {
   width: 460px;
-  border: 1px solid #AAA;
+  border: 1px solid #aaa;
   margin: 8px auto;
   padding: 4px 16px;
   border-radius: 8px;
@@ -158,28 +157,27 @@ table.catalog.list td.uid {
   text-align: right;
 }
 
-
 .center_container table.list tr:hover td {
-  background : #FFFFAD;
+  background: #ffffad;
 }
 
 /*** contact ss ***/
 table.list td,
 table.list th {
   padding: 2px 6px;
-  border: 1px dotted #BBB;
+  border: 1px dotted #bbb;
   vertical-align: middle;
-  background: #FFF;
+  background: #fff;
 }
 
 table.list th {
   text-align: center;
-  color: #EFE;
+  color: #efe;
   background: #040;
 }
 
 table.list tr:nth-child(even) td {
-  background: #EFE
+  background: #efe;
 }
 
 table.contact_ss.contact_ss {
@@ -197,12 +195,12 @@ table.list.contact_ss td.total {
 }
 
 table.contact_ss .month {
-  border-right: 1px solid #BBB;
+  border-right: 1px solid #bbb;
   width: 120px;
 }
 
 table.contact_ss .total {
-  border-left: 3px double #BBB;
+  border-left: 3px double #bbb;
 }
 
 table.contact_ss .detail {
@@ -210,24 +208,23 @@ table.contact_ss .detail {
 }
 
 table.contact_ss .zenkiren {
-  border-left: 3px double #BBB;
+  border-left: 3px double #bbb;
 }
 
-
 table.contact_ss tr.Sun td {
-  background: #FDF;
+  background: #fdf;
 }
 
 table.contact_ss tr.Sat td {
-  background: #DFF;
+  background: #dff;
 }
 
 .Sun .dw {
-  color: #F33;
+  color: #f33;
 }
 
 .Sat .dw {
-  color: #33F;
+  color: #33f;
 }
 
 /*** お問い合わせ一覧 ***/

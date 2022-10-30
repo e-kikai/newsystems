@@ -1,66 +1,66 @@
 {extends file='include/layout.tpl'}
 
 {block 'header'}
-<link href="{$_conf.site_uri}{$_conf.css_dir}system.css" rel="stylesheet" type="text/css" />
+  <link href="{$_conf.site_uri}{$_conf.css_dir}system.css" rel="stylesheet" type="text/css" />
 
-{literal}
-<script type="text/JavaScript">
-</script>
-<style type="text/css">
-.user {
-  width: 150px;
-}
+  {literal}
+    <script type="text/javascript">
+    </script>
+    <style type="text/css">
+      .user {
+        width: 150px;
+      }
 
-.target {
-  width: 80px;
-}
+      .target {
+        width: 80px;
+      }
 
-.action {
-  width: 100px;
-}
+      .action {
+        width: 100px;
+      }
 
-.action_id {
-  width: 50px;
-}
+      .action_id {
+        width: 50px;
+      }
 
-table.list td.action_id {
-  text-align: right;
-}
+      table.list td.action_id {
+        text-align: right;
+      }
 
-.contents {
-  width: 20px;
-}
+      .contents {
+        width: 20px;
+      }
 
-.created_at {
-  width: 120px;
-}
+      .created_at {
+        width: 120px;
+      }
 
-div.actionlog.odd {
-  background: #DFD;
-}
-</style>
-{/literal}
+      div.actionlog.odd {
+        background: #DFD;
+      }
+    </style>
+  {/literal}
 {/block}
 
 {block 'main'}
   {*
   {include file="include/pager.tpl"}
   *}
-  
+
   <form action="system/actionlog_list.php" method=="get">
     <input type="hidden" name="t" value="{$t}">
-    表示月 : 
+    表示月 :
     {html_select_date prefix='month' time=$month end_year='2013'
-      display_days=false field_separator=' / ' month_format='%m' reverse_years=true field_order="YMD"}
+        display_days=false field_separator=' / ' month_format='%m' reverse_years=true field_order="YMD"}
     <input type="submit" value="表示月変更" />
-    
+
     {if !empty($month)}
       <a href="system/actionlog_list.php">表示月をリセット</a>
     {else}
       本日から7日前まで表示
     {/if}
   </form>
-  
+
   <div><a href="/system/actionlog_csv.php?t={$t}&m={$month}">CSVファイル出力</a></div>
   {*
   <table class='list'>
@@ -78,14 +78,14 @@ div.actionlog.odd {
     </thead>
   </table>
   *}
-    {foreach $logList as $l}
+  {foreach $logList as $l}
     <div class="actionlog {cycle values='even, odd'}">
       [{$l.id} {$l.created_at|date_format:'%m/%d %H:%M:%S'}]
       {if !empty($l.user_name)}＜{'/(株式|有限|合.)会社/'|preg_replace:'':$l.user_name}＞{/if}
-      {$l.ip}{if $l.ip != $l.hostname}({$l.hostname}){/if} - 
+      {$l.ip}{if $l.ip != $l.hostname}({$l.hostname}){/if} -
       {$l.action}
       {if !empty($l.action_id)}({$l.action_id}){/if}
-      {$l.contents} 
+      {$l.contents}
     </div>
     {*
       <tr class='{cycle values='even, odd'}'>
@@ -99,11 +99,11 @@ div.actionlog.odd {
         <td class='created_at'>{$l.created_at|date_format:'%m/%d %H:%M:%S'}</td>
       </tr>
       *}
-    {/foreach}
+  {/foreach}
   </table>
-  
+
   {*
   {include file="include/pager.tpl"}
   *}
-  
+
 {/block}

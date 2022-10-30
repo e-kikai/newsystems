@@ -1,34 +1,34 @@
 {extends file='include/layout.tpl'}
 
 {block 'header'}
-<link href="{$_conf.site_uri}{$_conf.css_dir}admin_form.css" rel="stylesheet" type="text/css" />
+  <link href="{$_conf.site_uri}{$_conf.css_dir}admin_form.css" rel="stylesheet" type="text/css" />
 
-<script type="text/JavaScript">
-{literal}
-$(function() {
-  $('form.machine').submit(function() {
-      return confirm('送信を開始します。よろしいでしょうか\n\n※ 一度送信開始したメールは、キャンセルすることができません。\nご注意ください。');
-  });
-});
-</script>
-<style type="text/css">
-  .flyer_menu a {
-    display: block;
-    font-size: 17px;
-    margin: 16px 16px;
-  }
+  <script type="text/javascript">
+    {literal}
+      $(function() {
+        $('form.machine').submit(function() {
+          return confirm('送信を開始します。よろしいでしょうか\n\n※ 一度送信開始したメールは、キャンセルすることができません。\nご注意ください。');
+        });
+      });
+    </script>
+    <style type="text/css">
+      .flyer_menu a {
+        display: block;
+        font-size: 17px;
+        margin: 16px 16px;
+      }
 
-  p.worning {
-    font-size: 16px;
-    color: #C00;
-    margin: 16px 0;
-  }
+      p.worning {
+        font-size: 16px;
+        color: #C00;
+        margin: 16px 0;
+      }
 
-  .schedule_error {
-    color: #C00;
-  }
-</style>
-{/literal}
+      .schedule_error {
+        color: #C00;
+      }
+    </style>
+  {/literal}
 {/block}
 
 {block 'main'}

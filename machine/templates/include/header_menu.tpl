@@ -9,8 +9,7 @@
 <div class="header_menu">
   <a class="menu first" href="" title="中古機械情報TOPに戻る"
     {* onClick="_gaq.push(['_trackEvent', 'pankuzu', 'toppage', 'heder_menu', 1, true]);" *}
-    onClick="ga('send', 'event', 'pankuzu', 'toppage', 'heder_menu', 1, true);"
-    >
+    onClick="ga('send', 'event', 'pankuzu', 'toppage', 'heder_menu', 1, true);">
     TOP
     {*
     <img class="even" src="imgs/menu_top.png" alt="中古機械情報 マシンライフ 中古旋盤,中古フライス等の中古機械情報をご提供" />
@@ -38,7 +37,8 @@
   <div class="submenu">
     <div class="mylist">マシンライフについて</div>
     <ul>
-      <a href="http://www.zenkiren.org/index.php?%E5%85%A8%E6%A9%9F%E9%80%A3%E3%81%A8%E3%81%AF" target="_blank">全機連とは</a>
+      <a href="http://www.zenkiren.org/index.php?%E5%85%A8%E6%A9%9F%E9%80%A3%E3%81%A8%E3%81%AF"
+        target="_blank">全機連とは</a>
       <a href="sitemap.php">サイトマップ</a>
       {*
       <a href="news.php?pe=1">新着中古機械情報</a>

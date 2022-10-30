@@ -75,7 +75,7 @@ $_db->setFetchMode(Zend_Db::FETCH_ASSOC);
 Zend_Db_Table::setDefaultAdapter($_db);
 // $_db->query("SET client_encoding = 'UNICODE';");
 
-//// 言語ファイルのロード////
+/// 言語ファイルのロード///
 $translator = new Zend_Translate(
     'array',
     realpath(APP_PATH . '/library/lang/Zend_Validate.php'),

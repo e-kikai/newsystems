@@ -10,10 +10,10 @@
  */
 require_once '../lib-machine.php';
 try {
-    //// 認証処理 ////
+    /// 認証処理 ///
     Auth::isAuth('machine');
 
-    //// 変数を取得 ////
+    /// 変数を取得 ///
     $bidOpenId = Req::query('o');
     $mail      = Req::query('mail');
 
@@ -21,7 +21,7 @@ try {
         throw new Exception('入札会情報が取得出来ません');
     }
 
-    /// 入札会情報を取得 ////
+    /// 入札会情報を取得 ///
     $boModel = new BidOpen();
     $bidOpen = $boModel->get($bidOpenId);
 
@@ -39,7 +39,7 @@ try {
         throw new Exception($e);
     }
 
-    //// 出品商品情報一覧を取得 ////
+    /// 出品商品情報一覧を取得 ///
     $q = array('bid_open_id' => $bidOpenId,);
     $bmModel = new BidMachine();
 
@@ -87,7 +87,7 @@ try {
     //     $recommends = $tbuTable->getRecommends($bidOpenId, 'user', $trackingUser['id']);
     // }
 
-    /// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle'        => $bidOpen['title'] . ' 会場',
         // 'pageDescription' => '入札会商品リストです。入札、出品者へのお問い合せは、全機連会員を通して行なってください',
@@ -108,7 +108,7 @@ try {
         // 'recommends'       => $recommends,
     ))->display("bid_door.tpl");
 } catch (Exception $e) {
-    //// エラー画面表示 ////
+    /// エラー画面表示 ///
     header("HTTP/1.1 404 Not Found");
     $_smarty->assign(array(
         'pageTitle' => $bidOpen['title'],

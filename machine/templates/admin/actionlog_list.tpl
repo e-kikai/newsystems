@@ -1,23 +1,23 @@
 {extends file='include/layout.tpl'}
 
 {block 'header'}
-<link href="{$_conf.site_uri}{$_conf.css_dir}admin.css" rel="stylesheet" type="text/css" />
+  <link href="{$_conf.site_uri}{$_conf.css_dir}admin.css" rel="stylesheet" type="text/css" />
 
-{literal}
-<script type="text/JavaScript">
-</script>
-<style type="text/css">
+  {literal}
+    <script type="text/javascript">
+    </script>
+    <style type="text/css">
 
-</style>
-{/literal}
+    </style>
+  {/literal}
 {/block}
 
 {block 'main'}
   {*
   {include file="include/pager.tpl"}
   *}
-  
-  <div><a href="admin/actionlog_csv.php">CSVファイル出力</a></div>    
+
+  <div><a href="admin/actionlog_csv.php">CSVファイル出力</a></div>
   <table class='list'>
     <thead>
       <tr>
@@ -32,7 +32,7 @@
         <th class='created_at'>created_at</th>
       </tr>
     </thead>
-    
+
     {foreach $logList as $l}
       <tr class='{cycle values='even, odd'}'>
         <td class='id'>{$l.id}</td>
@@ -47,9 +47,9 @@
       </tr>
     {/foreach}
   </table>
-  
+
   {*
   {include file="include/pager.tpl"}
   *}
-  
+
 {/block}

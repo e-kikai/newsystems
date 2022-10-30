@@ -8,16 +8,17 @@
  *}
 
 {literal}
-<script type="text/JavaScript">
-</script>
-<style>
-</style>
+  <script type="text/javascript">
+  </script>
+  <style>
+  </style>
 {/literal}
 
 </head>
+
 <body ontouchstart="">
 
-{*
+  {*
 <!-- ClickTale Top part -->
 <script type="text/javascript">
 var WRInitTime=(new Date()).getTime();
@@ -25,39 +26,36 @@ var WRInitTime=(new Date()).getTime();
 <!-- ClickTale end of Top part -->
 *}
 
-<div class="main_container">
-  <header>
-    <strong class="headcopy">
-      中古機械のスペシャリスト、全機連会員の中古機械在庫情報を掲載しています<br />
-      登録会社数<span class="count_no">{$cCountByEntry|number_format}</span>社、
-      <span class="count_no">{$mCountAll|number_format}</span>件の中古機械が登録されています
-    </strong>
-    <h1>
-      <a href='' class='header_title'>
-        <img src='imgs/logo_machinelife.png'
-          alt="中古機械情報 マシンライフ マシンライフは、全機連が運営する中古機械情報サイトです" />
+  <div class="main_container">
+    <header>
+      <strong class="headcopy">
+        中古機械のスペシャリスト、全機連会員の中古機械在庫情報を掲載しています<br />
+        登録会社数<span class="count_no">{$cCountByEntry|number_format}</span>社、
+        <span class="count_no">{$mCountAll|number_format}</span>件の中古機械が登録されています
+      </strong>
+      <h1>
+        <a href='' class='header_title'>
+          <img src='imgs/logo_machinelife.png' alt="中古機械情報 マシンライフ マシンライフは、全機連が運営する中古機械情報サイトです" />
+        </a>
+      </h1>
+
+      <a href="{$_conf.website_uri}" class="header_zenkiren" target="_blank">
+        <img src='imgs/logo_zenkiren_02.png' alt="信頼と実績 全機連 マシンライフは全日本機械業連合会(全機連)の公式ウェブサイトです" />
       </a>
-    </h1>
 
-    <a href="{$_conf.website_uri}" class="header_zenkiren" target="_blank">
-      <img src='imgs/logo_zenkiren_02.png'
-        alt="信頼と実績 全機連 マシンライフは全日本機械業連合会(全機連)の公式ウェブサイトです" />
-    </a>
-
-    {*** キーワード検索 ***}
-    <div class="keyword">
-      <form action='/search.php' method='get'
+      {*** キーワード検索 ***}
+      <div class="keyword">
+        <form action='/search.php' method='get'
           {* onSubmit="_gaq.push(['_trackEvent', 'search', 'toppage_header', $('input.keyword_search.toppage_header').val(), 1, true]);" *}
-          onSubmit="ga('send', 'event', 'search', 'toppage_header', $('input.keyword_search.toppage_header').val(), 1, true);"
-          >
-        <span>中古機械キーワード検索</span>
-        <input type="text" class="keyword_search toppage_header" name="k" value="" placeholder="キーワード検索" />
-        <button type="submit" class="keyword_submit">検索</button>
-      </form>
-    </div>
+          onSubmit="ga('send', 'event', 'search', 'toppage_header', $('input.keyword_search.toppage_header').val(), 1, true);">
+          <span>中古機械キーワード検索</span>
+          <input type="text" class="keyword_search toppage_header" name="k" value="" placeholder="キーワード検索" />
+          <button type="submit" class="keyword_submit">検索</button>
+        </form>
+      </div>
 
-    {*** textsizer ***}
-    {*
+      {*** textsizer ***}
+      {*
     <div id="textsizer">
       <span>画面サイズ</span>
       <ul class="textresizer">
@@ -68,35 +66,35 @@ var WRInitTime=(new Date()).getTime();
       </ul>
     </div>
     *}
-  </header>
+    </header>
 
-  {include file="include/header_menu.tpl"}
+    {include file="include/header_menu.tpl"}
 
-  {include file="include/header_ads.tpl"}
-  {*** メッセージ枠 ***}
-  {if isset($message)}
-    <div class="message">
-      {if is_array($message)}
-        {foreach $message as $m}
-          <div>{$m}</div>
-        {/foreach}
-      {else}
-        <div>{$message}</div>
-      {/if}
-    </div>
-  {/if}
+    {include file="include/header_ads.tpl"}
+    {*** メッセージ枠 ***}
+    {if isset($message)}
+      <div class="message">
+        {if is_array($message)}
+          {foreach $message as $m}
+            <div>{$m}</div>
+          {/foreach}
+        {else}
+          <div>{$message}</div>
+        {/if}
+      </div>
+    {/if}
 
-  {*** エラーメッセージ枠 ***}
-  {if isset($errorMes)}
-    <div class="error_mes">
-      {if is_array($errorMes)}
-        {foreach $errorMes as $m}
-          <div>{$m}</div>
-        {/foreach}
-      {else}
-        <div>{$errorMes|escape|default:""|nl2br nofilter}</div>
-      {/if}
-    </div>
-  {/if}
+    {*** エラーメッセージ枠 ***}
+    {if isset($errorMes)}
+      <div class="error_mes">
+        {if is_array($errorMes)}
+          {foreach $errorMes as $m}
+            <div>{$m}</div>
+          {/foreach}
+        {else}
+          <div>{$errorMes|escape|default:""|nl2br nofilter}</div>
+        {/if}
+      </div>
+    {/if}
 
-  <div class="center_container">
+<div class="center_container">

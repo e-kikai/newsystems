@@ -7,10 +7,10 @@
  * @since 2012/04/13
  *}
 {literal}
-<script type="text/JavaScript">
-$(function() {
-    //// 再検索の表示 ////
-    $('button.genre_open').click(function() {
+  <script type="text/javascript">
+    $(function() {
+      //// 再検索の表示 ////
+      $('button.genre_open').click(function() {
         $('.genre_list_window').dialog({
           show: "fade",
           hide: "fade",
@@ -20,12 +20,12 @@ $(function() {
           resizable: false,
           modal: true,
         });
+      });
     });
-});
-</script>
+  </script>
 {/literal}
 
 {*** ジャンル一覧選択用 ***}
 <div class="genre_list_window" style="display:none;">
-{include file="include/genre_list_check.tpl"}
+  {include file="include/genre_list_check.tpl"}
 </div>

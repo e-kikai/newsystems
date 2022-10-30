@@ -7,7 +7,7 @@ html {
 body {
   margin: 0;
   color: #333333;
-  background: #D9EBCF;
+  background: #d9ebcf;
   font-size: 13px;
   line-height: 1.4;
   font-family: arial, sans-serif;
@@ -17,8 +17,10 @@ body,
 input,
 select,
 button,
-textarea, .ui-widget {
-  font-family: 'メイリオ', Meiryo, 'Lucida Grande', Verdana, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro';
+textarea,
+.ui-widget {
+  font-family: "メイリオ", Meiryo, "Lucida Grande", Verdana,
+    "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro";
 }
 
 table {
@@ -28,12 +30,12 @@ table {
 a,
 a:visited,
 a:active {
-  color: #076AB6;
+  color: #076ab6;
   text-decoration: underline;
 }
 
 a:hover {
-  color: #076AB6;
+  color: #076ab6;
   text-decoration: underline;
 }
 
@@ -59,7 +61,7 @@ h1 {
 }
 
 .placeholder {
-  color: #AAA;
+  color: #aaa;
 }
 
 .clear {
@@ -72,20 +74,20 @@ input[type="date"],
 input[type="datetime"],
 input[type="datetime-local"],
 input[type="email"],
-input[type="month"], 
+input[type="month"],
 input[type="number"],
 input[type="password"],
 input[type="tel"],
-input[type="text"], 
+input[type="text"],
 input[type="time"],
 input[type="url"],
 input[type="week"],
 input[type="search"] {
   border: 1px solid #999;
   padding: 3px 6px;
-  background: #FFF;
+  background: #fff;
   border-radius: 4px;
-  box-shadow: 0 2px 3px rgba(0,0,0,0.1) inset;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1) inset;
 }
 
 input[type="search"] {
@@ -104,10 +106,10 @@ textarea {
   height: 80px;
   border: 1px solid #999;
   padding: 5px 10px;
-  background: #FFF;
+  background: #fff;
   font-size: 13px;
   border-radius: 4px;
-  box-shadow:  0 2px 3px rgba(0,0,0,0.1) inset;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1) inset;
 }
 
 input:focus,
@@ -118,53 +120,65 @@ textarea:focus {
 a.button,
 button {
   display: inline-block;
-  #display: inline;  /* for IE6,7 */
-  #zoom: 1;          /* for IE6,7 */
+  #display: inline; /* for IE6,7 */
+  #zoom: 1; /* for IE6,7 */
   position: relative;
-  
+
   margin: auto;
   text-decoration: none;
   text-align: center;
   color: #fff;
   border: 1px solid #9c9c9c;
-  
-  text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
 
-  box-shadow: 1px 1px 0.2em rgba(0,0,0,0.4);
-  -moz-box-shadow: 1px 1px 0.2em rgba(0,0,0,0.4);
-  -webkit-box-shadow: 1px 1px 0.2em rgba(0,0,0,0.4);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+
+  box-shadow: 1px 1px 0.2em rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 1px 1px 0.2em rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 1px 1px 0.2em rgba(0, 0, 0, 0.4);
 
   -moz-border-radius: 0.3em;
   border-radius: 0.3em;
 
   background: #4477a1;
-  background: -webkit-gradient(linear, left top, left bottom, from(#81a8cb), to(#4477a1) );
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#81a8cb),
+    to(#4477a1)
+  );
   background: -moz-linear-gradient(-90deg, #81a8cb, #4477a1);
   background: -o-linear-gradient(-90deg, #81a8cb, #4477a1);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#81a8cb', endColorstr='#4477a1');
 }
 
 a.button:hover,
-button:hover{
+button:hover {
   background: #81a8cb;
-  background: -webkit-gradient(linear, left top, left bottom, from(#4477a1), to(#81a8cb) );
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#4477a1),
+    to(#81a8cb)
+  );
   background: -moz-linear-gradient(-90deg, #4477a1, #81a8cb);
   background: -o-linear-gradient(-90deg, #4477a1, #81a8cb);
-  filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4477a1', endColorstr='#81a8cb');
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4477a1', endColorstr='#81a8cb');
 }
 
 a.button:active,
-button:active{
+button:active {
   position: relative;
   top: 1px;
-  
+
   background: #4477a1;
-  box-shadow: 1px 1px 0.1em rgba(0,0,0,0.4);
-  -moz-box-shadow: 1px 1px 0.1em rgba(0,0,0,0.4);
-  -webkit-box-shadow: 1px 1px 0.1em rgba(0,0,0,0.4);
+  box-shadow: 1px 1px 0.1em rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 1px 1px 0.1em rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 1px 1px 0.1em rgba(0, 0, 0, 0.4);
 }
 
-::-moz-selection{
+::-moz-selection {
   background: #1e90ff;
 }
 
@@ -175,7 +189,7 @@ button:active{
 /*** container ***/
 .main_container {
   width: 980px;
-  background: #FFFFFF;
+  background: #ffffff;
   margin: 0 auto;
   position: relative;
 }
@@ -198,15 +212,41 @@ header {
   margin: auto;
   width: 100%;
   height: 97px;
-  
-  background: rgb(255,255,255); /* Old browsers */
-  background: -moz-linear-gradient(top, rgba(255,255,255,1) 1%, rgba(227,222,194,1) 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,rgba(255,255,255,1)), color-stop(100%,rgba(227,222,194,1))); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, rgba(255,255,255,1) 1%,rgba(227,222,194,1) 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, rgba(255,255,255,1) 1%,rgba(227,222,194,1) 100%); /* Opera11.10+ */
-  background: -ms-linear-gradient(top, rgba(255,255,255,1) 1%,rgba(227,222,194,1) 100%); /* IE10+ */
+
+  background: rgb(255, 255, 255); /* Old browsers */
+  background: -moz-linear-gradient(
+    top,
+    rgba(255, 255, 255, 1) 1%,
+    rgba(227, 222, 194, 1) 100%
+  ); /* FF3.6+ */
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(1%, rgba(255, 255, 255, 1)),
+    color-stop(100%, rgba(227, 222, 194, 1))
+  ); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(
+    top,
+    rgba(255, 255, 255, 1) 1%,
+    rgba(227, 222, 194, 1) 100%
+  ); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(
+    top,
+    rgba(255, 255, 255, 1) 1%,
+    rgba(227, 222, 194, 1) 100%
+  ); /* Opera11.10+ */
+  background: -ms-linear-gradient(
+    top,
+    rgba(255, 255, 255, 1) 1%,
+    rgba(227, 222, 194, 1) 100%
+  ); /* IE10+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e3dec2',GradientType=0 ); /* IE6-9 */
-  background: linear-gradient(top, rgba(255,255,255,1) 1%,rgba(227,222,194,1) 100%); /* W3C */
+  background: linear-gradient(
+    top,
+    rgba(255, 255, 255, 1) 1%,
+    rgba(227, 222, 194, 1) 100%
+  ); /* W3C */
 }
 
 div.description {
@@ -219,9 +259,9 @@ div.description {
   width: 100%;
   height: 28px;
   margin: 0 0 8px 0;
-  background: #29866B;
+  background: #29866b;
   font-size: 14px;
-  color: #FFFFFF;
+  color: #ffffff;
   z-index: 200;
 }
 
@@ -254,7 +294,7 @@ header .discription {
   width: 500px;
   height: 100px;
   padding-left: 100px;
-  background: url('../imgs/catalog_mascot.png') no-repeat;
+  background: url("../imgs/catalog_mascot.png") no-repeat;
   font-size: 13px;
   font-weight: bold;
   line-height: 1.4;
@@ -284,12 +324,12 @@ header .sitemap_menu {
 
 header .sitemap_menu a {
   display: inline-block;
-  #display: inline;  /* for IE6,7 */
-  #zoom: 1;          /* for IE6,7 */
+  #display: inline; /* for IE6,7 */
+  #zoom: 1; /* for IE6,7 */
   margin-right: 14px;
   text-indent: 14px;
   text-decoration: underline;
-  background: url('../imgs/link_arrow_o.png') 0 2px no-repeat;
+  background: url("../imgs/link_arrow_o.png") 0 2px no-repeat;
 }
 
 header .header_menu {
@@ -302,11 +342,11 @@ header .header_menu {
 
 header .header_menu a {
   display: inline-block;
-  #display: inline;  /* for IE6,7 */
-  #zoom: 1;          /* for IE6,7 */
-  background: #DDDDDD;
+  #display: inline; /* for IE6,7 */
+  #zoom: 1; /* for IE6,7 */
+  background: #dddddd;
   margin: 0 6px 0 0;
-  border: 2px solid #29866B;
+  border: 2px solid #29866b;
   border-bottom: 0;
   width: 86px;
   height: 20px;
@@ -320,8 +360,8 @@ header .header_menu a {
 }
 
 header .header_menu a.selected {
-  background: #29866B;
-  color: #FFFFFF;
+  background: #29866b;
+  color: #ffffff;
 }
 
 /*** メッセージ枠 ***/
@@ -329,9 +369,9 @@ header .header_menu a.selected {
   width: 700px;
   padding: 10px 16px;
   margin: 16px auto;
-  border: 1px dotted #88F;
-  background: #EEF;
-  color: #33F;
+  border: 1px dotted #88f;
+  background: #eef;
+  color: #33f;
   font-weight: bold;
 }
 
@@ -339,9 +379,9 @@ header .header_menu a.selected {
   width: 700px;
   padding: 10px 16px;
   margin: 16px auto;
-  border: 1px dotted #F88;
-  background: #FEE;
-  color: #F33;
+  border: 1px dotted #f88;
+  background: #fee;
+  color: #f33;
   font-weight: bold;
 }
 
@@ -350,7 +390,7 @@ header .header_menu a.selected {
   display: none;
   top: 20px;
   right: 0;
-  background: #EEE;
+  background: #eee;
   border: 1px solid #999;
   width: 200px;
   box-shadow: 3px 3px 3px #666;
@@ -361,10 +401,10 @@ header .header_menu a.selected {
   width: 100%;
   height: 28px;
   margin: 0 0 15px 0;
-  background: #29866B;
+  background: #29866b;
   font-size: 14px;
-  color: #FFFFFF;
-  
+  color: #ffffff;
+
   z-index: 200;
 }
 .mylist_menu:hover ul {
@@ -396,7 +436,7 @@ header .header_menu a.selected {
   width: 100%;
   height: 20px;
   line-height: 20px;
-  color: #29866B;
+  color: #29866b;
   text-decoration: none;
   background: white;
 }
@@ -407,9 +447,9 @@ header .header_menu a.selected {
   width: 100%;
   height: 20px;
   line-height: 20px;
-  color: #29866B;
+  color: #29866b;
   text-decoration: none;
-  background: #FFF;
+  background: #fff;
 }
 
 .mylist_menu li a {
@@ -420,7 +460,7 @@ header .header_menu a.selected {
   width: 200px;
   height: 24px;
   line-height: 24px;
-  background: #EEE;
+  background: #eee;
 }
 
 /*** フッタ ***/
@@ -428,15 +468,41 @@ footer {
   margin: 10px 0 0 0;
   width: 100%;
   height: 30px;
-  
-  background: rgb(255,255,255); /* Old browsers */
-  background: -moz-linear-gradient(top, rgba(255,255,255,1) 1%, rgba(227,222,194,1) 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,rgba(255,255,255,1)), color-stop(100%,rgba(227,222,194,1))); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, rgba(255,255,255,1) 1%,rgba(227,222,194,1) 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, rgba(255,255,255,1) 1%,rgba(227,222,194,1) 100%); /* Opera11.10+ */
-  background: -ms-linear-gradient(top, rgba(255,255,255,1) 1%,rgba(227,222,194,1) 100%); /* IE10+ */
+
+  background: rgb(255, 255, 255); /* Old browsers */
+  background: -moz-linear-gradient(
+    top,
+    rgba(255, 255, 255, 1) 1%,
+    rgba(227, 222, 194, 1) 100%
+  ); /* FF3.6+ */
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(1%, rgba(255, 255, 255, 1)),
+    color-stop(100%, rgba(227, 222, 194, 1))
+  ); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(
+    top,
+    rgba(255, 255, 255, 1) 1%,
+    rgba(227, 222, 194, 1) 100%
+  ); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(
+    top,
+    rgba(255, 255, 255, 1) 1%,
+    rgba(227, 222, 194, 1) 100%
+  ); /* Opera11.10+ */
+  background: -ms-linear-gradient(
+    top,
+    rgba(255, 255, 255, 1) 1%,
+    rgba(227, 222, 194, 1) 100%
+  ); /* IE10+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e3dec2',GradientType=0 ); /* IE6-9 */
-  background: linear-gradient(top, rgba(255,255,255,1) 1%,rgba(227,222,194,1) 100%); /* W3C */
+  background: linear-gradient(
+    top,
+    rgba(255, 255, 255, 1) 1%,
+    rgba(227, 222, 194, 1) 100%
+  ); /* W3C */
 }
 
 img.footer_title {
@@ -471,8 +537,8 @@ div.pager .list .num,
 div.pager .list .next,
 div.pager .list .prev {
   display: inline-block;
-  /display:inline;  /* for IE6,7 */
-  /zoom:1;          /* for IE6,7 */
+  /display: inline; /* for IE6,7 */
+  /zoom: 1; /* for IE6,7 */
   margin: 0 1px;
   height: 24px;
   line-height: 24px;
@@ -498,9 +564,9 @@ a.sample_bbs {
   height: 60px;
   line-height: 60px;
   text-align: center;
-  background: #FEE;
-  color: #076AB6;
-  border: 3px double #F88;
+  background: #fee;
+  color: #076ab6;
+  border: 3px double #f88;
   border-width: 0 0 3px 3px;
   border-radius: 0 0 0 16px;
   font-size: 16px;
@@ -511,13 +577,13 @@ a.sample_bbs {
 
 /*** ヘッダタイトル部分 ***/
 .title_container h1 {
-  display : inline;
+  display: inline;
 }
 
 .title_container .count_area {
-  display : inline-block;
-  #display: inline;  /* for IE6,7 */
-  #zoom: 1;          /* for IE6,7 */
+  display: inline-block;
+  #display: inline; /* for IE6,7 */
+  #zoom: 1; /* for IE6,7 */
   line-height: 20px;
   height: 20px;
   vertical-align: middle;
@@ -544,12 +610,12 @@ a.sample_bbs {
 .model_area .submit {
   width: 80px;
   height: 22px;
-  vertical-align : bottom;
+  vertical-align: bottom;
   font-weight: bold;
 }
 
 .count_area {
-  width : 200px;
+  width: 200px;
 }
 
 .catalog_count {
@@ -558,6 +624,6 @@ a.sample_bbs {
   text-align: right;
   font-size: 16px;
   font-weight: bold;
-  color: #FF2819;
+  color: #ff2819;
   margin: 0 3px;
 }

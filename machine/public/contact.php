@@ -1,4 +1,5 @@
 <?php
+
 /**
  * お問い合わせページ
  *
@@ -9,10 +10,10 @@
  */
 require_once '../lib-machine.php';
 try {
-    //// 認証 ////
+    /// 認証 ///
     Auth::isAuth('machine');
 
-    //// 会社情報を取得 ////
+    /// 会社情報を取得 ///
     $bidFlag      = Req::query('b');
     $bidMachineId = Req::query('bm');
     $bidOpenId    = Req::query('o');
@@ -27,7 +28,7 @@ try {
     $bidMachineList = array();
     $bidOpen        = array();
 
-    //// 機械情報一覧を取得 ////
+    /// 機械情報一覧を取得 ///
     if (Req::query('m')) {
         $mModel = new Machine();
         $machineList = $mModel->getList(array('id'  => (array)Req::query('m')));
@@ -35,7 +36,7 @@ try {
         $pageTitle = '在庫機械への' . (count($machineList) > 1 ? '一括' : '') . '問い合わせ';
     }
 
-    //// 会社一覧を取得 ////
+    /// 会社一覧を取得 ///
     if (Req::query('c')) {
         $companyTable = new Companies();
         $companyList  = $companyTable->getList(array('id'  => (array)Req::query('c')));
@@ -43,12 +44,12 @@ try {
         $pageTitle = '会社への' . (count($companyList) > 1 ? '一括' : '') . '問い合わせ';
     }
 
-    //// Web入札会情報を取得 ////
+    /// Web入札会情報を取得 ///
     if (!empty($bidMachineId)) {
         $bmModel    = new BidMachine();
         $bidMachine = $bmModel->get($bidMachineId);
 
-        //// 入札会情報を取得 ////
+        /// 入札会情報を取得 ///
         $boModel = new BidOpen();
         $bidOpen = $boModel->get($bidMachine['bid_open_id']);
 
@@ -62,26 +63,30 @@ try {
         $pageTitle = $bidOpen['title'] . 'の問い合わせ';
     }
 
-    //// Web入札会一括問い合わせ ////
+    /// Web入札会一括問い合わせ ///
     if (!empty($batch)) {
-        $_bidBatch =& $_SESSION['bid_batch'];
-        if (empty($_bidBatch)) { throw new Exception("問い合わせ商品がありません"); }
+        $_bidBatch = &$_SESSION['bid_batch'];
+        if (empty($_bidBatch)) {
+            throw new Exception("問い合わせ商品がありません");
+        }
 
-        foreach((array)$_bidBatch as $key => $v) {
-            if (is_int($key)) { $bidMachineIds[] = $key; }
+        foreach ((array)$_bidBatch as $key => $v) {
+            if (is_int($key)) {
+                $bidMachineIds[] = $key;
+            }
         }
 
         $bmModel = new BidMachine();
         $bidMachineList = $bmModel->getList(array('bid_open_id' => $batch, 'id' => $bidMachineIds));
 
-        //// 入札会情報を取得 ////
+        /// 入札会情報を取得 ///
         $boModel = new BidOpen();
         $bidOpen = $boModel->get($batch);
 
         $pageTitle = $bidOpen['title'] . 'の一括問い合わせ';
     }
 
-    //// select選択肢項目 ////
+    /// select選択肢項目 ///
     $select = array(
         1 => 'この機械の状態を知りたい',
         2 => 'この機械の価格を知りたい',
@@ -90,11 +95,11 @@ try {
         5 => '試運転は可能ですか'
     );
 
-    //// select選択肢都道府県一覧 ////
+    /// select選択肢都道府県一覧 ///
     $sModel    = new State();
     $addr1List = $sModel->getList();
 
-    //// リファラ処理 ////
+    /// リファラ処理 ///
     // デフォルト
     $backUri   = '/';
     $backTitle = 'トップページ';
@@ -104,8 +109,8 @@ try {
     if (count($machineList) == 1) {
         $m = $machineList[0];
         $pankuzu = array(
-          'search.php?l[]=' . $m['large_genre_id'] => $m['large_genre'],
-          'machine_detail.php?m=' . $m['id'] => "{$m['name']} {$m['maker']} {$m['model']}",
+            'search.php?l[]=' . $m['large_genre_id'] => $m['large_genre'],
+            'machine_detail.php?m=' . $m['id'] => "{$m['name']} {$m['maker']} {$m['model']}",
         );
     } else if (!empty($bidMachineId)) {
         if (!empty($bidOpenId)) {
@@ -121,8 +126,8 @@ try {
     } else if (count($companyList) == 1) {
         $c = $companyList[0];
         $pankuzu = array(
-          'company_list.php' => '会社一覧',
-          'company_detail.php?c=' . $c['id'] => $c['company'],
+            'company_list.php' => '会社一覧',
+            'company_detail.php?c=' . $c['id'] => $c['company'],
         );
     } else if (!empty($_SERVER['HTTP_REFERER'])) {
         $ref = urldecode($_SERVER['HTTP_REFERER']);
@@ -150,11 +155,11 @@ try {
         }
     }
 
-    //// @ba-ta 20150107 フォームテスト用 ////
+    /// @ba-ta 20150107 フォームテスト用 ///
     // $template = Req::query('test') ? 'contact_02.tpl' : 'contact.tpl';
     $template = 'contact.tpl';
 
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle'    => $pageTitle,
         'pankuzu'      => $pankuzu,
@@ -179,7 +184,7 @@ try {
         'mes'          => $mes,
     ))->display($template);
 } catch (Exception $e) {
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle' => 'お問い合わせ',
         'errorMes'  => $e->getMessage()

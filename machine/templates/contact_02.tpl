@@ -1,106 +1,106 @@
 {extends file='include/layout.tpl'}
 
 {block name='header'}
-<meta name="robots" content="noindex, nofollow" />
+  <meta name="robots" content="noindex, nofollow" />
 
-<script type="text/javascript" src="{$_conf.libjs_uri}/jquery.cookie.js"></script>
-<link href="{$_conf.site_uri}{$_conf.css_dir}contact.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="{$_conf.libjs_uri}/jquery.cookie.js"></script>
+  <link href="{$_conf.site_uri}{$_conf.css_dir}contact.css" rel="stylesheet" type="text/css" />
 
-{literal}
-<script type="text/JavaScript">
-$(function() {
-    $('button.submit').click(function() {
-        //// 内容の整理 ////
-        var message = '';
+  {literal}
+    <script type="text/javascript">
+      $(function() {
+        $('button.submit').click(function() {
+          //// 内容の整理 ////
+          var message = '';
 
-        // 入札商品を内容に追加
-        $('input.bid_machine').each(function() {
+          // 入札商品を内容に追加
+          $('input.bid_machine').each(function() {
             message += $(this).val() + "\n";
-        });
+          });
 
-        // 選択肢を内容に追加
-        $('.select:checked').each(function() {
+          // 選択肢を内容に追加
+          $('.select:checked').each(function() {
             message += $(this).val() + "\n";
-        });
+          });
 
-        var other = $.trim($('textarea.other_message').val());
-        if (other != '') {
+          var other = $.trim($('textarea.other_message').val());
+          if (other != '') {
             message += "\n" + other;
-        }
+          }
 
-        var machineId = $('.machine_id').map(function() {
+          var machineId = $('.machine_id').map(function() {
             return $(this).val();
-        }).get();
+          }).get();
 
-        var companyId = $('input.company_id').map(function() {
+          var companyId = $('input.company_id').map(function() {
             return $(this).val();
-        }).get();
+          }).get();
 
-        var data = {
-            'machineId' : machineId,
-            'companyId' : companyId,
-            'message'   : $.trim(message),
-            'company'   : $.trim($('input.company').val()),
-            'name'      : $.trim($('input.name').val()),
-            'mail'      : $.trim($('input.mail').val()),
-            'tel'       : $.trim($('input.tel').val()),
-            'fax'       : $.trim($('input.fax').val()),
-            'addr1'     : $.trim($('select.addr1').val()),
-            'keystring' : $.trim($('input.keystring').val()),
-        }
+          var data = {
+            'machineId': machineId,
+            'companyId': companyId,
+            'message': $.trim(message),
+            'company': $.trim($('input.company').val()),
+            'name': $.trim($('input.name').val()),
+            'mail': $.trim($('input.mail').val()),
+            'tel': $.trim($('input.tel').val()),
+            'fax': $.trim($('input.fax').val()),
+            'addr1': $.trim($('select.addr1').val()),
+            'keystring': $.trim($('input.keystring').val()),
+          }
 
-        //// 入力のチェック ////
-        var e = '';
-        if (data.message == '')   { e += "お問い合せ内容が選択されていません\n"; }
-        // if (data.comapny == '')   { e += "会社名が入力されていません\n"; }
-        if (data.name == '')      { e += "お名前が入力されていません\n"; }
-        // if (data.tel == '')       { e += "TELが入力されていません\n"; }
-        if (data.mail == '')      { e += "メールアドレスが入力されていません\n"; }
-        // if (data.addr1 == '')     { e += "都道府県が入力されていません\n"; }
-        if (data.keystring == '') { e += "セキュリティコードが入力されていません\n"; }
+          //// 入力のチェック ////
+          var e = '';
+          if (data.message == '') { e += "お問い合せ内容が選択されていません\n"; }
+          // if (data.comapny == '')   { e += "会社名が入力されていません\n"; }
+          if (data.name == '') { e += "お名前が入力されていません\n"; }
+          // if (data.tel == '')       { e += "TELが入力されていません\n"; }
+          if (data.mail == '') { e += "メールアドレスが入力されていません\n"; }
+          // if (data.addr1 == '')     { e += "都道府県が入力されていません\n"; }
+          if (data.keystring == '') { e += "セキュリティコードが入力されていません\n"; }
 
-        //// 連絡先 ////
-        var ret = '';
-        /*
-        // メール
-        if ($('input.return_mail').prop('checked')) {
-            ret += "メールで連絡を希望\n";
-        }
+          //// 連絡先 ////
+          var ret = '';
+          /*
+      // メール
+      if ($('input.return_mail').prop('checked')) {
+          ret += "メールで連絡を希望\n";
+      }
 
-        // TEL
-        if ($('input.return_tel').prop('checked')) {
-            ret += "電話で連絡を希望 ご希望の時間帯:" + $.trim($('input.tel_time').val()) + "\n";
-        }
+      // TEL
+      if ($('input.return_tel').prop('checked')) {
+          ret += "電話で連絡を希望 ご希望の時間帯:" + $.trim($('input.tel_time').val()) + "\n";
+      }
 
-        // FAX
-        if ($('input.return_fax').prop('checked')) {
-            if ($.trim($('input.fax').val()) != '') {
-                ret += "FAXで連絡を希望\n";
-            } else {
-                e += "連絡先FAXが入力されていません\n";
-            }
-        }
-        */
+      // FAX
+      if ($('input.return_fax').prop('checked')) {
+          if ($.trim($('input.fax').val()) != '') {
+              ret += "FAXで連絡を希望\n";
+          } else {
+              e += "連絡先FAXが入力されていません\n";
+          }
+      }
+      */
 
-        data.ret = $.trim(ret);
+          data.ret = $.trim(ret);
 
-        // お知らせメール
-        data.mailuser_flag = $('input.mailuser_flag').prop('checked') ? 1 : 0;
+          // お知らせメール
+          data.mailuser_flag = $('input.mailuser_flag').prop('checked') ? 1 : 0;
 
-        //// エラー表示 ////
-        if (e != '') { alert(e); return false; }
+          //// エラー表示 ////
+          if (e != '') { alert(e); return false; }
 
-        // 送信確認
-        if (!confirm('お問い合せを送信します。よろしいですか。')) { return false; }
+          // 送信確認
+          if (!confirm('お問い合せを送信します。よろしいですか。')) { return false; }
 
-        // test
-        // alert(message); return false;
+          // test
+          // alert(message); return false;
 
-        $.post('/ajax/contact.php', {
+          $.post('/ajax/contact.php', {
             'target': 'machine',
             'action': 'sendMachine',
-            'data'  : data
-        }, function(res) {
+            'data': data
+          }, function(res) {
             if (res != 'success') { alert(res); return false; }
 
             //// 入力値をcookieに格納 ////
@@ -114,101 +114,104 @@ $(function() {
 
             // @ba-ta 20150103 完了URLに現在のURLを付加する
             location.href = '/contact_fin.php' + location.search; // お問い合せ完了
+          });
+
+          return false;
         });
 
-        return false;
-    });
+        //// cookieから入力値を再利用 ////
+        $('input.name').val($.cookie('contact_name'));
+        // $('input.company').val($.cookie('contact_company'));
+        $('input.mail').val($.cookie('contact_mail'));
+        // $('input.tel').val($.cookie('contact_tel'));
+        // $('input.tel_time').val($.cookie('contact_tel_time'));
+        // $('input.fax').val($.cookie('contact_fax'));
+        // $('select.addr1').val($.cookie('addr1'));
 
-    //// cookieから入力値を再利用 ////
-    $('input.name').val($.cookie('contact_name'));
-    // $('input.company').val($.cookie('contact_company'));
-    $('input.mail').val($.cookie('contact_mail'));
-    // $('input.tel').val($.cookie('contact_tel'));
-    // $('input.tel_time').val($.cookie('contact_tel_time'));
-    // $('input.fax').val($.cookie('contact_fax'));
-    // $('select.addr1').val($.cookie('addr1'));
+        //// 連絡先TELの表示 ////
+        $('input.return_tel').change(function() {
+          $(this).prop('checked') ? $('.append_tel').show() : $('.append_tel').hide();
+        });
 
-    //// 連絡先TELの表示 ////
-    $('input.return_tel').change(function() {
-        $(this).prop('checked') ? $('.append_tel').show() : $('.append_tel').hide();
-    });
+        //// 連絡先FAXの表示 ////
+        $('input.return_fax').change(function() {
+          $(this).prop('checked') ? $('.append_fax').show() : $('.append_fax').hide();
+        });
 
-    //// 連絡先FAXの表示 ////
-    $('input.return_fax').change(function() {
-        $(this).prop('checked') ? $('.append_fax').show() : $('.append_fax').hide();
-    });
-
-    //// 入札希望金額の表示 ////
-    /*
+        //// 入札希望金額の表示 ////
+        /*
     $('input.select').change(function() {
         $(this).val() == '入札の依頼' ? $('.append_bid').show() : $('.append_bid').hide();
     });
     */
 
-    //// seccodeの再表示 ///
-    $('button.seccode_reflesh').click(function() {
-        var date = new Date();
-        $('.seccode').attr('src', $('.seccode').attr('src') + '&' + date.getTime());
-        return false;
-    });
+        //// seccodeの再表示 ///
+        $('button.seccode_reflesh').click(function() {
+          var date = new Date();
+          $('.seccode').attr('src', $('.seccode').attr('src') + '&' + date.getTime());
+          return false;
+        });
 
-    //// 数値のみに自動整形 ////
-    $('input.number').change(function() {
-        var price = mb_convert_kana($(this).val(), 'KVrn').replace(/[^0-9.]/g, '');
-        $(this).val(price ? parseInt(price) : '');
-    });
-});
-</script>
-<style type="text/css">
-</style>
+        //// 数値のみに自動整形 ////
+        $('input.number').change(function() {
+          var price = mb_convert_kana($(this).val(), 'KVrn').replace(/[^0-9.]/g, '');
+          $(this).val(price ? parseInt(price) : '');
+        });
+      });
+    </script>
+    <style type="text/css">
+    </style>
 
-<script>
-/**
- * Google Analytics(ABテスト用ハードコーディング)
- */
-var _gaq = _gaq || [];
+    <script>
+      /**
+   * Google Analytics(ABテスト用ハードコーディング)
+   */
+      var _gaq = _gaq || [];
 
-var pluginUrl =
- '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
-_gaq.push(['_require', 'inpage_linkid', pluginUrl]);
-_gaq.push(['_setAccount', 'UA-36579656-2']);
-_gaq.push(['_trackPageview']);
+      var pluginUrl =
+        '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+      _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+      _gaq.push(['_setAccount', 'UA-36579656-2']);
+      _gaq.push(['_trackPageview']);
 
-(function() {
-  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-})();
-</script>
-{/literal}
+      (function() {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  {/literal}
 {/block}
 
 {block 'main'}
 
-<table class='contact'>
-  <tr class='target'>
-    {if !empty($machineList)}
-      <th>お問い合わせ機械</th>
-      <td>
-        {foreach $machineList as $m}
-          <input type='hidden' class='machine_id' name='m[]' value='{$m.id}' />
-          <div class='name'>
-            {$m@iteration}. <a href="machine_detail.php?m={$m.id}">{$m.name} {$m.maker} {$m.model}</a> →
-            <a href="company_detail.php?c={$m.company_id}">{$m.company}</a>
-          </div>
-        {/foreach}
-      </td>
-    {elseif !empty($companyList)}
-      <th>お問い合わせ先</th>
-      <td class="contact_area">
-        {foreach $companyList as $c}
-          <input type='hidden' class='company_id' name='c[]' value='{$c.id}' />
+  <table class='contact'>
+    <tr class='target'>
+      {if !empty($machineList)}
+        <th>お問い合わせ機械</th>
+        <td>
+          {foreach $machineList as $m}
+            <input type='hidden' class='machine_id' name='m[]' value='{$m.id}' />
+            <div class='name'>
+              {$m@iteration}. <a href="machine_detail.php?m={$m.id}">{$m.name} {$m.maker} {$m.model}</a> →
+              <a href="company_detail.php?c={$m.company_id}">{$m.company}</a>
+            </div>
+          {/foreach}
+        </td>
+      {elseif !empty($companyList)}
+        <th>お問い合わせ先</th>
+        <td class="contact_area">
+          {foreach $companyList as $c}
+            <input type='hidden' class='company_id' name='c[]' value='{$c.id}' />
 
-          <div class='name'>
-            {$c@iteration}. <a href="company_detail.php?c={$c.id}">{$c.company}</a><br />
-            {if !empty($c.contact_tel)}<div class='tel'>TEL : {$c.contact_tel}</div>{/if}
-            {if !empty($c.contact_fax)}<div class='fax'>FAX : {$c.contact_fax}</div>{/if}
-          </div>
+            <div class='name'>
+              {$c@iteration}. <a href="company_detail.php?c={$c.id}">{$c.company}</a><br />
+              {if !empty($c.contact_tel)}<div class='tel'>TEL : {$c.contact_tel}</div>{/if}
+              {if !empty($c.contact_fax)}<div class='fax'>FAX : {$c.contact_fax}</div>{/if}
+            </div>
           {*
           {/if}
           *}
@@ -227,11 +230,10 @@ _gaq.push(['_trackPageview']);
       <th>お問い合わせ商品</th>
       <td>
         出品番号 : {$bidMachine.list_no}<br />
-         <a href="bid_detail.php?m={$bidMachine.id}">{$bidMachine.name} {$bidMachine.maker} {$bidMachine.model}</a>
-         (<a href="bid_door.php?o={$bidOpen.id}">{$bidOpen.title}</a>)
+        <a href="bid_detail.php?m={$bidMachine.id}">{$bidMachine.name} {$bidMachine.maker} {$bidMachine.model}</a>
+        (<a href="bid_door.php?o={$bidOpen.id}">{$bidOpen.title}</a>)
 
-          <input type='hidden' class='bid_machine' name='bm'
-            value="出品番号 : {$bidMachine.list_no}
+        <input type='hidden' class='bid_machine' name='bm' value="出品番号 : {$bidMachine.list_no}
 {$bidMachine.name} {$bidMachine.maker} {$bidMachine.model} ({$bidOpen.title})" />
       </td>
     </tr>
@@ -286,23 +288,23 @@ _gaq.push(['_trackPageview']);
       {if !empty($machineList)}
         {foreach $select as $s}
           <div>
-            <label><input type='checkbox' class='select' name='s' value='{$s}'/> {$s}</label>
+            <label><input type='checkbox' class='select' name='s' value='{$s}' /> {$s}</label>
           </div>
         {/foreach}
         その他問い合わせ（下記に記入してください）<br />
       {elseif empty($machineList) && empty($companyList)}
         <div><label>
-          <input type="radio" name="s" class="select" value="機械を探しています" /> 機械を探しています
-        </label></div>
+            <input type="radio" name="s" class="select" value="機械を探しています" /> 機械を探しています
+          </label></div>
         <div><label>
-          <input type="radio" name="s" class="select" value="機械を売りたい" /> 機械を売りたい
-        </label></div>
+            <input type="radio" name="s" class="select" value="機械を売りたい" /> 機械を売りたい
+          </label></div>
         <div><label>
-          <input type="radio" name="s" class="select" value="全機連についての質問" /> 全機連についての質問
-        </label></div>
+            <input type="radio" name="s" class="select" value="全機連についての質問" /> 全機連についての質問
+          </label></div>
         <div><label>
-          <input type="radio" name="s" class="select" value="" checked/> その他の質問・要望
-        </label></div>
+            <input type="radio" name="s" class="select" value="" checked /> その他の質問・要望
+          </label></div>
       {*
       {elseif !empty($bidFlag)}
       *}
@@ -354,12 +356,13 @@ _gaq.push(['_trackPageview']);
         </div>
 
         <div><label>
-          <input type="radio" name="s" class="select" value="" /> その他の質問・要望
-        </label></div>
+            <input type="radio" name="s" class="select" value="" /> その他の質問・要望
+          </label></div>
 
         <span class="required">※</span> 入札の依頼、商品へのお問い合せの際には「出品番号」をお伝え下さい。
       {/if}
-      <textarea name='message' class='other_message'>{* {if !empty($bidMachineId)}Web入札会出品番号 : {$bidMachineId}{/if} *}</textarea>
+      <textarea name='message'
+        class='other_message'>{* {if !empty($bidMachineId)}Web入札会出品番号 : {$bidMachineId}{/if} *}</textarea>
     </td>
   </tr>
 
