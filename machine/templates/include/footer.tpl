@@ -6,14 +6,14 @@
  * @version 0.0.4
  * @since 2012/04/13
  *}
-  </div>
+</div>
 </div>
 
 {* Biz訪問企業解析 *}
 {*
 {if $smarty.server.SERVER_NAME == 'www.zenkiren.net' && !preg_match("/contact_fin\.php/", $smarty.server.REQUEST_URI)}
 *}
-{*
+  {*
 <script type="text/javascript"><!--
 var site = 'zenkirennet';
 var contact;
@@ -25,7 +25,7 @@ border="0">
 </noscript>
 *}
 
-{*
+  {*
 <script type='text/javascript'><!--//<![CDATA[
 document.write('<scr'+'ipt type="text/javascript" language="javascript" src="http://customerbank.jp/login/access.php');
 document.write('?cd_id=zenkiren2&'+(new Date().getTime())+'"><\/script>');
@@ -46,7 +46,7 @@ var google_remarketing_only = true;
 </noscript>
 *}
 
-<!-- 基本サイト 通常ページ用 -->
+  <!-- 基本サイト 通常ページ用 -->
 {*
 <script type='text/javascript'><!--//<![CDATA[
 var analysis_ref = escape(document.referrer)+'';
@@ -72,21 +72,29 @@ var google_remarketing_only = true;
 
 {*** clicky ***}
 {if $smarty.server.SERVER_NAME == 'www.zenkiren.net'}
-<a class="click" title="Web Analytics" href="http://clicky.com/100784739"><img alt="Web Analytics" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
-<script src="//static.getclicky.com/js" type="text/javascript"></script>
-<script type="text/javascript">try{ clicky.init(100784739); }catch(e){}</script>
-<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100784739ns.gif" /></p></noscript>
+  <a class="click" title="Web Analytics" href="http://clicky.com/100784739"><img alt="Web Analytics"
+      src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+  <script src="//static.getclicky.com/js" type="text/javascript"></script>
+  <script type="text/javascript">
+    try { clicky.init(100784739); } catch (e) {}
+  </script>
+  <noscript>
+    <p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100784739ns.gif" /></p>
+  </noscript>
 
-{*** Lucky Orange ***}
-<script type='text/javascript'>
-window.__wtw_lucky_site_id = 32662;
+  {*** Lucky Orange ***}
+  <script type='text/javascript'>
+    window.__wtw_lucky_site_id = 32662;
 
     (function() {
-        var wa = document.createElement('script'); wa.type = 'text/javascript'; wa.async = true;
-        wa.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://cdn') + '.luckyorange.com/w.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(wa, s);
-      })();
-    </script>
+      var wa = document.createElement('script');
+      wa.type = 'text/javascript';
+      wa.async = true;
+      wa.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://cdn') + '.luckyorange.com/w.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(wa, s);
+    })();
+  </script>
 {/if}
 
 <div class="footer_menu">
@@ -111,7 +119,7 @@ window.__wtw_lucky_site_id = 32662;
 <script type='text/javascript'>
 // The ClickTale Balkan Tracking Code may be programmatically customized using hooks:
 //
- function ClickTalePreRecordingHook() {
+function ClickTalePreRecordingHook() {
 window.ClickTaleFetchFrom = document.location.href;
 window.ClickTaleFetchFrom+="#CTFetchUserAgent=VisitorUserAgent";
 }
@@ -129,4 +137,5 @@ document.write(unescape("%3Cscript%20src='"+
 *}
 
 </body>
+
 </html>

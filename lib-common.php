@@ -92,3 +92,6 @@ Zend_Controller_Front::getInstance()
     ->setParam('noViewRenderer', TRUE)
     ->dispatch();
 */
+
+// 定数設定
+define('BID_USER_START_DATE', "2022-11-01 00:00:00");

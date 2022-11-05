@@ -92,11 +92,11 @@
       <input type="text" class="keyword_search" name="k" value="{$q.keyword}" placeholder="キーワード検索">
       <br />
       登録日{html_select_date prefix='start' field_order='YMD' time=$q.start_date
-      year_empty='年' month_empty='月' day_empty='日' month_format='%m'
-      start_year='2012' reverse_years=true field_separator=" / "} ～
+          year_empty='年' month_empty='月' day_empty='日' month_format='%m'
+          start_year='2012' reverse_years=true field_separator=" / "} ～
       {html_select_date prefix='end' field_order='YMD' time=$q.end_date
-      year_empty='年' month_empty='月' day_empty='日' month_format='%m'
-      start_year='2012' reverse_years=true field_separator=" / "}
+          year_empty='年' month_empty='月' day_empty='日' month_format='%m'
+          start_year='2012' reverse_years=true field_separator=" / "}
 
 
       <button type="submit" class="company_list_submit">検索</button>

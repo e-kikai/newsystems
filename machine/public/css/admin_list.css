@@ -3,7 +3,7 @@
 /*** CSVテーブル ***/
 table.list {
   width: 100%;
-  margin: 8px auto;
+  margin: 0 auto;
 }
 
 table.list td,
@@ -57,12 +57,17 @@ table.list .b2m {
   text-align: center;
 }
 
-table.list td.bid_machine_id {
-  font-size: 16px;
+table.list .list_no {
+  width: 60px;
+  text-align: center;
+}
+
+table.list td.list_no {
+  font-size: 19px;
 }
 
 table.list .name {
-  width: 120px;
+  width: 180px;
 }
 
 table.list .genre,
@@ -90,6 +95,7 @@ table.list .check {
 table.list .img {
   width: 60px;
   padding: 0;
+  text-align: center;
 }
 
 /* table.list .img img {
@@ -127,6 +133,25 @@ img.thumbnail {
   max-height: 60px;
 }
 
+/* ボタンデフォルトをリセット */
+.center_container button {
+  box-shadow: none;
+  text-shadow: none;
+  color: #000;
+  background: #0dcaf0;
+  border-color: #0dcaf0;
+  width: auto;
+}
+
+.center_container button:hover {
+  color: #000;
+  background: #31d2f2;
+  border-color: #25cff2;
+}
+
+.center_container button:active {
+  top: auto;
+}
 /*** 検索エリア ***/
 #company_list_form {
   display: inline-block;
@@ -144,12 +169,6 @@ select.maker {
 
 input.keyword_search {
   width: 150px;
-}
-
-button.delete {
-  width: 64px;
-  text-align: center;
-  padding: 2px;
 }
 
 fieldset.search {
@@ -327,10 +346,10 @@ table.list td.blank {
 
 div.table_area {
   width: 100%;
-  height: 400px;
   overflow: scroll;
-  border: 1px solid;
+  border: 1px solid #777;
   margin-bottom: 6px;
+  height: calc(100vh - 240px);
 }
 
 table.list th.sepa,
@@ -345,13 +364,28 @@ table.list td.sepa2 {
 }
 
 /* 削除ボタン */
-th.delete,
-td.delete {
-  width: 54px;
+table.list th.delete,
+table.list td.delete {
+  width: 46px;
+  text-align: center;
 }
 
 button.delete {
   width: 50px;
+  font-size: 11px;
+  height: 19px;
+  line-height: 15px;
+  text-align: center;
+  background: #dc3545;
+  border-color: #dc3545;
+  box-shadow: none;
+  text-shadow: none;
+  color: #fff;
+}
+
+button.delete:hover {
+  background: #bb2d3b;
+  border-color: #b02a37;
 }
 
 /*** 会員ランク ***/
@@ -365,4 +399,68 @@ th.rank {
 }
 .rank-100 {
   color: blue;
+}
+
+table.list .company {
+  width: 80px;
+}
+
+table.list th.cancel,
+table.list td.cancel {
+  width: 80px;
+}
+
+table.list td.cancel {
+  text-align: center;
+}
+
+a.cancel,
+button.cancel {
+  font-size: 11px;
+  height: 17px;
+  line-height: 17px;
+  text-align: center;
+  background: #f0ad4e;
+  border: #eea236;
+  color: #333;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+a.cancel:hover,
+button.cancel:hover {
+  background-color: #ffca2c;
+  border-color: #ffc720;
+}
+
+button.cancel_delete {
+  font-size: 11px;
+  height: 19px;
+  line-height: 15px;
+}
+
+table.list tr.canceled td {
+  background: pink;
+}
+
+table.list th.location,
+table.list td.location {
+  width: 80px;
+}
+
+table.list tr.deleted td {
+  background: #eee;
+  color: #777;
+}
+
+/*** お問い合わせテーブル ***/
+table.list .target {
+  width: 150px;
+}
+
+table.list.contacts .mail {
+  width: 180px;
+}
+table.list.contacts .created_at {
+  width: 150px;
 }

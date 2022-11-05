@@ -5,7 +5,7 @@ $(function() {
     //// 印刷ボタン ////
     $('<button class="print"><img src="./imgs/print_icon3.png" />ページを印刷する</button>')
         .appendTo('header');
-    
+
     $('button.print').click(function() {
         $('img.lazy').each(function() {
             $(this).attr('src', $(this).data('original'));
@@ -14,7 +14,7 @@ $(function() {
         // _gaq.push(['_trackEvent', 'common', 'print', 'button', 1, true]);
         ga('send', 'event', 'common', 'print', 'button', 1, true);
     });
-    
+
     // foe IE
     document.body.onbeforeprint = function() {
         $('img.lazy').each(function() {

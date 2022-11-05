@@ -5,7 +5,7 @@
 <script type="text/javascript">
   {literal}
     $(function() {
-      //// サムネイル画像の遅延読み込み（Lazyload） ////
+      /// サムネイル画像の遅延読み込み（Lazyload） ///
       $('img.lazy').css('display', 'block').lazyload({
         effect: "fadeIn",
         threshold: 200

@@ -509,24 +509,6 @@
   */
     </script>
     <style type="text/css">
-      div.uid {
-        width: 720px;
-        margin: 4px auto;
-        background: #FF7;
-        padding: 3px;
-      }
-
-      button.catalog_search {
-        width: 160px;
-      }
-
-      .catalog_area {
-        width: 240px;
-      }
-
-      button.machine_search {
-        width: 240px;
-      }
     </style>
   {/literal}
 {/block}
@@ -691,7 +673,7 @@
         <th>試運転</th>
         <td>
           {html_radios name='commission' options=['' => '不可', '1' => '可']
-         selected=$machine.commission separator=' '}
+            selected=$machine.commission separator=' '}
         </td>
       </tr>
 
@@ -718,10 +700,10 @@
           <input type="text" name="price" class="price number" value="{$machine.price}" placeholder="金額(数字で入力)" />円
           {*
       {html_radios name='price_tax' options=['' => '税込価格', '1' => '税抜']
-       selected=$machine.price_tax separator=' '}
+        selected=$machine.price_tax separator=' '}
       *}
           {html_options name='price_tax' options=['' => '仲間価格(税込価格)', '1' => '仲間価格(税抜き)', '2' => 'ユーザ価格(税込価格)', '3' => 'ユーザ価格(税抜き)']
-         selected=$machine.price_tax separator=' '}
+            selected=$machine.price_tax separator=' '}
         </td>
       </tr>
 
@@ -800,7 +782,7 @@
         <th>表示オプション</th>
         <td>
           {html_radios name='view_option' options=['' => '表示', '1' => '非表示', '2' => '商談中']
-         selected=$machine.view_option separator=' '}
+          selected=$machine.view_option separator=' '}
         </td>
       </tr>
 

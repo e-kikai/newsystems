@@ -132,9 +132,6 @@
       }
     </script>
     <style type="text/css">
-      table.form td .addr3 {
-        width: 210px;
-      }
     </style>
   {/literal}
 {/block}

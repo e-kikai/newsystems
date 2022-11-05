@@ -1,7 +1,8 @@
 <?php
+
 /**
  * ヘルプページ共通
- * 
+ *
  * @access public
  * @author 川端洋平
  * @version 0.0.4
@@ -11,21 +12,21 @@ require_once '../../lib-machine.php';
 try {
     //// 認証処理 ////
     $user = Auth::isAuth('member');
-    
+
     $page = Req::query('p');
-    
+
     if ($page = 'linkbunner') {
         $template        = 'admin/help_linkbunner.tpl';
         $pageTitle       = 'リンクバナーについて';
-        $pageDescription = 'マシンライフ中古機械情報へのリンクを行う場合は、以下のリンクバナーをダウンロードしてお使いください';    
-    } else if (file_exsist($_smarty->template_dir . '/admin/help_' . $page. '.tpl')) {
-        $template = 'admin/help_' . $page. '.tpl';
+        $pageDescription = 'マシンライフ中古機械情報へのリンクを行う場合は、以下のリンクバナーをダウンロードしてお使いください';
+    } else if (file_exsist($_smarty->template_dir . '/admin/help_' . $page . '.tpl')) {
+        $template = 'admin/help_' . $page . '.tpl';
         $pageTitle       = 'ヘルプページ';
-        $pageDescription = 'マシンライフ会員ページのヘルプページです'; 
+        $pageDescription = 'マシンライフ会員ページのヘルプページです';
     } else {
         throw new Exception('指定されたページはありませんでした');
     }
-    
+
     //// 表示変数アサイン ////
     $_smarty->assign(array(
         'pageTitle'       => $pageTitle,
@@ -40,4 +41,3 @@ try {
         'errorMes'  => $e->getMessage()
     ))->display('error.tpl');
 }
-

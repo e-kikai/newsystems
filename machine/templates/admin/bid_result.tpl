@@ -2,49 +2,9 @@
 
 {block 'header'}
   <link href="{$_conf.site_uri}{$_conf.css_dir}admin_form.css" rel="stylesheet" type="text/css" />
-  <script type="text/javascript">
-    {literal}
-      $(function() {});
-    </script>
-    <style type="text/css">
-      table.result {
-        width: 360px;
-        margin-left: 80px;
-        float: left;
-      }
-
-      table.result td {
-        text-align: right;
-      }
-
-      dl.total {
-        width: 360px;
-        margin: 15px auto 15px 520px;
-      }
-
-      dl.total dt {
-        display: inline-block;
-        width: 176px;
-        text-align: left;
-
-        font-size: 15px;
-      }
-
-      dl.total dd {
-        display: inline-block;
-        width: 176px;
-        text-align: right;
-
-        font-size: 15px;
-      }
-
-      dl.total dt.result,
-      dl.total dd.result {
-        font-weight: bold;
-        margin-top: 15px;
-        border-top: 1px solid #333;
-      }
-    </style>
+  {literal}
+    <script type="text/javascript"></script>
+    <style type="text/css"></style>
   {/literal}
 {/block}
 

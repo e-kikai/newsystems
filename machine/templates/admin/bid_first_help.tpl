@@ -28,36 +28,6 @@
       });
     </script>
     <style type="text/css">
-      .first_area {
-        width: 740px;
-        padding: 16px;
-        border: 1px solid #333;
-        margin: 16px auto;
-      }
-
-      .first_area h2 {
-        margin: 16px 2px 3px 2px;
-        font-size: 15px;
-      }
-
-      .first_area ol li {
-        width: 680px;
-        margin: 4px auto;
-      }
-
-      .first_area p {
-        margin: 4px;
-      }
-
-      .first_area table td {
-        padding: 4px;
-      }
-
-      button.submit {
-        margin: 8px auto;
-        width: 350px;
-        height: 48px;
-      }
     </style>
   {/literal}
 {/block}

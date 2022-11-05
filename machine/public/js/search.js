@@ -38,12 +38,12 @@ function MachineList()
 
     // テンプレートコンパイル
     $.get('/js/tmpl/pager_tmpl.tpl', function(data) {
-       $.templates({pager_tmpl: data});
+        $.templates({pager_tmpl: data});
     });
     var cUri = $('input.curi').val();
 
     $.get('/js/tmpl/list_tmpl_02.tpl', function(data) {
-       $.templates({list_tmpl: data});
+        $.templates({list_tmpl: data});
     });
 
     // $.get('/js/tmpl/img_tmpl.tpl', function(data) {

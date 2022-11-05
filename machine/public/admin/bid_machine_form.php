@@ -1,7 +1,7 @@
 <?php
 /**
  * 入札会出品フォーム
- * 
+ *
  * @access  public
  * @author  川端洋平
  * @version 0.0.4
@@ -9,44 +9,44 @@
  */
 require_once '../../lib-machine.php';
 try {
-    //// 認証処理 ////
+    /// 認証処理 ///
     Auth::isAuth('member');
-    
-    //// 変数を取得 ////
+
+    /// 変数を取得 ///
     $machineId = Req::query('m');
     $bidOpenId = Req::query('o');
-    
+
     $baseMachineId = Req::query('machine_id');
-    
+
     if (empty($bidOpenId) && empty($machineId)) {
         throw new Exception('入札会情報、商品情報が取得出来ません');
     }
-    
-    //// 商品情報を取得 ////
+
+    /// 商品情報を取得 ///
     $boModel = new BidOpen();
     $bmModel = new BidMachine();
-    
+
     if (!empty($machineId)) {
         $machine = $bmModel->get($machineId);
-        
+
         // 入札会IDの取得
         $bidOpenId = $machine['bid_open_id'];
     } else if (empty($machineId) && !empty($baseMachineId)) {
-        // 在庫情報からの出品    
+        // 在庫情報からの出品
         $mModel = new Machine();
-        
+
         // 会社情報のチェック
         if (!$mModel->checkUser($baseMachineId, $_user['company_id'])) {
             throw new Exception("この在庫機械はあなたの在庫ではありません id:{$baseMachineId}");
         }
-        
+
         $machine = $mModel->get($baseMachineId);
         $machine['machine_id'] = $baseMachineId;
     } else {
         // 在庫場所の初期化のため、会社情報を取得
         $cModel = new Company();
         $company = $cModel->get($_user['company_id']);
-    
+
         // 新規作成デフォルトを設定
         $machine = array(
             'large_genre_id' => 1,
@@ -64,8 +64,8 @@ try {
             'lng'      => $company['lng'],
         );
     }
-    
-    //// 会社情報を取得 ////
+
+    /// 会社情報を取得 ///
     $cModel = new Company();
     $company = $cModel->get($_user['company_id']);
     if (empty($company)) { throw new Exception('会社情報が取得できませんでした'); }
@@ -73,7 +73,7 @@ try {
     if (!Companies::checkRank($company['rank'], 'B会員')) {
         throw new Exception('このページの表示権限がありません');
     }
-    
+
     // 出品期間のチェック
     $e = '';
     $bidOpen = $boModel->get($bidOpenId);
@@ -88,13 +88,13 @@ try {
         $e = '会社情報が取得出来ませんでした';
     }
     if (!empty($e)) { throw new Exception($e); }
-    
-    //// 商品出品登録チェック ////
+
+    /// 商品出品登録チェック ///
     if (empty($company['bid_entries'])) {
         header('Location: /admin/bid_entry_form.php?e=1');
         exit;
     }
-    
+
     // 選択用ジャンル一覧
     // $gModel = new Genre();
     // $largeGenreList = $gModel->getLargeList(Genre::HIDE_CATALOG);
@@ -104,8 +104,8 @@ try {
     // 選択用年号一覧
     $mModel = new Machine();
     $yearList = $mModel->makeYearList();
-    
-    //// 表示変数アサイン ////
+
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle'        => !empty($machineId) ? '入札会出品商品の変更' : '入札会出品商品 新規登録',
         'pageDescription'  => '入札会出品商品の' . (!empty($machineId) ? '変更' : '新規登録') . 'を行うフォームです。',
@@ -121,7 +121,7 @@ try {
         'yearList'       => $yearList,
     ))->display("admin/bid_machine_form.tpl");
 } catch (Exception $e) {
-    //// エラー画面表示 ////
+    /// エラー画面表示 ///
     $_smarty->assign(array(
         'pageTitle' => $machineId ? '在庫機械の変更' : '在庫機械 新規登録',
         'pankuzu'   => array(

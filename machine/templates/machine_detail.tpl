@@ -34,7 +34,7 @@
   {literal}
     <script type="text/javascript">
       $(function() {
-        //// マイリストに登録（機械：単一） ////
+        /// マイリストに登録（機械：単一） ///
         $('button.mylist').click(function() {
           mylist.set($(this).val(), 'machine');
         });

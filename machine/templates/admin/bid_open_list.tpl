@@ -5,11 +5,8 @@
   <link href="{$_conf.site_uri}{$_conf.css_dir}admin_list.css" rel="stylesheet" type="text/css" />
 
   {literal}
-    <script type="text/javascript">
-      $(function() {});
-    </script>
-    <style type="text/css">
-    </style>
+    <script type="text/javascript"></script>
+    <style type="text/css"></style>
   {/literal}
 {/block}
 
@@ -43,7 +40,10 @@
             {if Companies::checkRank($rank, 'B会員')}
               <a href="/admin/bid_machine_list.php?o={$b.id}">出品</a> |
             {/if}
-            <a href="/admin/bid_bid_list.php?o={$b.id}">入札</a>
+
+            {if $b.user_bid_date < $smarty.const.BID_USER_START_DATE}
+              <a href="/admin/bid_bid_list.php?o={$b.id}">入札</a>
+            {/if}
           {/if}
         </td>
         <td class='organizer'>{$b.organizer}</td>

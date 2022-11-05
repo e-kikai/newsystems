@@ -1,9 +1,10 @@
 @charset "utf-8";
+
 table.contact {
   width: 800px;
   border-collapse: collapse;
   margin: 10px auto;
-  border: 1px solid #CCC;
+  border: 1px solid #ccc;
 }
 
 div.terms {
@@ -12,21 +13,21 @@ div.terms {
 }
 
 table.contact th {
-  background: #FFF6E4;
+  background: #fff6e4;
   text-align: left;
   padding: 6px;
   vertical-align: middle;
-  border: 1px solid #CCC;
+  border: 1px solid #ccc;
   border-style: dotted solid;
   width: 200px;
 }
 
 table.contact td {
-  background: #EFEFEF;
+  background: #efefef;
   text-align: left;
   padding: 6px;
   vertical-align: middle;
-  border: 1px solid #CCC;
+  border: 1px solid #ccc;
   border-style: dotted solid;
   width: 600px;
 }
@@ -70,30 +71,42 @@ button.submit {
   display: block;
   margin: 10px auto;
   text-align: center;
-  background: #EA570F;
-  background: -webkit-gradient(linear, left top, left bottom, from(#ff8e66), to(#EA570F) );
-  background: -moz-linear-gradient(-90deg, #ff8e66, #EA570F);
-  background: -o-linear-gradient(-90deg, #ff8e66, #EA570F);
-  background: linear-gradient(to bottom, #ff8e66, #EA570F);
+  background: #ea570f;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#ff8e66),
+    to(#ea570f)
+  );
+  background: -moz-linear-gradient(-90deg, #ff8e66, #ea570f);
+  background: -o-linear-gradient(-90deg, #ff8e66, #ea570f);
+  background: linear-gradient(to bottom, #ff8e66, #ea570f);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ff8e66', endColorstr='#EA570F');
-  color: #FFF;
+  color: #fff;
   font-weight: normal;
   width: 272px;
   height: 25px;
-  border: 1px solid #EA570F;
+  border: 1px solid #ea570f;
 }
 
 button.submit:hover {
   background: #ff8e66;
-  background: -webkit-gradient(linear, left top, left bottom, from(#EA570F), to(#ff8e66) );
-  background: -moz-linear-gradient(-90deg, #EA570F, #ff8e66);
-  background: -o-linear-gradient(-90deg, #EA570F, #ff8e66);
-  background: linear-gradient(to bottom, #ff8e66, #EA570F);
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#ea570f),
+    to(#ff8e66)
+  );
+  background: -moz-linear-gradient(-90deg, #ea570f, #ff8e66);
+  background: -o-linear-gradient(-90deg, #ea570f, #ff8e66);
+  background: linear-gradient(to bottom, #ff8e66, #ea570f);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#EA570F', endColorstr='#ff8e66');
 }
 
 button.submit:active {
-  background: #EA570F;
+  background: #ea570f;
 }
 
 /*** seccode ***/
@@ -116,7 +129,7 @@ button.seccode_reflesh {
 .contact_area .tel,
 .contact_area .fax {
   width: 400px;
-  color : #C00;
+  color: #c00;
   font-size: 16px;
 }
 
@@ -125,11 +138,20 @@ button.seccode_reflesh {
   margin: 0 2px 0 8px;
   padding: 4px;
   border: 1px dotted #666;
-  background: #FFF;
+  background: #fff;
   width: 360px;
 }
 
 input.number {
   width: 112px;
   text-align: right;
+}
+
+input.mail {
+  margin-bottom: 8px;
+}
+
+input.mail_check_1,
+input.mail_check_2 {
+  width: 124px;
 }

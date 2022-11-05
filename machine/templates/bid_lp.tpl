@@ -4,7 +4,7 @@
   {literal}
     <script type="text/javascript">
       $(function() {
-        //// マイリスト登録 ////
+        /// マイリスト登録 ///
         $('a.mylist').click(function() {
           $('.preuser_form_area').dialog({
             show: "fade",
@@ -22,14 +22,14 @@
           return false;
         });
 
-        //// ユーザ登録処理 ////
+        /// ユーザ登録処理 ///
         $('button.preuser_submit').click(function() {
           var data = {
             'mail': $.trim($('input.mail').val()),
             'user_name': $.trim($('input.user_name').val()),
           };
 
-          //// 入力のチェック ////
+          /// 入力のチェック ///
           var e = '';
           if (data.mail == '') {
             e += "メールアドレスが入力されていません\n";
@@ -37,7 +37,7 @@
             e += "メールアドレスが間違っている可能性があります。\nもう一度お確かめください\n";
           }
 
-          //// エラー表示 ////
+          /// エラー表示 ///
           if (e != '') { alert(e); return false; }
 
           $('button.preuser_submit').attr('disabled', 'disabled').text('処理中、そのままお待ち下さい');

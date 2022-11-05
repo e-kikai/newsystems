@@ -10,7 +10,7 @@
 
   <script type="text/javascript">
     {literal}
-      //// 変数の初期化 ////
+      /// 変数の初期化 ///
       var makerList = [];
       var genreList = [];
       var officeList = [];
@@ -22,7 +22,7 @@
       var ncMakerList = ["ファナック", "メルダス", "トスナック", "OSP", "プロフェッショナル", "マザトロール"];
 
       $(function() {
-        //// ジャンル・メーカー・在庫場所一覧取得(初期化) ////
+        /// ジャンル・メーカー・在庫場所一覧取得(初期化) ///
         $.getJSON('../ajax/admin_genre.php',
           {"target": "machine", "action": "getFormLists", "data": ''},
           function(json) {
@@ -40,10 +40,24 @@
                 lng: val['lng']
               })
             });
-            locationList.push({ label: '現場(地図には非表示)', value: '現場', addr1: '', addr2: '', addr3: '', lat: '',
-              lng: '' });
-            locationList.push({ label: 'その他(地図に表示させる場合は、住所を入力してください)', value: '', addr1: '', addr2: '', addr3: '',
-              lat: '', lng: '' });
+            locationList.push({
+              label: '現場(地図には非表示)',
+              value: '現場',
+              addr1: '',
+              addr2: '',
+              addr3: '',
+              lat: '',
+              lng: ''
+            });
+            locationList.push({
+              label: 'その他(地図に表示させる場合は、住所を入力してください)',
+              value: '',
+              addr1: '',
+              addr2: '',
+              addr3: '',
+              lat: '',
+              lng: ''
+            });
 
             // フォームの初期化
             $('.large_genre_id').change();
@@ -64,7 +78,7 @@
           }
         );
 
-        //// ジャンル再編成 ////
+        /// ジャンル再編成 ///
         var currentLargeGenre = 0;
         $('select.large_genre_id').change(function() {
           var g = $('select.genre_id').val();
@@ -82,7 +96,7 @@
           $("select.genre_id").val(g).change();
         });
 
-        //// ジャンル変更：メーカー・能力一覧を再構成 ////
+        /// ジャンル変更：メーカー・能力一覧を再構成 ///
         $("select.genre_id").change(function() {
           var g = $(this).val();
 
@@ -108,7 +122,7 @@
             $(this).autocomplete('search');
           })
 
-          //// 能力の表示を変更 ////
+          /// 能力の表示を変更 ///
           if (genre) {
             // 主能力
             if (genre['capacity_label']) {
@@ -231,7 +245,7 @@
         });
         $(".genre_id").change();
 
-        //// 能力の変更による機械名の変更 ////
+        /// 能力の変更による機械名の変更 ///
         $('input.capacity').change(function() {
           var cap = $(this).val();
           var g = $('select.genre_id').val();
@@ -306,7 +320,7 @@
           }
         });
 
-        //// 営業所の緯度経度の取得 ////
+        /// 営業所の緯度経度の取得 ///
         // ジオコーディング
         gc = new google.maps.Geocoder();
 
@@ -335,13 +349,13 @@
         });
       });
 
-      //// 数値のみに自動整形 ////
+      /// 数値のみに自動整形 ///
       $('input.price, input.min_price').change(function() {
         var price = mb_convert_kana($(this).val(), 'KVrnm').replace(/[^0-9]/g, '');
         $(this).val(price ? parseInt(price) : '');
       });
 
-      //// ファイルが選択されたら、自動的にアップロード開始 ////
+      /// ファイルが選択されたら、自動的にアップロード開始 ///
       $('input.file').change(function() {
         $_self = $(this);
 
@@ -379,13 +393,13 @@
         return false;
       });
 
-      //// ファイルのドラッグアンドドロップをサポートのチェック・表示 ////
+      /// ファイルのドラッグアンドドロップをサポートのチェック・表示 ///
       if (window.File) {
         $('input.file').after('<span class="dd_message">⇐にドラッグ＆ドロップできます</span>')
       }
 
 
-      //// 処理 ////
+      /// 処理 ///
       $('button.submit').click(function() {
         var data = {
           'id': $.trim($('input.id').val()),
@@ -438,7 +452,7 @@
           }
         });
 
-        //// 入力のチェック ////
+        /// 入力のチェック ///
         var e = '';
         $('input[required]').each(function() {
           if ($(this).val() == '') {
@@ -456,7 +470,7 @@
           e += '最低入札金額が、入札レートの倍数ではありません\n';
         }
 
-        //// エラー表示 ////
+        /// エラー表示 ///
         if (e != '') { alert(e); return false; }
 
         // 送信確認
@@ -507,72 +521,25 @@
       <div class="img">
     <a href="/media/tmp/{{>filename}}" target="_blank"><img src="/media/tmp/{{>filename}}" /></a>
     <input name="top_img" class="top_img" type="hidden" value="{{>filename}}" />
-    </div>
-    </script>
+                                </div>
+                                </script>
 
     <script id="imgs_tmpl" type="text/x-jsrender">
       <div class="img">
     <label><input type="checkbox" name="imgs_delete[]" class="imgs_delete" value="{{>filename}}" />削除</label><br />
     <a href="/media/tmp/{{>filename}}" target="_blank"><img src="/media/tmp/{{>filename}}" /></a>
     <input name="imgs[]" class="imgs" type="hidden" value="{{>filename}}" />
-    </div>
-    </script>
+                                </div>
+                                </script>
 
     <script id="pdfs_tmpl" type="text/x-jsrender">
       <div class="pdf">
     <a href="/media/tmp/{{>filename}}" target="_blank">PDF</a>
     <input type="text" name="pdfs[{{>filename}}]" class="pdfs" value="{{>label}}" data-file="{{>filename}}" placeholder="ラベル" />
     <label><input name="pdfs_delete[]" class="pdfs_delete" type="checkbox" value="{{>filename}}" />削除</label>
-    </div>
-    </script>
+                                </div>
+                                </script>
     <style type="text/css">
-      /*** 新ファイルアップロード ***/
-      input.file {
-        width: 220px;
-      }
-
-      .dd_message {
-        padding: 4px;
-      }
-
-      table.form td input.highlight,
-      table.form td textarea.highlight {
-        background: #FFCCFF;
-      }
-
-      .seri_sepa {
-        position: absolute;
-        right: 304px;
-        top: 14px;
-      }
-
-      .seri_yen {
-        position: absolute;
-        right: 16px;
-        top: 14px;
-      }
-
-      table.form td input.is_seri {
-        position: absolute;
-        right: 272px;
-        top: 19px;
-      }
-
-      table.form td .seri_label {
-        position: absolute;
-        right: 176px;
-        top: 18px;
-      }
-
-      table.form td input.seri_price {
-        position: absolute;
-        right: 36px;
-        top: 13px;
-      }
-
-      table.form td input.seri_price:disabled {
-        background: #EEE;
-      }
     </style>
   {/literal}
 {/block}
@@ -754,7 +721,7 @@
         <th>試運転</th>
         <td>
           {html_radios name='commission' class='commission' options=['' => '不可', '1' => '可']
-         selected=$machine.commission separator=' '}
+                       selected=$machine.commission separator=' '}
         </td>
       </tr>
 

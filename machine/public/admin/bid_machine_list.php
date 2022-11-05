@@ -1,7 +1,8 @@
 <?php
+
 /**
  * 入札会出品商品一覧
- * 
+ *
  * @access  public
  * @author  川端洋平
  * @version 0.0.4
@@ -9,85 +10,91 @@
  */
 require_once '../../lib-machine.php';
 try {
-    //// 認証処理 ////
+    /// 認証処理 ///
     Auth::isAuth('member');
-    
-    //// 変数を取得 ////
+
+    /// 変数を取得 ///
     $bidOpenId = Req::query('o');
     $output    = Req::query('output');
-    
-    if (empty($bidOpenId)) { throw new Exception('入札会情報が取得出来ません'); }
-    
-    //// 入札会情報を取得 ////
+
+    if (empty($bidOpenId)) {
+        throw new Exception('入札会情報が取得出来ません');
+    }
+
+    /// 入札会情報を取得 ///
     $boModel = new BidOpen();
     $bidOpen = $boModel->get($bidOpenId);
-    
-    //// 会社情報を取得 ////
+
+    /// 会社情報を取得 ///
     $cModel = new Company();
     $company = $cModel->get($_user['company_id']);
-    if (empty($company)) { throw new Exception('会社情報が取得できませんでした'); }
+    if (empty($company)) {
+        throw new Exception('会社情報が取得できませんでした');
+    }
 
     if (!Companies::checkRank($company['rank'], 'B会員')) {
         throw new Exception('このページの表示権限がありません');
     }
-    
+
     // 出品期間のチェック
     $e = '';
     if (empty($bidOpen)) {
         $e = '入札会情報が取得出来ませんでした';
     } else if (!in_array($bidOpen['status'], array('entry', 'margin', 'bid', 'carryout', 'after'))) {
         $e = $bidOpen['title'] . " は、現在「出品期間」ではありません\n";
-        $e.= "出品期間 : " . date('Y/m/d H:i', strtotime($bidOpen['entry_start_date'])) . " ～ " . date('m/d H:i', strtotime($bidOpen['entry_end_date']));
+        $e .= "出品期間 : " . date('Y/m/d H:i', strtotime($bidOpen['entry_start_date'])) . " ～ " . date('m/d H:i', strtotime($bidOpen['entry_end_date']));
     } else if (empty($company)) {
         $e = '会社情報が取得出来ませんでした';
     }
-    if (!empty($e)) { throw new Exception($e); }
-    
-    //// 商品出品登録チェック ////
+    if (!empty($e)) {
+        throw new Exception($e);
+    }
+
+    /// 商品出品登録チェック ///
     if (empty($company['bid_entries'])) {
         header('Location: /admin/bid_entry_form.php?e=1');
         exit;
     }
-    
-    //// 出品商品情報一覧を取得 ////
+
+    /// 出品商品情報一覧を取得 ///
     $bmModel = new BidMachine();
     $bidMachineList = $bmModel->getList(array('bid_open_id' => $bidOpenId, 'company_id' => $_user['company_id']));
-    
-    //// 落札結果を取得 ////
+
+    /// 落札結果を取得 ///
     if (in_array($bidOpen['status'], array('carryout', 'after'))) {
         $resultListAsKey = $bmModel->getResultListAsKey($bidOpenId);
-        
+
         $sum = 0;
-        foreach($bidMachineList as $key => $m) {
+        foreach ($bidMachineList as $key => $m) {
             if (!empty($resultListAsKey[$m['id']]['amount'])) {
                 $r = $resultListAsKey[$m['id']];
-                
+
                 // 落札結果の格納
                 $m['res_company']    = $r['company'];
                 $m['res_company_id'] = $r['company_id'];
                 $m['res_amount']     = $r['amount'];
-                                
+
                 // デメ半
-                $m['demeh'] = ($m['res_amount'] - $m['min_price']) * $bidOpen['deme']/100;
-                
+                $m['demeh'] = ($m['res_amount'] - $m['min_price']) * $bidOpen['deme'] / 100;
+
                 // 事務局手数料・落札者手数料
                 $m += $bmModel->makeFee($m['min_price']);
-                
+
                 // 支払額
                 $m['payment'] = $m['min_price'] + $m['demeh'] - $m['jFee'] - $m['rFee'];
                 $sum += $m['payment'];
             }
             $bidMachineList[$key] = $m;
         }
-        
-        //// 消費税の計算 ////
+
+        /// 消費税の計算 ///
         $tax      = floor($sum * $bidOpen['tax'] / 100);
         $finalSum = $sum + $tax;
 
         $_smarty->assign(array(
             'pageTitle'       => $bidOpen['title'] . ' : 出品商品 個別計算表',
             'pageDescription' => "入札会出品商品の落札結果個別計算表です。落札されなかった商品は、「在庫に登録」から中古機械在庫に再利用できます。",
-            
+
             'sum'      => $sum,
             'tax'      => $tax,
             'finalSum' => $finalSum,
@@ -98,9 +105,9 @@ try {
             'pageDescription' => '自社の出品商品一覧',
         ));
     }
-    
+
     if ($output == 'csv') {
-        //// CSVに出力する ////
+        /// CSVに出力する ///
         if (in_array($bidOpen['status'], array('carryout', 'after'))) {
             $filename = $bidOpenId . '_bid_machine_list_02.csv';
             $header   = array(
@@ -139,21 +146,21 @@ try {
         B::downloadCsvFile($header, $bidMachineList, $filename);
         exit;
     } else if ($output == 'pdf') {
-        //// PDF出力準備 ////
+        /// PDF出力準備 ///
         $filename = $bidOpenId . '_sagefuda.pdf';
-        
+
         require_once('fpdf/MBfpdi.php'); //PDF
         $pdf = new Pdf();
         $res = $pdf->makeSagefuda($bidOpen['title'], $bidMachineList);
-        
-        //// ファイルのダウンロード処理 ////
+
+        /// ファイルのダウンロード処理 ///
         header("Content-type: application/pdf");
         header('Content-Disposition: inline; filename="' . $filename . '"');
         echo $res;
         exit;
     }
-    
-    //// 表示変数アサイン ////
+
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'pankuzu'        => array(
             '/admin/' => '会員ページ',
@@ -164,7 +171,7 @@ try {
         'rank'           => $company['rank'],
     ))->display("admin/bid_machine_list.tpl");
 } catch (Exception $e) {
-    //// エラー画面表示 ////
+    /// エラー画面表示 ///
     $_smarty->assign(array(
         'pageTitle' => '出品商品一覧',
         'pankuzu'   => array(

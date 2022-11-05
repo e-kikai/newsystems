@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ファイルアップロード処理(新版)
  *
@@ -7,10 +8,10 @@
  * @version 0.0.1
  * @since 2013/05/21
  */
-//// 設定ファイル読み込み ////
+/// 設定ファイル読み込み ///
 require_once '../../../lib-machine.php';
 try {
-    //// 認証 ////
+    /// 認証 ///
     Auth::isAuth('machine');
 
     $action = Req::post('action');
@@ -30,7 +31,7 @@ try {
             'mail'       => $data['mail'],
         );
 
-        /// 画像ファイルを実ディレクトリに移動 ////
+        /// 画像ファイルを実ディレクトリに移動 ///
         $f = new File();
         $imgs       = !empty($data['imgs']) ? (array)$data['imgs'] : array();
         $imgsDelete = !empty($data['imgs_delete']) ? (array)$data['imgs_delete'] : array();
@@ -44,12 +45,15 @@ try {
 
         $uModel->set($id, $q);
     } else if ($action == "set_end_date") {
-        if (empty($data['id'])) { throw new Exception('売り買い情報がありません'); }
+        if (empty($data['id'])) {
+            throw new Exception('売り買い情報がありません');
+        }
         $uModel->set_end_date($data['id']);
     } else if ($action == "unset_end_date") {
-        if (empty($data['id'])) { throw new Exception('売り買い情報がありません'); }
+        if (empty($data['id'])) {
+            throw new Exception('売り買い情報がありません');
+        }
         $uModel->unset_end_date($data['id']);
-
     } else if ($action == "delete") {
         $uModel->deleteById($data);
     } else {

@@ -1,24 +1,25 @@
 @charset "utf-8";
+
 /*** common ***/
 html {
-  overflow-y : scroll;
+  overflow-y: scroll;
 }
 
 img {
-  border : 0;
+  border: 0;
 }
 
 body {
-  margin : 0;
-  color : #333333;
-  background : #D9EBCF;
-  font-size : 13px;
-  line-height : 1.4;
+  margin: 0;
+  color: #333333;
+  background: #d9ebcf;
+  font-size: 13px;
+  line-height: 1.4;
   -webkit-text-size-adjust: 100%;
 }
 
 table {
-  table-layout : fixed;
+  table-layout: fixed;
 }
 
 a {
@@ -28,13 +29,13 @@ a {
 a,
 a:visited,
 a:active {
-  color : #076AB6;
-  text-decoration : underline;
+  color: #076ab6;
+  text-decoration: underline;
 }
 
 a:hover {
-  color: #F60;
-  text-decoration : underline;
+  color: #f60;
+  text-decoration: underline;
 }
 
 a:hover img {
@@ -52,18 +53,18 @@ a.zoom:hover img {
 }
 
 strong {
-  font-weight : bold;
+  font-weight: bold;
 }
 
 h1 {
-  border-left : 6px solid #147543;
-  width : 964px;
-  margin : 0 auto 6px auto;
-  height : 20px;
-  line-height : 20px;
-  font-size : 18px;
-  font-weight : bold;
-  text-indent : 13px;
+  border-left: 6px solid #147543;
+  width: 964px;
+  margin: 0 auto 6px auto;
+  height: 20px;
+  line-height: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  text-indent: 13px;
 }
 
 /*
@@ -77,7 +78,7 @@ h2 {
 */
 
 h2 {
-  border: 1px solid #CCC;
+  border: 1px solid #ccc;
   /*
   border-width: 1px 1px 2px 2px;
   */
@@ -91,11 +92,17 @@ h2 {
 
   position: relative;
 
-  background: #F4F4F4;
-  background: -webkit-gradient(linear, left top, left bottom, from(#F4F4F4), to(#CCC) );
-  background: -moz-linear-gradient(-90deg, #F4F4F4, #CCC);
-  background: -o-linear-gradient(-90deg, #F4F4F4, #CCC);
-  background: linear-gradient(to bottom, #F4F4F4, #CCC);
+  background: #f4f4f4;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#f4f4f4),
+    to(#ccc)
+  );
+  background: -moz-linear-gradient(-90deg, #f4f4f4, #ccc);
+  background: -o-linear-gradient(-90deg, #f4f4f4, #ccc);
+  background: linear-gradient(to bottom, #f4f4f4, #ccc);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#F4F4F4', endColorstr='#CCCCCC');
 }
 
@@ -117,7 +124,7 @@ h3 {
   border-width: 0 0 0 4px;
   text-indent: 8px;
   margin: 6px 0 2px 0;
-  background: #EEE;
+  background: #eee;
   padding: 3px 0;
   width: 100%;
 }
@@ -129,21 +136,21 @@ label {
 }
 
 .pankuzu {
-  width : 942px;
-  margin : 0 auto 10px auto;
+  width: 942px;
+  margin: 0 auto 10px auto;
 
   width: 964px;
   margin: 4px auto;
   padding: 4px;
-  background: #CFC;
+  background: #cfc;
 }
 
 .placeholder {
-  color : #AAA;
+  color: #aaa;
 }
 
 .clear {
-  clear : both;
+  clear: both;
 }
 
 input:not([type]),
@@ -163,9 +170,9 @@ input[type="week"],
 input[type="search"] {
   border: 1px solid #999;
   padding: 3px 6px;
-  background: #FFF;
+  background: #fff;
   border-radius: 4px;
-  box-shadow: 0 2px 3px rgba(0,0,0,0.1) inset;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1) inset;
 }
 
 input[type="search"] {
@@ -184,10 +191,10 @@ textarea {
   height: 80px;
   border: 1px solid #999;
   padding: 5px 10px;
-  background: #FFF;
+  background: #fff;
 
   border-radius: 4px;
-  box-shadow:  0 2px 3px rgba(0,0,0,0.1) inset;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1) inset;
 }
 
 /* フォント設定 */
@@ -197,10 +204,10 @@ select,
 button,
 textarea,
 .ui-widget {
-  font-family: 'メイリオ', Meiryo, 'Lucida Grande', Verdana, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro';
+  font-family: "メイリオ", Meiryo, "Lucida Grande", Verdana,
+    "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro";
   font-size: 13px;
 }
-
 
 input:focus,
 textarea:focus {
@@ -209,10 +216,14 @@ textarea:focus {
 
 a.contact,
 a.back_button,
+a.button,
 button {
   display: inline-block;
-  #display: inline;  /* for IE6,7 */
-  #zoom: 1;          /* for IE6,7 */
+  /* for IE6,7 */
+  /*
+  #display: inline;
+  #zoom: 1;
+  */
   position: relative;
 
   margin: auto;
@@ -222,17 +233,23 @@ button {
   color: #fff;
   border: 1px solid #4477a1;
 
-  text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
 
-  box-shadow: 1px 1px 0.2em rgba(0,0,0,0.4);
-  -moz-box-shadow: 1px 1px 0.2em rgba(0,0,0,0.4);
-  -webkit-box-shadow: 1px 1px 0.2em rgba(0,0,0,0.4);
+  -moz-box-shadow: 1px 1px 0.2em rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 1px 1px 0.2em rgba(0, 0, 0, 0.4);
+  box-shadow: 1px 1px 0.2em rgba(0, 0, 0, 0.4);
 
   -moz-border-radius: 0.3em;
   border-radius: 0.3em;
 
   background: #4477a1;
-  background: -webkit-gradient(linear, left top, left bottom, from(#81a8cb), to(#4477a1) );
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#81a8cb),
+    to(#4477a1)
+  );
   background: -moz-linear-gradient(-90deg, #81a8cb, #4477a1);
   background: -o-linear-gradient(-90deg, #81a8cb, #4477a1);
   background: linear-gradient(to bottom, #81a8cb, #4477a1);
@@ -243,12 +260,18 @@ a.contact:hover,
 a.back_button:hover,
 button:hover {
   background: #81a8cb;
-  background: -webkit-gradient(linear, left top, left bottom, from(#4477a1), to(#81a8cb) );
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#4477a1),
+    to(#81a8cb)
+  );
   background: -moz-linear-gradient(-90deg, #4477a1, #81a8cb);
   background: -o-linear-gradient(-90deg, #4477a1, #81a8cb);
   background: linear-gradient(to bottom, #4477a1, #81a8cb);
 
-  filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4477a1', endColorstr='#81a8cb');
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4477a1', endColorstr='#81a8cb');
 }
 
 a.contact:active,
@@ -256,75 +279,102 @@ a.back_button:active,
 button:active {
   top: 1px;
   background: #4477a1;
-  box-shadow: 1px 1px 0.1em rgba(0,0,0,0.4);
-  -moz-box-shadow: 1px 1px 0.1em rgba(0,0,0,0.4);
-  -webkit-box-shadow: 1px 1px 0.1em rgba(0,0,0,0.4);
+  box-shadow: 1px 1px 0.1em rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 1px 1px 0.1em rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 1px 1px 0.1em rgba(0, 0, 0, 0.4);
 }
-
 
 /* 問い合わせ */
 a.contact {
   display: inline-block;
-  #display: inline;  /* for IE6,7 */
-  #zoom: 1;          /* for IE6,7 */
+  /* for IE6,7 */
+  /*
+  #display: inline;
+  #zoom: 1;
+  */
+
   position: relative;
   margin: auto;
   text-decoration: none;
   text-align: center;
-  background: #EA570F;
-  background: -webkit-gradient(linear, left top, left bottom, from(#ff8e66), to(#EA570F) );
-  background: -moz-linear-gradient(-90deg, #ff8e66, #EA570F);
-  background: -o-linear-gradient(-90deg, #ff8e66, #EA570F);
-  background: linear-gradient(to bottom, #ff8e66, #EA570F);
+  background: #ea570f;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#ff8e66),
+    to(#ea570f)
+  );
+  background: -moz-linear-gradient(-90deg, #ff8e66, #ea570f);
+  background: -o-linear-gradient(-90deg, #ff8e66, #ea570f);
+  background: linear-gradient(to bottom, #ff8e66, #ea570f);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ff8e66', endColorstr='#EA570F');
-  color: #FFF;
+  color: #fff;
   font-weight: normal;
   width: 80px;
   padding: 0;
   height: 23px;
   line-height: 23px;
-  border: 1px solid #EA570F;
+  border: 1px solid #ea570f;
 }
 
 a.contact:hover {
   background: #ff8e66;
-  background: -webkit-gradient(linear, left top, left bottom, from(#EA570F), to(#ff8e66) );
-  background: -moz-linear-gradient(-90deg, #EA570F, #ff8e66);
-  background: -o-linear-gradient(-90deg, #EA570F, #ff8e66);
-  background: linear-gradient(to bottom, #EA570F, #ff8e66);
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#ea570f),
+    to(#ff8e66)
+  );
+  background: -moz-linear-gradient(-90deg, #ea570f, #ff8e66);
+  background: -o-linear-gradient(-90deg, #ea570f, #ff8e66);
+  background: linear-gradient(to bottom, #ea570f, #ff8e66);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#EA570F', endColorstr='#ff8e66');
 }
 
 a.contact:active {
-  background: #EA570F;
+  background: #ea570f;
 }
 
 /* 削除ボタン */
 button.delete {
-  background: #A00;
-  background: -webkit-gradient(linear, left top, left bottom, from(#FF7060), to(#FF2020) );
-  background: -moz-linear-gradient(-90deg, #FF7060, #FF2020);
-  background: -o-linear-gradient(-90deg, #FF7060, #FF2020);
-  background: linear-gradient(to bottom, #FF7060, #FF2020);
-  box-shadow: 1px 1px 0.2em rgba(0,0,0,0.4);
-  -moz-box-shadow: 1px 1px 0.2em rgba(0,0,0,0.4);
-  -webkit-box-shadow: 1px 1px 0.2em rgba(0,0,0,0.4);
+  background: #a00;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#ff7060),
+    to(#ff2020)
+  );
+  background: -moz-linear-gradient(-90deg, #ff7060, #ff2020);
+  background: -o-linear-gradient(-90deg, #ff7060, #ff2020);
+  background: linear-gradient(to bottom, #ff7060, #ff2020);
+  box-shadow: 1px 1px 0.2em rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 1px 1px 0.2em rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 1px 1px 0.2em rgba(0, 0, 0, 0.4);
 
-  border-color: #FF2020;
+  border-color: #ff2020;
 }
 
 button.delete:hover {
-  background: #A00;
-  background: -webkit-gradient(linear, left top, left bottom, from(#FF2020), to(#FF7060) );
-  background: -moz-linear-gradient(-90deg, #FF2020, #FF7060);
-  background: linear-gradient(to bottom, #FF2020, #FF7060);
+  background: #a00;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#ff2020),
+    to(#ff7060)
+  );
+  background: -moz-linear-gradient(-90deg, #ff2020, #ff7060);
+  background: linear-gradient(to bottom, #ff2020, #ff7060);
 }
 
 button.delete:active {
-  background: #FF2020;
+  background: #ff2020;
 }
 
-::-moz-selection{
+::-moz-selection {
   background: #1e90ff;
 }
 
@@ -334,19 +384,19 @@ button.delete:active {
 
 /*** container ***/
 .main_container {
-  width : 980px;
-  background : #FFFFFF;
-  margin : 0 auto;
+  width: 980px;
+  background: #ffffff;
+  margin: 0 auto;
 }
 
 /*** ヘッダ ***/
 body {
-   /* background-image: url('../../imgs/background.png'); */
-  background-image: url('../../imgs/background_blue.png');
+  /* background-image: url('../../imgs/background.png'); */
+  background-image: url("../../imgs/background_blue.png");
   background-repeat: repeat-x;
   background-position: 0 96px;
 
-  background-color: #FFF;
+  background-color: #fff;
 }
 
 body.mini {
@@ -354,10 +404,10 @@ body.mini {
 }
 
 header {
-  position : relative;
-  margin : auto;
-  width : 100%;
-  height : 96px;
+  position: relative;
+  margin: auto;
+  width: 100%;
+  height: 96px;
 }
 
 .description {
@@ -366,30 +416,30 @@ header {
 }
 
 .header_mypage {
-  position : relative;
-  width : 100%;
-  height : 28px;
-  margin : 0 0 15px 0;
-  background : #29866B;
-  font-size : 14px;
-  color : #FFFFFF;
-  z-index : 200;
+  position: relative;
+  width: 100%;
+  height: 28px;
+  margin: 0 0 15px 0;
+  background: #29866b;
+  font-size: 14px;
+  color: #ffffff;
+  z-index: 200;
 }
 
 .header_mypage span {
-  display : block;
-  position : absolute;
-  height : 20px;
-  line-height : 20px;
-  top : 4px;
-  right : 150px;
+  display: block;
+  position: absolute;
+  height: 20px;
+  line-height: 20px;
+  top: 4px;
+  right: 150px;
 }
 
 a.header_title {
-  display : block;
-  position : absolute;
-  top : 12px;
-  left : 24px;
+  display: block;
+  position: absolute;
+  top: 12px;
+  left: 24px;
 }
 
 header .keyword {
@@ -397,7 +447,7 @@ header .keyword {
   bottom: 4px;
   left: 360px;
   border: 1px dotted #666;
-  background: #EEE;
+  background: #eee;
   padding: 0 8px;
   height: 36px;
   line-height: 32px;
@@ -449,15 +499,15 @@ span.count {
 
 /*** ヘッダメニュー ***/
 .header_menu {
-  display : block;
+  display: block;
   position: relative;
   /* background: #111; */
   width: 100%;
-  color: #FFF;
+  color: #fff;
   height: 30px;
-  border: 1px solid #AAA;
+  border: 1px solid #aaa;
   border-width: 0 1px 1px 0;
-  background: #27367B;
+  background: #27367b;
 }
 
 .header_menu a,
@@ -465,8 +515,8 @@ span.count {
   display: block;
   float: left;
   width: 151px;
-  border-left: 1px solid #AAA;
-  color: #FFF;
+  border-left: 1px solid #aaa;
+  color: #fff;
   font-size: 14px;
   line-height: 30px;
   text-align: center;
@@ -491,17 +541,17 @@ span.count {
 
 .header_menu .submenu ul a {
   display: list-item;
-  border: 1px solid #AAA;
+  border: 1px solid #aaa;
   background: #555;
-  color: #FFF;
+  color: #fff;
   border-width: 0 0 1px 0;
   text-align: left;
   padding-left: 8px;
 }
 
 .header_menu a:hover,
-.header_menu .submenu ul a:hover  {
-  color: #F60;
+.header_menu .submenu ul a:hover {
+  color: #f60;
 }
 
 .header_menu a img.even {
@@ -558,7 +608,7 @@ ul.textresizer a {
   padding: 2px 3px;
   font-weight: bold;
   text-decoration: none;
-  background: #FFF;
+  background: #fff;
   vertical-align: bottom;
 }
 
@@ -584,8 +634,8 @@ ul.textresizer .larger-text {
 }
 
 ul.textresizer a.textresizer-active {
-  border: solid 1px #2B562B;
-  background: #FFCA6F;
+  border: solid 1px #2b562b;
+  background: #ffca6f;
   color: #000000;
 }
 
@@ -635,30 +685,30 @@ header.mini #textsizer {
 
 /*** メッセージ枠 ***/
 .message {
-  width : 700px;
-  padding : 10px 16px;
-  margin : 16px auto;
-  border : 1px dotted #88F;
-  background : #EEF;
+  width: 700px;
+  padding: 10px 16px;
+  margin: 16px auto;
+  border: 1px dotted #88f;
+  background: #eef;
 
-  color : #33F;
-  font-weight : bold;
+  color: #33f;
+  font-weight: bold;
 }
 
 .error_mes {
-  width : 700px;
-  padding : 10px 16px;
-  margin : 16px auto;
-  border : 1px dotted #F88;
-  background : #FEE;
-  color : #F33;
-  font-weight : bold;
+  width: 700px;
+  padding: 10px 16px;
+  margin: 16px auto;
+  border: 1px dotted #f88;
+  background: #fee;
+  color: #f33;
+  font-weight: bold;
 }
 
 /*** ジャンルメニュー ***/
 .genre_menu {
   background: #333;
-  color: #FFF;
+  color: #fff;
   padding: 4px;
   margin: 4px auto;
 }
@@ -688,25 +738,25 @@ header.mini #textsizer {
 }
 
 .genre_list .genre_list_cell {
-  width : 25%;
+  width: 25%;
 }
 
 .genre_list .genre_list_cell .genre:hover {
-  color: #F60;
+  color: #f60;
 }
 
 .genre_list .genre {
-  display : inline-block;
-  font-size : 14px;
-  width : 100%;
-  height : 26px;
-  line-height : 26px;
-  vertical-align : top;
+  display: inline-block;
+  font-size: 14px;
+  width: 100%;
+  height: 26px;
+  line-height: 26px;
+  vertical-align: top;
   overflow: hidden;
 }
 
 .genre_list .genre.other {
-  border-bottom: 1px dotted #FFF;
+  border-bottom: 1px dotted #fff;
 }
 
 .genre_list .genre input {
@@ -714,29 +764,29 @@ header.mini #textsizer {
 }
 
 .genre_list .genre label {
-  padding-left : 4px;
+  padding-left: 4px;
 }
 
 /**************/
 .center_container {
-  width : 964px;
-  margin : 0 auto;
+  width: 964px;
+  margin: 0 auto;
   position: relative;
 }
 
 .center_container button {
-  width : 196px;
-  height : 25px;
-  vertical-align : middle;
-  color : #FFFFFF;
-  text-align : center;
-  font-size : 14px;
-  cursor : pointer;
+  width: 196px;
+  height: 25px;
+  vertical-align: middle;
+  color: #ffffff;
+  text-align: center;
+  font-size: 14px;
+  cursor: pointer;
   /*
   font-weight : bold;
   */
-  padding : 1px 6px;
-  line-height : normal;
+  padding: 1px 6px;
+  line-height: normal;
 }
 
 /*** 表示切り替えタブ ***/
@@ -748,36 +798,39 @@ header.mini #textsizer {
 }
 
 .machine_tab a {
-  display : inline-block;
-  #display : inline;  /* for IE6,7 */
-  #zoom : 1;          /* for IE6,7 */
+  display: inline-block;
+  /* for IE6,7 */
+  /*
+  #display: inline;
+  #zoom: 1;
+  */
 
-  background : #DDD;
+  background: #ddd;
   margin: 0 0 0 4px;
-  border: 1px solid #BBB;
-  border-bottom : 0;
+  border: 1px solid #bbb;
+  border-bottom: 0;
   width: 136px;
   height: 22px;
   line-height: 24px;
   font-size: 15px;
-  text-align : center;
-  color : #333;
-  text-decoration : none;
+  text-align: center;
+  color: #333;
+  text-decoration: none;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
-  bottom : 0;
-  right : 0;
+  bottom: 0;
+  right: 0;
 }
 
 .machine_tab a:hover {
-  background : RGB(227,249,204);
+  background: RGB(227, 249, 204);
 }
 
 .machine_tab a.selected {
-  border : 2px solid #147543;
-  border-bottom : 0;
+  border: 2px solid #147543;
+  border-bottom: 0;
 
-  background : #147543;
-  color : #FFF;
+  background: #147543;
+  color: #fff;
 }
 
 /*** フッタ ***/
@@ -785,7 +838,7 @@ footer {
   margin-top: 0;
   width: 100%;
   height: 30px;
-  line-height : 30px;
+  line-height: 30px;
   text-align: center;
 
   /*
@@ -800,12 +853,12 @@ footer {
   */
 
   background: #111;
-  color: #FFF;
+  color: #fff;
 }
 
 img.footer_title {
-  display : block;
-  margin : auto;
+  display: block;
+  margin: auto;
 }
 
 footer .copyright {
@@ -818,16 +871,16 @@ footer .copyright {
 }
 
 footer .copyright a {
-  color: #FFF;
+  color: #fff;
 }
 
 footer a:hover {
-  color: #F60;
+  color: #f60;
 }
 
 .footer_menu {
   /* background: #111; */
-  background: #27367B;
+  background: #27367b;
 }
 
 .footer_menu .submenu ul {
@@ -837,162 +890,162 @@ footer a:hover {
 
 /*** detail ***/
 .map.machine_list a.detail {
-  left : 200px;
-  top : 68px;
+  left: 200px;
+  top: 68px;
 }
 
 .machine_container .map.machine_list .status div.hidden {
-  display : none;
-  color : red;
+  display: none;
+  color: red;
 }
 
 .machine_list.imagelist .company_info a.detail {
-  left : 596px;
-  top : 4px;
+  left: 596px;
+  top: 4px;
 }
 
 .machine_list.list .machines .img a.detail {
-  left : 91px;
-  top : 61px;
+  left: 91px;
+  top: 61px;
 }
 
 /*** sample bbs ***/
 a.sample_bbs {
-  display : blank;
-  position : absolute;
-  top : 0;
-  right : 0;
-  width : 240px;
-  height : 60px;
-  line-height : 60px;
-  text-align : center;
-  background : #FEE;
-  color : #076AB6;
-  border : 3px double #F88;
-  font-size : 16px;
-  font-weight : bold;
-  z-index : 3000;
+  display: blank;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 240px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  background: #fee;
+  color: #076ab6;
+  border: 3px double #f88;
+  font-size: 16px;
+  font-weight: bold;
+  z-index: 3000;
 }
 
 div.blank_message {
-  width : 90%;
-  border : 1px dotted #8B4513;
-  margin : 16px auto;
-  text-align : center;
-  height : 300px;
-  line-height : 300px;
-  font-size : 18px;
-  background : #FFF5EE;
-  color : #8B4513;
-  font-weight : bold;
+  width: 90%;
+  border: 1px dotted #8b4513;
+  margin: 16px auto;
+  text-align: center;
+  height: 300px;
+  line-height: 300px;
+  font-size: 18px;
+  background: #fff5ee;
+  color: #8b4513;
+  font-weight: bold;
 }
 
 strong.machine_count {
-  font-size : 16px;
-  font-weight : bold;
-  color : #FF2819;
+  font-size: 16px;
+  font-weight: bold;
+  color: #ff2819;
 }
 
 /*** 一覧テーブル共通 ***/
-table.list{
-  width : 900px;
-  margin : 6px auto;
-  border : 1px solid #AAA;
+table.list {
+  width: 900px;
+  margin: 6px auto;
+  border: 1px solid #aaa;
 }
 
 table.list th {
-  border : 1px solid #AAA;
-  background : #556B2F;
-  color : #FFF;
-  padding : 4px;
-  border-width : 1px;
-  align : center;
-  vertical-align : middle;
+  border: 1px solid #aaa;
+  background: #556b2f;
+  color: #fff;
+  padding: 4px;
+  border-width: 1px;
+  align: center;
+  vertical-align: middle;
 }
 
 table.list td {
-  padding : 4px;
-  border : 1px dotted #AAA;
-  text-align : left;
-  vertical-align : middle;
-  border-width : 1px;
-  border-style : dotted solid;
+  padding: 4px;
+  border: 1px dotted #aaa;
+  text-align: left;
+  vertical-align: middle;
+  border-width: 1px;
+  border-style: dotted solid;
 }
 
 table.list tr.odd td {
-  background : #f5deb3;
+  background: #f5deb3;
 }
 
 table.list tr td.checkbox,
 table.list tr:hover td.checkbox {
-  background: #FFF6E4;
+  background: #fff6e4;
 }
 
 /*** フォームテーブル ***/
 table.form {
-  border : 1px solid #DDD;
+  border: 1px solid #ddd;
 
-  width : 600px;
-  margin : 0 auto;
+  width: 600px;
+  margin: 0 auto;
 }
 
 table.form th {
-  background : #556B2F;
-  color : #FFF;
+  background: #556b2f;
+  color: #fff;
 
-  width : 160px;
-  padding : 4px;
-  border : 1px solid #DDD;
+  width: 160px;
+  padding: 4px;
+  border: 1px solid #ddd;
 
-  text-align : left;
-  vertical-align : middle;
+  text-align: left;
+  vertical-align: middle;
 }
 
 table.form .required th {
-  color : #FF0;
+  color: #ff0;
 }
 
 table.form td {
-  background : #EEEEEE;
-  padding : 4px;
-  border : 1px solid #DDD;
-  text-align : left;
+  background: #eeeeee;
+  padding: 4px;
+  border: 1px solid #ddd;
+  text-align: left;
   vertical-align: middle;
 }
 
 table.form tr:hover td {
-  background : #FFFFAD;
+  background: #ffffad;
 }
 
 table.form td input {
-  border : 1px solid #999;
+  border: 1px solid #999;
   padding: 3px 6px;
-  background : #FFF;
+  background: #fff;
 
   border-radius: 4px;
-  box-shadow :  0 2px 3px rgba(0,0,0,0.1) inset;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1) inset;
 }
 
 table.form textarea {
-  width : 400px;
-  height : 52px;
-  border : 1px solid #999;
+  width: 400px;
+  height: 52px;
+  border: 1px solid #999;
   padding: 5px 10px;
-  background : #FFF;
-  font-size : 13px;
+  background: #fff;
+  font-size: 13px;
 
   border-radius: 4px;
-  box-shadow :  0 2px 3px rgba(0,0,0,0.1) inset;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1) inset;
 }
 
 .no-boxshadow table.form input,
 .no-boxshadow table.form textarea {
-  border : 1px inset #999;
+  border: 1px inset #999;
 }
 
 table.form td input:focus,
 table.form textarea:focus {
-  background : #fffacd;
+  background: #fffacd;
 }
 
 .form_comment {
@@ -1001,25 +1054,25 @@ table.form textarea:focus {
 }
 
 .form_comment span.required {
-  font-weight : bold;
-  color : #FF0;
-  background : #556B2F;
+  font-weight: bold;
+  color: #ff0;
+  background: #556b2f;
 }
 
 .form_comment span.alert {
-  font-weight : bold;
-  color : #D00;
+  font-weight: bold;
+  color: #d00;
 }
 
 button.submit {
   display: block;
-  width : auto;
-  margin : 32px auto;
+  width: auto;
+  margin: 32px auto;
   padding: auto 6px;
 }
 
-button.submit[disabled='disabled'] {
-  background: #EEE;
+button.submit[disabled="disabled"] {
+  background: #eee;
   color: #333;
 }
 
@@ -1029,30 +1082,30 @@ input.number {
 }
 /*** マイリストメニュー ***/
 .mylist_menu ul {
-  display : none;
-  top : 20px;
-  right : 0;
-  background : #EEE;
-  border : 1px solid #999;
-  width : 150px;
+  display: none;
+  top: 20px;
+  right: 0;
+  background: #eee;
+  border: 1px solid #999;
+  width: 150px;
 
-  box-shadow : 3px 3px 3px #666;
+  box-shadow: 3px 3px 3px #666;
 }
 
 .header_member_menu {
-  position : relative;
-  width : 100%;
-  height : 28px;
-  margin : 0 0 15px 0;
-  background : #29866B;
-  font-size : 14px;
-  color : #FFFFFF;
+  position: relative;
+  width: 100%;
+  height: 28px;
+  margin: 0 0 15px 0;
+  background: #29866b;
+  font-size: 14px;
+  color: #ffffff;
 
-  z-index : 200;
+  z-index: 200;
 }
 .mylist_menu:hover ul {
-  display : block;
-  position : absolute;
+  display: block;
+  position: absolute;
 }
 
 .mylist_menu li {
@@ -1066,11 +1119,11 @@ input.number {
 }
 
 .mylist_menu {
-  display : block;
-  position : absolute;
+  display: block;
+  position: absolute;
   width: 100px;
   top: 4px;
-  right : 32px;
+  right: 32px;
 }
 
 .mylist_menu a.mylist {
@@ -1079,72 +1132,72 @@ input.number {
   width: 100%;
   height: 20px;
   line-height: 20px;
-  color: #29866B;
+  color: #29866b;
   text-decoration: none;
   background: white;
 }
 
 .mylist_menu a.menu_list {
-  display : block;
+  display: block;
   text-align: center;
-  width : 100%;
+  width: 100%;
   height: 20px;
   line-height: 20px;
-  color: #29866B;
+  color: #29866b;
   text-decoration: none;
-  background: #FFF;
+  background: #fff;
 }
 
 .mylist_menu li a {
-  display : inline;
-  position : static;
-  text-decoration : none;
-  text-align : left;
-  width : 180px;
+  display: inline;
+  position: static;
+  text-decoration: none;
+  text-align: left;
+  width: 180px;
   height: 24px;
   line-height: 24px;
-  background : #EEE;
+  background: #eee;
 }
 
 /*** 商談中・金額 ***/
 .label {
   display: inline-block;
   padding: 0.16em 0.5em;
-  background: #FFF;
+  background: #fff;
   margin: 2px 2px 0 0;
   height: 1.4em;
   line-height: 1.4;
 
   text-decoration: none;
-  color: rgba(0,0,0,0.6);
-  border: solid 1px rgba(0,0,0,0.6);
+  color: rgba(0, 0, 0, 0.6);
+  border: solid 1px rgba(0, 0, 0, 0.6);
 }
 
 a.label {
-  color: rgba(0,0,0,0.6);
+  color: rgba(0, 0, 0, 0.6);
 }
 
 a.label:hover {
-  color: rgba(0,0,0,0.6);
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .label.vo2 {
-  color: #E00;
-  border: 1px solid #E00;
-  background: #FEF;
+  color: #e00;
+  border: 1px solid #e00;
+  background: #fef;
 }
 
 .label.commission {
   color: #060;
   border: 1px solid #060;
-  background: #EFE;
+  background: #efe;
 }
 
 .label.catalog {
-  color: #00E;
-  border: 1px solid #00E;
+  color: #00e;
+  border: 1px solid #00e;
   text-indent: 16px;
-  background: url('../../imgs/pdficon_small.png') #EFF 3px 3px no-repeat;
+  background: url("../../imgs/pdficon_small.png") #eff 3px 3px no-repeat;
   text-decoration: none;
 }
 
@@ -1152,20 +1205,20 @@ a.label:hover {
   color: #066;
   border: 1px solid #066;
   text-indent: 16px;
-  background: url('../../imgs/pdficon_small.png') #EFF 3px 3px no-repeat;
+  background: url("../../imgs/pdficon_small.png") #eff 3px 3px no-repeat;
   text-decoration: none;
 }
 
 .label.capacity {
   color: #333;
-  border: 1px solid #BBB;
-  background: #FFF;
+  border: 1px solid #bbb;
+  background: #fff;
 }
 
 .label.bid {
-  color: #FF6600;
-  border: 1px solid #FF6600;
-  background: #FFF0D0;
+  color: #ff6600;
+  border: 1px solid #ff6600;
+  background: #fff0d0;
   text-decoration: none;
 }
 
@@ -1180,21 +1233,21 @@ a.label:hover {
 .pager {
   margin: 4px auto;
   padding: 2px 4px;
-  background: #CFC;
+  background: #cfc;
 }
 
 .pager a {
   display: inline-block;
   border: 1px solid #999;
   padding: 2px 5px;
-  background: #FFF;
+  background: #fff;
 }
 
 .pager a.current {
   text-decoration: none;
   font-weight: bold;
   color: #333;
-  background: rgb(254,255,204);
+  background: rgb(254, 255, 204);
 }
 
 .pager .pcount {
@@ -1227,19 +1280,19 @@ a.label:hover {
 
 .genre_menu .genre span.count {
   vertical-align: bottom;
-  color: #FFC;
+  color: #ffc;
   margin-left: 0.4em;
   display: inline-block;
 }
 
 .genre_menu .genre input:checked + .check_label {
-  color: #F60;
+  color: #f60;
 }
 
 .genre_list a.genre,
 .genre_list a.genre:visited,
 .genre_list a.genre:active {
-  color: #FFF;
+  color: #fff;
   width: auto;
   height: auto;
 }
@@ -1271,7 +1324,7 @@ dl.bid_date dd {
 
 dl.bid_date dd.now,
 dl.bid_date dt.now {
-  color:  #FF6600;
+  color: #ff6600;
 }
 
 /*** 印刷ボタン ***/
@@ -1283,33 +1336,45 @@ button.print {
   height: 36px;
   line-height: 36px;
 
-  background: #EAEAEA;
-  background: -webkit-gradient(linear, left top, left bottom, from(#EAEAEA), to(#C5C5C5) );
-  background: -moz-linear-gradient(-90deg, #EAEAEA, #C5C5C5);
-  background: -o-linear-gradient(-90deg, #EAEAEA, #C5C5C5);
-  background: linear-gradient(to bottom, #EAEAEA, #C5C5C5);
+  background: #eaeaea;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#eaeaea),
+    to(#c5c5c5)
+  );
+  background: -moz-linear-gradient(-90deg, #eaeaea, #c5c5c5);
+  background: -o-linear-gradient(-90deg, #eaeaea, #c5c5c5);
+  background: linear-gradient(to bottom, #eaeaea, #c5c5c5);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#EAEAEA', endColorstr='#C5C5C5');
 
-  color: #33F;
-  border: 1px solid #C5C5C5;
+  color: #33f;
+  border: 1px solid #c5c5c5;
 
   text-align: left;
   text-indent: 32px;
 }
 
-button.print:hover  {
-  background: #EAEAEA;
-  background: -webkit-gradient(linear, left top, left bottom, from(#C5C5C5), to(#EAEAEA) );
-  background: -moz-linear-gradient(-90deg, #C5C5C5, #EAEAEA);
-  background: -o-linear-gradient(-90deg, #C5C5C5, #EAEAEA);
-  background: linear-gradient(to bottom, #C5C5C5, #EAEAEA);
+button.print:hover {
+  background: #eaeaea;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#c5c5c5),
+    to(#eaeaea)
+  );
+  background: -moz-linear-gradient(-90deg, #c5c5c5, #eaeaea);
+  background: -o-linear-gradient(-90deg, #c5c5c5, #eaeaea);
+  background: linear-gradient(to bottom, #c5c5c5, #eaeaea);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#C5C5C5', endColorstr='#EAEAEA');
 
-  color: #F60;
+  color: #f60;
 }
 
 button.print:active {
-  background: #C5C5C5;
+  background: #c5c5c5;
 }
 
 button.print img {
@@ -1320,37 +1385,37 @@ button.print img {
 
 /*** マイリスト ***/
 .ui-widget-content {
-  border: 3px solid #AAA;
+  border: 3px solid #aaa;
 }
 
 .ui-dialog .ui-dialog-content.mylist_alert {
-  color: #EA570F;
+  color: #ea570f;
   font-size: 15px;
 }
 
 /*** alert ***/
 div.cjf_alert {
-  width : 340px;
-  height : 80px;
-  line-height : 80px;
-  border : 2px solid orange;
-  color : #ff2819;
-  font-weight : bold;
-  text-align : center;
-  background : #FFF;
-  position : fixed;
-  top : 50%;
-  left : 50%;
-  margin-top : -40px;
-  margin-left : -170px;
-  display : none;
-  z-index : 2000;
+  width: 340px;
+  height: 80px;
+  line-height: 80px;
+  border: 2px solid orange;
+  color: #ff2819;
+  font-weight: bold;
+  text-align: center;
+  background: #fff;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -40px;
+  margin-left: -170px;
+  display: none;
+  z-index: 2000;
 }
 
 .cjf_new {
   display: inline-block;
   margin-right: 4px;
-  background: #F33;
+  background: #f33;
   color: white;
   width: 40px;
   height: 15px;
@@ -1359,7 +1424,7 @@ div.cjf_alert {
   text-align: center;
   border-radius: 3px;
   text-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
-  font-family: 'Verdana';
+  font-family: "Verdana";
 }
 
 div.product_line {
@@ -1375,7 +1440,8 @@ a.mes_link {
 /*** Jqueryバリデータ ***/
 label.error {
   color: red;
-  font-family: 'Lucida Grande', Verdana, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro';
+  font-family: "Lucida Grande", Verdana, "ヒラギノ角ゴ Pro W3",
+    "Hiragino Kaku Gothic Pro";
   font-style: italic;
 }
 
@@ -1388,11 +1454,11 @@ label.error {
   height: 60px;
   padding: 4px;
   margin: 0;
-  background: #FFF;
+  background: #fff;
 }
 
 .machine_news:nth-child(odd) {
-  background: #EEE;
+  background: #eee;
 }
 
 .machine_news a.img_link {
@@ -1415,7 +1481,7 @@ label.error {
   top: 4px;
   left: 112px;
   font-size: 15px;
-  color: #B00;
+  color: #b00;
 }
 
 .machine_news a.names {
@@ -1431,8 +1497,8 @@ a.sp_bid_link {
   display: block;
   width: 860px;
   margin: 8px auto;
-  background: #27367B;
-  color: #FFF;
+  background: #27367b;
+  color: #fff;
   font-size: 23px;
   font-weight: bold;
   height: 48px;
@@ -1442,8 +1508,8 @@ a.sp_bid_link {
 }
 
 a.sp_bid_link span.highligeht {
-  color: #FFFF33;
-  border-bottom: 1px dotted #FFFF33;
+  color: #ffff33;
+  border-bottom: 1px dotted #ffff33;
   padding: 0;
   line-height: 1;
 }
@@ -1461,8 +1527,8 @@ a.sp_bid_link {
   display: block;
   width: 860px;
   margin: 8px auto;
-  background: #27367B;
-  color: #FFF;
+  background: #27367b;
+  color: #fff;
   font-size: 23px;
   font-weight: bold;
   height: 48px;
@@ -1472,8 +1538,8 @@ a.sp_bid_link {
 }
 
 a.sp_bid_link span.highligeht {
-  color: #FFFF33;
-  border-bottom: 1px dotted #FFFF33;
+  color: #ffff33;
+  border-bottom: 1px dotted #ffff33;
   padding: 0;
   line-height: 1;
 }
@@ -1488,12 +1554,12 @@ img.banner_half {
 }
 
 /*** Web入札会開催日程　以下を追加 ***/
-table.tender_schedule{
+table.tender_schedule {
   width: 100%;
   padding: 20px 0px 0px 0px;
   margin: 20px 0px 0px 0px;
   margin-bottom: 5px;
-  border: 1px solid #00A0E8;
+  border: 1px solid #00a0e8;
 }
 
 table.tender_schedule th {
@@ -1501,25 +1567,25 @@ table.tender_schedule th {
   padding: 6px;
   text-align: center;
   color: #000;
-  background: #C8E7FB;
-  border: 1px solid #00A0E8;
+  background: #c8e7fb;
+  border: 1px solid #00a0e8;
 }
 
 table.tender_schedule td {
   font-size: 14px;
   padding: 6px;
   text-align: left;
-  border: 1px solid #00A0E8;
-  background: #FFF;
+  border: 1px solid #00a0e8;
+  background: #fff;
 }
 
 .right {
   width: 100%;
-  text-align :right;
+  text-align: right;
 }
 
 .mnok_ads {
-  display:block;
+  display: block;
 
   width: 862px;
   /*
@@ -1548,13 +1614,13 @@ table.tender_schedule td {
 }
 
 .mnok_ads_logo .desc {
- position: absolute;
- color: #333;
- bottom: 32px;
- left: 310px;
- white-space: nowrap;
- text-overflow: ellipsis;
- font-size: 14px;
+  position: absolute;
+  color: #333;
+  bottom: 32px;
+  left: 310px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 14px;
 }
 
 .mnok_ads_logo .site {

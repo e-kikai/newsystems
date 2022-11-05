@@ -1,7 +1,7 @@
 /*** member login ***/
 .login_form {
   width: 400px;
-  border: 1px solid #AAA;
+  border: 1px solid #aaa;
   margin: 16px auto;
   padding: 4px 16px;
   border-radius: 8px;
@@ -13,8 +13,11 @@
 
 .login_form dt {
   display: inline-block;
-  /display: inline;  /* for IE6 */
-  /zoom: 1;          /* for IE6 */
+  /* for IE6,7 */
+  /*
+  #display: inline;
+  #zoom: 1;
+  */
   width: 100px;
   margin: 4px 10px;
   vertical-align: middle;
@@ -23,8 +26,11 @@
 
 .login_form dd {
   display: inline-block;
-  /display: inline;  /* for IE6 */
-  /zoom: 1;          /* for IE6 */
+  /* for IE6,7 */
+  /*
+  #display: inline;
+  #zoom: 1;
+  */
   width: 240px;
   margin: 4px 10px;
   vertical-align: middle;
@@ -36,13 +42,13 @@
   font-size: 14px;
   height: 20px;
   line-height: 20px;
-  border: 1px solid #AAA;
+  border: 1px solid #aaa;
   border-radius: 4px;
-  box-shadow: 0 2px 3px rgba(0,0,0,0.1) inset;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1) inset;
 }
 
 .login_form dd input:focus {
-  background: #fffacd
+  background: #fffacd;
 }
 
 button.login_submit {
@@ -55,8 +61,8 @@ button.login_submit {
 
 button.login_submit:active {
   top: 1px;
-  box-shadow: 0 1px 1px rgba(0,0,0,0.6);
-  background: #91BD09;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.6);
+  background: #91bd09;
 }
 
 /*** 規約 ***/
@@ -66,13 +72,13 @@ button.login_submit:active {
 }
 
 .terms {
-  border: 1px solid #AAA;
+  border: 1px solid #aaa;
   width: 640px;
   height: 120px;
   margin: 0 auto 8px auto;
   padding: 8px;
   overflow-y: scroll;
-  box-shadow: 0 6px 6px rgba(0,0,0,0.1) inset;
+  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1) inset;
 }
 
 /*** 非表示枠 ***/

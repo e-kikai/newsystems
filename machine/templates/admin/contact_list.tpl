@@ -7,39 +7,12 @@
     <script type="text/javascript">
     </script>
     <style type="text/css">
-      /*** 管理者一覧テーブル ***/
-      table.list {
-        width: 100%;
-        margin: 8px auto;
-      }
-
-      table.list .id {
-        width: 30px;
-      }
-
-      table.list td.id {
-        text-align: right;
-      }
-
-      /*** お問い合わせテーブル ***/
-      table.list .name,
-      table.list .target {
-        width: 150px;
-      }
-
-      table.list .mail {
-        width: 180px;
-      }
-
-      table.list .created_at {
-        width: 150px;
-      }
     </style>
   {/literal}
 {/block}
 
 {block 'main'}
-  <table class='list'>
+  <table class='list contacts'>
     <thead>
       <tr>
         <th class='id'>ID</th>

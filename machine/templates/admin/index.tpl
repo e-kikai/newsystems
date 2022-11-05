@@ -6,173 +6,12 @@
   <script type="text/javascript" src="{$_conf.site_uri}{$_conf.js_dir}/miniblog.js"></script>
   <link href="{$_conf.site_uri}{$_conf.css_dir}/miniblog.css" rel="stylesheet" type="text/css" />
 
+  <link href="{$_conf.site_uri}{$_conf.css_dir}/admin_index.css" rel="stylesheet" type="text/css" />
+
   {literal}
     <script type="text/javascript">
-      $(function() {});
     </script>
     <style type="text/css">
-      /*** トップメニュー ***/
-      ul.top_menu {
-        width: 500px;
-        margin: 16px auto;
-      }
-
-      ul.top_menu li {
-        list-style: none;
-        font-size: 15px;
-        height: 24px;
-        line-height: 24px;
-        padding: 0 16px;
-      }
-
-      .suspend {
-        color: #999;
-      }
-
-      /*** 書きこみ ***/
-      .info_area {
-        margin-right: 8px;
-        width: 400px;
-        display: inline-block;
-        margin-bottom: 8px;
-        vertical-align: top;
-        float: left;
-        margin-right: 32px;
-      }
-
-      .infotitle {
-        background: #923431;
-        color: white;
-        padding: 3px 8px;
-        width: 240px;
-        text-align: center;
-        border-radius: 8px 8px 0 0;
-      }
-
-      .infomations {
-        border: 1px solid #923431;
-        background: #FFF;
-        width: 400px;
-        height: 160px;
-        font-size: 13px;
-        overflow-y: scroll;
-        box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1) inset;
-        margin-bottom: 8px;
-      }
-
-      .infomations.miniblog {
-        height: 600px;
-      }
-
-      .info {
-        padding: 3px 0;
-        border-bottom: 1px dotted #CCC;
-        margin: 4px 8px;
-        width: auto;
-      }
-
-      button.miniblog_response {
-        display: inline-block;
-        width: 60px;
-      }
-
-      .info_date {
-        display: inline-block;
-        margin-right: 3px;
-        color: #AAA;
-      }
-
-      .info_name {
-        display: inline-block;
-        margin-right: 3px;
-        font-weight: bold;
-        color: #0A0;
-      }
-
-      .info_contents {
-        position: relative;
-      }
-
-      .info_goal {
-        display: inline-block;
-        margin-right: 3px;
-        font-weight: bold;
-      }
-
-      .info_no {
-        display: inline-block;
-        margin-right: 3px;
-      }
-
-      .info_goal.cell {
-        color: #C00;
-      }
-
-      .info_goal.buy {
-        color: #00C;
-      }
-
-      .info_end_date {
-        display: inline-block;
-        margin-right: 3px;
-        color: #999;
-      }
-
-      .info_link {
-        display: block;
-        position: absolute;
-        right: 3px;
-        bottom: 0;
-      }
-
-      ul.top_menu {
-        float: left;
-        margin-top: 0;
-      }
-
-      ul.top_menu:after {
-        content: "";
-        clear: both;
-        height: 0;
-        display: block;
-        visibility: hidden;
-      }
-
-      /*** 目標枠 ***/
-      span.count_no {
-        font-size: 22px;
-        font-weight: bold;
-        font-style: italic;
-        padding: 0 8px;
-        color: #903;
-      }
-
-      div.count,
-      div.maker_count,
-      div.goal {
-        position: absolute;
-        right: 8px;
-        top: -54px;
-        font-weight: bold;
-        font-size: 15px;
-        vertical-align: baseline;
-      }
-
-      div.count span.count_label {
-        width: 64px;
-        display: inline-block;
-      }
-
-      .label {
-        font-size: 13px;
-      }
-
-      div.logininfo {
-        position: absolute;
-        right: 16px;
-        top: -80px;
-        vertical-align: baseline;
-      }
     </style>
   {/literal}
 {/block}
@@ -294,7 +133,7 @@
     {/if}
 
     <h2>お問い合わせ</h2>
-    <li><a href="admin/contact_list.php">お問い合わせ一覧</a></li>
+    <li><a href="admin/contact_list.php"><i class="fas fa-envelope"></i> 問い合わせ一覧</a></li>
 
     {if Companies::checkRank($rank, 'B会員')}
       <h2><span class="cjf_new" style="text-indent:0;">NEW!</span>売りたし買いたし</h2>
@@ -327,7 +166,7 @@
             <dd>{$b.carryout_start_date|date_format:'%Y/%m/%d'} ～ {$b.carryout_end_date|date_format:'%m/%d'}</dd><br />
           </dl>
           {if empty($smarty.session[Auth::getNamespace()].bid_first_flag)}
-            <li><a href="/admin/bid_first_help.php">Web入札会に参加する</a></li>
+            <li><a href="/admin/bid_first_help.php"><i class="fas fa-right-to-bracket"></i> Web入札会に参加する</a></li>
           {else}
             {if $b.status == 'entry'}
               {if Companies::checkRank($rank, 'B会員')}
@@ -347,8 +186,9 @@
 
             {elseif $b.status == 'margin'} {* 下見前 *}
               <li>
-                <a href="/bid_door.php?o={$b.id}" target="_blank">Web入札会トップページ</a> >>
-                <a href="/admin/bid_list.php?o={$b.id}&output=csv&limit=999999999"><i class="fas fa-file-csv"></i> 印刷用CSV出力</a>
+                <a href="/bid_door.php?o={$b.id}" target="_blank"><i class="fas fa-door-open"></i> Web入札会トップページ</a> >>
+                <a href="/admin/bid_list.php?o={$b.id}&output=csv&limit=999999999"><i class="fas fa-file-csv"></i> 印刷CSV出力</a> |
+                <a href="{$_conf.media_dir}pdf/list_pdf_{$b.id}.pdf" target="_blank"><i class="fas fa-file-pdf"></i> 印刷PDF出力</a>
               </li>
 
               {*
@@ -369,9 +209,9 @@
 
             {elseif $b.status == 'bid'} {* 入札期間 *}
               <li>
-                <a href="/bid_door.php?o={$b.id}" target="_blank">Web入札会トップページ</a> >>
-                <a href="/admin/bid_list.php?o={$b.id}&output=csv&limit=999999999"><i class="fas fa-file-csv"></i> 印刷用CSV出力</a> |
-                <a href="{$_conf.media_dir}pdf/list_pdf_{$b.id}.pdf" target="_blank"><i class="fas fa-file-pdf"></i> 印刷用PDF出力</a>
+                <a href="/bid_door.php?o={$b.id}" target="_blank"><i class="fas fa-door-open"></i> Web入札会トップページ</a> >>
+                <a href="/admin/bid_list.php?o={$b.id}&output=csv&limit=999999999"><i class="fas fa-file-csv"></i> 印刷CSV出力</a> |
+                <a href="{$_conf.media_dir}pdf/list_pdf_{$b.id}.pdf" target="_blank"><i class="fas fa-file-pdf"></i> 印刷PDF出力</a>
               </li>
 
               {*
@@ -401,11 +241,11 @@
 
             {elseif $b.status == 'carryout'}
               <li>
-                <a href="/bid_door.php?o={$b.id}" target="_blank">Web入札会トップページ</a> >>
-                <a href="/admin/bid_list.php?o={$b.id}&output=csv&limit=999999999"><i class="fas fa-file-csv"></i> 印刷用CSV出力</a> |
-                <a href="{$_conf.media_dir}pdf/list_pdf_{$b.id}.pdf" target="_blank"><i class="fas fa-file-pdf"></i> 印刷用PDF出力</a>
+                <a href="/bid_door.php?o={$b.id}" target="_blank"><i class="fas fa-door-open"></i> Web入札会トップページ</a> >>
+                <a href="/admin/bid_list.php?o={$b.id}&output=csv&limit=999999999"><i class="fas fa-file-csv"></i> 印刷CSV出力</a> |
+                <a href="{$_conf.media_dir}pdf/list_pdf_{$b.id}.pdf" target="_blank"><i class="fas fa-file-pdf"></i> 印刷PDF出力</a>
               </li>
-              <li><a href="/admin/bid_list.php?o={$b.id}">落札結果一覧</a></li>
+              <li><a href="/admin/bid_list.php?o={$b.id}"><i class="fas fa-list-check"></i> 落札結果一覧</a></li>
               {*
             <li><a href="{$_conf.media_dir}pdf/list_pdf_{$b.id}.pdf" target="_blank"><div class="label pdf">印刷用PDF</div>商品リスト</a></li>
             *}
@@ -498,7 +338,7 @@
     <li><a href="/admin/bid_open_list.php"><i class="fas fa-list"></i> 過去のWeb入札会一覧</a></li>
     {if !empty($smarty.session[Auth::getNamespace()].bid_first_flag)}
       <li><a href="/admin/bid_first_help.php"><i class="fas fa-book"></i> Web入札会 運用規程</a></li>
-      <li><a href="/admin/bid_entry_form.php"><i class="fas fa-square-check"></i> Web入札会 商品出品登録</a></li>
+      <li><a href="/admin/bid_entry_form.php"><i class="fas fa-check"></i> Web入札会 商品出品登録</a></li>
     {/if}
 
     <li><a href="admin/bid_manual.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Web入札会 取扱説明書</a></li>

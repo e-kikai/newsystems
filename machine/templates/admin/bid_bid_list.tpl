@@ -1,14 +1,13 @@
 {extends file='include/layout.tpl'}
 
 {block 'header'}
-
   <script type="text/javascript" src="{$_conf.libjs_uri}/scrolltopcontrol.js"></script>
   <link href="{$_conf.site_uri}{$_conf.css_dir}admin_list.css" rel="stylesheet" type="text/css" />
 
   <script type="text/javascript">
     {literal}
       $(function() {
-        //// 削除処理 ////
+        /// 削除処理 ///
         $('button.delete').click(function() {
           var $_self = $(this);
           var $_parent = $_self.closest('tr');
@@ -16,7 +15,7 @@
             'id': $.trim($_self.val()),
           }
 
-          //// 入力のチェック ////
+          /// 入力のチェック ///
           var e = '';
 
           // エラー表示
@@ -46,22 +45,9 @@
 
           return false;
         });
-
-        //// テーブルスクロール ////
-        $(window).resize(function() {
-          $('div.table_area').css('height', $(window).height() - 270);
-        }).triggerHandler('resize');
       });
     </script>
     <style type="text/css">
-      table.list .company {
-        width: 80px;
-      }
-
-      table.list tr.deleted td {
-        background: #EEE;
-        color: #777;
-      }
     </style>
   {/literal}
 {/block}
@@ -80,7 +66,7 @@
       {if $b@first}
         <table class="machines list">
           <tr>
-            <th class="bid_machine_id">出品番号</th>
+            <th class="list_no">出品番号</th>
             <th class="name">機械名</th>
             <th class="maker">メーカー</th>
             <th class="model">型式</th>
@@ -107,7 +93,7 @@
         {/if}
 
         <tr {if !empty($b.deleted_at)} class="deleted" {/if}>
-          <td class="bid_machine_id">{$b.list_no}</td>
+          <td class="list_no">{$b.list_no}</td>
           <td class="name">
             <a href="/admin/bid_detail.php?m={$b.bid_machine_id}" target="_blank">{$b.name}</a>
           </td>

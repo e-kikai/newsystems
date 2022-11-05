@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 売り買いフォーム
  *
@@ -9,17 +10,17 @@
  */
 require_once '../../lib-machine.php';
 try {
-    //// 認証処理 ////
+    /// 認証処理 ///
     $user = Auth::isAuth('member');
 
     $id = Req::query('id');
 
-    //// 売り買い情報を取得 ////
+    /// 売り買い情報を取得 ///
     $fModel = new Urikai();
     if ($id) {
         $urikai = $fModel->get($id);
     } else {
-        //// 会社情報を取得 ////
+        /// 会社情報を取得 ///
         $cModel = new Company();
         $company = $cModel->get($_user['company_id']);
 
@@ -43,7 +44,7 @@ try {
         'buy'  => '買いたし',
     );
 
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle' => '売りたし買いたしフォーム',
         'pankuzu'   => array(
@@ -54,7 +55,7 @@ try {
         'goalList'  => $goalList,
     ))->display("admin/urikai_form.tpl");
 } catch (Exception $e) {
-    //// エラー画面表示 ////
+    /// エラー画面表示 ///
     $_smarty->assign(array(
         'pageTitle' => '売りたし買いたしフォーム',
         'pankuzu'   => array(

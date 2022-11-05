@@ -1,3 +1,5 @@
+@charset "utf-8";
+
 /*** フォーム要素 ***/
 .form_comment {
   width: 720px;
@@ -9,6 +11,7 @@ table.form {
 
 table.form th {
   width: 180px;
+  padding: 8px;
 }
 
 span.memberonly {
@@ -17,10 +20,6 @@ span.memberonly {
 
 span.required {
   color: #ee0;
-}
-
-span.alert {
-  color: #d00;
 }
 
 /* 会社情報 */
@@ -45,7 +44,7 @@ table.form td input[type="number"] {
 }
 
 table.form td textarea {
-  width: 492px;
+  width: 484px;
   height: 3.6em;
 }
 
@@ -188,11 +187,6 @@ div.others {
   width: 50px;
 }
 
-/*** カタログ検索枠 ***/
-button.catalog_search {
-  width: 120px;
-}
-
 .catalog_list {
   display: none;
 }
@@ -304,4 +298,377 @@ input.date {
 
 input.time {
   width: 60px;
+}
+
+input.file {
+  width: 220px;
+}
+
+.dd_message {
+  padding: 4px;
+}
+
+table.form td input.highlight,
+table.form td textarea.highlight {
+  background: #ffccff;
+}
+
+.seri_sepa {
+  position: absolute;
+  right: 304px;
+  top: 14px;
+}
+
+.seri_yen {
+  position: absolute;
+  right: 16px;
+  top: 14px;
+}
+
+table.form td input.is_seri {
+  position: absolute;
+  right: 272px;
+  top: 19px;
+}
+
+table.form td .seri_label {
+  position: absolute;
+  right: 176px;
+  top: 18px;
+}
+
+table.form td input.seri_price {
+  position: absolute;
+  right: 36px;
+  top: 13px;
+}
+
+table.form td input.seri_price:disabled {
+  background: #eee;
+}
+
+div.uid {
+  width: 720px;
+  margin: 4px auto;
+  background: #ff7;
+  padding: 3px;
+}
+
+button.catalog_search {
+  width: 160px;
+}
+
+.catalog_farea {
+  width: 240px;
+}
+
+button.machine_search {
+  width: 240px;
+}
+
+.first_area {
+  width: 740px;
+  padding: 16px;
+  border: 1px solid #333;
+  margin: 16px auto;
+}
+
+.first_area h2 {
+  margin: 16px 2px 3px 2px;
+  font-size: 15px;
+}
+
+.first_area ol li {
+  width: 680px;
+  margin: 4px auto;
+}
+
+.first_area p {
+  margin: 4px;
+}
+
+.first_area table td {
+  padding: 4px;
+}
+
+button.submit {
+  width: auto;
+  height: auto;
+  padding: 8px 64px;
+
+  color: #fff;
+  background: #0d6efd;
+  border-color: #0d6efd;
+  box-shadow: none;
+  text-shadow: none;
+}
+button.submit:hover {
+  color: #fff;
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+}
+
+table.result {
+  width: 360px;
+  margin-left: 80px;
+  float: left;
+}
+
+table.result td {
+  text-align: right;
+}
+
+dl.total {
+  width: 360px;
+  margin: 15px auto 15px 520px;
+}
+
+dl.total dt {
+  display: inline-block;
+  width: 176px;
+  text-align: left;
+
+  font-size: 15px;
+}
+
+dl.total dd {
+  display: inline-block;
+  width: 176px;
+  text-align: right;
+
+  font-size: 15px;
+}
+
+dl.total dt.result,
+dl.total dd.result {
+  font-weight: bold;
+  margin-top: 15px;
+  border-top: 1px solid #333;
+}
+
+span.alert {
+  color: red;
+  font-weight: bold;
+}
+
+.feetable_area h2 {
+  margin: 16px 2px 3px 2px;
+  font-size: 15px;
+}
+
+.fee_calc {
+  background: #e0fff0;
+  border: 1px dotted #60fff0;
+  width: 640px;
+  margin: 4px 32px;
+  padding: 12px 24px;
+  line-height: 1.6;
+}
+
+table.fee_table {
+  margin: 4px 32px;
+  border: 1px solid #666;
+}
+
+table.fee_table th,
+table.fee_table td {
+  border: 1px solid #666;
+  padding: 3px 8px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+table.fee_table th {
+  background: #d0f07f;
+}
+
+table.fee_table td.min_price {
+  text-align: left;
+  background: #ffe090;
+}
+
+button.calc {
+  width: 60px;
+}
+
+div.arrow {
+  font-size: 32px;
+  font-weight: bold;
+  width: 32px;
+  margin: 8px 200px;
+}
+
+/********/
+table.calc_table {
+  margin: 4px 0;
+}
+
+table.calc_table th,
+table.calc_table td {
+  border: 1px solid #666;
+  padding: 3px 4px;
+  vertical-align: middle;
+}
+
+table.calc_table th {
+  background: #d0f07f;
+  text-align: center;
+}
+
+table.calc_table td {
+  text-align: right;
+}
+
+table.calc_table th.final,
+table.calc_table td.final {
+  border-left: 3px double #666;
+}
+
+table.calc_table td.blank {
+  border: 0;
+}
+
+table.calc_table.result th,
+table.calc_table.result td {
+  width: 100px;
+}
+
+table.calc_table.result th.fee,
+table.calc_table.result td.fee {
+  width: 140px;
+}
+
+table.calc_table.result td.final.payment,
+table.calc_table.result td.final.billing {
+  font-size: 15px;
+}
+
+table.fee_table td.min_price {
+  text-align: left;
+  background: #ffe090;
+}
+
+button.calc {
+  width: 60px;
+}
+
+div.arrow {
+  font-size: 32px;
+  font-weight: bold;
+  width: 32px;
+  margin: 8px 200px;
+}
+
+/********/
+table.calc_table {
+  margin: 4px 0;
+}
+
+table.calc_table th,
+table.calc_table td {
+  border: 1px solid #666;
+  padding: 3px 4px;
+  vertical-align: middle;
+}
+
+table.calc_table th {
+  background: #d0f07f;
+  text-align: center;
+}
+
+table.calc_table td {
+  text-align: right;
+}
+
+table.calc_table th.final,
+table.calc_table td.final {
+  border-left: 3px double #666;
+}
+
+table.calc_table td.blank {
+  border: 0;
+}
+
+table.calc_table.result th,
+table.calc_table.result td {
+  width: 100px;
+}
+
+table.calc_table.result th.fee,
+table.calc_table.result td.fee {
+  width: 140px;
+}
+
+table.calc_table.result td.final.payment,
+table.calc_table.result td.final.billing {
+  font-size: 15px;
+}
+
+/*** ポップアップ用 ***/
+/* html {
+  overflow: auto;
+}
+
+body {
+  background: #fff;
+  margin: 8px;
+}
+
+h1 {
+  width: 800px;
+} */
+
+button.close {
+  display: block;
+  margin: 20px auto 0;
+}
+
+.others {
+  display: inline-block;
+}
+
+table.spec.form {
+  width: 442px;
+}
+
+table.spec.form th {
+  background: #556b2f;
+  width: 118px;
+}
+
+a.contact {
+  margin-left: 16px;
+}
+
+table.form td {
+  position: relative;
+  padding: 8px;
+}
+
+button.bid {
+  display: block;
+  width: 140px;
+  font-size: 15px;
+  margin: 4px auto;
+}
+
+table.form td input.amount {
+  font-size: 18px;
+  width: 140px;
+}
+
+table.form td textarea.cancel_comment {
+  height: 12.6em;
+}
+
+table.form td.list_no {
+  font-size: 19px;
+}
+
+.form_comment ul {
+  list-style-type: square;
+}
+
+.form_comment ul li {
+  margin: 4px 0;
 }

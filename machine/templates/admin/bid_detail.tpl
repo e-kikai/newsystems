@@ -95,38 +95,6 @@
       });
     </script>
     <style type="text/css">
-      .others {
-        display: inline-block;
-      }
-
-      table.spec.form {
-        width: 442px;
-      }
-
-      table.spec.form th {
-        background: #556B2F;
-        width: 118px;
-      }
-
-      a.contact {
-        margin-left: 16px;
-      }
-
-      table.form td {
-        position: relative;
-      }
-
-      button.bid {
-        display: block;
-        width: 140px;
-        font-size: 15px;
-        margin: 4px auto;
-      }
-
-      table.form td input.amount {
-        font-size: 18px;
-        width: 140px;
-      }
     </style>
   {/literal}
 {/block}

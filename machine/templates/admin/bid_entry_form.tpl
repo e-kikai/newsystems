@@ -3,10 +3,10 @@
 {block 'header'}
   <link href="{$_conf.site_uri}{$_conf.css_dir}admin_form.css" rel="stylesheet" type="text/css" />
 
-  <script type="text/javascript">
-    {literal}
+  {literal}
+    <script type="text/javascript">
       $(function() {
-        //// 処理 ////
+        /// 処理 ///
         $('button.submit').click(function() {
           var data = {
             'bid_entries': {
@@ -20,7 +20,7 @@
             }
           };
 
-          //// 入力のチェック ////
+          /// 入力のチェック ///
           var e = '';
           $('input[required]').each(function() {
             if ($(this).val() == '') {
@@ -29,7 +29,7 @@
             }
           });
 
-          //// エラー表示 ////
+          /// エラー表示 ///
           if (e != '') { alert(e); return false; }
 
           // 送信確認
@@ -121,8 +121,7 @@
       <th>種類<span class="required">(必須)</span></th>
       <td>
         {if !empty($company.bid_entries.type)}{assign 'type' $company.bid_entries.type}{else}{assign 'type' 1}{/if}
-        {html_radios name='type' class='type' options=['1' => '普通', '2' => '当座']
-         selected=$type separator=' '}
+        {html_radios name='type' class='type' options=['1' => '普通', '2' => '当座'] selected=$type separator=' '}
       </td>
     </tr>
 
