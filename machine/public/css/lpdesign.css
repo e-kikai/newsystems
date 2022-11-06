@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 .lp_01_title {
-  color: #F8F8F8;
+  color: #f8f8f8;
   font-size: 76px;
   font-weight: bold;
   width: 700px;
@@ -16,175 +16,179 @@
 }
 
 .lp_01_info {
-  color: #FFFF00;
+  color: #ffff00;
   font-size: 24px;
-  color: #FFF;
+  color: #fff;
   text-align: left;
   line-height: 1.6;
 }
 .lp_01_sponsorship {
-  font-size:14px;
-  color:#FFF;
+  font-size: 14px;
+  color: #fff;
 }
 
 .lp_01_htit {
-  width:1000px;
-  height:65px;
-  background-image:url("../../imgs/lp_01_htit.png");
-  background-repeat:no-repeat;
-  font-size:36px;
-  font-weight:Bold;
-  color:#5F5DA2;
-  font-family: "游明朝", YuMincho, "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", "ＭＳ 明朝", serif;
-  margin-top:10px;
-  padding-top:10px;
+  width: 1000px;
+  height: 65px;
+  background-image: url("../../imgs/lp_01_htit.png");
+  background-repeat: no-repeat;
+  font-size: 36px;
+  font-weight: Bold;
+  color: #5f5da2;
+  font-family: "游明朝", YuMincho, "ヒラギノ明朝 ProN W3",
+    "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", "ＭＳ 明朝", serif;
+  margin-top: 10px;
+  padding-top: 10px;
 }
 .lp_01_txt {
-  padding:20px 0px 0px 35px;
-  width:900px;
-  text-align:left;
-  font-size:16px;
-  line-height:32px;
+  padding: 20px 0px 0px 35px;
+  width: 900px;
+  text-align: left;
+  font-size: 16px;
+  line-height: 32px;
 }
 .lp_01_tokuchotit {
-  float:left;
-  margin-left:60px;
-  margin-right:20px;
-  height:150px;
+  float: left;
+  margin-left: 60px;
+  margin-right: 20px;
+  height: 150px;
 }
 
 .lp_01_tokuchotxt {
-  color:#1A0BA8;
-  padding-top:10px;
-  text-align:left;
-  font-size:36px;
-  font-weight:Bold;
+  color: #1a0ba8;
+  padding-top: 10px;
+  text-align: left;
+  font-size: 36px;
+  font-weight: Bold;
 }
 
 .lp_01_toha {
-  width:900px;
-  margin-left:30px;
-  
-   -moz-border-radius: 20px;    /* 古いFirefox */
-   -webkit-border-radius: 20px; /* 古いSafari,Chrome */
-   border-radius: 20px;         /* CSS3 */
+  width: 900px;
+  margin-left: 30px;
 
-   border: 2px #E6DB55 solid;     /* 枠線の装飾 */
-   background-color: #FFFBCC;   /* 背景色 */
+  -moz-border-radius: 20px; /* 古いFirefox */
+  -webkit-border-radius: 20px; /* 古いSafari,Chrome */
+  border-radius: 20px; /* CSS3 */
+
+  border: 2px #e6db55 solid; /* 枠線の装飾 */
+  background-color: #fffbcc; /* 背景色 */
 }
 .lp_01_tohatit {
-  font-size:36px;
-  font-family: "游明朝", YuMincho, "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", "ＭＳ 明朝", serif;
-  font-weight:Bold;
+  font-size: 36px;
+  font-family: "游明朝", YuMincho, "ヒラギノ明朝 ProN W3",
+    "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", "ＭＳ 明朝", serif;
+  font-weight: Bold;
 }
 .lp_01_tohatit small {
-  font-size:18px;
-  font-family: "游明朝", YuMincho, "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", "ＭＳ 明朝", serif;
+  font-size: 18px;
+  font-family: "游明朝", YuMincho, "ヒラギノ明朝 ProN W3",
+    "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", "ＭＳ 明朝", serif;
 }
 
 .lp_01_tohabtxt {
-  padding:20px 0px 0px 35px;
-  width:900px;
-  height:45px;
-  text-align:left;
-  font-size:24px;
-  line-height:32px;
-  font-weight:Bold;
-  background-image:url("../../imgs/lp_01_tohabtxt.png");
-  background-repeat:no-repeat;
+  padding: 20px 0px 0px 35px;
+  width: 900px;
+  height: 45px;
+  text-align: left;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: Bold;
+  background-image: url("../../imgs/lp_01_tohabtxt.png");
+  background-repeat: no-repeat;
 }
-table.tender_schedule{
+table.tender_schedule {
   width: 890px;
   padding: 20px 0px 0px 0px;
   margin: 20px auto 0 auto;
   margin-bottom: 5px;
-  border: 1px solid #00A0E8;
+  border: 1px solid #00a0e8;
 }
 
-table.tender_schedule th{
+table.tender_schedule th {
   font-size: 16px;
   padding: 10px;
   text-align: center;
   color: #000;
-  background: #C8E7FB;
-  border: 1px solid #00A0E8;
+  background: #c8e7fb;
+  border: 1px solid #00a0e8;
 }
 
-table.tender_schedule td{
+table.tender_schedule td {
   font-size: 16px;
   padding: 10px;
   text-align: center;
-  border: 1px solid #00A0E8;
-  background: #FFF;
+  border: 1px solid #00a0e8;
+  background: #fff;
 }
 
 .right {
   width: 890px;
-  text-align :right;
+  text-align: right;
 }
 .lp_01_cont4tit {
-  color:#1A0BA8;
-  padding-top:10px;
-  text-align:conter;
-  font-size:28px;
-  line-height:55px;
-  font-weight:Bold;
+  color: #1a0ba8;
+  padding-top: 10px;
+  text-align: conter;
+  font-size: 28px;
+  line-height: 55px;
+  font-weight: Bold;
 }
 
 .lp_waku_01 {
   width: 890px;
-  margin:30px 0 30px 35px;
-  position:relative;
-  word-break:break-all;
-  color:#333333;
-  font-weight:normal;
-  text-decoration:none;
-  background:#F3F3F2;
-  border-width:1px;
-  border-style:solid;
-  border-color:#E3E3DF;
+  margin: 30px 0 30px 35px;
+  position: relative;
+  word-break: break-all;
+  color: #333333;
+  font-weight: normal;
+  text-decoration: none;
+  background: #f3f3f2;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #e3e3df;
 }
 .lp_waku_01_tit {
-  color:#000;
-  font-weight:bold;
-  text-decoration:none;
-  padding:20px 20px 0px 20px;
-  font-size:24px;
-  text-shadow: 5px 5px 1px #CCCCCC;
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 20px 20px 0px 20px;
+  font-size: 24px;
+  text-shadow: 5px 5px 1px #cccccc;
 }
 .lp_waku_01_txt {
-  padding:20px;
-  font-size:18px;
-  font-weight:bold;
-  line-height:32px;
+  padding: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 32px;
 }
 
 .lp_01_cont5tit {
-  padding:15px 0px 0px 35px;
-  margin-left:25px;
-  height:40px;
-  text-align:left;
-  font-size:18px;
-  line-height:32px;
-  font-weight:Bold;
-  background-image:url("../../imgs/lp_01_cont5tit.png");
-  background-repeat:no-repeat;
+  padding: 15px 0px 0px 35px;
+  margin-left: 25px;
+  height: 40px;
+  text-align: left;
+  font-size: 18px;
+  line-height: 32px;
+  font-weight: Bold;
+  background-image: url("../../imgs/lp_01_cont5tit.png");
+  background-repeat: no-repeat;
 }
 .lp_01_etc {
-  width:800px;
-  margin-left:80px;
-  text-align:left;
+  width: 800px;
+  margin-left: 80px;
+  text-align: left;
 }
 .lp_01_etc_tit {
-  font-weight:Bold;
-  margin:20px 0 20px 0;
-  font-size:20px;
+  font-weight: Bold;
+  margin: 20px 0 20px 0;
+  font-size: 20px;
 }
 .lp_01_etc_txt {
-  margin-bottom:20px;
-  font-size:16px;
-  line-height:28px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  line-height: 28px;
 }
-ol.lp_01_etc_txt li,ul.lp_01_etc_txt li {
-  margin-left:40px;
+ol.lp_01_etc_txt li,
+ul.lp_01_etc_txt li {
+  margin-left: 40px;
 }

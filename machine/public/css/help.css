@@ -1,4 +1,5 @@
-/****** ���߂Ă̕��� *****/
+@charset "utf-8";
+
 .begin_slogan {
   display: block;
   margin: -20px auto 15px auto;
@@ -11,8 +12,11 @@
 
 .begin_menu a {
   display: inline-block;
-  #display: inline; /* for IE6,7 */
-  #zoom: 1; /* for IE6,7 */
+  /* for IE6,7 */
+  /*
+  #display: inline;
+  #zoom: 1;
+  */
 
   margin: 0 30px;
   width: 242px;
@@ -60,8 +64,11 @@
 
 .pages_img {
   display: inline-block;
-  #display: inline; /* for IE6,7 */
-  #zoom: 1; /* for IE6,7 */
+  /* for IE6,7 */
+  /*
+  #display: inline;
+  #zoom: 1;
+  */
 
   width: 400px;
 }

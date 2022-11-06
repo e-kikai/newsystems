@@ -1,4 +1,5 @@
 <?php
+
 /**
  * サイトマップ
  *
@@ -9,10 +10,10 @@
  */
 require_once '../lib-machine.php';
 try {
-    //// 認証 ////
+    /// 認証 ///
     Auth::isAuth('machine');
 
-    //// パラメータ取得 ////
+    /// パラメータ取得 ///
     $m   = Req::query('m');
 
     $list    = array();
@@ -21,7 +22,7 @@ try {
     $sepa_lg = "61, 62, 63, 64";
 
     if ($m == 1) {
-        //// 機械詳細 ////
+        /// 機械詳細 ///
         $sql = "SELECT id FROM view_machines WHERE deleted_at IS NULL AND (view_option IS NULL OR view_option <> 1) AND large_genre_id IN (${lg_1});";
         $res = $_db->fetchAll($sql);
         foreach ($res as $m) {
@@ -32,7 +33,7 @@ try {
             );
         }
     } else if ($m == 2) {
-        //// 機械詳細 ////
+        /// 機械詳細 ///
         $sql = "SELECT id FROM view_machines WHERE deleted_at IS NULL AND (view_option IS NULL OR view_option <> 1) AND large_genre_id IN (${lg_2});";
         $res = $_db->fetchAll($sql);
         foreach ($res as $m) {
@@ -43,7 +44,7 @@ try {
             );
         }
     } else if ($m == 999) {
-        //// 機械詳細 ////
+        /// 機械詳細 ///
         $sql = "SELECT id FROM view_machines WHERE deleted_at IS NULL AND (view_option IS NULL OR view_option <> 1) AND large_genre_id NOT IN (${sepa_lg});";
         $res = $_db->fetchAll($sql);
         foreach ($res as $m) {
@@ -91,7 +92,7 @@ try {
             'changefreq' => 'hourly',
         );
 
-        //// 大ジャンル一覧を取得 ////
+        /// 大ジャンル一覧を取得 ///
         $largeGenreTable = new LargeGenres();
         $largeGenreList  = $largeGenreTable->getList();
         foreach ($largeGenreList as $l) {
@@ -102,7 +103,7 @@ try {
             );
         }
 
-        //// ジャンル一覧を取得 ////
+        /// ジャンル一覧を取得 ///
         $genreTable = new Genres();
         $genreList  = $genreTable->getList();
         foreach ($genreList as $g) {
@@ -113,7 +114,7 @@ try {
             );
         }
 
-        //// 会社一覧を取得 ////
+        /// 会社一覧を取得 ///
         $companyTable = new Companies();
         $companyList  = $companyTable->getList(array('notnull' => true));
         foreach ($companyList as $c) {
@@ -129,7 +130,7 @@ try {
             );
         }
 
-        // //// 機械詳細 ////
+        // /// 機械詳細 ///
         // $sql = "SELECT id FROM machines WHERE deleted_at IS NULL AND (view_option IS NULL OR view_option <> 1);";
         // $res = $_db->fetchAll($sql);
         // foreach ($res as $m) {
@@ -140,7 +141,7 @@ try {
         //     );
         // }
 
-        //// 20150219@ba-ta 特大ジャンル ////
+        /// 20150219@ba-ta 特大ジャンル ///
         $xlGenreTable = new XlGenres();
         $xlGenreList  = $xlGenreTable->getList();
         foreach ($xlGenreList as $x) {
@@ -151,7 +152,7 @@ try {
             );
         }
 
-        //// 20150219@ba-ta メーカー ////
+        /// 20150219@ba-ta メーカー ///
         $machineTable = new Machine();
         $makerList    = $machineTable->getMakerList(array('notnull' => true, 'sort' => 'maker'));
         foreach ($makerList as $ma) {
@@ -162,7 +163,7 @@ try {
             );
         }
 
-        //// 20150310@ba-ta ジャンル/メーカー ////
+        /// 20150310@ba-ta ジャンル/メーカー ///
         $largeMakerList = $machineTable->getDoubleSearchList('', 5);
         foreach ($largeMakerList as $lma) {
             $list[] = array(
@@ -172,11 +173,13 @@ try {
             );
         }
 
-        //// 20150219@ba-ta 都道府県 ////
+        /// 20150219@ba-ta 都道府県 ///
         $stateTable  = new States();
         $addr1List   = $stateTable->getListByTop();
         foreach ($addr1List as $a) {
-            if (empty($a['count'])) { continue; }
+            if (empty($a['count'])) {
+                continue;
+            }
             $list[] = array(
                 'loc'        => 'https://www.zenkiren.net/search.php?k=' . $a['state'],
                 'priority'   => '0.8',
@@ -184,13 +187,13 @@ try {
             );
         }
 
-        //// web入札会情報 ////
+        /// web入札会情報 ///
         $cModel  = new BidOpen();
         $bmModel = new BidMachine();
         $bidOpenList = $cModel->getList(array('isopen' => true));
         foreach ($bidOpenList as $bo) {
             $list[] = array(
-                'loc'        => 'https://www.zenkiren.net/bid_door.php?o='. $bo["id"],
+                'loc'        => 'https://www.zenkiren.net/bid_door.php?o=' . $bo["id"],
                 'priority'   => '0.95',
                 'changefreq' => 'daily',
             );
@@ -200,7 +203,7 @@ try {
 
             foreach ($bidMachineList as $bm) {
                 $list[] = array(
-                    'loc'        => 'https://www.zenkiren.net/bid_detail.php?m='. $bm["id"],
+                    'loc'        => 'https://www.zenkiren.net/bid_detail.php?m=' . $bm["id"],
                     'priority'   => '0.95',
                     'changefreq' => 'daily',
                 );
@@ -222,27 +225,27 @@ try {
  */
 function get_google_sitemap($sitemap_list = array())
 {
-  $buf = '<?xml version="1.0" encoding="UTF-8"?>'."\n";
-  // $buf .= '<urlset'."\n";
-  // $buf .= '      xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"'."\n";
-  // $buf .= '      xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"'."\n";
-  // $buf .= '      xsi:schemaLocation="https://www.sitemaps.org/schemas/sitemap/0.9'."\n";
-  // $buf .= '            https://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">'."\n";
-  // $buf .= '<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->'."\n";
+    $buf = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+    // $buf .= '<urlset'."\n";
+    // $buf .= '      xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"'."\n";
+    // $buf .= '      xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"'."\n";
+    // $buf .= '      xsi:schemaLocation="https://www.sitemaps.org/schemas/sitemap/0.9'."\n";
+    // $buf .= '            https://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">'."\n";
+    // $buf .= '<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->'."\n";
 
-  $buf .= '<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:pagemap="http://www.google.com/schemas/sitemap-pagemap/1.0" xmlns:xhtml="http://www.w3.org/1999/xhtml">';
+    $buf .= '<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:pagemap="http://www.google.com/schemas/sitemap-pagemap/1.0" xmlns:xhtml="http://www.w3.org/1999/xhtml">';
 
-  if (isset($sitemap_list) and is_array($sitemap_list)) {
-    foreach($sitemap_list as $val) {
-      $buf .= '<url>'."\n";
-      $buf .= '  <loc>'.$val['loc'].'</loc>'."\n";
-      $buf .= '  <priority>'.$val['priority'].'</priority>'."\n";
-      $buf .= '  <changefreq>'.$val['changefreq'].'</changefreq>'."\n";
-      $buf .= '</url>'."\n";
+    if (isset($sitemap_list) and is_array($sitemap_list)) {
+        foreach ($sitemap_list as $val) {
+            $buf .= '<url>' . "\n";
+            $buf .= '  <loc>' . $val['loc'] . '</loc>' . "\n";
+            $buf .= '  <priority>' . $val['priority'] . '</priority>' . "\n";
+            $buf .= '  <changefreq>' . $val['changefreq'] . '</changefreq>' . "\n";
+            $buf .= '</url>' . "\n";
+        }
     }
-  }
-  $buf .= "</urlset>";
+    $buf .= "</urlset>";
 
-  header('Content-type: application/xml; charset="utf-8"', true);
-  echo $buf;
+    header('Content-type: application/xml; charset="utf-8"', true);
+    echo $buf;
 }

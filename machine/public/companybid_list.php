@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 会員入札会商品リスト
  *
@@ -9,15 +10,17 @@
  */
 require_once '../lib-machine.php';
 try {
-    //// 認証処理 ////
+    /// 認証処理 ///
     Auth::isAuth('machine');
 
-    //// 変数を取得 ////
+    /// 変数を取得 ///
     $companybidOpenId = Req::query('o');
-    if (empty($companybidOpenId)) { throw new Exception('会員入札会情報が指定されていません'); }
+    if (empty($companybidOpenId)) {
+        throw new Exception('会員入札会情報が指定されていません');
+    }
     $output    = Req::query('output');
 
-    //// 入札会情報を取得 ////
+    /// 入札会情報を取得 ///
     $companybidOpenTable = new CompanybidOpens();
     $companybidOpen      = $companybidOpenTable->get($companybidOpenId);
     if (empty($companybidOpen)) {
@@ -26,7 +29,7 @@ try {
         throw new Exception($companybidOpen['title'] . 'は、終了しました');
     }
 
-   //// 出品商品情報一覧を取得 ////
+    /// 出品商品情報一覧を取得 ///
     $companybidMachineTable = new CompanybidMachines();
     $q = array(
         'companybid_open_id' => $companybidOpenId,
@@ -41,12 +44,12 @@ try {
         'order'              => Req::query('order'),
     );
 
-    //// ジャンル・地域一覧を取得 ////
+    /// ジャンル・地域一覧を取得 ///
     $sq = array('companybid_open_id' => $companybidOpenId);
     $xlGenreList    = $companybidMachineTable->getXlGenreList($sq);
     $largeGenreList = $companybidMachineTable->getLargeGenreList($sq);
 
-    //// 会場選択 ////
+    /// 会場選択 ///
     $siteUrl  = '';
     $siteName = '';
 
@@ -89,21 +92,21 @@ try {
     $count                 = $companybidMachineTable->getCount($q);
 
     if ($output == 'pdf') {
-       //// PDF出力準備 ////
-       $filename = 'cb_' . $companybidOpenId . '_sagefuda.pdf';
+        /// PDF出力準備 ///
+        $filename = 'cb_' . $companybidOpenId . '_sagefuda.pdf';
 
-       require_once('fpdf/MBfpdi.php'); //PDF
-       $pdf = new Pdf();
-       $res = $pdf->makeCompanybidSagefuda($companybidOpen, $companybidMachineList);
+        require_once('fpdf/MBfpdi.php'); //PDF
+        $pdf = new Pdf();
+        $res = $pdf->makeCompanybidSagefuda($companybidOpen, $companybidMachineList);
 
-       //// ファイルのダウンロード処理 ////
-       header("Content-type: application/pdf");
-       header('Content-Disposition: inline; filename="' . $filename . '"');
-       echo $res;
-       exit;
-   }
+        /// ファイルのダウンロード処理 ///
+        header("Content-type: application/pdf");
+        header('Content-Disposition: inline; filename="' . $filename . '"');
+        echo $res;
+        exit;
+    }
 
-    //// ページャ ////
+    /// ページャ ///
     Zend_Paginator::setDefaultScrollingStyle('Sliding');
     $pgn = Zend_Paginator::factory(intval($count));
     $pgn->setCurrentPageNumber($q['page'])
@@ -111,9 +114,11 @@ try {
         ->setPageRange(15);
 
     $cUri = preg_replace("/(\&?page=[0-9]+)/", '', $_SERVER["REQUEST_URI"]);
-    if (!preg_match("/\?/", $cUri)) { $cUri.= '?'; }
+    if (!preg_match("/\?/", $cUri)) {
+        $cUri .= '?';
+    }
 
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle'             =>  $companybidOpen['title'] . ' 商品リスト : ' . $siteName,
         'pankuzuTitle'          => $siteName,
@@ -132,7 +137,7 @@ try {
     ))->display("companybid_list.tpl");
 } catch (Exception $e) {
     header("HTTP/1.1 404 Not Found");
-    //// エラー画面表示 ////
+    /// エラー画面表示 ///
     $_smarty->assign(array(
         'pageTitle' => '商品リスト',
         'pankuzu'   => array(

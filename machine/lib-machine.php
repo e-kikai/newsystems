@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 在庫機械設定ファイル
  *
@@ -9,7 +10,7 @@
  */
 require_once realpath(dirname(__FILE__)) . '/../lib-common.php';
 
-//// 設定ファイル読み込み ////
+/// 設定ファイル読み込み ///
 $_siteConf = new Zend_Config_Ini(APP_PATH . '/config/machine.ini');
 $_conf->merge($_siteConf);
 
@@ -17,7 +18,7 @@ $_conf->merge($_siteConf);
 Auth::setRedirect($_conf->login_uri);
 $_user = Auth::getUser();
 
-//// Smarty初期化 ////
+/// Smarty初期化 ///
 $_smarty = new MySmarty($_conf);
 
 // Smartyに共通な変数をアサイン
@@ -27,7 +28,7 @@ $_smarty->assign(array(
 
 /*
 if (!Auth::check('system')) {
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle' => 'システムエラー',
         'errorMes'  => "マシンライフは現在メンテナンス中です (メンテナンス終了予定 : 〜2015/01/01 5:00)",

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 在庫機械一覧(研削)ページ
  *
@@ -9,10 +10,10 @@
  */
 require_once '../lib-machine.php';
 try {
-    //// 認証 ////
+    /// 認証 ///
     Auth::isAuth('machine');
 
-    //// 在庫情報を検索 ////
+    /// 在庫情報を検索 ///
     $q = array(
         'xl_genre_id'    => Req::query('x'),
         'large_genre_id' => Req::query('l'),
@@ -39,11 +40,11 @@ try {
     //     }
     // }
 
-    //// 大ジャンル一覧を取得 ////
+    /// 大ジャンル一覧を取得 ///
     // $gModel         = new Genre();
     // $largeGenreList = $gModel->getLargeList(Genre::HIDE_CATALOG);
 
-    //// ページャ ////
+    /// ページャ ///
     Zend_Paginator::setDefaultScrollingStyle('Sliding');
     $pgn = Zend_Paginator::factory(intval($result['count']));
     $pgn->setCurrentPageNumber($q['page'])
@@ -68,9 +69,11 @@ try {
     }
 
     $cUri = preg_replace("/(\&?page=[0-9]+)/", '', $_SERVER["REQUEST_URI"]);
-    if (!preg_match("/\?/", $cUri)) { $cUri.= '?'; }
+    if (!preg_match("/\?/", $cUri)) {
+        $cUri .= '?';
+    }
 
-    //// リファラ処理 ////
+    /// リファラ処理 ///
     // デフォルト
     $backUri   = '';
     $backTitle = '';
@@ -105,7 +108,7 @@ try {
 
     // 大ジャンルのときのNC装置表示
     $isNc = false;
-    $isNcArray = array(1,2,3,4,5,6,7,8);
+    $isNcArray = array(1, 2, 3, 4, 5, 6, 7, 8);
 
     if (!empty($q['large_genre_id'])) {
         $isNc = array_intersect($isNcArray, (array)$q['large_genre_id']) ? true : false;
@@ -121,7 +124,7 @@ try {
         }
     }
 
-    //// 入札会情報を取得 ////
+    /// 入札会情報を取得 ///
     $boModel = new BidOpen();
     $bmModel = new BidMachine();
     $lModel  = new LargeGenres();
@@ -142,7 +145,7 @@ try {
     // 現在既に登録されている入札会商品情報を取得
     $bidMachineIds = $bmModel->getMachineIds();
 
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     $template = 'search.tpl';
     // $title    = implode(' /', $pageTitle) . ' :: 検索結果';
     $title     = implode('/', $pageTitle) . 'の中古機械';
@@ -177,7 +180,7 @@ try {
         'bidMachineIds' => $bidMachineIds,
     ))->display($template);
 } catch (Exception $e) {
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle' => '検索結果',
         'errorMes'  => $e->getMessage()

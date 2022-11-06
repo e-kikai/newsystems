@@ -1,9 +1,10 @@
 <?php
+
 /**
  * 簡易ライブラリクラス
  *
  */
-Class B
+class B
 {
     /**
      * 50音配列
@@ -451,7 +452,7 @@ Class B
         // "\xE2\x99\xAD" => "(フラット)",
         // "\xE2\x99\xAE" => "(ナチュラル)",
         // "\xE2\x99\xAF" => "(シャープ)",
- 
+
         /* --- 0x3220 - 0x324F (囲みCJK文字/月) --- */
         // 0x3220 - 0x322F
         "\xE3\x88\xA0" => "(一)",
@@ -915,19 +916,22 @@ Class B
      * @param  string $str 入力文字列
      * @return string フィルタリング後の文字列
      */
-    public static function f($str) {
+    public static function f($str)
+    {
         // NULLの場合は、そのままNULLを返す
-        if ($str == NULL) { return NULL; }
+        if ($str == NULL) {
+            return NULL;
+        }
 
         // 配列の場合は、再帰処理
         if (is_array($str)) {
             $tmp = array();
-            foreach($str as $key => $val) {
+            foreach ($str as $key => $val) {
                 $tmp[$key] = self::f($val);
             }
         } else {
-            $tmp = preg_replace("/^[ 　]+/u","",$str); // トリミング(前・後)
-            $tmp = preg_replace("/[ 　]+$/u","",$tmp);
+            $tmp = preg_replace("/^[ 　]+/u", "", $str); // トリミング(前・後)
+            $tmp = preg_replace("/[ 　]+$/u", "", $tmp);
             $tmp = mb_convert_kana($tmp, 'KVrn');      // 英数カナ変換
             $tmp = self::replaceDependent($tmp);       // 機種依存文字変換
         }
@@ -1001,9 +1005,11 @@ Class B
      * @param  mixed $jsonColumns JSONエンコード対象カラム
      * @return array エンコードしたテーブル
      */
-    public static function encodeDataJson($data, $jsonColumns=null)
+    public static function encodeDataJson($data, $jsonColumns = null)
     {
-        if (empty($jsonColumns)) { return $data; }
+        if (empty($jsonColumns)) {
+            return $data;
+        }
 
         foreach ($jsonColumns as $c) {
             if (!empty($data[$c])) {
@@ -1024,14 +1030,16 @@ Class B
      */
     public static function decodeTableJson($table, $jsonColumns)
     {
-        if (empty($table) || empty($jsonColumns)) { return $table; }
+        if (empty($table) || empty($jsonColumns)) {
+            return $table;
+        }
 
         if (empty($table[0])) {
             throw new Exception('B::decodeTableJson : テーブルではありません.');
         }
 
         foreach ((array)$table as $i => $row) {
-             $table[$i] = self::decodeRowJson($row, $jsonColumns);
+            $table[$i] = self::decodeRowJson($row, $jsonColumns);
         }
 
         return $table;
@@ -1047,7 +1055,9 @@ Class B
      */
     public static function decodeRowJson($row, $jsonColumns)
     {
-        if (empty($row) || empty($jsonColumns)) { return $row; }
+        if (empty($row) || empty($jsonColumns)) {
+            return $row;
+        }
 
         foreach ((array)$jsonColumns as $col) {
             // 元のJSON文字列も[キー_json]として残しておく
@@ -1132,7 +1142,9 @@ Class B
         $arrayKey = array_keys($header);
         foreach ($data as $d) {
             $temp = array();
-            foreach($arrayKey as $k) { $temp[] = !empty($d[$k]) ? $d[$k] : ''; }
+            foreach ($arrayKey as $k) {
+                $temp[] = !empty($d[$k]) ? $d[$k] : '';
+            }
             fputcsv($fp, $temp);
         }
 
@@ -1140,7 +1152,7 @@ Class B
         return mb_convert_encoding(ob_get_clean(), 'SJIS', 'UTF-8');
     }
 
-    public static function downloadCsvFile($header, $data, $filename='return.csv')
+    public static function downloadCsvFile($header, $data, $filename = 'return.csv')
     {
         // 出力ヘッダ
         header('Content-Type: application/octet-stream; charset=shift_jis');
@@ -1151,7 +1163,6 @@ Class B
 
         return true;
     }
-
 
     /**
      * 文字列から日付情報を取得し、曜日(漢字表記)を取得する

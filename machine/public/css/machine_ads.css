@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 body.ads_body {
-  border: 1px solid #27367B;
+  border: 1px solid #27367b;
   overflow: hidden;
   margin: 0;
 }
@@ -38,16 +38,16 @@ body.ads_body {
 
   display: block;
   padding: 4px;
-  border: 1px solid #FFF;
+  border: 1px solid #fff;
   height: 100%;
 
   box-sizing: border-box;
 }
 
 .thumbnail.product-pannel a:hover {
-  background: #FFFFE0;
+  background: #ffffe0;
   text-decoration: none;
-  border: 1px solid #27367B;
+  border: 1px solid #27367b;
   color: #23527c;
 }
 
@@ -111,7 +111,7 @@ body.ads_body {
 .thumbnail.product-pannel .min_price {
   font-size: 16px;
   margin-left: 1px;
-  color: #E81F18;
+  color: #e81f18;
   font-weight: normal;
 }
 
@@ -156,7 +156,7 @@ a.ads_logo img {
 .bid_title {
   display: block;
   position: absolute;
-  color: #FFF;
+  color: #fff;
   font-size: 28px;
   font-weight: bold;
   text-decoration: none;
@@ -173,5 +173,5 @@ a.ads_logo img {
 
 .bid_title:hover {
   opacity: 0.5;
-  color: #FFF;
+  color: #fff;
 }

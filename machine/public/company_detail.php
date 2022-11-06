@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 会社情報ページ
  *
@@ -9,21 +10,21 @@
  */
 require_once '../lib-machine.php';
 try {
-    //// 認証 ////
+    /// 認証 ///
     Auth::isAuth('machine');
 
-    //// 変数を取得 ////
+    /// 変数を取得 ///
     $companyId = Req::query('c');
 
-    //// 会社情報を取得 ////
+    /// 会社情報を取得 ///
     $companyTable = new Companies();
     $company      = $companyTable->get($companyId);
 
-    //// 自社サイトチェック ////
+    /// 自社サイトチェック ///
     $companysiteTable = new Companysites();
     $companysite      = $companysiteTable->getByCompanyId($companyId);
 
-    //// リファラ処理 ////
+    /// リファラ処理 ///
     // デフォルト
     $backUri   = 'company_list.php';
     $backTitle = '会社一覧';
@@ -34,7 +35,7 @@ try {
         $ref = urldecode($_SERVER['HTTP_REFERER']);
 
         if (preg_match('/machine_detail.php\?m=([0-9]+)/', $ref, $res)) {
-            //// 機械情報を取得 ////
+            /// 機械情報を取得 ///
             $mModel = new Machine();
             $m      = $mModel->get($res[1]);
 
@@ -56,7 +57,7 @@ try {
         }
     }
 
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle'   => $company['company'] . ' 会社情報',
         'pankuzu'     => $pankuzu + array($backUri => $backTitle),
@@ -64,7 +65,7 @@ try {
         'companysite' => $companysite,
     ))->display('company_detail.tpl');
 } catch (Exception $e) {
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle' => '会社情報',
         'pankuzu'   => array('company_list.php' => '会社一覧'),

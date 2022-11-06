@@ -6,7 +6,7 @@ span.data_area {
 }
 
 .company_info div.company {
-  color: #076AB6;
+  color: #076ab6;
 }
 
 /*** 絞り込みエリア ***/
@@ -96,11 +96,11 @@ span.data_area {
 }
 
 .filter_area input:checked + .check_label {
-  color: #E54500;
+  color: #e54500;
 }
 
 .sort_area input:checked + .check_label {
-  color: #E54500;
+  color: #e54500;
 }
 
 .sort_area label {
@@ -143,8 +143,11 @@ select.limit {
 .map_location_area li,
 .period_area li {
   display: inline-block;
-  #display: inline;  /* for IE6,7 */
-  #zoom: 1;          /* for IE6,7 */
+  /* for IE6,7 */
+  /*
+  #display: inline;
+  #zoom: 1;
+  */
   vertical-align: middle;
   overflow: hidden;
 }
@@ -205,7 +208,7 @@ select.limit {
 
 .submit_area button {
   width: 196px;
-  color: #FFFFFF;
+  color: #ffffff;
   border: 0;
   margin-left: 6px;
   vertical-align: baseline;
@@ -229,26 +232,38 @@ button.input_mailmagazine,
 button.mylist_full,
 button.mylist_full_company {
   width: 224px;
-  background: #FFF;
-  background: -webkit-gradient(linear, left top, left bottom, from(#EAEAEA), to(#C5C5C5) );
-  background: -moz-linear-gradient(-90deg, #EAEAEA, #C5C5C5);
-  background: -o-linear-gradient(-90deg, #EAEAEA, #C5C5C5);
-  background: linear-gradient(to bottom, #EAEAEA, #C5C5C5);
+  background: #fff;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#eaeaea),
+    to(#c5c5c5)
+  );
+  background: -moz-linear-gradient(-90deg, #eaeaea, #c5c5c5);
+  background: -o-linear-gradient(-90deg, #eaeaea, #c5c5c5);
+  background: linear-gradient(to bottom, #eaeaea, #c5c5c5);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#EAEAEA', endColorstr='#C5C5C5');
-  color: #EA570F;
-  border: 1px solid #C5C5C5;
+  color: #ea570f;
+  border: 1px solid #c5c5c5;
   margin-left: 6px;
 }
 
 button.input_mylist_genres:hover,
 button.input_mailmagazine:hover,
 button.mylist_full:hover,
-button.mylist_full_company:hover  {
-  background: #EAEAEA;
-  background: -webkit-gradient(linear, left top, left bottom, from(#C5C5C5), to(#EAEAEA) );
-  background: -moz-linear-gradient(-90deg, #C5C5C5, #EAEAEA);
-  background: -o-linear-gradient(-90deg, #C5C5C5, #EAEAEA);
-  background: linear-gradient(to bottom, #C5C5C5, #EAEAEA);
+button.mylist_full_company:hover {
+  background: #eaeaea;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#c5c5c5),
+    to(#eaeaea)
+  );
+  background: -moz-linear-gradient(-90deg, #c5c5c5, #eaeaea);
+  background: -o-linear-gradient(-90deg, #c5c5c5, #eaeaea);
+  background: linear-gradient(to bottom, #c5c5c5, #eaeaea);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#C5C5C5', endColorstr='#EAEAEA');
 }
 
@@ -256,12 +271,12 @@ button.input_mylist_genres:active,
 button.input_mailmagazine:active,
 button.mylist_full:active,
 button.mylist_full_company:active {
-  background: #C5C5C5;
+  background: #c5c5c5;
 }
 
 button.mylist_full,
 button.mylist_full_company {
-  width : 144px;
+  width: 144px;
 }
 
 /*** others ***/
@@ -280,7 +295,7 @@ table.others td.c3 {
 }
 
 table.others td dt {
-  border-bottom: 1px dotted #BBB;
+  border-bottom: 1px dotted #bbb;
 }
 
 /*** まとめて ***/
@@ -294,30 +309,42 @@ button.contact_full_company {
   display: inline-block;
   margin: auto;
   text-align: center;
-  background: #EA570F;
-  background: -webkit-gradient(linear, left top, left bottom, from(#ff8e66), to(#EA570F) );
-  background: -moz-linear-gradient(-90deg, #ff8e66, #EA570F);
-  background: -o-linear-gradient(-90deg, #ff8e66, #EA570F);
-  background: linear-gradient(to bottom, #ff8e66, #EA570F);
+  background: #ea570f;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#ff8e66),
+    to(#ea570f)
+  );
+  background: -moz-linear-gradient(-90deg, #ff8e66, #ea570f);
+  background: -o-linear-gradient(-90deg, #ff8e66, #ea570f);
+  background: linear-gradient(to bottom, #ff8e66, #ea570f);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ff8e66', endColorstr='#EA570F');
-  color: #FFF;
+  color: #fff;
   height: 25px;
-  border: 1px solid #EA570F;
+  border: 1px solid #ea570f;
 }
 
 button.contact_full:hover,
 button.contact_full_company:hover {
   background: #ff8e66;
-  background: -webkit-gradient(linear, left top, left bottom, from(#EA570F), to(#ff8e66) );
-  background: -moz-linear-gradient(-90deg, #EA570F, #ff8e66);
-  background: -o-linear-gradient(-90deg, #EA570F, #ff8e66);
-  background: linear-gradient(to bottom, #EA570F, #ff8e66);
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#ea570f),
+    to(#ff8e66)
+  );
+  background: -moz-linear-gradient(-90deg, #ea570f, #ff8e66);
+  background: -o-linear-gradient(-90deg, #ea570f, #ff8e66);
+  background: linear-gradient(to bottom, #ea570f, #ff8e66);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#EA570F', endColorstr='#ff8e66');
 }
 
 button.contact_full:active,
 button.contact_full_company:active {
-  background: #EA570F;
+  background: #ea570f;
 }
 
 /*** メンバー情報 ***/
@@ -403,16 +430,15 @@ table.machines {
 }
 
 .machine td {
-  border: 1px solid #BBB;
+  border: 1px solid #bbb;
 }
 
 .img_machine .checkbox,
 .machine .checkbox {
   vertical-align: middle;
   text-align: center;
-  border-right: 1px solid #BBB;
+  border-right: 1px solid #bbb;
 }
-
 
 .machine_list.company .buttons,
 .machine_list.list .buttons {
@@ -424,14 +450,14 @@ table.machines {
 .machines.img .img_machine:hover td.data,
 .map.machine_list .map_machine:hover,
 .machine_list .machine:hover td {
-  background: rgb(254,255,204);
+  background: rgb(254, 255, 204);
 }
 
 .machines.img .checkbox,
 .machines.img .img_machine:hover .checkbox,
 .machine_list .machine .checkbox,
 .machine_list .machine:hover td.checkbox {
-  background: rgb(255,246,228);
+  background: rgb(255, 246, 228);
 }
 
 .machines td.checkbox,
@@ -448,16 +474,16 @@ table.machines {
   padding: 4px;
 }
 
-.machine .status div{
+.machine .status div {
   margin-right: 1.5em;
 }
 
 .machine .status {
-  border-bottom: 1px solid #BBB;
+  border-bottom: 1px solid #bbb;
 }
 
 .machine .company_info {
-  border-top: 1px solid #BBB;
+  border-top: 1px solid #bbb;
 }
 
 .imgs {
@@ -468,8 +494,11 @@ table.machines {
 
 .imgs li {
   display: inline-block;
-  #display: inline;  /* for IE6,7 */
-  #zoom: 1;          /* for IE6,7 */
+  /* for IE6,7 */
+  /*
+  #display: inline;
+  #zoom: 1;
+  */
   text-align: center;
   height: 192px;
   margin: 0 3px;
@@ -491,11 +520,14 @@ table.machines {
 
 div.new {
   display: inline-block;
-  #display: inline;  /* for IE6,7 */
-  #zoom: 1;          /* for IE6,7 */
+  /* for IE6,7 */
+  /*
+  #display: inline;
+  #zoom: 1;
+  */
 
-  background: #F00;
-  color: #FFF;
+  background: #f00;
+  color: #fff;
   width: 46px;
   text-align: center;
 }
@@ -506,7 +538,7 @@ img.hoverimg {
   position: absolute;
   max-width: 272px;
   max-height: 272px;
-  border: 1px solid #AAA;
+  border: 1px solid #aaa;
   box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.6);
 }
 
@@ -515,8 +547,8 @@ img.hoverimg {
 .machines.img td,
 .machine_list.company th,
 .machine_list.company td {
-  background: #EEE;
-  border: 1px solid #BBB;
+  background: #eee;
+  border: 1px solid #bbb;
   vertical-align: middle;
   padding: 2px 4px;
 }
@@ -565,7 +597,7 @@ img.hoverimg {
 
 .machine_list.list td.capacity_area {
   border: 1px solid #147543;
-  background: #FFF;
+  background: #fff;
   height: auto;
 }
 
@@ -583,50 +615,62 @@ img.hoverimg {
 .machine_list button.mylist,
 .machine_list button.mylist_company,
 .mylist_genres button.input_mailmagazine {
-  color: #EA570F;
-  background: #FFF;
-  background: #C5C5C5;
-  background: -webkit-gradient(linear, left top, left bottom, from(#EAEAEA), to(#C5C5C5) );
-  background: -moz-linear-gradient(-90deg, #EAEAEA, #C5C5C5);
-  background: -o-linear-gradient(-90deg, #EAEAEA, #C5C5C5);
-  background: linear-gradient(to bottom, #EAEAEA, #C5C5C5);
+  color: #ea570f;
+  background: #fff;
+  background: #c5c5c5;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#eaeaea),
+    to(#c5c5c5)
+  );
+  background: -moz-linear-gradient(-90deg, #eaeaea, #c5c5c5);
+  background: -o-linear-gradient(-90deg, #eaeaea, #c5c5c5);
+  background: linear-gradient(to bottom, #eaeaea, #c5c5c5);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#EAEAEA', endColorstr='#C5C5C5');
 
   font-size: 12px;
   font-weight: normal;
   width: 130px;
-  border: 1px solid #C5C5C5;
+  border: 1px solid #c5c5c5;
   margin: auto;
 }
 
 .machine_list button.mylist:hover,
 .machine_list button.mylist_company:active,
 .mylist_genres button.input_mailmagazine:hover {
-  background: #EAEAEA;
-  background: -webkit-gradient(linear, left top, left bottom, from(#C5C5C5), to(#EAEAEA) );
-  background: -moz-linear-gradient(-90deg, #C5C5C5, #EAEAEA);
-  background: -o-linear-gradient(-90deg, #C5C5C5, #EAEAEA);
-  background: linear-gradient(to bottom, #C5C5C5, #EAEAEA);
+  background: #eaeaea;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#c5c5c5),
+    to(#eaeaea)
+  );
+  background: -moz-linear-gradient(-90deg, #c5c5c5, #eaeaea);
+  background: -o-linear-gradient(-90deg, #c5c5c5, #eaeaea);
+  background: linear-gradient(to bottom, #c5c5c5, #eaeaea);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#C5C5C5', endColorstr='#EAEAEA');
 }
 
 .machine_list button.mylist:active,
 .machine_list button.mylist_company:active,
 .mylist_genres button.input_mailmagazine:active {
-  background: #C5C5C5;
+  background: #c5c5c5;
 }
 
 /* セパレータ */
 .machine_list tr.separator td {
   border-width: 1px 0;
-  border-color: #BBB #FFF;
+  border-color: #bbb #fff;
   height: 4px;
   padding: 0;
-  background: #FFF;
+  background: #fff;
 }
 
 .machine_list:hover tr.separator td {
-  background: #FFF;
+  background: #fff;
 }
 
 .hidden,
@@ -649,8 +693,11 @@ img.hoverimg {
 
 .list.machine_list .name {
   display: inline-block;
-  #display: inline; /* for IE6,7 */
-  #zoom: 1;         /* for IE6,7 */
+  /* for IE6,7 */
+  /*
+  #display: inline;
+  #zoom: 1;
+  */
 }
 
 /*** 画像で表示 ***/
@@ -661,15 +708,21 @@ img.hoverimg {
 
 .list.machine_list button {
   display: inline-block;
-  #display: inline; /* for IE6,7 */
-  #zoom: 1;         /* for IE6,7 */
-  margin: auto ;
+  /* for IE6,7 */
+  /*
+  #display: inline;
+  #zoom: 1;
+  */
+  margin: auto;
 }
 
 .machines.img button {
   display: inline-block;
-  #display: inline; /* for IE6,7 */
-  #zoom: 1;         /* for IE6,7 */
+  /* for IE6,7 */
+  /*
+  #display: inline;
+  #zoom: 1;
+  */
   margin: auto 4px;
 }
 
@@ -694,8 +747,11 @@ img.hoverimg {
 .machines.img .status div,
 .machines.img .company_info div {
   display: inline-block;
-  #display: inline; /* for IE6,7 */
+  /* for IE6,7 */
+  /*
+  #display: inline;
   #zoom: 1;
+  */
 }
 
 .machine_list .status div.hidden {
@@ -768,7 +824,7 @@ table.machines a.contact {
 }
 
 .machine_list.company .buttons,
-.machine_list.list .buttons  {
+.machine_list.list .buttons {
   width: 152px;
 }
 
@@ -785,12 +841,12 @@ table.machines a.contact {
 
 .scrollLeft {
   left: 4px;
-  background: url('../imgs/imgs_prev.png') no-repeat;
+  background: url("../imgs/imgs_prev.png") no-repeat;
 }
 
 .scrollRight {
   right: 4px;
-  background: url('../imgs/img_next.png') no-repeat;
+  background: url("../imgs/img_next.png") no-repeat;
 }
 
 .machines.img a.contact {
@@ -808,7 +864,7 @@ table.machines a.contact {
 /**** Google Maps API v3 ****/
 .map_company {
   font-weight: bold;
-  color: #076AB6;
+  color: #076ab6;
 }
 
 .map_pure_address {
@@ -816,7 +872,7 @@ table.machines a.contact {
 }
 
 .map.machine_list .machine.map_hoverd {
-  background: rgb(254,255,204);
+  background: rgb(254, 255, 204);
 }
 
 .map_machine_list {
@@ -845,23 +901,29 @@ table.machines a.contact {
 
 #gmap {
   display: inline-block;
-  #display: inline;  /* for IE6,7 */
-  #zoom: 1;          /* for IE6,7 */
+  /* for IE6,7 */
+  /*
+  #display: inline;
+  #zoom: 1;
+  */
   width: 728px;
   height: 540px;
-  border: 1px solid #AAA;
+  border: 1px solid #aaa;
   margin: 1px 0;
 }
 
 .machines.map {
   display: inline-block;
-  #display: inline;  /* for IE6,7 */
-  #zoom: 1;          /* for IE6,7 */
+  /* for IE6,7 */
+  /*
+  #display: inline;
+  #zoom: 1;
+  */
 
   width: 228px;
   height: 540px;
   vertical-align: top;
-  border: 1px solid #AAA;
+  border: 1px solid #aaa;
   position: relative;
   margin: 1px 0;
 
@@ -870,9 +932,9 @@ table.machines a.contact {
 
 .machines.map .map_machine {
   position: relative;
-  background: #FFF;
-  border-bottom: 1px dotted #AAA;
-  border-width : 0 0 1px 0;
+  background: #fff;
+  border-bottom: 1px dotted #aaa;
+  border-width: 0 0 1px 0;
   margin: 0;
   padding: 3px;
 }
@@ -880,7 +942,7 @@ table.machines a.contact {
 .machines.map .status {
   float: left;
   width: 80px;
-  border-width : 0;
+  border-width: 0;
   padding: 2px;
 }
 
@@ -898,7 +960,7 @@ table.machines a.contact {
   float: left;
   vertical-align: top;
   width: 120px;
-  border-width : 0;
+  border-width: 0;
   padding: 0;
 }
 
@@ -923,7 +985,7 @@ table.machines a.contact {
 /*** お問い合わせ不可の場合 ***/
 .contact.none {
   display: inline-block;
-  border: 1px solid #AAA;
+  border: 1px solid #aaa;
   background: #888;
   width: 68px;
   height: 32px;
@@ -956,7 +1018,6 @@ button.input_mylist_genres,
 button.genre_open {
   display: none;
 }
-
 
 #bid_area label,
 #sort_area label {
@@ -1042,20 +1103,20 @@ td.year {
 }
 
 .machine_list.list tr:nth-child(odd) td {
-  background: #FFF;
+  background: #fff;
 }
 
 .machine_list.list tr:nth-child(odd):hover td {
-  background: rgb(254,255,204);
+  background: rgb(254, 255, 204);
 }
 
 .machine_list.list tr:nth-child(odd) td.checkbox {
-  background: rgb(255,246,228);
+  background: rgb(255, 246, 228);
 }
 
 .machine_list.list th {
   background: #147543;
-  color: #FFF;
+  color: #fff;
 }
 
 .machine_list.list a.contact,
@@ -1077,8 +1138,7 @@ table.machines button.mylist_company {
 
 .machine_list.list .machines td.img,
 .machine_list.list .machines td.checkbox,
-.machine_list.company .machines td.checkbox
-{
+.machine_list.company .machines td.checkbox {
   padding: 1px;
 }
 
@@ -1093,8 +1153,8 @@ table.machines button.mylist_company {
 }
 
 .label.movie {
-  color: #E00;
-  border: 1px solid #E00;
-  background: #FEE;
+  color: #e00;
+  border: 1px solid #e00;
+  background: #fee;
   text-decoration: none;
 }

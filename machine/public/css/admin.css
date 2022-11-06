@@ -1,3 +1,5 @@
+@charset "utf-8";
+
 /*** admin access_log ***/
 table.accesslog th {
   padding: 3px;

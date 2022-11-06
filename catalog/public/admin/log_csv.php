@@ -1,18 +1,19 @@
 <?php
+
 /**
  * 電子カタログアクションログCSV出力
- * 
+ *
  * @access public
  * @author 川端洋平
  * @version 0.0.1
  * @since 2011/05/06
  */
-//// 設定ファイル読み込み ////
+/// 設定ファイル読み込み ///
 require_once '../../lib-catalog.php';
 try {
-    //// 認証 ////
+    /// 認証 ///
     Auth::isAuth('admin');
-    
+
     $q = array(
         'target' => Req::query('t'),
         'action' => Req::query('a'),
@@ -21,28 +22,28 @@ try {
     );
     $lModel = new Actionlog();
     $logList = $lModel->getList($q);
-    
+
     $filename = date('Ymd') . '_電子カタログアクションログ.csv';
-    
+
     // 文字コード変換
     mb_convert_variables("SJIS-WIN", "UTF-8,EUCJP-WIN,SJIS-WIN", $filename,  $logList);
-    
+
     // 標準出力のバッファリング
     ob_start();
-    
+
     // 標準出力オープン
     $fp = fopen('php://output', 'w');
     fputcsv($fp, array_keys($logList[0]));
-    foreach($logList as &$line) {
+    foreach ($logList as &$line) {
         fputcsv($fp, $line);
     }
 
     fclose($fp);
     $csv = ob_get_contents();
-    
+
     // バッファリングここまで
     ob_end_clean();
-    
+
     // ファイルサイズ取得
     $fileLength = strlen($csv);
 
@@ -54,10 +55,9 @@ try {
     // CSVデータ出力
     echo $csv;
 } catch (Exception $e) {
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle' => 'システムエラー',
         'errorMes'  => $e->getMessage()
     ))->display('error.tpl');
 }
-

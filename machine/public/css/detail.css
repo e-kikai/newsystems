@@ -149,8 +149,11 @@ a.contact_link {
 
 .images .img {
   display: inline-block;
-  /display: inline; /* for IE6,7 */
-  /zoom: 1; /* for IE6,7 */
+  /* for IE6,7 */
+  /*
+  #display: inline;
+  #zoom: 1;
+  */
 
   width: 170px;
   height: 130px;
@@ -166,7 +169,10 @@ a.contact_link {
   margin: 5px auto auto auto;
   max-width: 160px;
   max-height: 120px;
-  _height: 120px; /* for IE6 */
+  /* for IE6 */
+  /*
+  _height: 120px;
+  */
 }
 
 div.data_area {
@@ -281,8 +287,11 @@ table.spec th {
 
 .images {
   display: inline-block;
-  /display: inline; /* for IE6,7 */
-  /zoom: 1; /* for IE6,7 */
+  /* for IE6,7 */
+  /*
+  #display: inline;
+  #zoom: 1;
+  */
 
   text-align: left;
 

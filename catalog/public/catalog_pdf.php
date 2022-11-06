@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 電子カタログダウンロード + 電子透かし
  *
@@ -9,10 +10,10 @@
  */
 require_once '../lib-catalog.php';
 try {
-    //// 認証 ////
+    /// 認証 ///
     // Auth::isAuth('catalog');
 
-    //// @ba-ta 20141231 会社情報を取得して、表示権限チェック ////
+    /// @ba-ta 20141231 会社情報を取得して、表示権限チェック ///
     // $companyTable = new Companies();
     // $company      = $companyTable->get($_user['company_id']);
     // if (!Companies::checkRank($company['rank'], 'B会員')) {
@@ -22,7 +23,7 @@ try {
     // 表示かDLか
     $disposition = Req::query('dl') ? 'attachment' : 'inline';
 
-    //// 電子カタログ情報を取得 ////
+    /// 電子カタログ情報を取得 ///
     $id      = Req::query('id');
     $cTable  = new Catalog();
     $catalog = $cTable->get($id);
@@ -30,7 +31,7 @@ try {
     // test
     $style = Req::query('s');
 
-    //// ファイル名 ////
+    /// ファイル名 ///
     // ダウンロードさせる元ファイル
     if ($style == 1) {
         $source = $_conf->catalog_dir . $catalog['uid'] . '_s.pdf';
@@ -52,14 +53,14 @@ try {
     // 保存時のファイル名(デフォルト)
     $filename = "{$catalog['maker']}_{$catalog['uid']}.pdf";
 
-    //// ファイル有無のチェック ////
+    /// ファイル有無のチェック ///
     if (empty($catalog)) {
         throw new Exception("カタログ情報が取得できませんでした(id : {$id})");
-    // } else if (!file_exists($source)) {
-    //     throw new Exception("カタログPDFファイルがありません(id : {$source}, file : {$filename})");
+        // } else if (!file_exists($source)) {
+        //     throw new Exception("カタログPDFファイルがありません(id : {$source}, file : {$filename})");
     }
 
-    // //// 電子透かし ////
+    // /// 電子透かし ///
     // $pdf = Zend_Pdf::load($source);
     //
     // // $font = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA);
@@ -72,7 +73,7 @@ try {
 
     $res = file_get_contents($source);
 
-    //// ファイルのダウンロード処理 ////
+    /// ファイルのダウンロード処理 ///
     header("Content-type: application/pdf");
     header("Content-Disposition: {$disposition}; filename=\"{$filename}\"");
     // echo $pdf->render();
@@ -84,7 +85,7 @@ try {
 
     exit;
 } catch (Exception $e) {
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle' => 'PDFファイルダウンロードエラー',
         'errorMes'  => $e->getMessage()

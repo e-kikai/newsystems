@@ -1,4 +1,5 @@
 @charset "utf-8";
+
 h1 {
   width: 772px;
   margin: 0 auto 6px 4px;
@@ -37,7 +38,7 @@ a.bid_help,
 button.mylist,
 button {
   background: none;
-  background-color: #CCC;
+  background-color: #ccc;
   color: #333;
   text-shadow: none;
   box-shadow: none;
@@ -53,8 +54,8 @@ button {
 a.contact,
 a.mylist_link,
 a.button {
-  background-color: #076AB6;
-  color: #FFF;
+  background-color: #076ab6;
+  color: #fff;
 }
 
 a.contact:hover,
@@ -63,21 +64,21 @@ a.mylist_link:hover,
 button.mylist:hover,
 button:hover {
   background: none;
-  background-color: #F60;
-  color: #FFF;
+  background-color: #f60;
+  color: #fff;
   text-shadow: none;
   box-shadow: none;
 }
 
 /*** お問い合わせ ***/
 a.contact {
-  background: #EA570F;
-  color: #FFF;
+  background: #ea570f;
+  color: #fff;
 }
 
 a.contact:active {
   top: 0;
-  box-shadow: 0
+  box-shadow: 0;
 }
 
 a.mylist_link {
@@ -92,12 +93,12 @@ a.mylist_link {
   font-size: 16px;
   border-radius: 0.3em;
 
-  background: url('../imgs/wish_icon.png') no-repeat 4px 0px #E02E2E;
+  background: url("../imgs/wish_icon.png") no-repeat 4px 0px #e02e2e;
   filter: none;
 }
 
 a.mylist_link:hover {
-  background: url('../imgs/wish_icon.png') no-repeat 4px 0px #F60;
+  background: url("../imgs/wish_icon.png") no-repeat 4px 0px #f60;
 }
 
 /*** 入札会案内ボタン ***/
@@ -105,9 +106,9 @@ button.bid_help,
 a.bid_help {
   display: block;
   margin: 30px auto 0 auto;
-  background: url('../imgs/bid_help_button_01.png') no-repeat 238px 0px #FFF;
-  border: 1px solid #EC7C13;
-  color: #EC7C13;
+  background: url("../imgs/bid_help_button_01.png") no-repeat 238px 0px #fff;
+  border: 1px solid #ec7c13;
+  color: #ec7c13;
   font-size: 22px;
   text-shadow: none;
   width: 320px;
@@ -140,9 +141,9 @@ a.help_link {
   position: absolute;
   top: -64px;
   right: 518px;
-  background: #076AB6;
+  background: #076ab6;
   border: 0;
-  color: #FFF;
+  color: #fff;
   font-size: 22px;
   text-shadow: none;
   width: 210px;
@@ -153,14 +154,14 @@ a.help_link {
   border-radius: 3px;
 }
 a.help_link:hover {
-  background-color: #F60;
+  background-color: #f60;
 }
 
 button.mylist_movie {
   display: block;
-  background: url('../imgs/youtube_icon_48_02.png') no-repeat 4px 12px #FFF;
-  border: 1px solid #BE181B;
-  color: #BE181B;
+  background: url("../imgs/youtube_icon_48_02.png") no-repeat 4px 12px #fff;
+  border: 1px solid #be181b;
+  color: #be181b;
   font-size: 22px;
   text-shadow: none;
   width: 184px;
@@ -179,9 +180,9 @@ button.mylist_movie {
 button.mylist_movie:hover,
 a.bid_help:hover,
 button.bid_help:hover {
-  background-color: #F60;
-  color: #FFF;
-  border-color: #F60;
+  background-color: #f60;
+  color: #fff;
+  border-color: #f60;
 }
 
 a.company_list_button {
@@ -192,7 +193,7 @@ a.company_list_button {
   width: 300px;
   height: 40px;
   line-height: 40px;
-  color: #FFF;
+  color: #fff;
   text-decoration: none;
 
   border: 1px solid #004675;
@@ -209,7 +210,7 @@ a.company_list_button:hover {
 /*** 入札方法説明エリア ***/
 .bid_01,
 .bid_02 {
-  color: #FFF;
+  color: #fff;
   width: 220px;
   height: 24px;
   line-height: 24px;
@@ -218,11 +219,11 @@ a.company_list_button:hover {
 }
 
 .bid_01 {
-  background: #5F5FFF;
+  background: #5f5fff;
 }
 
 .bid_02 {
-  background: #27C827;
+  background: #27c827;
 }
 
 .bid_help_area {
@@ -239,7 +240,7 @@ a.company_list_button:hover {
   position: absolute;
   top: 210px;
   left: 200px;
-  background: #5F5FFF;
+  background: #5f5fff;
 }
 
 .bid_help_area .company_list_button {
@@ -260,9 +261,9 @@ a.company_list_button:hover {
 .bid_help_area .bid_arrow_02_1,
 .bid_help_area .bid_arrow_02_2 {
   position: absolute;
-  background:url('../imgs/bid_arrow_01.png') no-repeat;
+  background: url("../imgs/bid_arrow_01.png") no-repeat;
   background-size: 100% 100%;
-  color: #66662D;
+  color: #66662d;
   text-indent: 8px;
   font-size: 15px;
 }
@@ -313,7 +314,7 @@ a.company_list_button:hover {
 .bid_help_area .bid_03_contents {
   position: absolute;
   border: 1px dotted #777;
-  background: #FFF;
+  background: #fff;
   padding: 4px;
   font-size: 15px;
   left: 490px;
@@ -362,10 +363,10 @@ a.company_list_button:hover {
 .preuser_form_area .privacy {
   width: 100%;
   height: 100px;
-  border: 1px solid #CCC;
+  border: 1px solid #ccc;
   overflow: scroll;
   padding: 4px;
-  background: #FFF;
+  background: #fff;
 }
 
 .preuser_form_area .checke_area {
@@ -379,7 +380,7 @@ a.company_list_button:hover {
 }
 
 span.require {
-  color: #FF0033;
+  color: #ff0033;
   vertical-align: top;
 }
 
@@ -444,9 +445,8 @@ a.mylist_link:active {
   margin: 0;
 }
 
-
 .head_search_no button:hover {
-  color: #FFF;
+  color: #fff;
 }
 
 /*** bid_detail ***/
@@ -475,8 +475,8 @@ a.mylist_text_link {
 }
 
 .mylist_pluse {
-  color: #FFF;
-  background: #E02E2E;
+  color: #fff;
+  background: #e02e2e;
   font-weight: bold;
   display: block;
   width: 30px;
@@ -488,14 +488,14 @@ a.mylist_text_link {
   border-radius: 3px 0 0 3px;
   text-indent: initial;
   text-align: center;
-  border: 1px solid #E02E2E;
+  border: 1px solid #e02e2e;
 }
 
 button.mylist:hover > .mylist_pluse,
-button.mylist:active >.mylist_pluse {
-  background: #FFF;
-  color: #F60;
-  border: 1px solid #F60;
+button.mylist:active > .mylist_pluse {
+  background: #fff;
+  color: #f60;
+  border: 1px solid #f60;
 }
 
 table.price_table {
@@ -552,16 +552,16 @@ table.spec {
   top: -32px;
   right: 160px;
   width: 100px;
-  color: #076AB6;
-  background: #FFF;
+  color: #076ab6;
+  background: #fff;
   font-size: 13px;
   text-decoration: underline;
   padding: 0;
 }
 
 .spec_area button.detail_mylist_movie:hover {
-  color: #F60;
-  background: #FFF;
+  color: #f60;
+  background: #fff;
 }
 
 a.accessmap {
@@ -573,9 +573,9 @@ a.accessmap {
   top: 4px;
   right: 4px;
   vertical-align: middle;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 14px;
-  background: #076AB6;
+  background: #076ab6;
 }
 
 .next_area {
@@ -618,7 +618,7 @@ a.accessmap {
   position: absolute;
   width: 250px;
   height: 24px;
-  color: #C00;
+  color: #c00;
   font-size: 20px;
   text-align: left;
   left: 254px;
@@ -627,7 +627,7 @@ a.accessmap {
 
 /*** 印刷ボタン ***/
 button.print {
-  background: #CCC;
+  background: #ccc;
   color: #333;
   border: 0;
   text-indent: 40px;
@@ -636,8 +636,8 @@ button.print {
 
 button.print:hover,
 button.print:active {
-  background: #F60;
-  color: #FFF;
+  background: #f60;
+  color: #fff;
 }
 
 /*** dialog ***/

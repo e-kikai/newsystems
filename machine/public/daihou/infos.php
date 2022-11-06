@@ -1,4 +1,5 @@
 <?php
+
 /**
  * お問い合わせページ
  *
@@ -9,14 +10,14 @@
  */
 require_once '../../lib-machine.php';
 try {
-    //// 認証 ////
+    /// 認証 ///
     // Auth::isAuth('machine');
 
-    //// 変数を取得 ////
+    /// 変数を取得 ///
     $infoId    = Req::query('id');
     $companyId = 320;
 
-    //// 会社情報を取得 ////
+    /// 会社情報を取得 ///
     $companyTable = new Companies();
     $company      = $companyTable->get($companyId);
 
@@ -27,7 +28,7 @@ try {
         $dInfo = $diTable->get($companyId, $infoId);
     }
 
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle'   => 'お知らせ',
         'company'     => $company,
@@ -37,10 +38,10 @@ try {
         'dInfo'      => $dInfo,
     ))->display('daihou/infos.tpl');
 } catch (Exception $e) {
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle'   => 'お知らせ',
         'company'     => $company,
         'errorMes'  => $e->getMessage()
-        ))->display('daihou/error.tpl');
-    }
+    ))->display('daihou/error.tpl');
+}

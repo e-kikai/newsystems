@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 新着メール test
  *
@@ -9,13 +10,13 @@
  */
 require_once dirname(__FILE__) . '/../lib-machine.php';
 try {
-    //// 認証 ////
-    // Auth::isAuth('system');
+  //// 認証 ////
+  // Auth::isAuth('system');
 
-    //// パラメータ取得 ////
-    $date = date("Y-m-d", strtotime("-1 day"));
+  //// パラメータ取得 ////
+  $date = date("Y-m-d", strtotime("-1 day"));
 
-    $sql = "SELECT
+  $sql = "SELECT
       l.id,
       l.large_genre,
       count(m.*) as count
@@ -40,72 +41,72 @@ try {
     ORDER BY
       x.order_no,
       l.order_no;";
-    $result = $_db->fetchAll($sql, $date);
+  $result = $_db->fetchAll($sql, $date);
 
-    //// 機械詳細を取得 ////
-    $mModel = new Machine();
-    $q = array('date' => $date);
-    $mresult = $mModel->search($q);
+  //// 機械詳細を取得 ////
+  $mModel = new Machine();
+  $q = array('date' => $date);
+  $mresult = $mModel->search($q);
 
-    //// 入札会情報を取得 ////
-    // $sql = "SELECT
-    //   *
-    // FROM
-    //   bidinfos b
-    // WHERE
-    //   (
-    //     bid_date > now() OR
-    //     preview_end_date > current_date
-    //   )
-    //   AND deleted_at IS NULL
-    // ORDER BY
-    //   created_at DESC;";
-    // $bidinfoList = $_db->fetchAll($sql);
+  //// 入札会情報を取得 ////
+  // $sql = "SELECT
+  //   *
+  // FROM
+  //   bidinfos b
+  // WHERE
+  //   (
+  //     bid_date > now() OR
+  //     preview_end_date > current_date
+  //   )
+  //   AND deleted_at IS NULL
+  // ORDER BY
+  //   created_at DESC;";
+  // $bidinfoList = $_db->fetchAll($sql);
 
-    //// 入札会バナー情報を取得 ////
-    $bModel      = new Bidinfo();
-    $bidinfoList = $bModel->getList(array('sort' => "bid_date"));
+  //// 入札会バナー情報を取得 ////
+  $bModel      = new Bidinfo();
+  $bidinfoList = $bModel->getList(array('sort' => "bid_date"));
 
-    //// メール送信ユーザの取得 ////
-    $muModel = new Mailuser();
-    $mailuserList = $muModel->getList();
+  //// メール送信ユーザの取得 ////
+  $muModel = new Mailuser();
+  $mailuserList = $muModel->getList();
 
-    if (!empty($result) && !empty($mailuserList)) {
-        $count = 0;
-        foreach ($result as $l) {
-            $count += $l['count'];
-        }
+  if (!empty($result) && !empty($mailuserList)) {
+    $count = 0;
+    foreach ($result as $l) {
+      $count += $l['count'];
+    }
 
-        //// 表示変数アサイン ////
-        $body = $_smarty->assign(array(
-            'largeGenreList' => $result,
-            'machineList'    => $mresult['machineList'],
-            'bidinfoList'    => $bidinfoList,
-            'date'           => $date,
-            'count'          => $count,
-        ))->fetch('scripts/mailtest_03.tpl');
-        $subject = 'マシンライフ新着中古機械情報(' . date("Y/m/d", strtotime($date)) . ')';
+    //// 表示変数アサイン ////
+    $body = $_smarty->assign(array(
+      'largeGenreList' => $result,
+      'machineList'    => $mresult['machineList'],
+      'bidinfoList'    => $bidinfoList,
+      'date'           => $date,
+      'count'          => $count,
+    ))->fetch('scripts/mailtest_03.tpl');
+    $subject = 'マシンライフ新着中古機械情報(' . date("Y/m/d", strtotime($date)) . ')';
 
-        // test
-        // exit($body);
+    // test
+    // exit($body);
 
-        // メール送信処理
-        $maModel = new Mailsend();
-        /*
+    // メール送信処理
+    $maModel = new Mailsend();
+    /*
         $maModel->sendMail('qqgx76kd@galaxy.ocn.ne.jp', null, $body, $subject, null, 'html');
         $maModel->sendMail('kazuyoshih@gmail.com', null, $body, $subject, null, 'html');
         $maModel->sendMail('jimukyoku@zenkiren.net', null, $body, $subject, null, 'html');
         $maModel->sendMail('tsuneyama@omdc.or.jp', null, $body, $subject, null, 'html');
         */
 
-        foreach($mailuserList as $m) {
-            $maModel->sendMail($m['mail'], null, $body, $subject, null, 'html');
-        }
+    foreach ($mailuserList as $m) {
+      $maModel->sendMail($m['mail'], null, $body, $subject, null, 'html');
     }
+  }
 } catch (Exception $e) {
-    //// 表示変数アサイン ////
-    echo 'システムエラー';
-    echo '<pre>';
-    echo $e->getMessage();
-    echo '</pre>';
+  //// 表示変数アサイン ////
+  echo 'システムエラー';
+  echo '<pre>';
+  echo $e->getMessage();
+  echo '</pre>';
 }

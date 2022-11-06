@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 新着情報ページ
  *
@@ -9,10 +10,10 @@
  */
 require_once '../lib-machine.php';
 try {
-    //// 認証 ////
+    /// 認証 ///
     Auth::isAuth('machine');
 
-    //// 新着情報取得日数取得 ////
+    /// 新着情報取得日数取得 ///
     // $period = Req::query('pe', 7);
 
     $base   = Req::query('b');
@@ -20,11 +21,11 @@ try {
     if ($base == 1) {
         $baseTitle = "新着中古工具一覧";
         $baseKey   = 'tool';
-        $baseXlGenreIds = array(6,7,8,9,10,11);
+        $baseXlGenreIds = array(6, 7, 8, 9, 10, 11);
     } else {
         $baseTitle = "新着中古機械一覧";
         $baseKey   = 'machine';
-        $baseXlGenreIds = array(1,2,3,4,5);
+        $baseXlGenreIds = array(1, 2, 3, 4, 5);
     }
 
     if (Req::query('news_date')) {
@@ -34,7 +35,6 @@ try {
         $start_date = date("Y-m-d", strtotime($news_date . "-1 day"));
         $end_date   = $news_date;
         $period     = 0;
-
     } else if (Req::query('news_week')) {
         $news_date  = null;
         $news_week  = Req::query('news_week');
@@ -42,8 +42,7 @@ try {
         $start_date = date("Y-m-d", strtotime($news_week . "-7 day"));
         $end_date   = $news_week;
         $period     = 0;
-
-    }  else {
+    } else {
         $news_date  = null;
         $news_week  = null;
 
@@ -52,7 +51,7 @@ try {
         $period     = Req::query('pe', 7);
     }
 
-    //// 新着情報を取得 ////
+    /// 新着情報を取得 ///
     $mModel = new Machine();
     $q = array(
         'period'         => $period,
@@ -72,14 +71,14 @@ try {
     $result = $mModel->search($q);
     $os     = $mModel->getOtherSpecs();
 
-    //// ページャ ////
+    /// ページャ ///
     Zend_Paginator::setDefaultScrollingStyle('Sliding');
     $pgn = Zend_Paginator::factory(intval($result['count']));
     $pgn->setCurrentPageNumber($q['page'])
         ->setItemCountPerPage($q['limit'])
         ->setPageRange(15);
 
-    //// ページタイトル ///
+    /// ページタイトル ///
     $title = $baseTitle;
     /*
     $pageTitle = array();
@@ -106,7 +105,7 @@ try {
     $bidMachineIds = $bmModel->getMachineIds();
     */
 
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle'   => $title,
         'genreList'   => $result['genreList'],
@@ -140,7 +139,7 @@ try {
         'baseKey'     => $baseKey,
     ))->display('news_02.tpl');
 } catch (Exception $e) {
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle' => '新着中古機械一覧',
         'errorMes'  => $e->getMessage()

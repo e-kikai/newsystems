@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 新着RSS
  *
@@ -21,24 +22,24 @@ try {
     /// 新着情報を取得 ///
     $mModel = new Machine();
     if (!empty($mail)) {
-      // $newMachineList = $mModel->getList(array('period' => 1, 'sort' => 'img_random', 'limit' => 12));
-      $newMachineList = $mModel->getList(array('period' => 7, 'sort' => 'img_random', 'limit' => 12));
+        // $newMachineList = $mModel->getList(array('period' => 1, 'sort' => 'img_random', 'limit' => 12));
+        $newMachineList = $mModel->getList(array('period' => 7, 'sort' => 'img_random', 'limit' => 12));
     } else {
-      $newMachineList = $mModel->getList(array('period' => $news, 'sort' => 'created_at', 'limit' => 300));
+        $newMachineList = $mModel->getList(array('period' => $news, 'sort' => 'created_at', 'limit' => 300));
     }
 
     /// XML出力 ///
     header("Content-Type: text/xml");
     header("Content-Disposition: inline");
 
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'pankuzu'          => false,
         'mail'             => $mail,
         'newMachineList'   => $newMachineList,
     ))->display('rss.tpl');
 } catch (Exception $e) {
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle' => 'システムエラー',
         'errorMes'  => $e->getMessage()

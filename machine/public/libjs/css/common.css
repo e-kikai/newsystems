@@ -772,6 +772,8 @@ header.mini #textsizer {
   width: 964px;
   margin: 0 auto;
   position: relative;
+  padding-bottom: 4px;
+  min-height: 400px;
 }
 
 .center_container button {

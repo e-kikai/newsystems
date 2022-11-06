@@ -1,4 +1,5 @@
 <?php
+
 /**
  * マイリスト在庫機械一覧情報ページ
  *
@@ -9,10 +10,10 @@
  */
 require_once '../lib-machine.php';
 try {
-    //// 認証 ////
+    /// 認証 ///
     Auth::isAuth('mylist');
 
-    //// 在庫情報を検索 ////
+    /// 在庫情報を検索 ///
     $myModel = new Mylist();
     $idList = $myModel->getArray($_user['id'], 'machine');
 
@@ -35,7 +36,7 @@ try {
     $result = $mModel->search($q);
     $os     = $mModel->getOtherSpecs();
 
-    //// 大ジャンル一覧を取得 ////
+    /// 大ジャンル一覧を取得 ///
     $gModel = new Genre();
     $largeGenreList = $gModel->getLargeList(Genre::HIDE_CATALOG);
 
@@ -47,7 +48,7 @@ try {
         $cUrl[] = $val['key'] . '[]=' . $val['id'];
     }
 
-    //// ページャ ////
+    /// ページャ ///
     Zend_Paginator::setDefaultScrollingStyle('Sliding');
     $pgn = Zend_Paginator::factory(intval($result['count']));
     $pgn->setCurrentPageNumber($q['page'])
@@ -62,7 +63,7 @@ try {
     $bmModel = new BidMachine();
     $bidMachineIds = $bmModel->getMachineIds();
 
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle'   => 'マイリスト(在庫機械)',
         'cUri'        => 'mylist.php',
@@ -83,7 +84,7 @@ try {
         'bidMachineIds' => $bidMachineIds,
     ))->display('search.tpl');
 } catch (Exception $e) {
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle' => 'マイリスト(在庫機械)',
         'errorMes'  => $e->getMessage()

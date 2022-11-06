@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 相互広告ページ
  *
@@ -9,7 +10,7 @@
  */
 require_once '../lib-machine.php';
 try {
-    //// 認証 ////
+    /// 認証 ///
     Auth::isAuth('machine');
 
     $orkeyword = Req::query('keywords');
@@ -45,25 +46,25 @@ try {
         $result = $mModel->search($q);
         $machineList = $result['machineList'];
         if ($count > count($machineList)) {
-          $q = array(
-              'limit'     => Req::query('limit', $count - count($machineList)),
-              'is_img'    => 1,
-              'sort'      => 'random',
-              'onlyList'  => 1,
-          );
-          $result = $mModel->search($q);
-          $machineList = array_merge($machineList, $result['machineList']);
+            $q = array(
+                'limit'     => Req::query('limit', $count - count($machineList)),
+                'is_img'    => 1,
+                'sort'      => 'random',
+                'onlyList'  => 1,
+            );
+            $result = $mModel->search($q);
+            $machineList = array_merge($machineList, $result['machineList']);
         }
     }
 
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'bidOpen'     => $bidOpen,
         'machineList' => $machineList,
         'res'         => $res,
     ))->display('machine_ads.tpl');
 } catch (Exception $e) {
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle' => '新着中古機械一覧',
         'errorMes'  => $e->getMessage()

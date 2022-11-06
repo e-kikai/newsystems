@@ -1,7 +1,8 @@
 <?php
+
 /**
  * メンバーページログアウト処理
- * 
+ *
  * @access public
  * @author 川端洋平
  * @version 0.0.4
@@ -9,9 +10,9 @@
  */
 require_once '../lib-catalog.php';
 
-//// ログアウト処理 ////
+/// ログアウト処理 ///
 Auth::logout();
 
-//// ログインページにリダイレクト ////
+/// ログインページにリダイレクト ///
 header('Location:' . $_conf->login_uri . '?e=3');
 exit;

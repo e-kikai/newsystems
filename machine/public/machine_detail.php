@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 機械詳細ページ
  *
@@ -9,12 +10,12 @@
  */
 require_once '../lib-machine.php';
 try {
-    //// 認証 ////
+    /// 認証 ///
     Auth::isAuth('machine');
 
     $machineId = Req::query('m');
 
-    //// 機械情報を取得 ////
+    /// 機械情報を取得 ///
     $mModel  = new Machine();
     $machine = $mModel->get($machineId);
 
@@ -41,15 +42,15 @@ try {
     // 最近見た機械
     // $IPLogMachineList = $mModel->getIPLogList();
 
-    //// 会社情報を取得 ////
+    /// 会社情報を取得 ///
     $cModel  = new Company();
     $company = $cModel->get($machine['company_id']);
 
-    //// メーカー情報取得 ////
+    /// メーカー情報取得 ///
     // $maModel = new Maker();
     // $makers  = $maModel->get($machine['maker']);
 
-    //// リファラ処理 ////
+    /// リファラ処理 ///
     // デフォルト
     // $backUri   = 'search.php?l=' . $machine['large_genre_id'];
     // $backTitle = $machine['large_genre'];
@@ -77,7 +78,7 @@ try {
     }
     */
 
-    //// 入札会情報を取得 ////
+    /// 入札会情報を取得 ///
     $boModel = new BidOpen();
     $bmModel = new BidMachine();
 
@@ -105,8 +106,12 @@ try {
 
     // ページタイトルの整形
     $title = $machine['name'];
-    if (!empty($machine['maker'])) { $title.= ' ' . $machine['maker']; }
-    if (!empty($machine['model'])) { $title.= ' ' . $machine['model']; }
+    if (!empty($machine['maker'])) {
+        $title .= ' ' . $machine['maker'];
+    }
+    if (!empty($machine['model'])) {
+        $title .= ' ' . $machine['model'];
+    }
 
     /*
     $pageTitle = $title . '(' . $machine['company'];
@@ -133,7 +138,7 @@ try {
     $bmModel       = new BidMachine();
     $bidMachineIds = $bmModel->getMachineIds(array('machine_id' => $machine['id']));
 
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle'        => $pageTitle,
         // 'h1Title'          => $h1Title,
@@ -161,7 +166,7 @@ try {
         // 'IPLogMachineList' => $IPLogMachineList,
     ))->display('machine_detail.tpl');
 } catch (Exception $e) {
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     header("HTTP/1.1 404 Not Found");
     $_smarty->assign(array(
         'pageTitle' => '機械詳細',

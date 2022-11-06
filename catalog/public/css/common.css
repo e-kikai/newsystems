@@ -120,8 +120,11 @@ textarea:focus {
 a.button,
 button {
   display: inline-block;
-  #display: inline; /* for IE6,7 */
-  #zoom: 1; /* for IE6,7 */
+  /* for IE6,7 */
+  /*
+  #display: inline;
+  #zoom: 1;
+  */
   position: relative;
 
   margin: auto;
@@ -324,8 +327,11 @@ header .sitemap_menu {
 
 header .sitemap_menu a {
   display: inline-block;
-  #display: inline; /* for IE6,7 */
-  #zoom: 1; /* for IE6,7 */
+  /* for IE6,7 */
+  /*
+  #display: inline;
+  #zoom: 1;
+  */
   margin-right: 14px;
   text-indent: 14px;
   text-decoration: underline;
@@ -342,8 +348,11 @@ header .header_menu {
 
 header .header_menu a {
   display: inline-block;
-  #display: inline; /* for IE6,7 */
-  #zoom: 1; /* for IE6,7 */
+  /* for IE6,7 */
+  /*
+  #display: inline;
+  #zoom: 1;
+  */
   background: #dddddd;
   margin: 0 6px 0 0;
   border: 2px solid #29866b;
@@ -537,8 +546,11 @@ div.pager .list .num,
 div.pager .list .next,
 div.pager .list .prev {
   display: inline-block;
-  /display: inline; /* for IE6,7 */
-  /zoom: 1; /* for IE6,7 */
+  /* for IE6,7 */
+  /*
+  #display: inline;
+  #zoom: 1;
+  */
   margin: 0 1px;
   height: 24px;
   line-height: 24px;
@@ -582,8 +594,11 @@ a.sample_bbs {
 
 .title_container .count_area {
   display: inline-block;
-  #display: inline; /* for IE6,7 */
-  #zoom: 1; /* for IE6,7 */
+  /* for IE6,7 */
+  /*
+  #display: inline;
+  #zoom: 1;
+  */
   line-height: 20px;
   height: 20px;
   vertical-align: middle;
