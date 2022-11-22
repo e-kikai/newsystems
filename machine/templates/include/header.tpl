@@ -113,13 +113,15 @@ var WRInitTime=(new Date()).getTime();
 
     {*** メッセージ枠 ***}
     {if !empty($message)}
-      <div class="message">
+      {* <div class="message"> *}
+      <div class="alert alert-primary col-8 mx-auto">
+
         {if is_array($message)}
           {foreach $message as $m}
-            <div>{$m|replace:"#topppage":""|escape|default:""|nl2br nofilter}</div>
+            <div><i class="fas fa-circle-info"></i> {$m|replace:"#topppage":""|escape|default:""|nl2br nofilter}</div>
           {/foreach}
         {else}
-          <div>{$message|replace:"#topppage":""|escape|default:""|nl2br nofilter}</div>
+          <div><i class="fas fa-circle-info"></i> {$message|replace:"#topppage":""|escape|default:""|nl2br nofilter}</div>
           {if preg_match('/#topppage/', $message)}
             <a href="./" class="mes_link"
               {* onClick="_gaq.push(['_trackEvent', 'mes_link', 'message', 'topppage', 1, true]);" *}
@@ -131,13 +133,17 @@ var WRInitTime=(new Date()).getTime();
 
     {*** エラーメッセージ枠 ***}
     {if !empty($errorMes)}
-      <div class="error_mes">
+      {* <div class="error_mes"> *}
+      <div class="alert alert-danger col-8 mx-auto">
         {if is_array($errorMes)}
           {foreach $errorMes as $m}
-            <div>{$m|replace:"#topppage":""|escape|default:""|nl2br nofilter}</div>
+            <div><i class="fas fa-triangle-exclamation"></i> {$m|replace:"#topppage":""|escape|default:""|nl2br nofilter}
+            </div>
           {/foreach}
         {else}
-          <div>{$errorMes|replace:"#topppage":""|escape|default:""|nl2br nofilter}</div>
+          <div><i class="fas fa-triangle-exclamation"></i>
+            {$errorMes|replace:"#topppage":""|escape|default:""|nl2br nofilter}
+          </div>
           {if preg_match('/#topppage/', $errorMes)}
             <a href="./" class="mes_link"
               {* onClick="_gaq.push(['_trackEvent', 'mes_link', 'error', 'topppage', 1, true]);" *}

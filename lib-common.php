@@ -16,6 +16,7 @@ set_exception_handler(function ($e) {
 
 /// Zend_Loaderでクラスファイルのオートロード設定 ///
 require_once 'Zend/Loader/Autoloader.php';
+
 $autoloader = Zend_Loader_Autoloader::getInstance()
     ->pushAutoloader(NULL, array('Smarty_', 'FPDF'))
     ->unregisterNamespace(array('Zend_', 'ZendX_'))

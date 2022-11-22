@@ -1,4 +1,5 @@
 <?php
+
 /**
  * お問い合せモデルクラス
  *
@@ -14,11 +15,11 @@ class Contact extends Zend_Db_Table_Abstract
 
     function __construct()
     {
-        //// メールサーバ設定 ////
+        /// メールサーバ設定 ///
         $conf = new Zend_Config_Ini(APP_PATH . '/config/mailsend.ini');
         $this->_mailConf = $conf->conf->toArray();
 
-        //// メール送信クラス ////
+        /// メール送信クラス ///
         $this->_mailsend = new Mailsend();
 
         parent::__construct();
@@ -57,30 +58,30 @@ class Contact extends Zend_Db_Table_Abstract
      * @param  array   $q         その他検索クエリ
      * @return array   お問い合わせ一覧
      */
-    public function getList($companyId=NULL, $month=NULL, $q=array())
+    public function getList($companyId = NULL, $month = NULL, $q = array())
     {
         $where = ' c.created_at IS NOT NULL ';
         if (empty($companyId)) {
-            $where.= ' AND c.company_id IS NULL ';
+            $where .= ' AND c.company_id IS NULL ';
         } else if ($companyId == 'ALL') {
-            $where.= '';
+            $where .= '';
         } else {
-            $where.= $this->_db->quoteInto(' AND c.company_id = ? ', $companyId);
+            $where .= $this->_db->quoteInto(' AND c.company_id = ? ', $companyId);
         }
 
         if (empty($month) || $month == 'now') {
-            $where.= $this->_db->quoteInto(' AND CAST(c.created_at as DATE) >= ?', date('Y-m-d', strtotime('- 1month')));
-            $where.= $this->_db->quoteInto(' AND CAST(c.created_at as DATE) <= ?', date('Y-m-d'));
+            $where .= $this->_db->quoteInto(' AND CAST(c.created_at as DATE) >= ?', date('Y-m-d', strtotime('- 1month')));
+            $where .= $this->_db->quoteInto(' AND CAST(c.created_at as DATE) <= ?', date('Y-m-d'));
         } else if ($month == 'ALL') {
-            $where.= '';
+            $where .= '';
         } else {
-            $where.= $this->_db->quoteInto(' AND CAST(c.created_at as DATE) >= ?', date('Y-m-01', strtotime($month)));
-            $where.= $this->_db->quoteInto(' AND CAST(c.created_at as DATE) <= ?', date('Y-m-t', strtotime($month)));
+            $where .= $this->_db->quoteInto(' AND CAST(c.created_at as DATE) >= ?', date('Y-m-01', strtotime($month)));
+            $where .= $this->_db->quoteInto(' AND CAST(c.created_at as DATE) <= ?', date('Y-m-t', strtotime($month)));
         }
 
         // メッセージ内容(タグ)から取得
         if (!empty($q['message'])) {
-            $where.= $this->_db->quoteInto(' AND c.message LIKE ? ', '%' . $q['message'] . '%');
+            $where .= $this->_db->quoteInto(' AND c.message LIKE ? ', '%' . $q['message'] . '%');
         }
 
         if (!empty($q['order_by']) && $q['order_by'] == 'ASC') {
@@ -207,11 +208,11 @@ class Contact extends Zend_Db_Table_Abstract
      * @param  integer $companyId 会社ID
      * @return array   お問い合わせ一覧
      */
-    public function getSS($companyId=NULL, $month=NULL)
+    public function getSS($companyId = NULL, $month = NULL)
     {
         $where = ' (user_id <> 1 OR user_id IS NULL)  '; // テスト用データを除外
         if (!empty($companyId)) {
-            $where.= $this->_db->quoteInto(' AND c.company_id = ? ', $companyId);
+            $where .= $this->_db->quoteInto(' AND c.company_id = ? ', $companyId);
         }
 
         if (empty($month)) {
@@ -313,9 +314,11 @@ class Contact extends Zend_Db_Table_Abstract
     public function sendMachine($data)
     {
         // メールブラックリスト
-        if ($data['mail'] == '07.05.15.oga@gmail.com') { return $this; }
+        if ($data['mail'] == '07.05.15.oga@gmail.com') {
+            return $this;
+        }
 
-        //// お問い合せ内容の整理 ////
+        /// お問い合せ内容の整理 ///
         $d = array(
             'user_name'     => $data['name'],
             'user_company'  => $data['company'],
@@ -342,7 +345,7 @@ class Contact extends Zend_Db_Table_Abstract
                 throw new Exception('お問い合わせ先の機械情報を取得できませんでした');
             }
 
-            foreach($machineList as $m) {
+            foreach ($machineList as $m) {
                 // 送信内容
                 $body = <<< EOS
 {$m['company']} 様
@@ -373,18 +376,18 @@ http://www.zenkiren.net/
 EOS;
                 $subject = 'マシンライフ:中古機械についてのお問い合せ通知';
 
-                //// メール送信・お問い合わせ内容の保存 ////
+                /// メール送信・お問い合わせ内容の保存 ///
                 $this->_mailsend->sendMail($m['contact_mail'], $data['mail'], $body, $subject);
                 $this->set($d + array('machine_id' => $m['id'], 'company_id' => $m['company_id']));
 
-                $targets.= "{$m['no']} {$m['name']} {$m['maker']} {$m['model']} → {$m['company']}\n";
+                $targets .= "{$m['no']} {$m['name']} {$m['maker']} {$m['model']} → {$m['company']}\n";
             }
         } else if (!empty($data['bidMachineId'])) {
             // 対象がWeb入札会一括問い合わせの場合
             $bmModel = new BidMachine();
             $bidMachineList = $bmModel->getList(array('bid_open_id' => $data['bidOpenId'], 'id' => $data['bidMachineId']));
 
-            //// 入札会情報を取得 ////
+            /// 入札会情報を取得 ///
             $boModel = new BidOpen();
             $bidOpen = $boModel->get($data['bidOpenId']);
 
@@ -392,10 +395,10 @@ EOS;
                 throw new Exception('お問い合わせ先のWeb入札会商品情報を取得できませんでした');
             }
 
-            $_bidBatchLog =& $_SESSION['bid_batch_log'];
+            $_bidBatchLog = &$_SESSION['bid_batch_log'];
             $tlModel = new TrackingLog();
 
-            foreach($bidMachineList as $m) {
+            foreach ($bidMachineList as $m) {
                 // 送信内容
                 $body = <<< EOS
 {$m['company']} 様
@@ -424,12 +427,12 @@ http://www.zenkiren.net/
 EOS;
                 $subject = "マシンライフ:{$bidOpen['title']} 出品商品についてのお問い合せ通知";
 
-                //// メール送信・お問い合わせ内容の保存 ////
+                /// メール送信・お問い合わせ内容の保存 ///
                 $this->_mailsend->sendMail($m['contact_mail'], $data['mail'], $body, $subject);
                 $d['message'] = "◆出品番号:{$m['list_no']} {$m['name']} {$m['maker']} {$m['model']}\n\n" . $data['message'];
                 $this->set($d + array('machine_id' => NULL, 'company_id' => $m['company_id']));
 
-                $targets.= "◆出品番号:{$m['list_no']} {$m['name']} {$m['maker']} {$m['model']} → {$m['company']}\n";
+                $targets .= "◆出品番号:{$m['list_no']} {$m['name']} {$m['maker']} {$m['model']} → {$m['company']}\n";
 
                 // 一括問い合わせログ
                 $_bidBatchLog[$m['id']] = date('Y/m/d H:i');
@@ -442,7 +445,7 @@ EOS;
                 ));
             }
 
-             $_SESSION['bid_batch'] = [];
+            $_SESSION['bid_batch'] = [];
         } else if (!empty($data['companyId'])) {
             // 対象が会社
             $where = $this->_db->quoteInto('c.id IN (?)', $data['companyId']);
@@ -453,7 +456,7 @@ EOS;
                 throw new Exception('お問い合わせ先の会社情報を取得できませんでした');
             }
 
-            foreach($companyList as $c) {
+            foreach ($companyList as $c) {
                 // 送信内容
                 $body = <<< EOS
 {$c['company']} 様
@@ -479,11 +482,11 @@ http://www.zenkiren.net/
 EOS;
                 $subject = 'マシンライフ:お問い合せ通知';
 
-                //// メール送信・お問い合わせ内容の保存 ////
+                /// メール送信・お問い合わせ内容の保存 ///
                 $this->_mailsend->sendMail($c['contact_mail'], $data['mail'], $body, $subject);
                 $this->set($d + array('machine_id' => NULL, 'company_id' => $c['id']));
 
-                $targets.= "{$c['company']}\n";
+                $targets .= "{$c['company']}\n";
 
                 // トラッキングログ(Web入札会用)
                 if (preg_match('/\/bid_detail.php\?m\=([0-9]+)/', $data['message'], $matches)) {
@@ -497,7 +500,6 @@ EOS;
                         "contact_id"      => $this->_db->fetchOne("SELECT max(id) FROM contacts;"),
                     ));
                 }
-
             }
         } else {
             // 対象が全機連事務局
@@ -525,14 +527,14 @@ http://www.zenkiren.net/
 EOS;
             $subject = 'マシンライフ:全機連についてのお問い合せ通知';
 
-            //// メール送信・お問い合わせ内容の保存 ////
+            /// メール送信・お問い合わせ内容の保存 ///
             $this->_mailsend->sendMail($this->_mailConf['from_mail'], $data['mail'], $body, $subject);
             $this->set($d);
 
-            $targets.= "全機連事務局\n";
+            $targets .= "全機連事務局\n";
         }
 
-        //// お問い合わせ確認メール ////
+        /// お問い合わせ確認メール ///
         // 送信内容
         $body = <<< EOS
 ※ このメールは、自動返信メールです。
@@ -584,7 +586,9 @@ EOS;
         $data = MyFilter::filtering($data, $this->_filters);
 
         // メールブラックリスト
-        if ($data['mail'] == '07.05.15.oga@gmail.com') { return $this; }
+        if ($data['mail'] == '07.05.15.oga@gmail.com') {
+            return $this;
+        }
 
         /// お問い合わせ内容の保存 ///
         if (!$result = $this->insert($data)) {
@@ -621,7 +625,7 @@ EOS;
      */
     public function send($data)
     {
-        //// お問い合せ内容の整理 ////
+        /// お問い合せ内容の整理 ///
         $d = array(
             'user_name'     => $data['user_name'],
             'user_company'  => $data['company'],
@@ -638,7 +642,7 @@ EOS;
         // お問い合わせ先
         $targets = '';
 
-        //// 通知メール送信内容 ////
+        /// 通知メール送信内容 ///
         $body = <<< EOS
 全機連ウェブサイトのお問い合せフォームから、
 お問い合わせがありました。
@@ -658,11 +662,11 @@ http://www.zenkiren.org/
 EOS;
         $subject = '全機連ウェブサイト:お問い合せ通知';
 
-        //// メール送信・お問い合わせ内容の保存 ////
+        /// メール送信・お問い合わせ内容の保存 ///
         $this->_mailsend->sendMail($this->_mailConf['from_mail'], $data['mail'], $body, $subject);
         $this->set($d);
 
-        //// お問い合わせ確認メール ////
+        /// お問い合わせ確認メール ///
         // 送信内容
         $body = <<< EOS
 {$data['user_name']}様

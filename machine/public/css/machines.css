@@ -1097,11 +1097,6 @@ td.year {
   font-size: 15px;
 }
 
-.machine_list.list .year,
-.machine_list.list .year {
-  width: 38px;
-}
-
 .machine_list.list tr:nth-child(odd) td {
   background: #fff;
 }

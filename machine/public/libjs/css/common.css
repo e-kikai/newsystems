@@ -26,18 +26,6 @@ a {
   cursor: pointer;
 }
 
-a,
-a:visited,
-a:active {
-  color: #076ab6;
-  text-decoration: underline;
-}
-
-a:hover {
-  color: #f60;
-  text-decoration: underline;
-}
-
 a:hover img {
   opacity: 0.5;
   -moz-opacity: 0.5;
@@ -153,31 +141,26 @@ label {
   clear: both;
 }
 
-input:not([type]),
-input[type="color"],
-input[type="date"],
-input[type="datetime"],
-input[type="datetime-local"],
-input[type="email"],
-input[type="month"],
-input[type="number"],
-input[type="password"],
-input[type="tel"],
-input[type="text"],
-input[type="time"],
-input[type="url"],
-input[type="week"],
-input[type="search"] {
+input:not([type]):not(.form-control),
+input[type="color"]:not(.form-control),
+input[type="date"]:not(.form-control),
+input[type="datetime"]:not(.form-control),
+input[type="datetime-local"]:not(.form-control),
+input[type="email"]:not(.form-control),
+input[type="month"]:not(.form-control),
+input[type="number"]:not(.form-control),
+input[type="password"]:not(.form-control),
+input[type="tel"]:not(.form-control),
+input[type="text"]:not(.form-control),
+input[type="time"]:not(.form-control),
+input[type="url"]:not(.form-control),
+input[type="week"]:not(.form-control),
+input[type="search"]:not(.form-control) {
   border: 1px solid #999;
   padding: 3px 6px;
   background: #fff;
   border-radius: 4px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1) inset;
-}
-
-input[type="search"] {
-  -webkit-appearance: textfield;
-  box-sizing: content-box;
 }
 
 input[type="radio"],
@@ -186,7 +169,7 @@ input[type="checkbox"] {
   padding: 0;
 }
 
-textarea {
+textarea:not(.form-control) {
   width: 400px;
   height: 80px;
   border: 1px solid #999;
@@ -216,8 +199,8 @@ textarea:focus {
 
 a.contact,
 a.back_button,
-a.button,
-button {
+a.button:not(.btn),
+button:not(.btn) {
   display: inline-block;
   /* for IE6,7 */
   /*
@@ -258,7 +241,7 @@ button {
 
 a.contact:hover,
 a.back_button:hover,
-button:hover {
+button:hover:not(.btn) {
   background: #81a8cb;
   background: -webkit-gradient(
     linear,
@@ -276,7 +259,7 @@ button:hover {
 
 a.contact:active,
 a.back_button:active,
-button:active {
+button:active:not(.btn) {
   top: 1px;
   background: #4477a1;
   box-shadow: 1px 1px 0.1em rgba(0, 0, 0, 0.4);
@@ -338,7 +321,7 @@ a.contact:active {
 }
 
 /* 削除ボタン */
-button.delete {
+button.delete:not(.btn) {
   background: #a00;
   background: -webkit-gradient(
     linear,
@@ -357,7 +340,7 @@ button.delete {
   border-color: #ff2020;
 }
 
-button.delete:hover {
+button.delete:hover:not(.btn) {
   background: #a00;
   background: -webkit-gradient(
     linear,
@@ -370,7 +353,7 @@ button.delete:hover {
   background: linear-gradient(to bottom, #ff2020, #ff7060);
 }
 
-button.delete:active {
+button.delete:active:not(.btn) {
   background: #ff2020;
 }
 
@@ -462,7 +445,7 @@ header .keyword input {
   width: 220px;
 }
 
-header .keyword button {
+header .keyword button:not(.btn) {
   width: 48px;
   height: 24px;
   line-height: 1;
@@ -713,8 +696,8 @@ header.mini #textsizer {
   margin: 4px auto;
 }
 
-.genre_menu button.submit,
-.center_container .genre_menu button.submit {
+.genre_menu button.submit:not(.btn),
+.center_container .genre_menu button.submit:not(.btn) {
   margin: 0 8px;
   display: inline-block;
   vertical-align: bottom;
@@ -776,7 +759,7 @@ header.mini #textsizer {
   min-height: 400px;
 }
 
-.center_container button {
+.center_container button:not(.btn) {
   width: 196px;
   height: 25px;
   vertical-align: middle;
@@ -784,9 +767,6 @@ header.mini #textsizer {
   text-align: center;
   font-size: 14px;
   cursor: pointer;
-  /*
-  font-weight : bold;
-  */
   padding: 1px 6px;
   line-height: normal;
 }
@@ -1167,8 +1147,6 @@ input.number {
   padding: 0.16em 0.5em;
   background: #fff;
   margin: 2px 2px 0 0;
-  height: 1.4em;
-  line-height: 1.4;
 
   text-decoration: none;
   color: rgba(0, 0, 0, 0.6);

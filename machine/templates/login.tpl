@@ -7,7 +7,7 @@
   <script type="text/javascript" src="{$_conf.libjs_uri}/login.js?1"></script>
 
   {literal}
-    <script type="text/javaScript">
+    <script type="text/javascript">
     </script>
     <style type="text/css">
     </style>

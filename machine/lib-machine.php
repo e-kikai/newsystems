@@ -18,13 +18,17 @@ $_conf->merge($_siteConf);
 Auth::setRedirect($_conf->login_uri);
 $_user = Auth::getUser();
 
+// 入札ユーザ認証設定
+$_my_user = MyAuth::get_user();
+
 /// Smarty初期化 ///
 $_smarty = new MySmarty($_conf);
 
 // Smartyに共通な変数をアサイン
-$_smarty->assign(array(
-    '_user' => $_user
-));
+$_smarty->assign([
+    '_user'    => $_user,
+    '_my_user' => $_my_user,
+]);
 
 /*
 if (!Auth::check('system')) {
@@ -38,4 +42,15 @@ if (!Auth::check('system')) {
 */
 
 // Zend_Registry::set('conf', $_conf);
-// Zend_Registry::set('smarty', $_smarty);
+Zend_Registry::set('smarty', $_smarty);
+
+/// 例外処理デフォルト ///
+set_exception_handler(function ($e) {
+    $smarty = Zend_Registry::get('smarty');
+    /// エラー画面表示 ///
+    $smarty->assign(array(
+        'pageTitle'       => 'マシンライフ システムエラー',
+        'pageDescription' => 'エラーが発生しました。何度も同じエラーが発生する場合、お手数ですが事務局までご連絡お願いいたします。',
+        'errorMes'        => $e->getMessage()
+    ))->display('error.tpl');
+});

@@ -1,10 +1,28 @@
 <?php
+
 /**
  * 認証処理サービスクラス
  */
 class MyAuth extends Zend_Db_Table
 {
     protected $_name = 'my_users';
+    protected $_mailsend;
+    protected $_smarty;
+
+    function __construct()
+    {
+        /// メールサーバ設定 ///
+        $conf = new Zend_Config_Ini(APP_PATH . '/config/mailsend.ini');
+        $this->_mailConf = $conf->conf->toArray();
+
+        /// メール送信クラス ///
+        $this->_mailsend = new Mailsend();
+
+        /// Smarty(本文生成用) ///
+        $this->_smarty = Zend_Registry::get('smarty');
+
+        parent::__construct();
+    }
 
     /**
      * 認証情報を格納するセッション名前空間
@@ -18,7 +36,10 @@ class MyAuth extends Zend_Db_Table
      *
      * @access private static
      */
-    private static $_redirect = '/my_login.php';
+    private static $_redirect = '/mypage/login.php';
+
+    // TODO: passwd_remember_mail_send($account)
+    // TODO: change_passwd_remember($account, $passwd, &passwd_check)
 
     /**
      * ログイン処理
@@ -29,15 +50,17 @@ class MyAuth extends Zend_Db_Table
      *  @param boolean $check セッション永続化チェック
      * @return boolean ログインが成功すればtrue
      */
-    public function login($account, $passwd, $check=false)
+    public function login($mail, $passwd, $check = false)
     {
         // ログイン情報を取得
-        $sql = $this->_db->select()
-            ->where("deleted_at IS NULL")->where('account = ?', $account)->where('passwd = ?', $passwd);
+        $my_user_model = new MyUser();
+        $result        = $my_user_model->get_by_mail($mail);
 
-        $result = $this->_db->fetchRow($sql);
+        // ログイン確認
+        if (isset($result['id']) && sha1($passwd) == $result['passwd']) {
+            // 認証されているか？
+            if (empty($result["checkd_at"])) return false;
 
-        if (isset($result['id'])) {
             // ログイン情報の保持（パスワードだけ除く）
             unset($result['passwd']);
             $_SESSION[self::$_namespace] = $result;
@@ -67,8 +90,8 @@ class MyAuth extends Zend_Db_Table
     public function changePasswd($account, $nowPasswd, $passwd, $passwdChk)
     {
         // アカウントチェック
-        if ($_SESSION[self::$_namespace]['account'] != $account) {
-            throw new Exception('現在のアカウント、パスワードが正しくありません');
+        if ($_SESSION[self::$_namespace]['mail'] != $mail) {
+            throw new Exception('現在のメールアドレス、パスワードが正しくありません');
         }
 
         // 現在のパスワードでログインチェック
@@ -84,7 +107,8 @@ class MyAuth extends Zend_Db_Table
         }
 
         // パスワード更新
-        $res = $this->_db->update('users',
+        $res = $this->_db->update(
+            'users',
             array('passwd' => $passwd),
             $this->_db->quoteInto('id = ?', $_SESSION[self::$_namespace]['id'])
         );
@@ -99,93 +123,28 @@ class MyAuth extends Zend_Db_Table
      * 認証処理
      *
      * @access public static
-     * @param  string  $area 認証エリア
      * @param  string  $return 非認証時、リダイレクトするURL
      * @return boolean ログインしていれば、認証ユーザ情報
      */
-    public static function isAuth($area=NULL, $return=NULL)
+    public static function is_auth($return = NULL)
     {
-        // ACL設定
-        $acl = self::getAclInstance();
-
-        // roleの設定
-        if (isset($_SESSION[self::$_namespace]['role'])) {
-            $role = $_SESSION[self::$_namespace]['role'];
-            $code = 4;
-        } else {
-            $role = 'guest';
-            $code = 2;
-        }
-
-        // 認証
-        if (!$acl->isAllowed($role , $area)) {
+        // 認証失敗で、ログインページにリダイレクト
+        if (MyAuth::check() == false) {
             $redirect = !empty($return) ? $return : self::$_redirect;
             header('Location: ' . $redirect . '?e=' . $code);
             exit;
         }
-
-        // 会員メニューのみ、3時間でログイン認証を行う
-        if ($area == 'member' && empty($_SESSION['session_persistence'])) {
-            if ($_SESSION['session_last_login'] < strtotime('-3 hours')) {
-                $redirect = !empty($return) ? $return : self::$_redirect;
-                header('Location: ' . $redirect . '?e=5');
-                exit;
-            } else {
-                // ログイン日時の更新
-                $_SESSION['session_last_login'] = time();
-            }
-        }
-    }
-
-    public static function check($area=NULL)
-    {
-        // ACL設定
-        $acl = self::getAclInstance();
-
-        // roleの設定
-        if (isset($_SESSION[self::$_namespace]['role'])) {
-            $role = $_SESSION[self::$_namespace]['role'];
-        } else {
-            $role = 'guest';
-        }
-
-        return $acl->isAllowed($role , $area);
     }
 
     /**
-     * ACLを設定
+     * 認証チェック
+     *
      * @access public static
-     * @return Zend_Acl インスタンス
+     * @return boolean 認証成功でTRUE
      */
-    public static function getAclInstance()
+    public static function check()
     {
-        $acl = new Zend_Acl();
-        $acl->addResource('catalog') // 電子カタログ
-            ->addResource('eips')    // EIPS
-            ->addResource('machine') // 在庫ページ
-            ->addResource('mylist')  // 在庫ページ：マイリスト
-            ->addResource('member')  // 会員ページ
-            ->addResource('system')  // 管理者ページ
-
-            ->addRole('guest')            // ゲスト(非ログイン)
-            ->addRole('user',   'guest')  // 非会員ユーザ
-            ->addRole('catalog','user')   // カタログ限定ユーザ
-            ->addRole('member','catalog') // 会員
-            ->addRole('system', 'member') // 管理者
-
-            ->allow('guest', 'machine') // テスト時期のみ
-
-            // ->allow('user',   'machine')  // テスト時期のみ
-            ->allow('user',   'mylist')
-
-            ->allow('catalog', 'catalog')
-
-            ->allow('member', 'eips')
-            ->allow('member', 'member')
-
-            ->allow('system', 'system')
-        ;
-        return $acl;
+        return isset($_SESSION[self::$_namespace]) ? true : false;
     }
 
     /**
@@ -194,7 +153,7 @@ class MyAuth extends Zend_Db_Table
      * @access public static
      * @return ログインしていれば、認証ユーザ情報
      */
-    public static function getUser()
+    public static function get_user()
     {
         if (isset($_SESSION[self::$_namespace]['id'])) {
             return $_SESSION[self::$_namespace];
@@ -215,21 +174,12 @@ class MyAuth extends Zend_Db_Table
         // セッションを切断するにはセッションクッキーも削除する
         // Note: セッション情報だけでなくセッションを破壊する
         if (isset($_COOKIE[session_name()])) {
-            setcookie(session_name(), '', time()-42000, '/');
+            setcookie(session_name(), '', time() - 42000, '/');
         }
 
         // 最終的に、セッションを破壊する
         session_destroy();
         return true;
-
-        /*
-        if (isset($_SESSION[self::$_namespace])) {
-            unset($_SESSION[self::$_namespace]);
-            return true;
-        } else {
-            return false;
-        }
-        */
     }
 
     /**
@@ -238,7 +188,7 @@ class MyAuth extends Zend_Db_Table
      * @access public static
      * @param  string $url リダイレクト先URL
      */
-    public static function setRedirect($url)
+    public static function set_redirect($url)
     {
         self::$_redirect = $url;
     }
@@ -249,7 +199,7 @@ class MyAuth extends Zend_Db_Table
      * @access public static
      * @return string $namespace リダイレクト先
      */
-    public static function getRedirect()
+    public static function get_redirect()
     {
         return self::$_redirect;
     }
@@ -280,25 +230,116 @@ class MyAuth extends Zend_Db_Table
      * 管理者の代理ログイン処理
      *
      * @access public
-     * @param  string $companyId 代理ログインする会社ID）
+     * @param  int $my_user_id 代理ログインするユーザID）
      * @return boolean ログインが成功すればtrue
      */
-    public function systemLogin($companyId)
+    public function system_login($my_user_id)
     {
         // 代理ログイン
-        $cModel = new Company();
-        $company = $cModel->get($companyId);
+        $my_user_model = new MyUser();
+        $my_user = $my_user_model->get($my_user_id);
 
-        if (empty($company)) {
-            throw new Exception('会社情報が取得出来ませんでした id:'.$companyId);
+        if (empty($my_user)) {
+            throw new Exception('ユーザ情報が取得出来ませんでした id:' . $my_user_id);
         }
 
-        $_SESSION[self::$_namespace]['company_id'] = $company['id'];
-        $_SESSION[self::$_namespace]['company']    = $company['company'];
+        $_SESSION[self::$_namespace]['my_user_id'] = $my_user['id'];
+        $_SESSION[self::$_namespace]['name']       = $my_user['name'];
+        $_SESSION[self::$_namespace]['company']    = $my_user['company'];
 
         // 最終ログイン日時
         $_SESSION['session_last_login'] = time();
 
         return true;
+    }
+
+    /**
+     * 登録確認メール送信
+     *
+     * @access public
+     * @param  int $data メール送信するユーザのメールアドレス
+     * @return boolean メール送信したらTrue
+     */
+    public function send_confirmation_mail($mail)
+    {
+        $my_user_model = new MyUser();
+        $my_user = $my_user_model->get_by_mail($mail);
+
+        if (!empty($data["checked_at"])) {
+            throw new Exception("メールアドレスの確認は既に行われています。");
+        }
+
+        $subject = "マシンライフWeb入札会 : 登録確認メール";
+        $body    = $this->_smarty->assign(array(
+            'my_user' => $my_user,
+        ))->fetch("mail/sign_up_confirmation.tpl");
+
+        $this->_mailsend->sendMail($mail, $this->_mailConf['from_mail'], $body, $subject);
+    }
+
+    /**
+     * google reCaptcha確認
+     *
+     * @access public
+     * @param  string $response 取得したパラメータ
+     * @param  string $secret   シークレットキー
+     * @return boolean 認証結果
+     */
+    public function check_recaptcha($response, $secret)
+    {
+        $url = 'https://www.google.com/recaptcha/api/siteverify';
+
+        //パラメータを指定
+        $data = array(
+            'secret'   => $secret,
+            'response' => $response,
+        );
+
+        $context = array(
+            'http' => array(
+                // POST メソッドを指定
+                'method'  => 'POST',
+                'header'  => implode("\r\n", array('Content-Type: application/x-www-form-urlencoded',)),
+                'content' => http_build_query($data)
+            )
+        );
+
+        $api_response = file_get_contents($url, false, stream_context_create($context));
+
+        $obj = json_decode($api_response);
+
+        return $obj->success;
+    }
+
+
+    /**
+     * 認証処理
+     *
+     * @access public
+     * @param  string $account ユーザID
+     * @param  string $token 認証トークン
+     * @return boolean ログインが成功すればtrue
+     */
+    public function confirmation($id, $token)
+    {
+        // ログイン情報を取得
+        $my_user_model = new MyUser();
+        $my_user       = $my_user_model->get($id);
+
+        // 認証処理
+        if (isset($my_user['id']) && $token == $my_user['check_token']) {
+            if (empty($my_user["checkd_at"])) {
+                $my_user_model->update(
+                    array('checkd_at' => new Zend_Db_Expr('current_timestamp')),
+                    array(
+                        $this->_db->quoteInto(' id = ? ', $my_user['id'])
+                    )
+                );
+            }
+
+            return true;
+        } else {
+            return false;
+        }
     }
 }
