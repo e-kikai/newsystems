@@ -8,12 +8,12 @@
  * @version 0.0.4
  * @since 2022/11/16
  */
-class MyUser extends Zend_Db_Table_Abstract
+class MyUser extends MyTableAbstract
 {
   protected $_name = 'my_users';
 
   // フィルタ条件
-  protected $_changeFilter = array('rules' => array(
+  protected $_change_filter = array('rules' => array(
     '*'          => array(),
 
     '氏名'     => array('fields' => 'name', 'NotEmpty'),
@@ -35,84 +35,26 @@ class MyUser extends Zend_Db_Table_Abstract
   ));
 
   /**
-   * ユーザ情報をセット
+   * 情報をinsert(オーバーライド)
    *
    * @access public
-   * @param array   $data 入力データ
-   * @param int     $id   ユーザID
-   * @return        $this
+   * @param array $data 入力データ
+   * @return      $this
    */
-  public function set($data, $id = null)
+  public function my_insert($data)
   {
-    // フィルタリング・バリデーション
-    $data = MyFilter::filter($data, $this->_changeFilter);
+    $data = $this->filtering($data);
 
-    if (empty($id)) {
-      // 新規処理
-      // 認証トークン、ユニークアカウントを生成
-      $data["uniq_account"] = uniqid("", 1);
-      $data["check_token"]  = sha1(uniqid(mt_rand(), true));
-      $data["passwd"]       = sha1($data["passwd"]);
+    // $data = array_merge($this->_default_data, $data); // 初期値
+    $data["uniq_account"] = uniqid("", 1);
+    $data["check_token"]  = sha1(uniqid(mt_rand(), true));
+    $data["passwd"]       = sha1($data["passwd"]);
 
-      $res = $this->insert($data);
-    } else {
-      // 更新処理
-      // if (!empty($data["uniq_account"])) $data["passwd"] = sha1($data["passwd"]);
-      $data['changed_at'] = new Zend_Db_Expr('current_timestamp');
+    $res = $this->insert();
 
-      $res = $this->update($data, $this->_db->quoteInto('id = ?', $id));
-    }
-
-    if (empty($res)) throw new Exception('ユーザ情報が保存できませんでした。');
+    if (empty($res)) throw new Exception('情報が保存できませんでした。');
 
     return $this;
-  }
-
-  /**
-   * 入札会ユーザ一覧を取得
-   *
-   * @access public
-   * @param  mixed  $q 検索クエリ
-   * @return array メンバー一覧
-   */
-  public function getList($q = NULL)
-  {
-    $where = ' mu.deleted_at IS NULL '; // 条件クエリ
-    if (!empty($q['id'])) {
-      $where .= $this->_db->quoteInto(' AND c.id IN (?) ', $q['id']);
-    }
-
-    $order = "mu.id DESC"; // 並び替えクエリ
-
-    // SQLクエリを作成
-    $sql    = "SELECT * FROM my_users mu WHERE {$where} ORDER BY {$order};";
-    $result = $this->_db->fetchAll($sql);
-    if (empty($result)) {
-      throw new Exception('ユーザ情報を取得できませんでした');
-    }
-
-    return $result;
-  }
-
-  /**
-   * ユーザ情報を取得
-   *
-   * @access public
-   * @param  string $id ユーザID
-   * @return array  ユーザ情報を取得
-   */
-  public function get($id)
-  {
-    /// メンバ情報を取得 ///
-    if (!intval($id)) throw new Exception('取得するユーザIDがありません。');
-
-    // SQLクエリを作成
-    $sql    = 'SELECT * FROM my_users WHERE deleted_at IS NULL AND id = ?';
-    $result = $this->_db->fetchRow($sql, intval($id));
-
-    if (empty($result)) throw new Exception('ユーザ情報を取得できませんでした。');
-
-    return $result;
   }
 
   /**
@@ -124,34 +66,11 @@ class MyUser extends Zend_Db_Table_Abstract
    */
   public function get_by_mail($mail)
   {
-    /// メンバ情報を取得 ///
     if (empty($mail)) throw new Exception('取得するメールアドレスがありません。');
 
-    // SQLクエリを作成
-    $sql    = 'SELECT * FROM my_users WHERE deleted_at IS NULL AND mail = ?';
-    $result = $this->_db->fetchRow($sql, $mail);
+    $select = $this->my_select()->where("mail = ?", $mail);
+    $result = $this->fetchRow($select);
 
     return $result;
-  }
-
-  /**
-   * ユーザ情報を論理削除
-   *
-   * @access public
-   * @param  array $id ユーザID
-   * @return $this
-   */
-  public function delete_by_id($id)
-  {
-    if (empty($id)) throw new Exception('削除するユーザIDが設定されていません');
-
-    $this->update(
-      array('deleted_at' => new Zend_Db_Expr('current_timestamp')),
-      array(
-        $this->_db->quoteInto(' id IN(?) ', $id)
-      )
-    );
-
-    return $this;
   }
 }

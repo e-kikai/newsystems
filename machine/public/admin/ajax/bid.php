@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 入札会用をAJAX処理
  *
@@ -7,13 +8,13 @@
  * @version 0.0.1
  * @since 2013/05/13
  */
-//// 設定ファイル読み込み ////
+/// 設定ファイル読み込み ///
 require_once '../../../lib-machine.php';
 try {
-    //// 認証 ////
+    /// 認証 ///
     Auth::isAuth('member');
 
-    if($_SERVER["REQUEST_METHOD"] == "POST") {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $action = Req::post('action');
         $target = Req::post('target');
@@ -27,7 +28,7 @@ try {
         if ($action == "set2machine") {
             $bmModel->set2machine($d['machine_id'], $_user['company_id'], $d['bid_open_id'], $d['min_price']);
         } else if ($action == "set") {
-            /// 画像ファイルを実ディレクトリに移動 ////
+            /// 画像ファイルを実ディレクトリに移動 ///
             $f = new File();
             $imgs = !empty($d['imgs']) ? (array)$d['imgs'] : array();
             $imgsDelete = !empty($d['imgs_delete']) ? (array)$d['imgs_delete'] : array();

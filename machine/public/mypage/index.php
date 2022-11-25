@@ -12,11 +12,12 @@
 require_once '../../lib-machine.php';
 try {
     /// 認証 ///
-    // MyAuth::is_auth();
+    MyAuth::is_auth();
 
-    // /// ユーザ情報 ///
-    // $my_user_model = new MyUser();
-    // $my_user       = $my_user_model->get($_my_user['id']);
+    /// ユーザ情報 ///
+    $my_user_model = new MyUser();
+    $select  = $my_user_model->select()->where("deleted_at IS NULL AND id = ?", $_my_user['id']);
+    $my_user = $my_user_model->fetchRow($select);
 
     // /// 事務局お知らせ ///
     // $info_model = new Info();
@@ -28,10 +29,10 @@ try {
 
     /// 表示変数アサイン ///
     $_smarty->assign(array(
-        'pageTitle'       => 'Web入札会マイページ',
-        'pageDescription' => 'メニューを選択してください',
+        'pageTitle'       => "Web入札会マイページ",
+        'pageDescription' => "Web入札会へようこそ {$my_user->company} {$my_user->name} さん。",
 
-        // 'my_user'         => $my_user,
+        'my_user'         => $my_user,
         // 'infos'           => $infos,
         'bid_opens'       => $bid_opens,
     ))->display('mypage/index.tpl');
