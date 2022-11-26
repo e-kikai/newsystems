@@ -11,14 +11,6 @@
       table .condition {
         width: 100px;
       }
-
-      table .condition {
-        width: 100px;
-      }
-
-      table .condition {
-        width: 100px;
-      }
     </style>
   {/literal}
 {/block}

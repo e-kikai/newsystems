@@ -98,7 +98,7 @@
       </ul>
       <hr />
       <ul class="list-group list-group-flush">
-        <a href="/mypage/logout.php/" class="list-group-item list-group-item-action">
+        <a href="/mypage/logout_do.php" class="list-group-item list-group-item-action">
           <i class="fas fa-right-from-bracket"></i> ログアウト
         </a>
       </ul>

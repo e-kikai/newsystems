@@ -24,7 +24,9 @@ class MyTableAbstract extends Zend_Db_Table_Abstract
    */
   public function my_select()
   {
-    return $this->select()->where("deleted_at IS NULL")->order("id DESC");
+    return $this->select()->setIntegrityCheck(false)
+      ->from($this->_name, '*')
+      ->where("{$this->_name}.deleted_at IS NULL")->order("{$this->_name}.id DESC");
   }
 
   /**
@@ -39,7 +41,7 @@ class MyTableAbstract extends Zend_Db_Table_Abstract
     /// メンバ情報を取得 ///
     if (!intval($id)) throw new Exception('取得するIDがありません。');
 
-    $select = $this->my_select()->where("id = ?", $id);
+    $select = $this->my_select()->where("{$this->_name}.id = ?", $id);
     $result = $this->fetchRow($select);
 
     if (empty($result)) throw new Exception('情報を取得できませんでした。');
@@ -91,7 +93,7 @@ class MyTableAbstract extends Zend_Db_Table_Abstract
 
     $data = array_merge($this->_default_data, $data); // 初期値
 
-    $res = $this->insert();
+    $res = $this->insert($data);
 
     if (empty($res)) throw new Exception('情報が保存できませんでした。');
 
@@ -112,7 +114,7 @@ class MyTableAbstract extends Zend_Db_Table_Abstract
 
     $data['changed_at'] = new Zend_Db_Expr('current_timestamp'); // 更新日時
 
-    $res = $this->update($data, $this->_db->quoteInto('id = ?', $id));
+    $res = $this->update($data, $this->_db->quoteInto("{$this->_name}.id = ?", $id));
 
     if (empty($res)) throw new Exception('情報が保存できませんでした。');
 
@@ -133,7 +135,7 @@ class MyTableAbstract extends Zend_Db_Table_Abstract
     $this->update(
       array('deleted_at' => new Zend_Db_Expr('current_timestamp')),
       array(
-        $this->_db->quoteInto(' id IN (?) ', $id)
+        $this->_db->quoteInto(" {$this->_name}.id IN (?) ", $id)
       )
     );
 

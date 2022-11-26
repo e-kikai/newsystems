@@ -36,6 +36,7 @@ a.mylist_link,
 a.button,
 a.bid_help,
 button.mylist,
+button.delete_mylist,
 button {
   background: none;
   background-color: #ccc;
@@ -62,6 +63,7 @@ a.contact:hover,
 a.button:hover,
 a.mylist_link:hover,
 button.mylist:hover,
+button.delete_mylist:hover,
 button:hover {
   background: none;
   background-color: #f60;

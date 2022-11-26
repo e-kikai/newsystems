@@ -1,4 +1,5 @@
 @charset "utf-8";
+
 .detail_container {
   position: relative;
 }
@@ -479,4 +480,165 @@ img.bid_announce {
   display: block;
   margin: 4px auto;
   width: 100%;
+}
+
+div.others {
+  display: inline-block;
+  min-height: initial;
+}
+
+table.spec.form {
+  width: 442px;
+}
+
+table.spec.form th {
+  background: #556b2f;
+  width: 118px;
+}
+
+a.contact {
+  width: 236px;
+  height: 50px;
+  font-size: 20px;
+  line-height: 50px;
+  text-align: center;
+  border-radius: 4px;
+}
+
+a.contact-long {
+  font-size: 16px;
+}
+
+f table.form td {
+  position: relative;
+}
+
+button.bid {
+  display: block;
+  width: 140px;
+  font-size: 15px;
+  margin: 4px auto 32px auto;
+  color: #333;
+}
+
+table.form td input.amount {
+  font-size: 18px;
+  width: 140px;
+  display: inline-block;
+  margin-right: 4px;
+}
+
+.contact_area {
+  height: 118px;
+}
+
+.contact_area button.mylist,
+.contact_area button.mylist:hover,
+.contact_area button.mylist:active,
+.contact_area button.delete_mylist,
+.contact_area button.delete_mylist:hover,
+.contact_area button.delete_mylist:active {
+  position: absolute;
+  top: 53px;
+  left: 0;
+  margin: 0;
+  height: 41px;
+  width: 320px;
+  font-size: 20px;
+  line-height: 43px;
+}
+
+.contact_area button.mylist,
+.contact_area button.mylist:hover,
+.contact_area button.mylist:active {
+  text-indent: 76px;
+}
+
+.contact_area .mylist_pluse {
+  height: 41px;
+  width: 42px;
+  font-size: 20px;
+  line-height: 43px;
+}
+
+div.bid_batch_log {
+  width: 300px;
+  position: absolute;
+  top: 100px;
+  color: #e02e2e;
+}
+
+a.mylist_text_link {
+  top: -27px;
+  right: 3px;
+}
+
+/*** contactbar ***/
+.contactbar {
+  position: fixed;
+  width: 100%;
+  height: 60px;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.8);
+  top: 0;
+  left: 0;
+}
+
+.contactbar .contactbar_area {
+  width: 980px;
+  height: 60px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.contactbar .names {
+  font-size: 17px;
+  display: block;
+  position: absolute;
+  top: 7px;
+  left: 8px;
+  width: 480px;
+}
+
+.contactbar a.contact {
+  display: block;
+  position: absolute;
+  height: 50px;
+  line-height: 50px;
+  top: 5px;
+  left: 492px;
+}
+
+a.button.contact_tel {
+  display: block;
+  position: absolute;
+  width: 236px;
+  height: 50px;
+  line-height: 50px;
+  background: #080;
+  text-decoration: none;
+  top: 0;
+  right: 0;
+  text-shadow: none;
+  border-radius: 3px;
+  box-shadow: none;
+}
+
+.contactbar a.contact_tel {
+  top: 5px;
+}
+
+.contactbar .tel_label,
+.contactbar .contact_tel {
+  left: 746px;
+  position: absolute;
+  display: block;
+}
+
+.contactbar .tel_label {
+  top: 4px;
+}
+
+.contactbar .contact_tel {
+  top: 26px;
 }

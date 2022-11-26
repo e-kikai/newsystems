@@ -19,14 +19,14 @@
 
 <div class="bid_head">
 
-{if !empty($machine)}
-{*
+  {if !empty($machine)}
+    {*
 <p class="contents">
   お問い合せフォーム、TEL、FAXより、出品会社へお問い合せください。
 </p>
 *}
 
-{*
+    {*
 <div class='contact_area'>
   {if !empty($company.contact_mail)}
     <a class="contact_link" href="contact.php?o={$bidOpenId}&bm={$machine.id}" target="_blank"><img src='./imgs/contact_button.png' /></a>
@@ -35,71 +35,71 @@
   {if !empty($company.contact_fax)}<div class='fax'>FAX : {$company.contact_fax}</div>{/if}
 </div>
 *}
-{/if}
+  {/if}
 
-<div class="header_preview_date">
-  下見期間 :
-  {$bidOpen.preview_start_date|date_format:'%Y/%m/%d'} 〜
-  {$bidOpen.preview_end_date|date_format:'%m/%d'}<br />
-  入札締切 : {$bidOpen.user_bid_date|date_format:'%Y/%m/%d %H:%M'}
-</div>
+  <div class="header_preview_date">
+    下見期間 :
+    {$bidOpen.preview_start_date|date_format:'%Y/%m/%d'} 〜
+    {$bidOpen.preview_end_date|date_format:'%m/%d'}<br />
+    入札締切 : {$bidOpen.user_bid_date|date_format:'%Y/%m/%d %H:%M'}
+  </div>
 
-<div class="head_search_no">
-  <form method="GET" id="company_list_form" action="bid_list.php">
-    出品番号・キーワードでさがす
-    <input type="hidden" name="o" value="{$bidOpenId}" />
-    {*
+  <div class="head_search_no">
+    <form method="GET" id="company_list_form" action="bid_list.php">
+      出品番号・キーワードでさがす
+      <input type="hidden" name="o" value="{$bidOpenId}" />
+      {*
     <input type="text" class="m number" name="no" value="" placeholder="出品番号" />
     *}
-    <input type="text" class="m" name="k" value="{Req::query('k')}" placeholder="キーワード" />
-    <button type="submit" class="company_list_submit">検索</button>
-  </form>
-</div>
+      <input type="text" class="m" name="k" value="{Req::query('k')}" placeholder="キーワード" />
+      <button type="submit" class="company_list_submit">検索</button>
+    </form>
+  </div>
 
-<input type="hidden" class="bid_open_id" value="{$bidOpenId}" />
+  <input type="hidden" class="bid_open_id" value="{$bidOpenId}" />
 
-{*
+  {*
 <a class="mylist_link" href="bid_list.php?o={$bidOpenId}&mylist=1">
   お気に入り({if !empty($smarty.session.bid_mylist)}{count($smarty.session.bid_mylist)}{else}0{/if})
 </a>
 *}
 
-<a class="mylist_link" href="contact.php?batch={$bidOpenId}">
-  一括問い合わせ({if !empty($smarty.session.bid_batch)}{count($smarty.session.bid_batch)}{else}0{/if})
-</a>
+  <a class="mylist_link" href="contact.php?batch={$bidOpenId}">
+    一括問い合わせ({if !empty($smarty.session.bid_batch)}{count($smarty.session.bid_batch)}{else}0{/if})
+  </a>
 
-<div class="bid_help_area" style="display:none;">
-  <div class="bid_arrow_00">中古機械をチェック</div>
-  <div class="bid_01">全機連会員とお取引のある方</div>
-  <div class="bid_arrow_01">全機連会員に直接お問い合せ</div>
+  <div class="bid_help_area" style="display:none;">
+    <div class="bid_arrow_00">中古機械をチェック</div>
+    <div class="bid_01">全機連会員とお取引のある方</div>
+    <div class="bid_arrow_01">全機連会員に直接お問い合せ</div>
 
-  <div class="bid_sepa"></div>
+    <div class="bid_sepa"></div>
 
-  <p class="bid_01_contents">
-    現在お取引されている全機連会員の方に、<br />
-    入札締切日時までに、<br />
-    入札のご依頼を行って下さい。
-  </p>
-  <div class="bid_02">全機連会員とお取引のない方</div>
-  <div class="bid_arrow_02_1">お近くの全機連会員にお問い合せ</div>
-  <div class="bid_arrow_02_2">出品会社にお問い合せ</div>
-  <p class="bid_02_contents">
-    「全機連会員一覧」より、<br />
-    最寄りの全機連会員を探していただき、<br />
-    入札締切日時までに、<br />
-    入札のご依頼を行って下さい。
-  </p>
+    <p class="bid_01_contents">
+      現在お取引されている全機連会員の方に、<br />
+      入札締切日時までに、<br />
+      入札のご依頼を行って下さい。
+    </p>
+    <div class="bid_02">全機連会員とお取引のない方</div>
+    <div class="bid_arrow_02_1">お近くの全機連会員にお問い合せ</div>
+    <div class="bid_arrow_02_2">出品会社にお問い合せ</div>
+    <p class="bid_02_contents">
+      「全機連会員一覧」より、<br />
+      最寄りの全機連会員を探していただき、<br />
+      入札締切日時までに、<br />
+      入札のご依頼を行って下さい。
+    </p>
 
-  <p class="bid_03_contents">
-    商品詳細ページの<br />
-    「商品詳細についてのお問い合せ」より、<br />
-    入札締切日時までに、<br />
-    入札のご依頼を行って下さい。
-  </p>
-  <a href="bid_company_list.php?o={$bidOpenId}&m={$machineId}" class="company_list_button">全機連会員一覧</a>
-</div>
+    <p class="bid_03_contents">
+      商品詳細ページの<br />
+      「商品詳細についてのお問い合せ」より、<br />
+      入札締切日時までに、<br />
+      入札のご依頼を行って下さい。
+    </p>
+    <a href="bid_company_list.php?o={$bidOpenId}&m={$machineId}" class="company_list_button">全機連会員一覧</a>
+  </div>
 
-{*
+  {*
 <div class="preuser_form_area" style="display:none;">
   <p class="preuser_01">
     マシンライフWeb入札会をご利用下さいましてありがとうございます。<br />

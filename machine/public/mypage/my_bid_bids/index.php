@@ -26,17 +26,11 @@ $bid_open_model = new BidOpen();
 $bid_open = $bid_open_model->get($bid_open_id);
 
 // 出品期間のチェック
-$e = '';
-if (empty($bid_open)) {
-  $e = '入札会情報が取得出来ませんでした';
-} else if (!in_array($bid_open['status'], array('bid', 'carryout', 'after'))) {
-  $e = "{$bidOpen['title']}は現在、入札会の期間ではありません\n";
-  $e .= "入札期間 : " . date('Y/m/d H:i', strtotime($bid_open['bid_start_date'])) . " ～ " . date('m/d H:i', strtotime($bid_open['bid_end_date']));
-}
+$my_bid_bid_model = new MyBidBid();
+$e = $my_bid_bid_model->check_date_errors($bid_open);
 if (!empty($e)) throw new Exception($e);
 
 // 入札一覧の取得
-$my_bid_bid_model = new MyBidBid();
 $select = $my_bid_bid_model->my_select()
   ->where("my_user_id = ?", $_my_user['id'])
   ->where("bid_machine_id IN (SELECT id FROM bid_machines WHERE bid_open_id = ?)", $bid_open_id);

@@ -759,6 +759,7 @@ header.mini #textsizer {
   min-height: 400px;
 }
 
+/*
 .center_container button:not(.btn) {
   width: 196px;
   height: 25px;
@@ -770,6 +771,7 @@ header.mini #textsizer {
   padding: 1px 6px;
   line-height: normal;
 }
+*/
 
 /*** 表示切り替えタブ ***/
 .machine_tab {

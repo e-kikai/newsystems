@@ -29,6 +29,10 @@ try {
         'genre_id'    => $machine['genre_id']
     ));
 
+    // 新 : ウォッチリスト情報取得
+    $my_bid_watch_model = new MyBidWatch();
+    $my_bid_watch = $my_bid_watch_model->get_by_user_machine($_my_user['id'], $machineId);
+
     // これを見た人の機械の取得
     $logMachineList   = $bmModel->getLogList($machineId);
 
@@ -169,7 +173,10 @@ try {
         'prevMachine'      => $prevMachine,
 
         // 'recommends'       => $recommends,
-    ))->display("bid_detail.tpl");
+
+        "my_bid_watch"     => $my_bid_watch,
+        // ))->display("bid_detail.tpl");
+    ))->display("bid_detail_02.tpl");
 } catch (Exception $e) {
     /// エラー画面表示 ///
     header("HTTP/1.1 404 Not Found");

@@ -55,7 +55,10 @@
 {block 'main'}
 
   {if $my_bid_bids}
-    <div class="error_mes">まだ、入札情報がありません。</div>
+    <div class="alert alert-warning col-8 mx-auto">
+      <i class="fas fa-pen-to-square"></i> まだ、入札がありません。
+    </div>
+
   {/if}
 
   <div class="table_area">

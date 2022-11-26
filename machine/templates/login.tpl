@@ -1,6 +1,7 @@
 {extends file='include/layout.tpl'}
 
 {block name='header'}
+  {assign "no_bootstrap" true}
   <meta name="robots" content="noindex, nofollow" />
 
   <link href="{$_conf.libjs_uri}/css/login.css" rel="stylesheet" type="text/css" />
@@ -17,7 +18,7 @@
 {block 'main'}
   <form class="login" method="post" action="login_do.php">
     <fieldset class="login_form">
-      <legend>ログイン</legend>
+      <legend>全機連会員ログイン</legend>
       <dl>
         <dt><label for="account">アカウント</label></dt>
         <dd><input type="text" name="mail" id="account" placeholder="アカウントを入力してください" required /></dd><br />

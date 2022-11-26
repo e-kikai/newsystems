@@ -1,7 +1,8 @@
 <?php
+
 /**
  * マイリストモデルクラス
- * 
+ *
  * @access public
  * @author 川端洋平
  * @version 0.0.4
@@ -10,7 +11,7 @@
 class Mylist extends Zend_Db_Table_Abstract
 {
     protected $_name = 'mylists';
-    
+
     public $_targets = array('machine', 'genres', 'company', 'catalog', 'eips');
 
     /**
@@ -24,12 +25,12 @@ class Mylist extends Zend_Db_Table_Abstract
     public function getArray($id, $target)
     {
         // SQLクエリを作成
-        $sql = "SELECT query FROM mylists 
+        $sql = "SELECT query FROM mylists
             WHERE deleted_at IS NULL AND user_id = ? AND target = ?;";
         $result = $this->_db->fetchCol($sql, array($id, $target));
         return $result;
     }
-    
+
     /**
      * マイリスト登録
      *
@@ -44,8 +45,10 @@ class Mylist extends Zend_Db_Table_Abstract
         // 現在のマイリスト内容を取得し、登録内容と比較
         $now  = $this->getArray($id, $target);
         $diff = array_diff($querys, $now);
-        if (empty($diff)) { throw new Exception('この情報はマイリスト登録済です'); }
-        
+        if (empty($diff)) {
+            throw new Exception('この情報はマイリスト登録済です');
+        }
+
         // マイリスト登録
         $this->_db->beginTransaction();
         try {
@@ -62,10 +65,10 @@ class Mylist extends Zend_Db_Table_Abstract
             // echo $e->getMessage();
             throw new Exception('マイリストの登録に失敗しました');
         }
-        
+
         return $this;
     }
-    
+
     /**
      * マイリスト削除
      *
@@ -80,15 +83,17 @@ class Mylist extends Zend_Db_Table_Abstract
         // 現在のマイリスト内容を取得し、登録内容と比較
         $now   = $this->getArray($id, $target);
         $inter = array_intersect($querys, $now);
-        if (empty($inter)) { throw new Exception('この情報はマイリスト登録されていません'); }
-        
+        if (empty($inter)) {
+            throw new Exception('この情報はマイリスト登録されていません');
+        }
+
         // マイリスト削除
         $this->_db->beginTransaction();
         try {
             $where = $this->_db->quoteInto(' query IN (?) ;', $inter);
-            $sql = "UPDATE mylists 
+            $sql = "UPDATE mylists
             SET
-              deleted_at = CURRENT_TIMESTAMP 
+              deleted_at = CURRENT_TIMESTAMP
             WHERE
               deleted_at IS NULL AND
               user_id = ? AND
@@ -100,7 +105,7 @@ class Mylist extends Zend_Db_Table_Abstract
             echo $e->getMessage();
             // throw new Exception('マイリストの削除に失敗しました');
         }
-        
+
         return $this;
     }
 }

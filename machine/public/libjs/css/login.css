@@ -1,6 +1,6 @@
 /*** member login ***/
 .login_form {
-  width: 400px;
+  width: 420px;
   border: 1px solid #aaa;
   margin: 16px auto;
   padding: 4px 16px;
@@ -9,6 +9,9 @@
 
 .login_form legend {
   padding: 0 4px;
+  float: none;
+  width: auto;
+  margin: 0;
 }
 
 .login_form dt {

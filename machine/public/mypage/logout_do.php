@@ -14,5 +14,5 @@ require_once '../../lib-machine.php';
 MyAuth::logout();
 
 /// ログインページにリダイレクト ///
-header('Location:' . $_conf->login_uri . '?e=3');
+header('Location:/mypage/login.php?e=3');
 exit;

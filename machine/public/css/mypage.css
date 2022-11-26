@@ -21,3 +21,40 @@ span.required {
   vertical-align: baseline;
   margin-left: 8px;
 }
+
+th.list_no,
+td.list_no {
+  width: 80px;
+}
+
+th.name,
+td.name {
+  width: 140px;
+}
+
+th.delete,
+td.delete {
+  width: 70px;
+}
+
+td.delete button {
+  font-size: 11px;
+  padding: 0.25em 0.5em;
+}
+
+th.created_at,
+td.created_at {
+  width: 160px;
+}
+
+th.img,
+td.img {
+  width: 60px;
+  padding: 0;
+}
+
+td.img img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+}

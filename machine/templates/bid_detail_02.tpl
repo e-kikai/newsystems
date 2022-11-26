@@ -1,19 +1,8 @@
 {extends file='include/layout.tpl'}
 
 {block name='header'}
-  {*
-<meta name="description" content="
-{if !empty({$machine.capacity}) && !empty({$machine.capacity_label})}{$machine.capacity_label}:{$machine.capacity}{$machine.capacity_unit} | {/if}
-{if !empty({$machine.year})}年式:{$machine.year} | {/if}
-{if !empty({$machine.addr1})}在庫場所:{$machine.addr1} | {/if}
-{if !empty({$others})}{$others} | {/if}
-{$machine.spec}
-{if $machine.commission == 1} 試運転可{/if}
-" />
-*}
   <meta name="description"
     content="出品番号 {$machine.list_no}, 最低入札金額 {$machine.min_price|number_format}円 | {$machine.addr1}・{$machine.company|regex_replace:'/(株式|有限|合.)会社/u':''}。入札依頼は{$bidOpen.user_bid_date|date_format:'%Y/%m/%d %H:%M'}まで。" />
-
 
   <script type="text/javascript" src="{$_conf.site_uri}{$_conf.js_dir}same_list.js"></script>
   <script type="text/javascript" src="{$_conf.site_uri}{$_conf.js_dir}detail.js"></script>
@@ -21,16 +10,16 @@
   <link href="{$_conf.site_uri}{$_conf.css_dir}same_list.css" rel="stylesheet" type="text/css" />
   <link href="{$_conf.site_uri}{$_conf.css_dir}admin_form.css" rel="stylesheet" type="text/css" />
 
-  {if preg_match("/admin/", $smarty.server.REQUEST_URI)}
+  {if Auth::check('member')}
     {literal}
       <script type="text/javascript">
         $(function() {
           //// 入札処理 ////
-          $('button.bid').click(function() {
+          $('button.my_bid').click(function() {
             var data = {
               'bid_machine_id': $.trim($('input.bid_machine_id').val()),
               'amount': $.trim($('input.amount').change().val()),
-              'charge': $.trim($('input.charge').val()),
+              // 'charge': $.trim($('input.charge').val()),
               'comment': $.trim($('input.comment').val()),
             };
 
@@ -113,162 +102,6 @@
       });
     </script>
     <style type="text/css">
-      div.others {
-        display: inline-block;
-        min-height: initial;
-      }
-
-      table.spec.form {
-        width: 442px;
-      }
-
-      table.spec.form th {
-        background: #556B2F;
-        width: 118px;
-      }
-
-      a.contact {
-        width: 236px;
-        height: 50px;
-        font-size: 20px;
-        line-height: 50px;
-        text-align: center;
-        border-radius: 4px;
-      }
-
-      a.contact-long {
-        font-size: 16px;
-      }
-
-      f table.form td {
-        position: relative;
-      }
-
-      button.bid {
-        display: block;
-        width: 140px;
-        font-size: 15px;
-        margin: 4px auto 32px auto;
-        color: #333;
-      }
-
-      table.form td input.amount {
-        font-size: 18px;
-        width: 140px;
-      }
-
-      .contact_area {
-        height: 118px;
-      }
-
-      .contact_area button.mylist,
-      .contact_area button.mylist:hover,
-      .contact_area button.mylist:active,
-      .contact_area button.delete_mylist,
-      .contact_area button.delete_mylist:hover,
-      .contact_area button.delete_mylist:active {
-        position: absolute;
-        top: 53px;
-        left: 0;
-        margin: 0;
-        height: 43px;
-        width: 320px;
-        font-size: 20px;
-        line-height: 43px;
-      }
-
-      .contact_area button.mylist,
-      .contact_area button.mylist:hover,
-      .contact_area button.mylist:active {
-        text-indent: 76px;
-      }
-
-      .contact_area .mylist_pluse {
-        height: 41px;
-        width: 42px;
-        font-size: 20px;
-        line-height: 43px;
-      }
-
-      div.bid_batch_log {
-        width: 300px;
-        position: absolute;
-        top: 100px;
-        color: #E02E2E;
-      }
-
-      a.mylist_text_link {
-        top: -27px;
-        right: 3px;
-      }
-
-      /*** contactbar ***/
-      .contactbar {
-        position: fixed;
-        width: 100%;
-        height: 60px;
-        color: #FFF;
-        background-color: rgba(0, 0, 0, 0.8);
-        top: 0;
-        left: 0;
-      }
-
-      .contactbar .contactbar_area {
-        width: 980px;
-        height: 60px;
-        margin: 0 auto;
-        position: relative;
-      }
-
-      .contactbar .names {
-        font-size: 17px;
-        display: block;
-        position: absolute;
-        top: 7px;
-        left: 8px;
-        width: 480px;
-      }
-
-      .contactbar a.contact {
-        display: block;
-        position: absolute;
-        height: 50px;
-        line-height: 50px;
-        top: 5px;
-        left: 492px;
-      }
-
-      a.button.contact_tel {
-        display: block;
-        position: absolute;
-        width: 236px;
-        height: 50px;
-        line-height: 50px;
-        background: #080;
-        text-decoration: none;
-        top: 0;
-        left: 246px;
-      }
-
-      .contactbar a.contact_tel {
-        top: 5px;
-        left: 738px;
-      }
-
-      .contactbar .tel_label,
-      .contactbar .contact_tel {
-        left: 746px;
-        position: absolute;
-        display: block;
-      }
-
-      .contactbar .tel_label {
-        top: 4px;
-      }
-
-      .contactbar .contact_tel {
-        top: 26px;
-      }
     </style>
   {/literal}
 {/block}
@@ -378,7 +211,7 @@
               {$machine.addr1} {$machine.addr2} {$machine.addr3}
               {if $machine.location}<br />({$machine.location}){/if}
               {if $machine.addr3}
-                <a class="button accessmap"
+                <a class="accessmap"
                   href="https://maps.google.co.jp/maps?f=q&amp;q={$machine.addr1|escape:"url"}{$machine.addr2|escape:"url"}{$machine.addr3|escape:"url"}+({$machine.location|escape:"url"})&source=embed&amp;hl=ja&amp;geocode=&amp;ie=UTF8&amp;t=m&z=14"
                   target="_blank">MAP</a>
               {/if}
@@ -401,41 +234,72 @@
       <br class="clear" />
 
       <div class="img_area">
+        {if MyAuth::check()}
+          <div class="watch_area">
+            {if empty($my_bid_watch)}
+              <form method="post" action="/mypage/my_bid_watches/create_do.php">
+                <input type="hidden" name="id" value="{$machine.id}" />
 
-        {if preg_match("/admin/", $smarty.server.REQUEST_URI)}
+                <button class="watch_button btn btn-warning btn-lg">
+                  <i class="fas fa-star text-white"></i> ウォッチリストに登録
+                </button>
+              </form>
+            {else}
+              <form method="post" action="/mypage/my_bid_watches/delete_do.php">
+                <input type="hidden" name="id" value="{$machine.id}" />
+                <input type="hidden" name="return" value="detail" />
+
+                <button class="watch_button btn btn-outline-secondary btn-lg">
+                  <i class="fas fa-star text-warning"></i> ウォッチリスト登録済 (解除する)
+                </button>
+              </form>
+            {/if}
+          </div>
+
           {if $bidOpen.status == 'bid'}
             <h2>入札</h2>
+
             <input type="hidden" class="min_price" value="{$machine.min_price}" />
             <input type="hidden" class="rate" value="{$bidOpen.rate}" />
             <input type="hidden" class="bid_open_id" value="{$bidOpenId}" />
             <input type="hidden" class="bid_machine_id" value="{$machineId}" />
 
-            <table class="form spec">
+            <table class="form spec w-100">
               <tr class="bid">
-                <th>入札金額<span class="required">(必須)</span></th>
+                <th>入札金額 <span class="required">(必須)</span></th>
                 <td>
-                  <input type="text" name="amount" class="number amount" required />円<br />
-                  入札レート : {$bidOpen.rate|number_format}円<br />
-                  <a href="/admin/bid_fee_sim.php?o={$bidOpenId}"
-                    onclick="window.open('/admin/bid_fee_sim.php?o={$bidOpenId}','','scrollbars=yes,width=850,height=450,');return false;">
-                    支払・請求額シミュレータ
-                  </a>
+                  <input type="text" name="amount" class="number amount form-control" required />円<br />
+                  入札金額は、{$bidOpen.rate|number_format}円単位で行えます。
                 </td>
               </tr>
+              {*
               <tr class="bid">
                 <th>入札担当者<span class="required">(必須)</span></th>
                 <td>
                   <input type="text" name="charge" class="charge" required />
                 </td>
               </tr>
+              *}
               <tr class="bid">
                 <th>備考欄</th>
                 <td>
-                  <input type="text" name="comment" class="comment" />
+                  <input type="text" name="comment" class="comment  form-control" />
                 </td>
               </tr>
             </table>
-            <button class="bid">入札する</button>
+
+            <hr />
+            <p class="contents">
+              ・ 入札期間中であれば、入札の取消し・再入札を行うことができます。<br />
+              ・ 入札締切後は、入札の取り消しを行うことはできません。<br />
+              ・ 同額の入札があった場合は、落札者を自動的に決定いたします。予めご了承ください。<br />
+              ・ 落札された場合は、各自出品会社と取引を行ってください。
+            </p>
+            <div class="text-center">
+              <button class="my_bid btn btn-primary btn-lg my-2">
+                <i class="fas fa-pen-to-square"></i> 規約に同意して、入札する
+              </button>
+            </div>
           {elseif in_array($bidOpen.status, array('carryout', 'after'))}
             <h2>落札結果</h2>
             <table class="spec">
@@ -443,10 +307,7 @@
                 <th>落札金額</th>
                 <td>{if !empty($result.amount)}{$result.amount|number_format}円{else}入札なし{/if}</td>
               </tr>
-              <tr class="">
-                <th>落札会社</th>
-                <td>{$result.company}</td>
-              </tr>
+
               <tr class="">
                 <th>同額札</th>
                 <td>{if $result.same_count > 1}あり{/if}</td>
@@ -454,15 +315,11 @@
             </table>
 
             {if !empty($resultCompany)}
-              <h2>自社の入札</h2>
+              <h2>あなたの入札</h2>
               <table class="spec">
                 <tr class="price">
                   <th>入札金額</th>
                   <td>{$resultCompany.amount|number_format}円</td>
-                </tr>
-                <tr class="">
-                  <th>入札担当者</th>
-                  <td>{$resultCompany.charge}</td>
                 </tr>
                 <tr class="">
                   <th>備考欄</th>
@@ -480,21 +337,24 @@
           {/if}
         {else}
           {if in_array($bidOpen.status, array('bid'))}
+            <h2>入札に参加するには？</h2>
+
             <p class="contents">
-              商品への入札は、全機連会員を通じて行うことができます。<br />
-              商品出品会社にフォーム・電話で問い合わせをしていただくか、<br />
-              最寄りの全機連会員に入札の依頼を行って下さい。
+              商品への入札を行うには、<br />
+              <a href="/mypage/sign_up.php"><i class="fas fa-user-plus"></i> 入札会ユーザ登録</a>を行うことでだれでも行なえます。<br /><br />
+
+              Web入札会ユーザ登録より登録を行い、<br />
+              <a href="/mypage/login.php"><i class="fas fa-right-to-bracket"></i> マイページにログイン</a>してください。
             </p>
 
           {elseif in_array($bidOpen.status, array('entry', 'margin'))}
             <p class="contents">
-              {$bidOpen.title}の下見期間は、{$bidOpen.preview_start_date}～です。<br /><br />
-              入札のご依頼は、下見期間中に行って下さい。
+              {$bidOpen.title}の下見・入札期間は、{$bidOpen.preview_start_date}～です。<br /><br />
             </p>
           {else}
             <p class="contents">
               {$bidOpen.title}は、終了しました。<br /><br />
-              たくさんのご利用ありがとうございました。<br />
+              たくさんの入札へのご参加ありがとうございました。<br />
 
               次回のWeb入札会もご期待ください。<br />
             </p>
@@ -542,23 +402,7 @@
             <div class='carousel_products'>
               {foreach $recommends as $sm}
                 {if $sm.id == $machineId }{continue}{/if}
-                <div class="same_machine bid">
-                  <a href="bid_detail.php?m={$sm.id}&rec=machine"
-                    onClick="ga('send', 'event', 'log_bid', 'rec_machine', '{$sm.id}', 1, true);">
-                    {if !empty($sm.top_img)}
-                      <img src="{$_conf.media_dir}machine/thumb_{$sm.top_img}" alt="" />
-                    {else}
-                      <img class='noimage' src='./imgs/noimage.png' alt="" />
-                    {/if}
-                    <div class="names">
-                      {if !empty($sm.maker)}<div class="name">{$sm.maker}</div>{/if}
-                      {if !empty($sm.model)}<div class="name">{$sm.model}</div>{/if}
-                      {if !empty($sm.year)}<div class="name">{$sm.year}年式</div>{/if}
-                      {if !empty($sm.addr1)}<div class="name">{$sm.addr1}</div>{/if}
-                    </div>
-                    <div class="min_price">{$sm.min_price|number_format}円</div>
-                  </a>
-                </div>
+                {include file='include/bid_samecard.tpl' machine=$sm label='rec_machine'}
               {/foreach}
             </div>
           </div>
@@ -590,23 +434,7 @@
             <div class='carousel_products'>
               {foreach $sameMachineList as $sm}
                 {if $sm.id == $machineId }{continue}{/if}
-                <div class="same_machine bid">
-                  <a href="bid_detail.php?m={$sm.id}&same=1"
-                    onClick="ga('send', 'event', 'log_bid', 'same', '{$sm.id}', 1, true);">
-                    {if !empty($sm.top_img)}
-                      <img src="{$_conf.media_dir}machine/thumb_{$sm.top_img}" alt="" />
-                    {else}
-                      <img class='noimage' src='./imgs/noimage.png' alt="" />
-                    {/if}
-                    <div class="names">
-                      {if !empty($sm.maker)}<div class="name">{$sm.maker}</div>{/if}
-                      {if !empty($sm.model)}<div class="name">{$sm.model}</div>{/if}
-                      {if !empty($sm.year)}<div class="name">{$sm.year}年式</div>{/if}
-                      {if !empty($sm.addr1)}<div class="name">{$sm.addr1}</div>{/if}
-                    </div>
-                    <div class="min_price">{$sm.min_price|number_format}円</div>
-                  </a>
-                </div>
+                {include file='include/bid_samecard.tpl' machine=$sm label='same'}
               {/foreach}
             </div>
           </div>
@@ -623,24 +451,7 @@
           <div class='image_carousel'>
             <div class='carousel_products'>
               {foreach $logMachineList as $sm}
-                <div class="same_machine bid">
-                  <a href="bid_detail.php?m={$sm.id}&others=1"
-                    onClick="ga('send', 'event', 'log_bid', 'others', '{$sm.id}', 1, true);">
-                    {if !empty($sm.top_img)}
-                      <img src="{$_conf.media_dir}machine/thumb_{$sm.top_img}" alt="" />
-                    {else}
-                      <img class='noimage' src='./imgs/noimage.png' alt="" />
-                    {/if}
-                    <div class="names">
-                      {if !empty($sm.name)}<div class="name">{$sm.name}</div>{/if}
-                      {if !empty($sm.maker)}<div class="name">{$sm.maker}</div>{/if}
-                      {if !empty($sm.model)}<div class="name">{$sm.model}</div>{/if}
-                      {if !empty($sm.year)}<div class="company">{$sm.year}年式</div>{/if}
-                      {if !empty($sm.addr1)}<div class="company">{$sm.addr1}</div>{/if}
-                    </div>
-                    <div class="min_price">{$sm.min_price|number_format}円</div>
-                  </a>
-                </div>
+                {include file='include/bid_samecard.tpl' machine=$sm label='others'}
               {/foreach}
             </div>
           </div>
@@ -657,24 +468,7 @@
           <div class='image_carousel'>
             <div class='carousel_products'>
               {foreach $IPLogMachineList as $sm}
-                <div class="same_machine bid">
-                  <a href="bid_detail.php?m={$sm.id}&checked=1"
-                    onClick="ga('send', 'event', 'log_bid', 'checked', '{$sm.id}', 1, true);">
-                    {if !empty($sm.top_img)}
-                      <img src="{$_conf.media_dir}machine/thumb_{$sm.top_img}" alt="" />
-                    {else}
-                      <img class='noimage' src='./imgs/noimage.png' alt="" />
-                    {/if}
-                    <div class="names">
-                      {if !empty($sm.name)}<div class="name">{$sm.name}</div>{/if}
-                      {if !empty($sm.maker)}<div class="name">{$sm.maker}</div>{/if}
-                      {if !empty($sm.model)}<div class="name">{$sm.model}</div>{/if}
-                      {if !empty($sm.year)}<div class="name">{$sm.year}年式</div>{/if}
-                      {if !empty($sm.addr1)}<div class="name">{$sm.addr1}</div>{/if}
-                      <div class="min_price">{$sm.min_price|number_format}円</div>
-                    </div>
-                  </a>
-                </div>
+                {include file='include/bid_samecard.tpl' machine=$sm label='checked'}
               {/foreach}
             </div>
           </div>
