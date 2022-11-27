@@ -10,6 +10,19 @@
  */
 require_once '../../lib-machine.php';
 
+
+switch (Req::query('e')) {
+    case 1:
+        $_smarty->assign('errorMes', "ログイン出来ませんでした。\n入力したメールアドレスとパスワードをご確認下さい。");
+        break;
+    case 2:
+        $_smarty->assign('errorMes', 'ログインしていません。');
+        break;
+    case 3:
+        $_smarty->assign('message', "ログアウトしました。\nWeb入札会へのご参加、ありがとうございました。");
+        break;
+}
+
 /// 表示変数アサイン ///
 $_smarty->assign(array(
     'pageTitle'       => 'マイページ - ログイン',
