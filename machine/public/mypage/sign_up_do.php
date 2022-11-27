@@ -19,11 +19,11 @@ try {
     // パスワード重複チェック
     if ($data["passwd"] != $_POST['passwd_02']) throw new Exception("パスワードとパスワード(確認用)が異なっています。");
 
-    // // 既存チェック
-    // $user = $my_user_model->get_by_mail($data["mail"]);
-    // if (!empty($user)) {
-    //     throw new Exception("このメールアドレスは、既に登録されています。\n\nパスワードの再設定、確認メールの再送信は、下のリンクから行えます。");
-    // }
+    // 既存チェック
+    $user = $my_user_model->get_by_mail($data["mail"]);
+    if (!empty($user)) {
+        throw new Exception("このメールアドレスは、既に登録されています。\n\nパスワードの再設定、確認メールの再送信は、下のリンクから行えます。");
+    }
 
     // captcha認証
     if (!$my_auth->check_recaptcha($_POST['g-recaptcha-response'], $_conf->recaptcha_secret)) {
@@ -31,7 +31,7 @@ try {
     }
 
     // ユーザ情報保存処理
-    // $res = $my_user_model->set($data);
+    $my_user_model->my_insert($data);
 
     // メール送信
     $my_auth = new MyAuth();

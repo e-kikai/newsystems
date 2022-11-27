@@ -13,6 +13,8 @@ require_once '../../lib-machine.php';
 /// ログアウト処理 ///
 MyAuth::logout();
 
+$_SESSION["flash_notice"] = "マイページからログアウトしました。\nWeb入札会へのご参加、ありがとうございました。";
+
 /// ログインページにリダイレクト ///
 header('Location:/mypage/login.php?e=3');
 exit;

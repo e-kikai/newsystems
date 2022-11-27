@@ -12,7 +12,8 @@ class MyTableAbstract extends Zend_Db_Table_Abstract
 {
 
   // フィルタ条件
-  protected $_change_filter = ['rules' => []];
+  protected $_insert_filter = ['rules' => []];
+  protected $_update_filter = ['rules' => []];
 
   protected $_default_data  = [];
 
@@ -50,15 +51,27 @@ class MyTableAbstract extends Zend_Db_Table_Abstract
   }
 
   /**
-   * フィルタリング・バリデーション
+   * 登録用フィルタリング・バリデーション
    *
    * @access public
    * @param array   $data 入力データ
    * @return array フィルタリング後のデータ
    */
-  public function filtering($data)
+  public function insert_filtering($data)
   {
-    return MyFilter::filter($data, $this->_change_filter);
+    return MyFilter::filter($data, $this->_insert_filter);
+  }
+
+  /**
+   * 更新用フィルタリング・バリデーション
+   *
+   * @access public
+   * @param array   $data 入力データ
+   * @return array フィルタリング後のデータ
+   */
+  public function update_filtering($data)
+  {
+    return MyFilter::filter($data, $this->_update_filter);
   }
 
   /**
@@ -89,7 +102,7 @@ class MyTableAbstract extends Zend_Db_Table_Abstract
    */
   public function my_insert($data)
   {
-    $data = $this->filtering($data);
+    $data = $this->insert_filtering($data);
 
     $data = array_merge($this->_default_data, $data); // 初期値
 
@@ -110,7 +123,7 @@ class MyTableAbstract extends Zend_Db_Table_Abstract
    */
   public function my_update($data, $id)
   {
-    $data = $this->filtering($data);
+    $data = $this->update_filtering($data);
 
     $data['changed_at'] = new Zend_Db_Expr('current_timestamp'); // 更新日時
 

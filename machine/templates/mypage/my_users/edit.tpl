@@ -56,7 +56,7 @@
 {/block}
 
 {block 'main'}
-  <form class="login" method="post" action="/mypage/mypage/update_do.php">
+  <form class="login" method="post" action="/mypage/my_users/update_do.php">
     <div class="d-grid gap-2 col-6 mx-auto mt-3">
       <dl>
         <dt><label for="mail" class="form-label">氏名<span class="required">(必須)</span></label></dt>
@@ -95,15 +95,17 @@
 
         <dt><label for="addr_3" class="form-label">マシンライフからの案内メール</label></dt>
         <dd>
-          <input class="form-check-input" type="radio" name="data[check]" id="check_true" value="1" checked>
+          <input class="form-check-input" type="radio" name="data[mailuser_flug]" id="check_true" value="1"
+            {if !empty($data.mailuser_flug)}checked{/if}>
           <label class="form-check-label" for="check_true">受信する</label>
-          <input class="form-check-input" type="radio" name="data[check]" id="check_false" value="0">
+          <input class="form-check-input" type="radio" name="data[mailuser_flug]" id="check_false" value="0"
+            {if empty($data.mailuser_flug)}checked{/if}>
           <label class="form-check-label" for="check_false">受信しない</label>
         </dd>
       </dl>
 
       <button type="submit" name="submit" class="submit btn btn-primary" value="login">
-        <i class="fas fa-user-plus"></i> ユーザ情報を変更する
+        <i class="fas fa-circle-user"></i> ユーザ情報を変更する
       </button>
     </div>
   </form>

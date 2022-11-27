@@ -23,9 +23,11 @@ try {
     $res = $my_auth->confirmation($id, $token);
 
     if ($res) {
-        header('Location: /mypage/login.php?e=6');
+        $_SESSION["flash_notice"] = "ユーザ認証が完了しました。\n早速、以下のフォームからマイページにログインしてみてください。";
+        header('Location: /mypage/login.php');
     } else {
-        header('Location: /mypage/login.php?e=7');
+        $_SESSION["flash_alert"] = "ユーザ認証に失敗しました。お手数ですが、もう一度メールのリンクにアクセスしてみてください。";
+        header('Location: /mypage/login.php');
     }
 } catch (Exception $e) {
     header('Location: /mypage/login.php?e=7');

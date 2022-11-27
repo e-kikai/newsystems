@@ -30,6 +30,17 @@ $_smarty->assign([
     '_my_user' => $_my_user,
 ]);
 
+// flash
+if (!empty($_SESSION["flash_notice"])) {
+    $_smarty->assign('message', $_SESSION["flash_notice"]);
+    $_SESSION["flash_notice"] = null;
+}
+
+if (!empty($_SESSION["flash_alert"])) {
+    $_smarty->assign('errorMes', $_SESSION["flash_alert"]);
+    $_SESSION["flash_alert"] = null;
+}
+
 /*
 if (!Auth::check('system')) {
     /// 表示変数アサイン ///

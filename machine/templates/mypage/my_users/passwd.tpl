@@ -17,7 +17,7 @@
 {/block}
 
 {block 'main'}
-  <form class="login" method="post" action="/mypage/my_user/passwd_do.php">
+  <form class="login" method="post" action="/mypage/my_users/passwd_do.php">
     <div class="d-grid gap-2 col-6 mx-auto mt-3">
       <dl>
         <dt><label for="passwd" class="form-label">新しいパスワード<span class="required">(必須)</span></label></dt>
@@ -29,7 +29,7 @@
       </dl>
 
       <button type="submit" name="submit" class="submit btn btn-primary" value="login">
-        <i class="fas fa-user-plus"></i> パスワードを変更する
+        <i class="fas fa-lock"></i> パスワードを変更する
       </button>
     </div>
   </form>

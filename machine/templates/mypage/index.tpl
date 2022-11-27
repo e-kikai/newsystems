@@ -12,11 +12,8 @@
 {/block}
 
 {block 'main'}
-
-  <hr />
-
   <div class="row">
-    <div class="gap-2 col-6 mx-auto p-3">
+    <div class="gap-2 col-6 p-3">
       <h2>現在開催中の入札会</h2>
       {if !empty($bid_opens)}
         {foreach $bid_opens as $b}
@@ -79,7 +76,8 @@
         <li>現在開催中の入札会はありません</li>
       {/if}
 
-      <hr />
+    </div>
+    <div class="gap-2 col-6 p-3">
 
       <ul class="list-group list-group-flush">
         <a href="/mypage/bid_opens/" class="list-group-item list-group-item-action">
@@ -90,10 +88,10 @@
       <hr />
 
       <ul class="list-group list-group-flush">
-        <a href="/mypage/my_user/edit.php" class="list-group-item list-group-item-action">
+        <a href="/mypage/my_users/edit.php" class="list-group-item list-group-item-action">
           <i class="fas fa-circle-user"></i> ユーザ情報変更
         </a>
-        <a href="/mypage/bid_opens/passwd.php" class="list-group-item list-group-item-action">
+        <a href="/mypage/my_users/passwd.php" class="list-group-item list-group-item-action">
           <i class="fas fa-lock"></i> パスワード変更</a>
       </ul>
       <hr />
