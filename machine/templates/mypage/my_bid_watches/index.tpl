@@ -108,7 +108,7 @@
 
   <div class="d-grid gap-2 col-6 mx-auto my-3">
     <a href="/bid_door.php?o={$bid_open.id}" class="btn btn-outline-secondary" target="_blank">
-      <i class="fas fa-magnifying-glass"></i> 入札されている商品をさがす - Web入札会トップページ
+      <i class="fas fa-magnifying-glass"></i> 商品をさがす - Web入札会トップページ
     </a>
     <a href="/mypage/" class="btn btn-outline-secondary">
       <i class="fas fa-house"></i> マイページ トップに戻る

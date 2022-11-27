@@ -10,85 +10,68 @@
   <link href="{$_conf.site_uri}{$_conf.css_dir}same_list.css" rel="stylesheet" type="text/css" />
   <link href="{$_conf.site_uri}{$_conf.css_dir}admin_form.css" rel="stylesheet" type="text/css" />
 
-  {if Auth::check('member')}
+  {if MyAuth::check()}
     {literal}
       <script type="text/javascript">
         $(function() {
-          //// 入札処理 ////
+          /// 入札処理 ///
           $('button.my_bid').click(function() {
             var data = {
               'bid_machine_id': $.trim($('input.bid_machine_id').val()),
-              'amount': $.trim($('input.amount').change().val()),
+              'amount': string2int($.trim($('input.amount').change().val())),
               // 'charge': $.trim($('input.charge').val()),
               'comment': $.trim($('input.comment').val()),
             };
 
-            // 表示切替
-            $('input.amount').val(cjf.numberFormat(data.amount));
-
-            //// 入力のチェック ////
+            /// 入力のチェック ///
             var e = '';
-            $('input[required]').each(function() {
-              if ($(this).val() == '') {
-                e += "必須項目が入力されていません\n\n";
-                return false;
-              }
-            });
 
             if (!data['amount']) {
-              e += '入札金額が入力されていません\n';
+              e += '◆ 入札金額が入力されていません\n';
             } else if (data['amount'] < parseInt($('input.min_price').val())) {
-              e += "入札金額が、最低入札金額より小さく入力されています\n";
-              e += "最低入札金額 : " + parseInt($('input.min_price').val()) + '円';
+              e += "◆ 入札金額が、最低入札金額より小さく入力されています\n";
+              e += "最低入札金額 : " + cjf.numberFormat($('input.min_price').val()) + '円';
             } else if ((data['amount'] % parseInt($('input.rate').val())) != 0) {
-              e += '入札金額が、入札レートの倍数ではありません\n';
+              e += '◆ 入札金額が、' + cjf.numberFormat($('input.rate').val()) + '円単位ではありません\n。';
             }
 
-            //// エラー表示 ////
+            /// エラー表示 ///
             if (e != '') { alert(e); return false; }
 
-            // 送信確認
-            if (!confirm('この内容で入札します。よろしいですか。')) { return false; }
+            /// 送信確認 ///
+            var mes = "最低入札金額 : " + cjf.numberFormat($('input.min_price').val()) + '円\n';
+            mes += "入札金額 : " + cjf.numberFormat(data['amount']) + '円\n\n';
 
             if (data['amount'] > parseInt($('input.min_price').val()) * 5) {
-              if (!confirm("入札金額が最低入札金額の5倍を超えています。\nこの内容で入札してよろしいですか。")) {
-                return false;
-              }
+              mes += "※ 注意！！ 入札金額が最低入札金額の5倍を超えています。\n\n";
             }
 
-            $('button.bid').attr('disabled', 'disabled').text('保存処理中');
+            mes += 'この内容で入札します。よろしいですか。';
+            if (!confirm(mes)) { return false; }
 
-            $.post('/admin/ajax/bid.php', {
-              'target': 'member',
-              'action': 'bid',
-              'data': data,
-            }, function(res) {
-              $('button.bid').removeAttr('disabled').text('入札');
+            /// 数値のみに自動整形 ///
+            $('input.number').val(data['amount']);
 
-              if (res != 'success') { alert(res); return false; }
-
-              // 登録完了
-              alert('入札が完了しました');
-              location.href = '/admin/bid_list.php?o=' + $('input.bid_open_id').val();
-            }, 'text');
-
-            return false;
+            return true;
           });
 
-          //// 数値のみに自動整形 ////
-          $('input.number').change(function() {
-            var price = mb_convert_kana($(this).val(), 'KVrn').replace(/[^0-9.]/g, '');
-            $(this).val(price ? parseInt(price) : '');
+          /// フォーム内容をカンマ区切りに自動整形 ///
+          $('input.number').focusout(function() {
+            var price = string2int($(this).val());
+            $(this).val(price ? cjf.numberFormat(price) : '');
           });
 
-          $('a.prev_link, a.next_link').each(function() {
-            $(this).attr('href', $(this).attr('href').replace('bid_detail.php', 'admin/bid_detail.php'));
+          /// フォーム内容を数値のみに自動整形 ///
+          $('input.number').focusin(function() {
+            var price = string2int($(this).val());
+            $(this).val(price ? price : '');
           });
 
-          $('#company_list_form').each(function() {
-            $(this).attr('action', $(this).attr('action').replace('bid_list.php', 'admin/bid_list.php'));
-          });
         });
+
+        function string2int(amount) {
+          return parseInt(mb_convert_kana(amount, 'KVrn').replace(/[^0-9.]/g, ''));
+        }
       </script>
     {/literal}
   {/if}
@@ -259,20 +242,22 @@
           {if $bidOpen.status == 'bid'}
             <h2>入札</h2>
 
-            <input type="hidden" class="min_price" value="{$machine.min_price}" />
-            <input type="hidden" class="rate" value="{$bidOpen.rate}" />
-            <input type="hidden" class="bid_open_id" value="{$bidOpenId}" />
-            <input type="hidden" class="bid_machine_id" value="{$machineId}" />
+            <form method="post" action="/mypage/my_bid_bids/create_do.php">
 
-            <table class="form spec w-100">
-              <tr class="bid">
-                <th>入札金額 <span class="required">(必須)</span></th>
-                <td>
-                  <input type="text" name="amount" class="number amount form-control" required />円<br />
-                  入札金額は、{$bidOpen.rate|number_format}円単位で行えます。
-                </td>
-              </tr>
-              {*
+              <input type="hidden" class="min_price" value="{$machine.min_price}" />
+              <input type="hidden" class="rate" value="{$bidOpen.rate}" />
+              <input type="hidden" class="bid_open_id" value="{$bidOpenId}" />
+              <input type="hidden" name="id" class="bid_machine_id" value="{$machineId}" />
+
+              <table class="form spec w-100">
+                <tr class="bid">
+                  <th>入札金額 <span class="required">(必須)</span></th>
+                  <td>
+                    <input type="text" name="amount" class="number amount form-control" required />円<br />
+                    入札金額は、{$bidOpen.rate|number_format}円単位で行えます。
+                  </td>
+                </tr>
+                {*
               <tr class="bid">
                 <th>入札担当者<span class="required">(必須)</span></th>
                 <td>
@@ -280,26 +265,28 @@
                 </td>
               </tr>
               *}
-              <tr class="bid">
-                <th>備考欄</th>
-                <td>
-                  <input type="text" name="comment" class="comment  form-control" />
-                </td>
-              </tr>
-            </table>
+                <tr class="bid">
+                  <th>備考欄</th>
+                  <td>
+                    <input type="text" name="comment" class="comment  form-control" />
+                  </td>
+                </tr>
+              </table>
 
-            <hr />
-            <p class="contents">
-              ・ 入札期間中であれば、入札の取消し・再入札を行うことができます。<br />
-              ・ 入札締切後は、入札の取り消しを行うことはできません。<br />
-              ・ 同額の入札があった場合は、落札者を自動的に決定いたします。予めご了承ください。<br />
-              ・ 落札された場合は、各自出品会社と取引を行ってください。
-            </p>
-            <div class="text-center">
-              <button class="my_bid btn btn-primary btn-lg my-2">
-                <i class="fas fa-pen-to-square"></i> 規約に同意して、入札する
-              </button>
-            </div>
+              <hr />
+              <p class="contents">
+                ・ 入札は、下見・入札期間内であれば、取消・再入札を行うことができます。<br />
+                ・ 入札の結果は、入札締め切り後に確定・公開されます。<br />
+                (入札締切後は、入札の取り消しを行うことはできません)<br />
+                ・ 同額の入札があった場合は、同額入札から落札者をシステムで自動的に決定いたします。予めご了承ください。<br />
+                ・ 落札された場合は、各自出品会社と直接取引を行ってください。
+              </p>
+              <div class="text-center">
+                <button class="my_bid btn btn-primary btn-lg my-2">
+                  <i class="fas fa-pen-to-square"></i> 規約に同意して、入札する
+                </button>
+              </div>
+            </form>
           {elseif in_array($bidOpen.status, array('carryout', 'after'))}
             <h2>落札結果</h2>
             <table class="spec">
@@ -313,6 +300,7 @@
                 <td>{if $result.same_count > 1}あり{/if}</td>
               </tr>
             </table>
+
 
             {if !empty($resultCompany)}
               <h2>あなたの入札</h2>

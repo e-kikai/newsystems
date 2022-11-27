@@ -25,15 +25,18 @@ $my_user       = $my_user_model->get($_my_user['id']);
 $bid_open_model = new BidOpen();
 $bid_open = $bid_open_model->get($bid_open_id);
 
-// 出品期間のチェック
+// // 出品期間のチェック
 $my_bid_bid_model = new MyBidBid();
-$e = $my_bid_bid_model->check_date_errors($bid_open);
-if (!empty($e)) throw new Exception($e);
+// $e = $my_bid_bid_model->check_date_errors($bid_open);
+// if (!empty($e)) throw new Exception($e);
 
 // 入札一覧の取得
 $select = $my_bid_bid_model->my_select()
-  ->where("my_user_id = ?", $_my_user['id'])
-  ->where("bid_machine_id IN (SELECT id FROM bid_machines WHERE bid_open_id = ?)", $bid_open_id);
+  ->join("bid_machines", "bid_machines.id = my_bid_bids.bid_machine_id",  ["list_no", "name", "maker", "model", "min_price", "top_img", "company_id"])
+  ->join("companies", "companies.id = bid_machines.company_id", ["company"])
+  ->where("my_bid_bids.my_user_id = ?", $_my_user['id'])
+  ->where("bid_machines.bid_open_id = ?", $bid_open_id);;
+
 $my_bid_bids = $bid_open_model->fetchAll($select);
 
 /// CSVに出力する場合 ///
@@ -65,7 +68,6 @@ if ($output == 'csv') {
 $_smarty->assign(array(
   'pageTitle'       => "{$bid_open["title"]} 入札一覧",
   'pageDescription' => '現在までに行った入札の一覧です。期間内であれば取消を行うことができます。',
-  'errorMes'        => $e,
   'pankuzu'         => array(
     '/mypage/' => 'マイページ',
     '/mypage/bid_opens/' => '入札会一覧'

@@ -24,9 +24,9 @@ $my_user       = $my_user_model->get($_my_user['id']);
 $bid_open_model = new BidOpen();
 $bid_open = $bid_open_model->get($bid_open_id);
 
-// 出品期間のチェック
-$my_bid_bid_model = new MyBidBid();
-$e = $my_bid_bid_model->check_date_errors($bid_open);
+// // 出品期間のチェック
+// $my_bid_bid_model = new MyBidBid();
+// $e = $my_bid_bid_model->check_date_errors($bid_open);
 
 if (!empty($e)) throw new Exception($e);
 
