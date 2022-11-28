@@ -197,21 +197,31 @@
 
               {if Companies::checkRank($rank, 'A会員')}
                 {if Auth::check('system')}
-                  <li><a href="/admin/bid_machine_form.php?o={$b.id}">新規出品商品登録</a></li>
+                  <li>
+                    <a href="/admin/bid_machine_form.php?o={$b.id}">
+                      <i class="fas fa-plus"></i> 新規出品商品登録
+                    </a>
+                  </li>
                 {/if}
                 <li>
-                  <a href="/admin/bid_machine_list.php?o={$b.id}">出品商品一覧<span class="count">({$b.count})</span></a> >>
+                  <a href="/admin/bid_machine_list.php?o={$b.id}">
+                    <i class="fas fa-list"></i> 出品商品一覧<span class="count">({$b.count})</span>
+                  </a>
+                  >>
                   <a href="/admin/bid_machine_list.php?o={$b.id}&output=csv"><i class="fas fa-file-csv"></i> CSV出力</a>
                 </li>
-                <li><a href="/admin/bid_machine_list.php?o={$b.id}&output=pdf" target="_blank"><i class="fas fa-file-pdf"></i>
-                    下げ札印刷用PDF</a></li>
+                <li>
+                  <a href="/admin/bid_machine_list.php?o={$b.id}&output=pdf" target="_blank">
+                    <i class="fas fa-file-pdf"></i> 下げ札印刷用PDF
+                  </a>
+                </li>
               {/if}
 
             {elseif $b.status == 'bid'} {* 入札期間 *}
               <li>
                 <a href="/bid_door.php?o={$b.id}" target="_blank"><i class="fas fa-door-open"></i> Web入札会トップページ</a> >>
-                <a href="/admin/bid_list.php?o={$b.id}&output=csv&limit=999999999"><i class="fas fa-file-csv"></i> 印刷CSV出力</a> |
-                <a href="{$_conf.media_dir}pdf/list_pdf_{$b.id}.pdf" target="_blank"><i class="fas fa-file-pdf"></i> 印刷PDF出力</a>
+                <a href="/admin/bid_list.php?o={$b.id}&output=csv&limit=999999999"><i class="fas fa-file-csv"></i> 印刷CSV</a> |
+                <a href="{$_conf.media_dir}pdf/list_pdf_{$b.id}.pdf" target="_blank"><i class="fas fa-file-pdf"></i> 印刷PDF</a>
               </li>
 
               {*
@@ -228,22 +238,39 @@
 
               {if Companies::checkRank($rank, 'B会員')}
                 {if Auth::check('system')}
-                  <li><a href="/admin/bid_machine_form.php?o={$b.id}">新規出品商品登録</a></li>
+                  <li>
+                    <a href="/admin/bid_machine_form.php?o={$b.id}">
+                      <i class="fas fa-plus"></i> 新規出品商品登録
+                    </a>
+                  </li>
                 {/if}
                 <li>
-                  <a href="/admin/bid_machine_list.php?o={$b.id}">出品商品一覧<span class="count">({$b.count})</span></a> >>
+                  <a href="/admin/bid_machine_list.php?o={$b.id}">
+                    <i class="fas fa-list"></i> 出品商品一覧<span class="count">({$b.count})</span>
+                  </a>
+                  >>
                   <a href="/admin/bid_machine_list.php?o={$b.id}&output=csv"><i class="fas fa-file-csv"></i> CSV出力</a>
                 </li>
 
-                <li><a href="/admin/bid_machine_list.php?o={$b.id}&output=pdf" target="_blank"><i class="fas fa-file-pdf"></i>
-                    下げ札印刷用PDF</a></li>
+                <li>
+                  <a href="/admin/bid_machine_list.php?o={$b.id}&output=pdf" target="_blank">
+                    <i class="fas fa-file-pdf"></i> 下げ札印刷用PDF
+                  </a>
+                </li>
+
+
+                <li>
+                  <a href="/admin/my_bid_bids/?o={$b.id}">
+                    <i class="fas fa-pen-to-square"></i> 自社出品への入札履歴
+                  </a>
+                </li>
               {/if}
 
             {elseif $b.status == 'carryout'}
               <li>
                 <a href="/bid_door.php?o={$b.id}" target="_blank"><i class="fas fa-door-open"></i> Web入札会トップページ</a> >>
-                <a href="/admin/bid_list.php?o={$b.id}&output=csv&limit=999999999"><i class="fas fa-file-csv"></i> 印刷CSV出力</a> |
-                <a href="{$_conf.media_dir}pdf/list_pdf_{$b.id}.pdf" target="_blank"><i class="fas fa-file-pdf"></i> 印刷PDF出力</a>
+                <a href="/admin/bid_list.php?o={$b.id}&output=csv&limit=999999999"><i class="fas fa-file-csv"></i> 印刷CSV</a> |
+                <a href="{$_conf.media_dir}pdf/list_pdf_{$b.id}.pdf" target="_blank"><i class="fas fa-file-pdf"></i> 印刷PDF</a>
               </li>
               <li><a href="/admin/bid_list.php?o={$b.id}"><i class="fas fa-list-check"></i> 落札結果一覧</a></li>
               {*
@@ -258,6 +285,12 @@
             *}
 
               {if Companies::checkRank($rank, 'B会員')}
+                <li>
+                  <a href="/admin/my_bid_bids/?o={$b.id}">
+                    <i class="fas fa-pen-to-square"></i> 自社出品への入札履歴
+                  </a>
+                </li>
+
                 <li>
                   <a href="/admin/bid_machine_list.php?o={$b.id}">出品商品 個別計算表<span class="count">({$b.count})</span></a> >>
                   <a href="/admin/bid_machine_list.php?o={$b.id}&output=csv"><i class="fas fa-file-csv"></i> CSV出力</a>

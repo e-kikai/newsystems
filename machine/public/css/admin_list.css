@@ -73,7 +73,7 @@ table.list .name {
 table.list .genre,
 table.list .maker,
 table.list .model {
-  width: 80px;
+  width: 72px;
 }
 
 table.list td.id,
@@ -322,7 +322,7 @@ table.list th.groups {
 
 table.list td.min_price,
 table.list th.min_price {
-  width: 80px;
+  width: 72px;
 }
 
 table.list .charge,
@@ -366,11 +366,11 @@ table.list td.sepa2 {
 /* 削除ボタン */
 table.list th.delete,
 table.list td.delete {
-  width: 46px;
+  width: 42px;
   text-align: center;
 }
 
-button.delete {
+button.delete:not(.btn) {
   width: 50px;
   font-size: 11px;
   height: 19px;
@@ -383,7 +383,7 @@ button.delete {
   color: #fff;
 }
 
-button.delete:hover {
+button.delete:hover:not(.btn) {
   background: #bb2d3b;
   border-color: #b02a37;
 }
@@ -407,17 +407,17 @@ table.list .company {
 
 table.list th.cancel,
 table.list td.cancel {
-  width: 80px;
+  width: 70px;
 }
 
 table.list td.cancel {
   text-align: center;
 }
 
-a.cancel,
-button.cancel {
+a.cancel:not(.btn),
+button.cancel:not(.btn) {
   font-size: 11px;
-  height: 17px;
+  height: 19px;
   line-height: 17px;
   text-align: center;
   background: #f0ad4e;
@@ -427,16 +427,18 @@ button.cancel {
   text-shadow: none;
 }
 
-a.cancel:hover,
-button.cancel:hover {
+a.cancel:hover:not(.btn),
+button.cancel:hover:not(.btn) {
   background-color: #ffca2c;
   border-color: #ffc720;
 }
 
-button.cancel_delete {
+button.cancel_delete:not(.btn) {
   font-size: 11px;
   height: 19px;
-  line-height: 15px;
+  line-height: 17px;
+  box-shadow: none;
+  text-shadow: none;
 }
 
 table.list tr.canceled td {
@@ -463,4 +465,18 @@ table.list.contacts .mail {
 }
 table.list.contacts .created_at {
   width: 150px;
+}
+
+table.list td.num,
+table.list th.num {
+  width: 42px;
+}
+
+table.list td.num {
+  text-align: right;
+}
+
+table.list th {
+  font-size: 0.75rem;
+  padding: 2px 0;
 }

@@ -15,12 +15,6 @@
             'machine_id': $.trim($_self.val()),
           }
 
-          // // 入力のチェック
-          // var e = '';
-
-          // // エラー表示
-          // if (e != '') { alert(e); return false; }
-
           // 送信確認
           var mes = "出品番号 : " + $_parent.find('td.list_no').text() + "\n";
           mes += $.trim($_parent.find('td.name').text()) + ' ';
@@ -125,11 +119,19 @@
             <th class="name">機械名</th>
             <th class="maker">メーカー</th>
             <th class="model">型式</th>
-            {if in_array($bidOpen.status, array('entry', 'margin', 'bid'))}
+            {if in_array($bidOpen.status, array('entry', 'margin'))}
               <th class="year">年式</th>
               <th class="location">在庫場所</th>
             {/if}
             <th class="min_price">最低入札金額</th>
+
+            {* ユーザ入札対応 *}
+            {if $bidOpen.user_bid_date > $smarty.const.BID_USER_START_DATE}
+              {if in_array($bidOpen.status, array('bid', 'carryout', 'after'))}
+                <th class="num">ウォッチ<br />件数</th>
+                <th class="num">入札<br />件数</th>
+              {/if}
+            {/if}
 
             {* キャンセル対応 *}
             {if in_array($bidOpen.status, array('margin', 'bid'))}
@@ -180,12 +182,20 @@
           </td>
           <td class="maker">{$m.maker}</td>
           <td class="model">{$m.model}</td>
-          {if in_array($bidOpen.status, array('entry', 'margin', 'bid'))}
+          {if in_array($bidOpen.status, array('entry', 'margin'))}
             <td class="year">{$m.year}</td>
             <td class="location">{$m.addr1}<br />({$m.location})</td>
           {/if}
 
           <td class="min_price">{$m.min_price|number_format}円</td>
+
+          {* ユーザ入札対応 *}
+          {if $bidOpen.user_bid_date > $smarty.const.BID_USER_START_DATE}
+            {if in_array($bidOpen.status, array('bid', 'carryout', 'after'))}
+              <td class="num">{$watches_count[$m.id]}</td>
+              <td class="num">{$bids_count[$m.id]}</td>
+            {/if}
+          {/if}
 
           {* キャンセル対応 *}
           {if in_array($bidOpen.status, array('margin', 'bid'))}

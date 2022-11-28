@@ -41,4 +41,29 @@ class MyBidBid extends MyTableAbstract
 
         return $e;
     }
+
+    /**
+     * 機械IDごとの入札件数集計
+     *
+     * @access public
+     * @param  array  $bid_machine_ids 集計する機械ID
+     * @return array 機械IDごとの入札件数
+     */
+    public function count_by_bid_machine_id($bid_machine_ids)
+    {
+        $sql = $this->_db->quoteInto("SELECT bid_machine_id, count(*) as c
+            FROM my_bid_bids
+            WHERE deleted_at IS NOT NULL
+            AND bid_machine_id IN (?)
+            GROUP BY bid_machine_id;", $bid_machine_ids);
+
+        $res = $this->_db->fetchAll($sql);
+
+        $return = [];
+        foreach ($res as $r) {
+            $return[$r["bid_machine_id"]] = $r["c"];
+        }
+
+        return $return;
+    }
 }

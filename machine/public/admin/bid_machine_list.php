@@ -60,6 +60,19 @@ try {
     $bmModel = new BidMachine();
     $bidMachineList = $bmModel->getList(array('bid_open_id' => $bidOpenId, 'company_id' => $_user['company_id']));
 
+    // 新 : ウォッチリスト件数集計
+    $bid_machine_ids = [];
+    foreach ($bidMachineList as $bm) {
+        $bid_machine_ids[] = $bm["id"];
+    }
+
+    $my_bid_watch_model = new MyBidWatch();
+    $watches_count = $my_bid_watch_model->count_by_bid_machine_id($bid_machine_ids);
+
+    // 新 : 入札件数集計
+    $my_bid_bid_model = new MyBidBid();
+    $bids_count = $my_bid_bid_model->count_by_bid_machine_id($bid_machine_ids);
+
     /// 落札結果を取得 ///
     if (in_array($bidOpen['status'], array('carryout', 'after'))) {
         $resultListAsKey = $bmModel->getResultListAsKey($bidOpenId);
@@ -169,6 +182,9 @@ try {
         'bidOpen'        => $bidOpen,
         'bidMachineList' => $bidMachineList,
         'rank'           => $company['rank'],
+
+        "watches_count" => $watches_count,
+        "bids_count"    => $bids_count,
     ))->display("admin/bid_machine_list.tpl");
 } catch (Exception $e) {
     /// エラー画面表示 ///

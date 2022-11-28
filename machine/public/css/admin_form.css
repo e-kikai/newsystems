@@ -404,7 +404,7 @@ button.submit {
 }
 button.submit:hover {
   color: #fff;
-  background-color: #0b5ed7;
+  background: #0b5ed7;
   border-color: #0a58ca;
 }
 
