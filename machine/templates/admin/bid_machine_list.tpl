@@ -128,6 +128,7 @@
             {* ユーザ入札対応 *}
             {if $bidOpen.user_bid_date > $smarty.const.BID_USER_START_DATE}
               {if in_array($bidOpen.status, array('bid', 'carryout', 'after'))}
+                <th class="num">アクセス<br />件数</th>
                 <th class="num">ウォッチ<br />件数</th>
                 <th class="num">入札<br />件数</th>
               {/if}
@@ -158,7 +159,6 @@
               {else}
                 <th class="company sepa2">落札ユーザ</th>
                 <th class="min_price">落札金額</th>
-                <th class="b2m">取引</th>
               {/if}
 
             {/if}
@@ -192,6 +192,7 @@
           {* ユーザ入札対応 *}
           {if $bidOpen.user_bid_date > $smarty.const.BID_USER_START_DATE}
             {if in_array($bidOpen.status, array('bid', 'carryout', 'after'))}
+              <td class="num">{$details_count[$m.id]}</td>
               <td class="num">{$watches_count[$m.id]}</td>
               <td class="num">{$bids_count[$m.id]}</td>
             {/if}
@@ -247,9 +248,13 @@
               <td class="min_price sepa">{if !empty($m.payment)}{$m.payment|number_format}円{/if}</td>
             {else}
               <td class="min_price sepa2">
+                {$bids_result[$m.id].company} {$bids_result[$m.id].name}
               </td>
-              <td class="min_price">円</td>
-              <td class="b2m"><i class="fas fa-comments-dollar"></i> 取引</td>
+              <td class="min_price">
+                {if !empty($bids_result[$m.id].amount)}
+                  {$bids_result[$m.id].amount|number_format}円
+                {/if}
+              </td>
             {/if}
 
           {/if}

@@ -51,17 +51,68 @@ class MyBidBid extends MyTableAbstract
      */
     public function count_by_bid_machine_id($bid_machine_ids)
     {
-        $sql = $this->_db->quoteInto("SELECT bid_machine_id, count(*) as c
+        $sql = "SELECT bid_machine_id, count(*) as c
             FROM my_bid_bids
-            WHERE deleted_at IS NOT NULL
-            AND bid_machine_id IN (?)
-            GROUP BY bid_machine_id;", $bid_machine_ids);
+            WHERE deleted_at IS NULL AND bid_machine_id IN (?)
+            GROUP BY bid_machine_id;";
 
-        $res = $this->_db->fetchAll($sql);
+        $res = $this->_db->fetchAll($this->_db->quoteInto($sql, $bid_machine_ids));
 
         $return = [];
         foreach ($res as $r) {
             $return[$r["bid_machine_id"]] = $r["c"];
+        }
+
+        return $return;
+    }
+
+    public function results_by_bid_machine_id($bid_open_id)
+    {
+        $sql = "SELECT
+            bm.id,
+            bb1.id AS bid_id,
+            bb1.amount,
+            bb1.sameno,
+            bb1.my_user_id,
+            bb1.uniq_account,
+            bb1.name,
+            bb1.company,
+            bb3.same_count
+        FROM bid_machines bm
+        LEFT JOIN (
+            SELECT DISTINCT ON (bb.bid_machine_id)
+                bb.*,
+                u.uniq_account,
+                u.name,
+                u.company
+            FROM my_bid_bids bb
+            LEFT JOIN my_users u ON u.id = bb.my_user_id
+            WHERE bb.deleted_at IS NULL AND u.deleted_at IS NULL
+            ORDER BY bb.bid_machine_id, amount DESC, sameno DESC, bb.created_at ASC
+        ) bb1 ON bb1.bid_machine_id = bm.id
+        LEFT JOIN (
+            SELECT
+                bid_machine_id,
+                count(CASE WHEN (bid_machine_id, amount) IN (
+                    SELECT bb2.bid_machine_id, max(bb2.amount)
+                    FROM my_bid_bids bb2
+                    WHERE bb2.deleted_at IS NULL
+                    GROUP BY bb2.bid_machine_id
+                ) THEN 1 END) AS same_count
+            FROM my_bid_bids
+            WHERE deleted_at IS NULL
+            GROUP BY bid_machine_id
+        ) bb3 ON bb3.bid_machine_id = bm.id
+        WHERE bm.deleted_at IS NULL
+        AND bm.bid_open_id = ?
+        AND bb1.amount IS NOT NULL
+        ORDER BY bm.id;";
+
+        $res = $this->_db->fetchAll($this->_db->quoteInto($sql, $bid_open_id));
+
+        $return = [];
+        foreach ($res as $r) {
+            $return[$r["id"]] = $r;
         }
 
         return $return;

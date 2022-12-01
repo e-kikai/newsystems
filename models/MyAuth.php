@@ -278,6 +278,26 @@ class MyAuth extends Zend_Db_Table
     }
 
     /**
+     * パスワード変更メール送信
+     *
+     * @access public
+     * @param  int $data メール送信するユーザのメールアドレス
+     * @return boolean メール送信したらTrue
+     */
+    public function send_passwd_remember_mail($mail)
+    {
+        $my_user_model = new MyUser();
+        $my_user = $my_user_model->get_by_mail($mail);
+
+        $subject = "マシンライフWeb入札会 : 登録確認メール";
+        $body    = $this->_smarty->assign(array(
+            'my_user' => $my_user,
+        ))->fetch("mail/passwd_remember.tpl");
+
+        $this->_mailsend->sendMail($mail, $this->_mailConf['from_mail'], $body, $subject);
+    }
+
+    /**
      * google reCaptcha確認
      *
      * @access public
@@ -327,7 +347,7 @@ class MyAuth extends Zend_Db_Table
         $my_user       = $my_user_model->get($id);
 
         // 認証処理
-        if (isset($my_user['id']) && $token == $my_user['check_token']) {
+        if ($this->check_token($id, $token)) {
             if (empty($my_user["checkd_at"])) {
                 $my_user_model->update(
                     array('checkd_at' => new Zend_Db_Expr('current_timestamp')),
@@ -341,5 +361,22 @@ class MyAuth extends Zend_Db_Table
         } else {
             return false;
         }
+    }
+
+    /**
+     * トークンチェック処理
+     *
+     * @access public
+     * @param  string $account ユーザID
+     * @param  string $token 認証トークン
+     * @return boolean ログインが成功すればtrue
+     */
+    public function check_token($id, $token)
+    {
+        $my_user_model = new MyUser();
+        $my_user       = $my_user_model->get($id);
+
+        // 認証処理
+        return isset($my_user['id']) && $token == $my_user['check_token'];
     }
 }

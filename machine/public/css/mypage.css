@@ -24,7 +24,8 @@ span.required {
 
 th.list_no,
 td.list_no {
-  width: 80px;
+  width: 60px;
+  padding: 0.5rem 0;
 }
 
 th.name,
@@ -42,9 +43,22 @@ td.delete button {
   padding: 0.25em 0.5em;
 }
 
+button.btn-xs,
+a.btn-xs {
+  font-size: 11px;
+  padding: 0.25em 0.5em;
+}
+
 th.created_at,
 td.created_at {
-  width: 160px;
+  width: 128px;
+  padding: 0.5rem 0;
+}
+
+th.created_at_min,
+td.created_at_min {
+  width: 90px;
+  padding: 0.5rem 0;
 }
 
 th.img,
@@ -57,4 +71,10 @@ td.img img {
   width: 60px;
   height: 60px;
   object-fit: cover;
+}
+
+th.same_count,
+td.same_count {
+  width: 60px;
+  padding: 0.5rem 0;
 }

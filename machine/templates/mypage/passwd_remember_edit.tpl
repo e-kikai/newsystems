@@ -14,7 +14,10 @@
 {/block}
 
 {block 'main'}
-  <form class="login" method="post" action="/mypage/my_users/passwd_do.php">
+  <form class="login" method="post" action="/mypage/passwd_update_do.php">
+    <input type="hidden" name="id" value="{$my_user_id}" />
+    <input type="hidden" name="token" value="{$token}" />
+
     <div class="d-grid gap-2 col-6 mx-auto mt-3">
       <dl>
         <dt><label for="passwd" class="form-label">新しいパスワード<span class="required">(必須)</span></label></dt>

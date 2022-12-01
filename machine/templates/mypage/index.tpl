@@ -59,7 +59,7 @@
                   </a>
                 {else}
                   <a href="/mypage/my_bid_bids/?o={$b.id}" class="list-group-item list-group-item-action">
-                    <i class="fas fa-pen-to-square"></i> 入札一覧
+                    <i class="fas fa-pen-to-square"></i> 入札一覧(落札一覧)
                   </a>
                   <a href="/mypage/my_bid_bids/result.php?o={$b.id}" class="list-group-item list-group-item-action">
                     <i class="fas fa-list-check"></i> 落札結果一覧

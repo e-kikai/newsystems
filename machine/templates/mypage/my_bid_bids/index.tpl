@@ -53,13 +53,14 @@
             <th class="min_price">最低入札金額</th>
             <th class="amount">入札金額</th>
             <th class="comment">備考欄</th>
-            <th class="created_at">入札日時</th>
             {if $bid_open.status == 'bid'}
+              <th class="created_at">入札日時</th>
               <th class="delete">取消</th>
             {/if}
             {if in_array($bid_open.status, array('carryout', 'after'))}
+              <th class="created_at_min">入札日時</th>
               <th class="min_price sepa2">落札金額</th>
-              <th class="res">結果</th>
+              <th class="same_count">結果</th>
             {/if}
           </tr>
         {/if}
@@ -89,9 +90,9 @@
           <td class="min_price">{$bb.min_price|number_format}円</td>
           <td class="amount">{$bb.amount|number_format}円</td>
           <td class="comment">{$bb.comment}</td>
-          <td class="created_at">{$bb.created_at|date_format:'%Y/%m/%d %H:%M'}</td>
 
           {if $bid_open.status == 'bid'}
+            <td class="created_at">{$bb.created_at|date_format:'%Y/%m/%d %H:%M'}</td>
             <td class='delete'>
               {if !empty($bb.deleted_at)}
                 取消済
@@ -109,12 +110,25 @@
           {/if}
 
           {if in_array($bid_open.status, array('carryout', 'after'))}
+            <td class="created_amint_">{$bb.created_at|date_format:'%Y/%m/%d %H:%M'}</td>
             <td class="min_price sepa2">
-              {if !empty($bb.res_amount)}{$bb.res_amount|number_format}円{/if}
-              {if $bb.same_count > 1}(同額札有){/if}
+              {if !empty($bids_result[$bb.bid_machine_id].amount)}
+                {$bids_result[$bb.bid_machine_id].amount|number_format}円
+              {/if}
+              {if $bids_result[$bb.bid_machine_id].same_count > 1}
+                (同額:{$bids_result[$bb.bid_machine_id].same_count})
+              {/if}
             </td>
             <td class="same_count">
-              {if $bb.res}<span class="bid_true">◯</span>{else}<span class="bid_false">×</span>{/if}
+              {if $bids_result[$bb.bid_machine_id].my_user_id == $_my_user["id"]}
+                <span class="bid_true">落札</span>
+                <a href="contact.php?c={$bb.company_id}&b=1&o={$bid_open_id}&bm={$bb.bid_machine_id}"
+                  class="btn-xs btn btn-success" value="{$bb.bid_machine_id}">
+                  <i class="fas fa-comments-dollar"></i> 取引
+                </a>
+              {else}
+                <span class="bid_false">×</span>
+              {/if}
             </td>
           {/if}
         </tr>

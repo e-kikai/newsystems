@@ -75,43 +75,58 @@ try {
 
     /// 落札結果を取得 ///
     if (in_array($bidOpen['status'], array('carryout', 'after'))) {
-        $resultListAsKey = $bmModel->getResultListAsKey($bidOpenId);
 
-        $sum = 0;
-        foreach ($bidMachineList as $key => $m) {
-            if (!empty($resultListAsKey[$m['id']]['amount'])) {
-                $r = $resultListAsKey[$m['id']];
+        // 新 : ユーザ入札対応
+        if ($bidOpen["user_bid_date"] < BID_USER_START_DATE) {
+            $resultListAsKey = $bmModel->getResultListAsKey($bidOpenId);
 
-                // 落札結果の格納
-                $m['res_company']    = $r['company'];
-                $m['res_company_id'] = $r['company_id'];
-                $m['res_amount']     = $r['amount'];
+            $sum = 0;
+            foreach ($bidMachineList as $key => $m) {
+                if (!empty($resultListAsKey[$m['id']]['amount'])) {
+                    $r = $resultListAsKey[$m['id']];
 
-                // デメ半
-                $m['demeh'] = ($m['res_amount'] - $m['min_price']) * $bidOpen['deme'] / 100;
+                    // 落札結果の格納
+                    $m['res_company']    = $r['company'];
+                    $m['res_company_id'] = $r['company_id'];
+                    $m['res_amount']     = $r['amount'];
 
-                // 事務局手数料・落札者手数料
-                $m += $bmModel->makeFee($m['min_price']);
+                    // デメ半
+                    $m['demeh'] = ($m['res_amount'] - $m['min_price']) * $bidOpen['deme'] / 100;
 
-                // 支払額
-                $m['payment'] = $m['min_price'] + $m['demeh'] - $m['jFee'] - $m['rFee'];
-                $sum += $m['payment'];
+                    // 事務局手数料・落札者手数料
+                    $m += $bmModel->makeFee($m['min_price']);
+
+                    // 支払額
+                    $m['payment'] = $m['min_price'] + $m['demeh'] - $m['jFee'] - $m['rFee'];
+                    $sum += $m['payment'];
+                }
+                $bidMachineList[$key] = $m;
             }
-            $bidMachineList[$key] = $m;
+
+            /// 消費税の計算 ///
+            $tax      = floor($sum * $bidOpen['tax'] / 100);
+            $finalSum = $sum + $tax;
+
+
+            $_smarty->assign(array(
+                'pageTitle'       => $bidOpen['title'] . ' : 出品商品 個別計算表',
+                'pageDescription' => "入札会出品商品の落札結果個別計算表です。落札されなかった商品は、「在庫に登録」から中古機械在庫に再利用できます。",
+
+                'sum'      => $sum,
+                'tax'      => $tax,
+                'finalSum' => $finalSum,
+            ));
+        } else {
+            $bids_result = $my_bid_bid_model->results_by_bid_machine_id($bidOpenId);
+
+
+            $_smarty->assign(array(
+                'pageTitle'       => $bidOpen['title'] . ' : 出品商品 個別計算表',
+                'pageDescription' => "入札会出品商品の落札結果個別計算表です。落札されなかった商品は、「在庫に登録」から中古機械在庫に再利用できます。",
+
+                "bids_result"    => $bids_result,
+            ));
         }
-
-        /// 消費税の計算 ///
-        $tax      = floor($sum * $bidOpen['tax'] / 100);
-        $finalSum = $sum + $tax;
-
-        $_smarty->assign(array(
-            'pageTitle'       => $bidOpen['title'] . ' : 出品商品 個別計算表',
-            'pageDescription' => "入札会出品商品の落札結果個別計算表です。落札されなかった商品は、「在庫に登録」から中古機械在庫に再利用できます。",
-
-            'sum'      => $sum,
-            'tax'      => $tax,
-            'finalSum' => $finalSum,
-        ));
     } else {
         $_smarty->assign(array(
             'pageTitle'       => $bidOpen['title'] . ' : 出品商品一覧',
@@ -183,8 +198,8 @@ try {
         'bidMachineList' => $bidMachineList,
         'rank'           => $company['rank'],
 
-        "watches_count" => $watches_count,
-        "bids_count"    => $bids_count,
+        "watches_count"  => $watches_count,
+        "bids_count"     => $bids_count,
     ))->display("admin/bid_machine_list.tpl");
 } catch (Exception $e) {
     /// エラー画面表示 ///

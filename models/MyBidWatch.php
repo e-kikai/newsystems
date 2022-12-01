@@ -52,7 +52,7 @@ class MyBidWatch extends MyTableAbstract
   {
     $sql = $this->_db->quoteInto("SELECT bid_machine_id, count(*) as c
     FROM my_bid_watches
-    WHERE deleted_at IS NOT NULL
+    WHERE deleted_at IS NULL
     AND bid_machine_id IN (?)
     GROUP BY bid_machine_id;", $bid_machine_ids);
 

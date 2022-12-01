@@ -65,11 +65,12 @@
 
           {if in_array($bid_open.status, array('carryout', 'after'))}
             <td class="min_price sepa2">
-              {if !empty($bb.res_amount)}{$bb.res_amount|number_format}円{/if}
-              {if $bb.same_count > 1}(同額札有){/if}
+              {$bids_result[$m.id].company} {$bids_result[$m.id].name}
             </td>
-            <td class="same_count">
-              {if $bb.res}<span class="bid_true">◯</span>{else}<span class="bid_false">×</span>{/if}
+            <td class="min_price">
+              {if !empty($bids_result[$m.id].amount)}
+                {$bids_result[$m.id].amount|number_format}円
+              {/if}
             </td>
           {/if}
         </tr>

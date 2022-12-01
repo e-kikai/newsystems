@@ -12,7 +12,7 @@
         /// フォーム入力の確認 ///
         $('form.login').submit(function() {
           if (!$('input#mail').val()) {
-            alert('メールアドレス、パスワードを入力してください。');
+            alert('メールアドレスを入力してください。');
             return false;
           }
         });
@@ -24,7 +24,7 @@
 {/block}
 
 {block 'main'}
-  <form class="login" method="post" action="passwd_remember_do.php">
+  <form class="login" method="post" action="mypage/passwd_remember_do.php">
     <div class="d-grid gap-2 col-6 mx-auto mt-3">
       <dl>
         <dt><label for="mail" class="form-label">メールアドレス</label></dt>
