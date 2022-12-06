@@ -22,7 +22,7 @@ class MyBidBid extends MyTableAbstract
     ));
 
     /**
-     * 出品期間のチェック
+     * 入札会期間のチェック
      *
      * @access public
      * @param  array  $open   入札会情報
@@ -43,6 +43,37 @@ class MyBidBid extends MyTableAbstract
     }
 
     /**
+     * 入札終了期間のチェック
+     *
+     * @access public
+     * @param  array  $open   入札会情報
+     * @return string エラー内容(エラーがなければ空白)
+     */
+    public function check_end_errors($bid_open)
+    {
+        $e = '';
+
+        if (empty($bid_open)) {
+            $e = '入札会情報が取得出来ませんでした';
+        } else if (!in_array($bid_open['status'], array('carryout', 'after'))) {
+            $e = "{$bidOpen['title']}は、まだ終了していません\n";
+            $e .= "入札期間 : " . date('Y/m/d H:i', strtotime($bid_open['bid_start_date'])) . " ～ " . date('m/d H:i', strtotime($bid_open['bid_end_date']));
+        }
+
+        return $e;
+    }
+
+    public function select_count_by_bid_machine_id()
+    {
+        $select = $this->select()
+            ->from("my_bid_bids", ["bid_machine_id", "count(*) as c"])
+            ->where("deleted_at IS NULL")
+            ->group("bid_machine_id");
+
+        return $select;
+    }
+
+    /**
      * 機械IDごとの入札件数集計
      *
      * @access public
@@ -51,12 +82,10 @@ class MyBidBid extends MyTableAbstract
      */
     public function count_by_bid_machine_id($bid_machine_ids)
     {
-        $sql = "SELECT bid_machine_id, count(*) as c
-            FROM my_bid_bids
-            WHERE deleted_at IS NULL AND bid_machine_id IN (?)
-            GROUP BY bid_machine_id;";
+        $select = $this->select_count_by_bid_machine_id()
+            ->where("bid_machine_id IN (?)", $bid_machine_ids);
 
-        $res = $this->_db->fetchAll($this->_db->quoteInto($sql, $bid_machine_ids));
+        $res = $this->_db->fetchAll($select);
 
         $return = [];
         foreach ($res as $r) {
@@ -87,7 +116,8 @@ class MyBidBid extends MyTableAbstract
                 u.company
             FROM my_bid_bids bb
             LEFT JOIN my_users u ON u.id = bb.my_user_id
-            WHERE bb.deleted_at IS NULL AND u.deleted_at IS NULL
+            WHERE bb.deleted_at IS NULL
+            AND u.deleted_at IS NULL
             ORDER BY bb.bid_machine_id, amount DESC, sameno DESC, bb.created_at ASC
         ) bb1 ON bb1.bid_machine_id = bm.id
         LEFT JOIN (
@@ -104,6 +134,7 @@ class MyBidBid extends MyTableAbstract
             GROUP BY bid_machine_id
         ) bb3 ON bb3.bid_machine_id = bm.id
         WHERE bm.deleted_at IS NULL
+        AND bm.canceled_at IS NULL
         AND bm.bid_open_id = ?
         AND bb1.amount IS NOT NULL
         ORDER BY bm.id;";

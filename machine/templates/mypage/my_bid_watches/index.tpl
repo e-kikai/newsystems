@@ -27,7 +27,6 @@
       });
     </script>
     <style type="text/css">
-
     </style>
   {/literal}
 {/block}
@@ -47,11 +46,19 @@
           <tr>
             <th class="list_no">出品番号</th>
             <th class="img"></th>
+            {*
             <th class="name">機械名</th>
             <th class="maker">メーカー</th>
             <th class="model">型式</th>
+            *}
+            <th class="full_name_02">機械名/メーカー/型式</th>
+            <th class="year">年式</th>
+
             <th class="company">出品会社</th>
+
             <th class="min_price">最低入札金額</th>
+            <th class="addr_1">都道府県</th>
+
             <th class="created_at">ウォッチ日時</th>
             {if $bid_open.status == 'bid'}
               <th class="delete">解除</th>
@@ -69,11 +76,18 @@
               </a>
             {/if}
           </td>
+          {*
           <td class="name">
             <a href="/bid_detail.php?m={$mw.bid_machine_id}" target="_blank">{$mw.name}</a>
           </td>
           <td class="maker">{$mw.maker}</td>
           <td class="model">{$mw.model}</td>
+          *}
+          <td class="full_name_02">
+            <a href="/bid_detail.php?m={$mw.bid_machine_id}" target="_blank">{$mw.name} {$mw.maker} {$mw.model}</a>
+          </td>
+          <td class="year">{$mw.year}</td>
+
           <td class="company">
             {if !empty($mw.company)}
               <a href="company_detail.php?c={$mw.company_id}" target="_blank">
@@ -81,7 +95,11 @@
               </a>
             {/if}
           </td>
+
           <td class="min_price text-right">{$mw.min_price|number_format}円</td>
+
+          <td class="addr_1">{$mw.addr1}</td>
+
           <td class="created_at">{$mw.created_at|date_format:'%Y/%m/%d %H:%M'}</td>
           {if $bid_open.status == 'bid'}
             <td class='delete text-center'>

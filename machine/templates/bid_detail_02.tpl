@@ -94,6 +94,13 @@
   {if !empty($machine)}
 
     {include "include/bid_timer.tpl"}
+    {if !empty($machine.canceled_at)}
+      <div class="alert alert-danger col-8 mx-auto mt-4 mb-0">
+        <i class="fas fa-triangle-exclamation"></i> この入札会出品商品は、出品キャンセルされました。<br /><br />
+
+        申し訳ありませんが、入札を行うことができません。
+      </div>
+    {/if}
 
     <div class="next_area">
       {if !empty($prevMachine)}
@@ -217,7 +224,9 @@
       <br class="clear" />
 
       <div class="img_area">
-        {if MyAuth::check()}
+        {if !empty($machine.canceled_at)}
+          この商品はキャンセルされました。
+        {else if MyAuth::check()}
           <div class="watch_area">
             {if empty($my_bid_watch)}
               <form method="post" action="/mypage/my_bid_watches/create_do.php">
@@ -291,17 +300,23 @@
             <h2>落札結果</h2>
             <table class="spec">
               <tr class="">
-                <th>落札金額</th>
-                <td>{if !empty($result.amount)}{$result.amount|number_format}円{else}入札なし{/if}</td>
+                <th>入札数</th>
+                <td>{if !empty($bids_count)}{$bids_count}件{else}入札なし{/if}</td>
               </tr>
+              {if !empty($bids_count)}
+                <tr class="">
+                  <th>落札金額</th>
+                  <td>{$bids_result.amount|number_format}円</td>
+                </tr>
 
-              <tr class="">
-                <th>同額札</th>
-                <td>{if $result.same_count > 1}あり{/if}</td>
-              </tr>
+                <tr class="">
+                  <th>同額札</th>
+                  <td>{$bids_result.same_count|number_format}</td>
+                </tr>
+              {/if}
             </table>
 
-
+            {*
             {if !empty($resultCompany)}
               <h2>あなたの入札</h2>
               <table class="spec">
@@ -319,6 +334,7 @@
                 </tr>
               </table>
             {/if}
+            *}
           {else}
             <h2>入札</h2>
             <p class="contents">下見・入札期間の開始前です。</p>

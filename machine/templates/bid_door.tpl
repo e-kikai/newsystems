@@ -76,14 +76,22 @@
       }
 
       .xl_area .xl_genre {
+        /*
         height: 136px;
+        */
+        height: 168px;
       }
 
       .xl_area .xl_genre img {
         display: block;
         margin: auto;
+        /*
         max-width: 120px;
         max-height: 90px;
+        */
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
       }
 
       .xl_area .xl_genre:hover,
@@ -164,7 +172,10 @@
       .ui-tabs .ui-tabs-panel.tab_area {
         background: #FFF;
         padding: 0;
+        /*
         height: 438px;
+        */
+        height: 528px;
       }
 
       .ui-tabs .ui-tabs-nav {
@@ -177,7 +188,6 @@
       .ui-tabs .ui-tabs-nav li.ui-tabs-active {
         border-color: #CCC;
       }
-
 
       a.ui-tabs-anchor:focus {
         outline: 0;
@@ -288,11 +298,15 @@
       /*****/
       .door_infos {
         text-align: center;
-        margin: 4px auto 16px auto;
 
         position: absolute;
+        /*
+        margin: 4px auto 16px auto;
         top: 238px;
         left: 236px;
+        */
+        top: 290px;
+        left: 360px;
       }
 
       .door_infos a.bid_help,
@@ -303,6 +317,9 @@
         margin: 0 8px;
         box-shadow: none;
         vertical-align: bottom;
+        border: 1px solid #FFF;
+        line-height: 58px;
+        width: 260px;
       }
 
       h1,
@@ -379,9 +396,16 @@
     <button class="mylist_movie movie" data-youtubeid="PaZiV_OA7io"
       title="クリックで動画再生します">お気に入り使い方動画</button>
     *}
+
+    {*
     <a class="bid_help" href="bid_help_01.php?o={$bidOpenId}">入札方法のご依頼方法<br />解説はこちら</a>
-    <a class="help_link" href="bid_help.php?o={$bidOpenId}">入札会よくある質問</a>
+    *}
+    <a class="help_link" href="bid_help.php?o={$bidOpenId}">
+      <i class="fas fa-circle-question"></i> 入札会よくある質問
+    </a>
   </div>
+
+  {include "./bid_login_area.tpl"}
 
   <div class="bid_search_comment">さあ、お気に入りの中古機械を探しだしてみてください！！
     {if !empty($bidOpen.list_pdf)}
@@ -457,8 +481,9 @@
         </div>
       {/foreach}
     </div>
+  </div>
 
-    {*
+  {*
 <div class="xl_area">
   <h2>出品番号でさがす</h2>
   <form method="GET" id="company_list_form" action="bid_list.php">
@@ -469,109 +494,111 @@
 </div>
 *}
 
-    {*** レコメンド ***}
-    {if !empty($recommends)}
-      <h2 class="same_machine_label">おすすめ商品</h2>
-      <div class="same_area">
-        <div class='image_carousel'>
-          <div class='carousel_products'>
-            {foreach $recommends as $sm}
-              <div class="same_machine bid">
-                <a href="bid_detail.php?m={$sm.id}&rec=user"
-                  onClick="ga('send', 'event', 'log_bid', 'rec_user', '{$sm.id}', 1, true);">
-                  {if !empty($sm.top_img)}
-                    <img src="{$_conf.media_dir}machine/thumb_{$sm.top_img}" alt="" />
-                  {else}
-                    <img class='noimage' src='./imgs/noimage.png' alt="" />
-                  {/if}
-                  <div class="names">
-                    {if !empty($sm.maker)}<div class="name">{$sm.maker}</div>{/if}
-                    {if !empty($sm.model)}<div class="name">{$sm.model}</div>{/if}
-                    {if !empty($sm.year)}<div class="name">{$sm.year}年式</div>{/if}
-                    {if !empty($sm.addr1)}<div class="name">{$sm.addr1}</div>{/if}
-                  </div>
-                  <div class="min_price">{$sm.min_price|number_format}円</div>
-                </a>
-              </div>
-            {/foreach}
-          </div>
+  {*** レコメンド ***}
+  {if !empty($recommends)}
+    <h2 class="same_machine_label">おすすめ商品</h2>
+    <div class="same_area">
+      <div class='image_carousel'>
+        <div class='carousel_products'>
+          {foreach $recommends as $sm}
+            <div class="same_machine bid">
+              <a href="bid_detail.php?m={$sm.id}&rec=user"
+                onClick="ga('send', 'event', 'log_bid', 'rec_user', '{$sm.id}', 1, true);">
+                {if !empty($sm.top_img)}
+                  <img src="{$_conf.media_dir}machine/thumb_{$sm.top_img}" alt="" />
+                {else}
+                  <img class='noimage' src='./imgs/noimage.png' alt="" />
+                {/if}
+                <div class="names">
+                  {if !empty($sm.maker)}<div class="name">{$sm.maker}</div>{/if}
+                  {if !empty($sm.model)}<div class="name">{$sm.model}</div>{/if}
+                  {if !empty($sm.year)}<div class="name">{$sm.year}年式</div>{/if}
+                  {if !empty($sm.addr1)}<div class="name">{$sm.addr1}</div>{/if}
+                </div>
+                <div class="min_price">{$sm.min_price|number_format}円</div>
+              </a>
+            </div>
+          {/foreach}
         </div>
-        {if $sm@total > 6}
-          <div class="scrollRight"></div>
-          <div class="scrollLeft"></div>
-        {/if}
       </div>
-    {/if}
+      {if $sm@total > 6}
+        <div class="scrollRight"></div>
+        <div class="scrollLeft"></div>
+      {/if}
+    </div>
+  {/if}
 
-    {if !empty($FaviMachineList)}
-      <h2 class="same_machine_label">人気商品</h2>
-      <div class="same_area">
-        <div class='image_carousel'>
-          <div class='carousel_products'>
-            {foreach $FaviMachineList as $sm}
-              <div class="same_machine bid">
-                <a href="bid_detail.php?m={$sm.id}&favorite=1"
-                  onClick="ga('send', 'event', 'log_bid', 'favorite', '{$sm.id}', 1, true);">
-                  {if !empty($sm.top_img)}
-                    <img src="{$_conf.media_dir}machine/thumb_{$sm.top_img}" alt="" />
-                  {else}
-                    <img class='noimage' src='./imgs/noimage.png' alt="" />
-                  {/if}
-                  <div class="names">
-                    {if !empty($sm.name)}<div class="name">{$sm.name}</div>{/if}
-                    {if !empty($sm.maker)}<div class="name">{$sm.maker}</div>{/if}
-                    {if !empty($sm.model)}<div class="name">{$sm.model}</div>{/if}
-                    {if !empty($sm.year)}<div class="company">{$sm.year}年式</div>{/if}
-                    {if !empty($sm.addr1)}<div class="company">{$sm.addr1}</div>{/if}
-                  </div>
-                  <div class="min_price">{$sm.min_price|number_format}円</div>
-                </a>
-              </div>
-            {/foreach}
-          </div>
+  {if !empty($FaviMachineList)}
+    <h2 class="same_machine_label">人気商品</h2>
+    <div class="same_area">
+      <div class='image_carousel'>
+        <div class='carousel_products'>
+          {foreach $FaviMachineList as $sm}
+            <div class="same_machine bid">
+              <a href="bid_detail.php?m={$sm.id}&favorite=1"
+                onClick="ga('send', 'event', 'log_bid', 'favorite', '{$sm.id}', 1, true);">
+                {if !empty($sm.top_img)}
+                  <img src="{$_conf.media_dir}machine/thumb_{$sm.top_img}" alt="" />
+                {else}
+                  <img class='noimage' src='./imgs/noimage.png' alt="" />
+                {/if}
+                <div class="names">
+                  {if !empty($sm.name)}<div class="name">{$sm.name}</div>{/if}
+                  {if !empty($sm.maker)}<div class="name">{$sm.maker}</div>{/if}
+                  {if !empty($sm.model)}<div class="name">{$sm.model}</div>{/if}
+                  {if !empty($sm.year)}<div class="company">{$sm.year}年式</div>{/if}
+                  {if !empty($sm.addr1)}<div class="company">{$sm.addr1}</div>{/if}
+                </div>
+                <div class="min_price">{$sm.min_price|number_format}円</div>
+              </a>
+            </div>
+          {/foreach}
         </div>
-        {if $sm@total > 6}
-          <div class="scrollRight"></div>
-          <div class="scrollLeft"></div>
-        {/if}
       </div>
-    {/if}
+      {if $sm@total > 6}
+        <div class="scrollRight"></div>
+        <div class="scrollLeft"></div>
+      {/if}
+    </div>
+  {/if}
 
-    {if !empty($IPLogMachineList)}
-      <h2 class="same_machine_label">最近チェックした商品</h2>
-      <div class="same_area">
-        <div class='image_carousel'>
-          <div class='carousel_products'>
-            {foreach $IPLogMachineList as $sm}
-              <div class="same_machine bid">
-                <a href="bid_detail.php?m={$sm.id}&check=1"
-                  onClick="ga('send', 'event', 'log_bid', 'checked', '{$sm.id}', 1, true]);">
-                  {if !empty($sm.top_img)}
-                    <img src="{$_conf.media_dir}machine/thumb_{$sm.top_img}" alt="" />
-                  {else}
-                    <img class='noimage' src='./imgs/noimage.png' alt="" />
-                  {/if}
-                  <div class="names">
-                    {if !empty($sm.name)}<div class="name">{$sm.name}</div>{/if}
-                    {if !empty($sm.maker)}<div class="name">{$sm.maker}</div>{/if}
-                    {if !empty($sm.model)}<div class="name">{$sm.model}</div>{/if}
-                    {if !empty($sm.year)}<div class="company">{$sm.year}年式</div>{/if}
-                    {if !empty($sm.addr1)}<div class="company">{$sm.addr1}</div>{/if}
-                  </div>
-                  <div class="min_price">{$sm.min_price|number_format}円</div>
-                </a>
-              </div>
-            {/foreach}
-          </div>
+  {if !empty($IPLogMachineList)}
+    <h2 class="same_machine_label">最近チェックした商品</h2>
+    <div class="same_area">
+      <div class='image_carousel'>
+        <div class='carousel_products'>
+          {foreach $IPLogMachineList as $sm}
+            <div class="same_machine bid">
+              <a href="bid_detail.php?m={$sm.id}&check=1"
+                onClick="ga('send', 'event', 'log_bid', 'checked', '{$sm.id}', 1, true]);">
+                {if !empty($sm.top_img)}
+                  <img src="{$_conf.media_dir}machine/thumb_{$sm.top_img}" alt="" />
+                {else}
+                  <img class='noimage' src='./imgs/noimage.png' alt="" />
+                {/if}
+                <div class="names">
+                  {if !empty($sm.name)}<div class="name">{$sm.name}</div>{/if}
+                  {if !empty($sm.maker)}<div class="name">{$sm.maker}</div>{/if}
+                  {if !empty($sm.model)}<div class="name">{$sm.model}</div>{/if}
+                  {if !empty($sm.year)}<div class="company">{$sm.year}年式</div>{/if}
+                  {if !empty($sm.addr1)}<div class="company">{$sm.addr1}</div>{/if}
+                </div>
+                <div class="min_price">{$sm.min_price|number_format}円</div>
+              </a>
+            </div>
+          {/foreach}
         </div>
-        {if $sm@total > 6}
-          <div class="scrollRight"></div>
-          <div class="scrollLeft"></div>
-        {/if}
       </div>
-    {/if}
+      {if $sm@total > 6}
+        <div class="scrollRight"></div>
+        <div class="scrollLeft"></div>
+      {/if}
+    </div>
+  {/if}
 
-    {assign "keywords" ""}
-    {include file="include/mnok_ads.tpl"}
+  {include "./bid_login_area.tpl"}
+
+  {assign "keywords" ""}
+  {include file="include/mnok_ads.tpl"}
 
 {/block}

@@ -146,6 +146,19 @@ try {
     // $tbuTable = new TrackingBidResult();
     // $recommends = $tbuTable->getRecommends($bidOpen["id"], 'machine', $machineId);
 
+    /// 新 : 落札結果を取得 ///
+    if (in_array($bidOpen['status'], array('carryout', 'after'))) {
+        $my_bid_bid_model = new MyBidBid();
+
+        $bids_count = $my_bid_bid_model->count_by_bid_machine_id($machineId);
+        $bids_result = $my_bid_bid_model->results_by_bid_machine_id($machine['bid_open_id']);
+
+        $_smarty->assign(array(
+            "bids_count"  => !empty($bids_count[$machineId]) ? $bids_count[$machineId] : 0,
+            "bids_result" => !empty($bids_result[$machineId]) ? $bids_result[$machineId] : [],
+        ));
+    }
+
     /// 表示変数アサイン ///
     $_smarty->assign(array(
         // 'pageTitle' => $bidOpen['title'] . ' : 商品詳細',

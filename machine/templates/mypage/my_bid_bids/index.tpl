@@ -27,7 +27,8 @@
         });
       });
     </script>
-    <style type="text/css"></style>
+    <style type="text/css">
+    </style>
   {/literal}
 {/block}
 
@@ -46,9 +47,12 @@
           <tr>
             <th class="list_no">出品番号</th>
             <th class="img"></th>
+            {*
             <th class="name">機械名</th>
             <th class="maker">メーカー</th>
             <th class="model">型式</th>
+            *}
+            <th class="full_name">機械名/メーカー/型式</th>
             <th class="company">出品会社</th>
             <th class="min_price">最低入札金額</th>
             <th class="amount">入札金額</th>
@@ -59,8 +63,10 @@
             {/if}
             {if in_array($bid_open.status, array('carryout', 'after'))}
               <th class="created_at_min">入札日時</th>
-              <th class="min_price sepa2">落札金額</th>
-              <th class="same_count">結果</th>
+              <th class="min_price border-start">落札金額</th>
+              <th class="same_count">入札<br />件数</th>
+              <th class="same_count">同額<br />札</th>
+              <th class="result">結果</th>
             {/if}
           </tr>
         {/if}
@@ -75,11 +81,17 @@
               </a>
             {/if}
           </td>
+          {*
           <td class="name">
             <a href="/bid_detail.php?m={$bb.bid_machine_id}" target="_blank">{$bb.name}</a>
           </td>
           <td class="maker">{$bb.maker}</td>
           <td class="model">{$bb.model}</td>
+          *}
+          <td class="full_name">
+            <a href="/bid_detail.php?m={$bb.bid_machine_id}" target="_blank">{$bb.name} {$bb.maker} {$bb.model}</a>
+          </td>
+
           <td class="company">
             {if !empty($bb.company)}
               <a href="company_detail.php?c={$bb.company_id}" target="_blank">
@@ -110,8 +122,8 @@
           {/if}
 
           {if in_array($bid_open.status, array('carryout', 'after'))}
-            <td class="created_amint_">{$bb.created_at|date_format:'%Y/%m/%d %H:%M'}</td>
-            <td class="min_price sepa2">
+            <td class="created_at_min">{$bb.created_at|date_format:'%Y/%m/%d %H:%M'}</td>
+            <td class="min_price border-start">
               {if !empty($bids_result[$bb.bid_machine_id].amount)}
                 {$bids_result[$bb.bid_machine_id].amount|number_format}円
               {/if}
@@ -119,11 +131,14 @@
                 (同額:{$bids_result[$bb.bid_machine_id].same_count})
               {/if}
             </td>
-            <td class="same_count">
+            <td class="same_count">{$bids_count[$bb.bid_machine_id]|number_format}</td>
+            <td class="same_count">{$bids_result[$bb.bid_machine_id].same_count|number_format}</td>
+
+            <td class="result">
               {if $bids_result[$bb.bid_machine_id].my_user_id == $_my_user["id"]}
                 <span class="bid_true">落札</span>
                 <a href="contact.php?c={$bb.company_id}&b=1&o={$bid_open_id}&bm={$bb.bid_machine_id}"
-                  class="btn-xs btn btn-success" value="{$bb.bid_machine_id}">
+                  class="btn-xs btn btn-success btn-trade" value="{$bb.bid_machine_id}">
                   <i class="fas fa-comments-dollar"></i> 取引
                 </a>
               {else}

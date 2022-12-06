@@ -365,7 +365,7 @@
 
     {*** 地図で表示 ***}
     {*
-<div class='machine_list map' style="display:none;">aaaaa
+<div class='machine_list map' style="display:none;">
   <div class="maplocation_area"></div>
   <div id="gmap"></div>
   <div class='machines map'></div>

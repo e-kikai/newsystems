@@ -75,6 +75,52 @@ td.img img {
 
 th.same_count,
 td.same_count {
+  width: 32px;
+  padding: 0.5rem 0;
+}
+
+th.result,
+td.result {
   width: 60px;
   padding: 0.5rem 0;
+}
+
+td.result {
+  text-align: right;
+}
+
+td.same_count {
+  text-align: right;
+}
+
+.full_name {
+  width: 172px;
+}
+
+.full_name_02 {
+  width: 252px;
+}
+
+th {
+  font-size: 0.75rem;
+}
+
+td.min_price,
+th.min_price {
+  width: 90px;
+}
+
+td.min_price {
+  padding: 0.5rem 0;
+  text-align: right;
+}
+
+td.amount,
+th.amount {
+  width: 90px;
+}
+
+td.amount {
+  padding: 0.5rem 0;
+  text-align: right;
 }

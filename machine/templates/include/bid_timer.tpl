@@ -1,6 +1,15 @@
 <script type="text/javascript" src="{$_conf.site_uri}{$_conf.js_dir}bid_batch.js"></script>
 <link href="{$_conf.site_uri}{$_conf.css_dir}bid_mylist.css" rel="stylesheet" type="text/css" />
 
+<style type="text/css">
+  .bid_head {
+    height: 112px;
+  }
+
+  .header_preview_date {
+    top: 64px;
+  }
+</style>
 {*
 <div class="bid_timer">
   {if preg_match('/(admin|system)/', $smarty.server.PHP_SELF)}
@@ -18,6 +27,7 @@
 *}
 
 <div class="bid_head">
+  {include "./bid_login_area.tpl"}
 
   {if !empty($machine)}
     {*
@@ -52,7 +62,10 @@
     <input type="text" class="m number" name="no" value="" placeholder="出品番号" />
     *}
       <input type="text" class="m" name="k" value="{Req::query('k')}" placeholder="キーワード" />
+      {*
       <button type="submit" class="company_list_submit">検索</button>
+      *}
+      <button type="submit" class="btn btn-lg btn-info rounded ms-1">検索</button>
     </form>
   </div>
 

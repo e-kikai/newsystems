@@ -33,7 +33,7 @@ if (!empty($e)) throw new Exception($e);
 // ウォッチ一覧の取得
 $my_bid_watch_model = new MyBidWatch();
 $select = $my_bid_watch_model->my_select()
-  ->join("bid_machines", "bid_machines.id = my_bid_watches.bid_machine_id",  ["list_no", "name", "maker", "model", "min_price", "top_img", "company_id"])
+  ->join("bid_machines", "bid_machines.id = my_bid_watches.bid_machine_id",  ["list_no", "name", "maker", "model", "min_price", "top_img", "company_id", "year", "addr1"])
   ->join("companies", "companies.id = bid_machines.company_id", ["company"])
   ->where("my_bid_watches.my_user_id = ?", $_my_user['id'])
   ->where("bid_machines.bid_open_id = ?", $bid_open_id);;
@@ -46,7 +46,7 @@ $_smarty->assign(array(
   'pageTitle'       => "{$bid_open["title"]} ウォッチリスト",
   'pageDescription' => 'ウォッチリストです。入札を行うには、商品名をクリックして、詳細ページがら行えます。',
 
-  'errorMes'        => $e,
+  // 'errorMes'        => $e,
   'pankuzu'         => array(
     '/mypage/' => 'マイページ',
     '/mypage/bid_opens/' => '入札会一覧'
