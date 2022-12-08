@@ -136,7 +136,10 @@
 
             {* キャンセル対応 *}
             {if in_array($bidOpen.status, array('margin', 'bid'))}
+              {*
               <th class="cancel">キャンセル</th>
+              *}
+              <th class="auto">自動入札</th>
             {/if}
 
             {if $bidOpen.status == 'entry' || (in_array($bidOpen.status, array('margin', 'bid')) && Auth::check('system'))}
@@ -200,6 +203,7 @@
 
           {* キャンセル対応 *}
           {if in_array($bidOpen.status, array('margin', 'bid'))}
+            {*
             <td class="cancel">
               {if $m.canceled_at == null}
                 <a href="/admin/bid_machine_cancel_form.php?m={$m.id}" class="cancel button">
@@ -209,6 +213,18 @@
                 <div>キャンセル済</div>
                 <input type="hidden" name="cancel_comment" class="cancel_comment" value="{$m.cancel_comment}" />
                 <button class="cancel_delete" value="{$m.id}"><i class="fas fa-store"></i> 再出品</button>
+              {/if}
+            </td>
+            *}
+            <td class="auto">
+              {if $m.auto_at == null}
+                <button class="auto" value="{$m.id}">
+                  <i class="fas fa-wand-magic-sparkles"></i> 設定
+                </button>
+              {else}
+                <button class="auto_delete" value="{$m.id}">
+                  <i class="fas fa-wand-magic"></i> 解除
+                </button>
               {/if}
             </td>
           {/if}

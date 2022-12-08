@@ -150,8 +150,8 @@ try {
     if (in_array($bidOpen['status'], array('carryout', 'after'))) {
         $my_bid_bid_model = new MyBidBid();
 
-        $bids_count = $my_bid_bid_model->count_by_bid_machine_id($machineId);
-        $bids_result = $my_bid_bid_model->results_by_bid_machine_id($machine['bid_open_id']);
+        $bids_count  = $my_bid_bid_model->count_by_bid_machine_id($machineId);
+        $bids_result = $my_bid_bid_model->results_by_bid_machine_id($machineId);
 
         $_smarty->assign(array(
             "bids_count"  => !empty($bids_count[$machineId]) ? $bids_count[$machineId] : 0,

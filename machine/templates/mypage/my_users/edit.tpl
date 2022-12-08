@@ -95,11 +95,11 @@
 
         <dt><label for="addr_3" class="form-label">マシンライフからの案内メール</label></dt>
         <dd>
-          <input class="form-check-input" type="radio" name="data[mailuser_flug]" id="check_true" value="1"
-            {if !empty($data.mailuser_flug)}checked{/if}>
+          <input class="form-check-input" type="radio" name="data[mailuser_flag]" id="check_true" value="1"
+            {if !empty($data.mailuser_flag)}checked{/if}>
           <label class="form-check-label" for="check_true">受信する</label>
-          <input class="form-check-input" type="radio" name="data[mailuser_flug]" id="check_false" value="0"
-            {if empty($data.mailuser_flug)}checked{/if}>
+          <input class="form-check-input" type="radio" name="data[mailuser_flag]" id="check_false" value="0"
+            {if empty($data.mailuser_flag)}checked{/if}>
           <label class="form-check-label" for="check_false">受信しない</label>
         </dd>
       </dl>

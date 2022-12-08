@@ -65,7 +65,6 @@
               <th class="created_at_min">入札日時</th>
               <th class="min_price border-start">落札金額</th>
               <th class="same_count">入札<br />件数</th>
-              <th class="same_count">同額<br />札</th>
               <th class="result">結果</th>
             {/if}
           </tr>
@@ -128,11 +127,11 @@
                 {$bids_result[$bb.bid_machine_id].amount|number_format}円
               {/if}
               {if $bids_result[$bb.bid_machine_id].same_count > 1}
+                <br />
                 (同額:{$bids_result[$bb.bid_machine_id].same_count})
               {/if}
             </td>
             <td class="same_count">{$bids_count[$bb.bid_machine_id]|number_format}</td>
-            <td class="same_count">{$bids_result[$bb.bid_machine_id].same_count|number_format}</td>
 
             <td class="result">
               {if $bids_result[$bb.bid_machine_id].my_user_id == $_my_user["id"]}

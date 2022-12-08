@@ -33,13 +33,6 @@ if (!empty($e)) throw new Exception($e);
 /// 出品商品情報一覧を取得 ///
 $q = array(
   'bid_open_id'    => $bid_open_id,
-  'xl_genre_id'    => Req::query('x'),
-  'large_genre_id' => Req::query('l'),
-  // 'genre_id'      => Req::query('g'),
-  'region'         => Req::query('r'),
-  'state'          => Req::query('s'),
-  'keyword'        => Req::query('k'),
-  'list_no'        => Req::query('no'),
 
   'limit'          => Req::query('limit', 50),
   'page'           => Req::query('page', 1),
@@ -47,11 +40,6 @@ $q = array(
 );
 $bmModel = new BidMachine();
 $bidMachineList = $bmModel->getList($q);
-$select = $my_bid_bid_model->my_select()
-  ->join("bid_machines", "bid_machines.id = my_bid_bids.bid_machine_id",  ["list_no", "name", "maker", "model", "min_price", "top_img", "company_id"])
-  ->join("companies", "companies.id = bid_machines.company_id", ["company"])
-  ->where("my_bid_bids.my_user_id = ?", $_my_user['id'])
-  ->where("bid_machines.bid_open_id = ?", $bid_open_id);;
 
 /// ページャ ///
 Zend_Paginator::setDefaultScrollingStyle('Sliding');
@@ -60,13 +48,14 @@ $pgn->setCurrentPageNumber($q['page'])
   ->setItemCountPerPage($q['limit'])
   ->setPageRange(15);
 
-$my_bid_bids = $bid_open_model->fetchAll($select);
-
 /// 落札結果を取得 ///
 if (in_array($bid_open['status'], array('carryout', 'after'))) {
-  $bids_result = $my_bid_bid_model->results_by_bid_machine_id($bid_open_id);
+  $ids = $my_bid_bid_model->bid_machines2ids($bidMachineList);
+  $bids_count  = $my_bid_bid_model->count_by_bid_machine_id($ids);
+  $bids_result = $my_bid_bid_model->results_by_bid_machine_id($ids);
 
   $_smarty->assign(array(
+    "bids_count"  => $bids_count,
     "bids_result" => $bids_result,
   ));
 }

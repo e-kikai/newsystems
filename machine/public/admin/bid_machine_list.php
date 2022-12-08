@@ -60,18 +60,14 @@ try {
     $bmModel = new BidMachine();
     $bidMachineList = $bmModel->getList(array('bid_open_id' => $bidOpenId, 'company_id' => $_user['company_id']));
 
-    // 新 : ウォッチリスト件数集計
-    $bid_machine_ids = [];
-    foreach ($bidMachineList as $bm) {
-        $bid_machine_ids[] = $bm["id"];
-    }
-
-    $my_bid_watch_model = new MyBidWatch();
-    $watches_count = $my_bid_watch_model->count_by_bid_machine_id($bid_machine_ids);
-
     // 新 : 入札件数集計
     $my_bid_bid_model = new MyBidBid();
-    $bids_count = $my_bid_bid_model->count_by_bid_machine_id($bid_machine_ids);
+    $ids = $my_bid_bid_model->bid_machines2ids($bidMachineList);
+    $bids_count = $my_bid_bid_model->count_by_bid_machine_id($ids);
+
+    // 新 : ウォッチ数取得
+    $my_bid_watch_model = new MyBidWatch();
+    $watches_count = $my_bid_watch_model->count_by_bid_machine_id($ids);
 
     /// 落札結果を取得 ///
     if (in_array($bidOpen['status'], array('carryout', 'after'))) {
@@ -117,14 +113,16 @@ try {
                 'finalSum' => $finalSum,
             ));
         } else {
-            $bids_result = $my_bid_bid_model->results_by_bid_machine_id($bidOpenId);
-
+            $ids = $my_bid_bid_model->bid_machines2ids($bidMachineList);
+            $bids_count  = $my_bid_bid_model->count_by_bid_machine_id($ids);
+            $bids_result = $my_bid_bid_model->results_by_bid_machine_id($ids);
 
             $_smarty->assign(array(
                 'pageTitle'       => $bidOpen['title'] . ' : 出品商品 個別計算表',
                 'pageDescription' => "入札会出品商品の落札結果個別計算表です。落札されなかった商品は、「在庫に登録」から中古機械在庫に再利用できます。",
 
-                "bids_result"    => $bids_result,
+                "bids_count"      => $bids_count,
+                "bids_result"     => $bids_result,
             ));
         }
     } else {

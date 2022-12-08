@@ -77,13 +77,12 @@ class MyBidBid extends MyTableAbstract
      * 機械IDごとの入札件数集計
      *
      * @access public
-     * @param  array  $bid_machine_ids 集計する機械ID
+     * @param  array  $bid_machines 集計する機械情報
      * @return array 機械IDごとの入札件数
      */
     public function count_by_bid_machine_id($bid_machine_ids)
     {
-        $select = $this->select_count_by_bid_machine_id()
-            ->where("bid_machine_id IN (?)", $bid_machine_ids);
+        $select = $this->select_count_by_bid_machine_id()->where("bid_machine_id IN (?)", $bid_machine_ids);
 
         $res = $this->_db->fetchAll($select);
 
@@ -95,7 +94,7 @@ class MyBidBid extends MyTableAbstract
         return $return;
     }
 
-    public function results_by_bid_machine_id($bid_open_id)
+    public function results_by_bid_machine_id($bid_machine_ids)
     {
         $sql = "SELECT
             bm.id,
@@ -135,11 +134,11 @@ class MyBidBid extends MyTableAbstract
         ) bb3 ON bb3.bid_machine_id = bm.id
         WHERE bm.deleted_at IS NULL
         AND bm.canceled_at IS NULL
-        AND bm.bid_open_id = ?
+        AND bm.id IN (?)
         AND bb1.amount IS NOT NULL
         ORDER BY bm.id;";
 
-        $res = $this->_db->fetchAll($this->_db->quoteInto($sql, $bid_open_id));
+        $res = $this->_db->fetchAll($this->_db->quoteInto($sql, $bid_machine_ids));
 
         $return = [];
         foreach ($res as $r) {
@@ -147,5 +146,13 @@ class MyBidBid extends MyTableAbstract
         }
 
         return $return;
+    }
+
+    function bid_machines2ids($bid_machines, $label = "id")
+    {
+        $ids = [0];
+        foreach ($bid_machines as $bm) $ids[] = $bm[$label];
+
+        return $ids;
     }
 }
