@@ -421,6 +421,9 @@
           'carryout_note': $.trim($('textarea.carryout_note').val()),
           'commission': $.trim($('input.commission:checked').val()),
 
+          'shipping': $.trim($('input.shipping:checked').val()),
+          'shipping_comment': $.trim($('input.shipping_comment').val()),
+
           'location': $.trim($('input.location').val()),
           'addr1': $.trim($('input.addr1').val()),
           'addr2': $.trim($('input.addr2').val()),
@@ -500,7 +503,7 @@
 
       // 「在庫から～」のときに、追加入力部分をハイライト
       if ($('input.machine_id').val() && $('input.id').val() == '') {
-        $('input.min_price, textarea.carryout_note').addClass('highlight');
+        $('input.min_price, textarea.carryout_note, input.shipping_comment, input.shipping').addClass('highlight');
       }
 
       // 企業間売り切り表示切り替え
@@ -521,24 +524,24 @@
       <div class="img">
     <a href="/media/tmp/{{>filename}}" target="_blank"><img src="/media/tmp/{{>filename}}" /></a>
     <input name="top_img" class="top_img" type="hidden" value="{{>filename}}" />
-                                </div>
-                                </script>
+                                                                                    </div>
+                                                                                    </script>
 
     <script id="imgs_tmpl" type="text/x-jsrender">
       <div class="img">
     <label><input type="checkbox" name="imgs_delete[]" class="imgs_delete" value="{{>filename}}" />削除</label><br />
     <a href="/media/tmp/{{>filename}}" target="_blank"><img src="/media/tmp/{{>filename}}" /></a>
     <input name="imgs[]" class="imgs" type="hidden" value="{{>filename}}" />
-                                </div>
-                                </script>
+                                                                                    </div>
+                                                                                    </script>
 
     <script id="pdfs_tmpl" type="text/x-jsrender">
       <div class="pdf">
     <a href="/media/tmp/{{>filename}}" target="_blank">PDF</a>
     <input type="text" name="pdfs[{{>filename}}]" class="pdfs" value="{{>label}}" data-file="{{>filename}}" placeholder="ラベル" />
     <label><input name="pdfs_delete[]" class="pdfs_delete" type="checkbox" value="{{>filename}}" />削除</label>
-                                </div>
-                                </script>
+                                                                                    </div>
+                                                                                    </script>
     <style type="text/css">
     </style>
   {/literal}
@@ -693,6 +696,15 @@
         </td>
       </tr>
 
+      <tr class="commission">
+        <th>送料負担</th>
+        <td>
+          {html_radios name='shipping' class='shipping' options=BidMachine::shipping_enum() selected=$machine.shipping separator=' '}<br />
+          <input type="text" name="shipping_comment" class="shipping_comment" value="{$machine.shipping_comment}"
+            placeholder="送料負担に関して、備考があれば記入" />
+        </td>
+      </tr>
+
       <tr class="accessory">
         <th>附属品</th>
         <td>
@@ -716,12 +728,10 @@
         </td>
       </tr>
 
-
       <tr class="commission">
         <th>試運転</th>
         <td>
-          {html_radios name='commission' class='commission' options=['' => '不可', '1' => '可']
-                       selected=$machine.commission separator=' '}
+          {html_radios name='commission' class='commission' options=['' => '不可', '1' => '可'] selected=$machine.commission separator=' '}
         </td>
       </tr>
 

@@ -33,6 +33,9 @@ class BidMachine extends Zend_Db_Table_Abstract
       '引取留意事項' => array('fields' => 'carryout_note',),
       '試運転'       => array('fields' => 'commission', 'Digits'),
 
+      '送料負担'       => array('fields' => 'shipping', 'Digits'),
+      '送料負担備考欄' => array('fields' => 'shipping_comment'),
+
       'ジャンルID'   => array('fields' => 'genre_id', 'NotEmpty', 'Digits'),
       '会社ID'       => array('fields' => 'company_id', 'NotEmpty', 'Digits'),
       '年式'         => array('fields' => 'year', 'Digits'),
@@ -71,11 +74,25 @@ class BidMachine extends Zend_Db_Table_Abstract
   );
 
   // 送料負担enum
-  protected $_shipping_enum = [
-    0   => "落札者負担",
-    100 => "出品会社負担",
-    200 => "落札者負担",
-  ];
+  public static function shipping_enum()
+  {
+    return [
+      0   => "落札者負担",
+      100 => "出品会社負担",
+      200 => "店頭引取り",
+    ];
+  }
+
+  public static  function shipping($shipping)
+  {
+    $shipping_enum = BidMachine::shipping_enum();
+
+    if (!empty($shipping_enum[$shipping])) {
+      return $shipping_enum[$shipping];
+    } else {
+      return $shipping_enum[0];
+    }
+  }
 
   public function getFeeTable()
   {

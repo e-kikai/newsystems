@@ -33,6 +33,25 @@
   height: 20px;
 }
 
+.same_machine .list_no_area {
+  background: rgba(255, 255, 255, 0.7);
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  text-align: center;
+  padding: 0 3px;
+  color: #333;
+}
+
+.same_machine .list_no_label {
+  font-size: 0.5rem;
+  margin-right: 3px;
+}
+
+.same_machine .list_no {
+  font-size: 17px;
+}
+
 .log_machine .name,
 .same_machine .name,
 .same_machine .company {

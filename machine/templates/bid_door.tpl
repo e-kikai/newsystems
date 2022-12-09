@@ -501,23 +501,7 @@
       <div class='image_carousel'>
         <div class='carousel_products'>
           {foreach $recommends as $sm}
-            <div class="same_machine bid">
-              <a href="bid_detail.php?m={$sm.id}&rec=user"
-                onClick="ga('send', 'event', 'log_bid', 'rec_user', '{$sm.id}', 1, true);">
-                {if !empty($sm.top_img)}
-                  <img src="{$_conf.media_dir}machine/thumb_{$sm.top_img}" alt="" />
-                {else}
-                  <img class='noimage' src='./imgs/noimage.png' alt="" />
-                {/if}
-                <div class="names">
-                  {if !empty($sm.maker)}<div class="name">{$sm.maker}</div>{/if}
-                  {if !empty($sm.model)}<div class="name">{$sm.model}</div>{/if}
-                  {if !empty($sm.year)}<div class="name">{$sm.year}年式</div>{/if}
-                  {if !empty($sm.addr1)}<div class="name">{$sm.addr1}</div>{/if}
-                </div>
-                <div class="min_price">{$sm.min_price|number_format}円</div>
-              </a>
-            </div>
+            {include file='include/bid_samecard.tpl' machine=$sm label='door_rec'}
           {/foreach}
         </div>
       </div>
@@ -534,24 +518,7 @@
       <div class='image_carousel'>
         <div class='carousel_products'>
           {foreach $FaviMachineList as $sm}
-            <div class="same_machine bid">
-              <a href="bid_detail.php?m={$sm.id}&favorite=1"
-                onClick="ga('send', 'event', 'log_bid', 'favorite', '{$sm.id}', 1, true);">
-                {if !empty($sm.top_img)}
-                  <img src="{$_conf.media_dir}machine/thumb_{$sm.top_img}" alt="" />
-                {else}
-                  <img class='noimage' src='./imgs/noimage.png' alt="" />
-                {/if}
-                <div class="names">
-                  {if !empty($sm.name)}<div class="name">{$sm.name}</div>{/if}
-                  {if !empty($sm.maker)}<div class="name">{$sm.maker}</div>{/if}
-                  {if !empty($sm.model)}<div class="name">{$sm.model}</div>{/if}
-                  {if !empty($sm.year)}<div class="company">{$sm.year}年式</div>{/if}
-                  {if !empty($sm.addr1)}<div class="company">{$sm.addr1}</div>{/if}
-                </div>
-                <div class="min_price">{$sm.min_price|number_format}円</div>
-              </a>
-            </div>
+            {include file='include/bid_samecard.tpl' machine=$sm label='door_favorite'}
           {/foreach}
         </div>
       </div>
@@ -568,24 +535,7 @@
       <div class='image_carousel'>
         <div class='carousel_products'>
           {foreach $IPLogMachineList as $sm}
-            <div class="same_machine bid">
-              <a href="bid_detail.php?m={$sm.id}&check=1"
-                onClick="ga('send', 'event', 'log_bid', 'checked', '{$sm.id}', 1, true]);">
-                {if !empty($sm.top_img)}
-                  <img src="{$_conf.media_dir}machine/thumb_{$sm.top_img}" alt="" />
-                {else}
-                  <img class='noimage' src='./imgs/noimage.png' alt="" />
-                {/if}
-                <div class="names">
-                  {if !empty($sm.name)}<div class="name">{$sm.name}</div>{/if}
-                  {if !empty($sm.maker)}<div class="name">{$sm.maker}</div>{/if}
-                  {if !empty($sm.model)}<div class="name">{$sm.model}</div>{/if}
-                  {if !empty($sm.year)}<div class="company">{$sm.year}年式</div>{/if}
-                  {if !empty($sm.addr1)}<div class="company">{$sm.addr1}</div>{/if}
-                </div>
-                <div class="min_price">{$sm.min_price|number_format}円</div>
-              </a>
-            </div>
+            {include file='include/bid_samecard.tpl' machine=$sm label='door_checked'}
           {/foreach}
         </div>
       </div>

@@ -6,7 +6,12 @@
     {else}
       <img class='noimage' src='./imgs/noimage.png' alt="" />
     {/if}
+
+    <div class="list_no_area">
+      <span class="list_no_label">出品番号</span><span class="list_no">{$machine.list_no}</span>
+    </div>
     <div class="names">
+      {if !empty($machine.name)}<div class="name">{$machine.name}</div>{/if}
       {if !empty($machine.maker)}<div class="name">{$machine.maker}</div>{/if}
       {if !empty($machine.model)}<div class="name">{$machine.model}</div>{/if}
       {if !empty($machine.year)}<div class="name">{$machine.year}年式</div>{/if}

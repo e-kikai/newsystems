@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 入札会出品フォーム
  *
@@ -42,6 +43,7 @@ try {
 
         $machine = $mModel->get($baseMachineId);
         $machine['machine_id'] = $baseMachineId;
+        $machine['shipping']   = 0;
     } else {
         // 在庫場所の初期化のため、会社情報を取得
         $cModel = new Company();
@@ -53,6 +55,7 @@ try {
             'genre_id'       => 1,
             'year'           => '',
             'others'         => array(),
+            'shipping'       => 0,
             'commission'     => null,
             'imgs'           => null,
             'pdfs'           => null,
@@ -68,7 +71,9 @@ try {
     /// 会社情報を取得 ///
     $cModel = new Company();
     $company = $cModel->get($_user['company_id']);
-    if (empty($company)) { throw new Exception('会社情報が取得できませんでした'); }
+    if (empty($company)) {
+        throw new Exception('会社情報が取得できませんでした');
+    }
 
     if (!Companies::checkRank($company['rank'], 'B会員')) {
         throw new Exception('このページの表示権限がありません');
@@ -79,15 +84,17 @@ try {
     $bidOpen = $boModel->get($bidOpenId);
     if (empty($bidOpen)) {
         $e = '入札会情報が取得出来ませんでした';
-    } else if (Auth::check('system') && in_array($bidOpen['status'], array('entry', 'margin', 'bid')) ) {
+    } else if (Auth::check('system') && in_array($bidOpen['status'], array('entry', 'margin', 'bid'))) {
         // 管理者の場合は、入札期間でも登録変更を行えるようにする
     } else if ($bidOpen['status'] != 'entry') {
         $e = "この入札会は、「出品期間」ではありません\n";
-        $e.= "出品期間 : " . date('Y/m/d H:i', strtotime($bidOpen['entry_start_date'])) . " ～ " . date('m/d H:i', strtotime($bidOpen['entry_end_date']));
+        $e .= "出品期間 : " . date('Y/m/d H:i', strtotime($bidOpen['entry_start_date'])) . " ～ " . date('m/d H:i', strtotime($bidOpen['entry_end_date']));
     } else if (empty($company)) {
         $e = '会社情報が取得出来ませんでした';
     }
-    if (!empty($e)) { throw new Exception($e); }
+    if (!empty($e)) {
+        throw new Exception($e);
+    }
 
     /// 商品出品登録チェック ///
     if (empty($company['bid_entries'])) {

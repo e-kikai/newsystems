@@ -45,7 +45,7 @@ table.form td input[type="number"] {
 
 table.form td textarea {
   width: 484px;
-  height: 3.6em;
+  height: 4.6rem;
 }
 
 /* 営業所 */
@@ -118,11 +118,15 @@ table.form td input.mininum {
 }
 
 table.form td input.accessory {
-  width: 96%;
+  width: 484px;
+}
+
+table.form td input.shipping_comment {
+  width: 484px;
 }
 
 table.form td input.youtube {
-  width: 96%;
+  width: 484px;
 }
 
 table.form td input.text,

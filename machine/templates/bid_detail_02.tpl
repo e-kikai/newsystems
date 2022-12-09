@@ -175,6 +175,13 @@
       <div class="spec_area">
         <table class="spec">
           <tr class="accessory">
+            <th>送料負担</th>
+            <td>
+              {BidMachine::shipping($machine.shipping)}
+              {if !empty($machine.shipping_comment)}<div>{$machine.shipping_comment}</div>{/if}
+            </td>
+          </tr>
+          <tr class="accessory">
             <th>附属品</th>
             <td>{$machine.accessory}</td>
           </tr>
