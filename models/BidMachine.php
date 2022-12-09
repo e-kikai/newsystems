@@ -1562,4 +1562,54 @@ class BidMachine extends Zend_Db_Table_Abstract
 
     return $this;
   }
+
+  /**
+   * 自動入札設定をセット
+   *
+   * @access public
+   * @param  int $id 出品商品ID
+   *
+   * @return $this
+   */
+  public function set_auto($id)
+  {
+    $data = [
+      'auto_at'    => new Zend_Db_Expr('current_timestamp'),
+      'changed_at' => new Zend_Db_Expr('current_timestamp'),
+    ];
+
+    // 更新処理
+    $res = $this->update($data, $this->_db->quoteInto('id = ?', $id));
+
+    if (empty($res)) {
+      throw new Exception("自動入札の設定が保存できませんでした id:{$id}");
+    }
+
+    return $this;
+  }
+
+  /**
+   * 自動入札設定を解除
+   *
+   * @access public
+   * @param  int $id 出品商品ID
+   *
+   * @return $this
+   */
+  public function delete_auto($id)
+  {
+    $data = [
+      'auto_at'    => null,
+      'changed_at' => new Zend_Db_Expr('current_timestamp'),
+    ];
+
+    // 更新処理
+    $res = $this->update($data, $this->_db->quoteInto('id = ?', $id));
+
+    if (empty($res)) {
+      throw new Exception("出品キャンセル情報が保存できませんでした id:{$id}");
+    }
+
+    return $this;
+  }
 }

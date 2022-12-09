@@ -45,47 +45,126 @@
           return false;
         });
 
-        /// キャンセル解除(再出品)処理 ///
-        $('button.cancel_delete').click(function() {
+        // /// キャンセル解除(再出品)処理 ///
+        // $('button.cancel_delete').click(function() {
+        //   var $_self = $(this);
+        //   var $_parent = $_self.closest('tr');
+
+        //   var data = {
+        //     'id': $.trim($_self.val()),
+        //   }
+
+        //   // 送信確認
+        //   var mes = "出品番号 : " + $_parent.find('td.list_no').text() + "\n";
+        //   mes += $.trim($_parent.find('td.name').text()) + ' ';
+        //   mes += $_parent.find('td.maker').text() + ' ' + $_parent.find('td.model').text() + "\n\n";
+
+        //   mes += "<キャンセル理由>\n" + $_parent.find('input.cancel_comment').val() + "\n\n";
+
+        //   mes += "この入札会商品のキャンセルを解除して、再出品します。よろしいですか。";
+        //   if (!confirm(mes)) { return false; }
+
+        //   $_self.attr('disabled', 'disabled');
+
+        //   // 送信処理
+        //   $.post('/admin/ajax/bid_cancel.php', {
+        //     'target': 'member',
+        //     'action': 'delete',
+        //     'data': data,
+        //   }, function(res) {
+        //     // 結果コールバック
+        //     if (res != 'success') {
+        //       $_self.removeAttr('disabled');
+        //       alert(res);
+        //       return false;
+        //     }
+
+        //     alert('再出品が完了しました');
+        //     location.reload();
+        //     return false;
+        //   }, 'text');
+
+        //   return false;
+        // });
+
+        /// 自動入札設定処理 ///
+        $('button.auto').click(function() {
           var $_self = $(this);
           var $_parent = $_self.closest('tr');
 
-          var data = {
-            'id': $.trim($_self.val()),
-          }
+          var data = {'id': $.trim($_self.val())}
 
           // 送信確認
           var mes = "出品番号 : " + $_parent.find('td.list_no').text() + "\n";
           mes += $.trim($_parent.find('td.name').text()) + ' ';
           mes += $_parent.find('td.maker').text() + ' ' + $_parent.find('td.model').text() + "\n\n";
 
-          mes += "<キャンセル理由>\n" + $_parent.find('input.cancel_comment').val() + "\n\n";
-
-          mes += "この入札会商品のキャンセルを解除して、再出品します。よろしいですか。";
+          mes += "この入札会商品を自動入札を行うように設定します。よろしいですか。";
           if (!confirm(mes)) { return false; }
 
           $_self.attr('disabled', 'disabled');
 
           // 送信処理
-          $.post('/admin/ajax/bid_cancel.php', {
+          $.post('/admin/ajax/auto_bid.php', {
             'target': 'member',
-            'action': 'delete',
+            'action': 'set',
             'data': data,
-          }, function(res) {
-            // 結果コールバック
+          }, function(res) { // 結果コールバック
             if (res != 'success') {
               $_self.removeAttr('disabled');
               alert(res);
               return false;
             }
 
-            alert('再出品が完了しました');
+            alert('自動入札設定を行いました。');
             location.reload();
             return false;
           }, 'text');
 
           return false;
         });
+
+
+        /// 自動入札解除処理 ///
+        $('button.auto_delete').click(function() {
+          var $_self = $(this);
+          var $_parent = $_self.closest('tr');
+
+          var data = {'id': $.trim($_self.val())}
+
+          // 送信確認
+          var mes = "出品番号 : " + $_parent.find('td.list_no').text() + "\n";
+          mes += $.trim($_parent.find('td.name').text()) + ' ';
+          mes += $_parent.find('td.maker').text() + ' ' + $_parent.find('td.model').text() + "\n\n";
+
+          mes += "この入札会商品の自動入札を解除します。よろしいですか。\n\n";
+          mes += "※ すでに行われた自動入札は削除されません。\n";
+          mes += "必要に応じて、入札履歴より手動で削除してください。";
+
+          if (!confirm(mes)) { return false; }
+
+          $_self.attr('disabled', 'disabled');
+
+          // 送信処理
+          $.post('/admin/ajax/auto_bid.php', {
+            'target': 'member',
+            'action': 'delete',
+            'data': data,
+          }, function(res) { // 結果コールバック
+            if (res != 'success') {
+              $_self.removeAttr('disabled');
+              alert(res);
+              return false;
+            }
+
+            alert('自動入札の解除を行いました。');
+            location.reload();
+            return false;
+          }, 'text');
+
+          return false;
+        });
+
       });
     </script>
     <style type="text/css">
