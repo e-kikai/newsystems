@@ -70,6 +70,13 @@ class BidMachine extends Zend_Db_Table_Abstract
     'else'    => array(3, 5),
   );
 
+  // 送料負担enum
+  protected $_shipping_enum = [
+    0   => "落札者負担",
+    100 => "出品会社負担",
+    200 => "落札者負担",
+  ];
+
   public function getFeeTable()
   {
     return $this->_feeTable;

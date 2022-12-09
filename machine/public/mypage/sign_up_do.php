@@ -16,6 +16,11 @@ try {
     $my_user_model = new MyUser();
     $my_auth       = new MyAuth();
 
+    // 国内事業者チェック
+    if ($_POST["domestic"] == false) {
+        throw new Exception("Web入札会には国内事業者のみ参加できます。\n\n申し訳ありませんが、国外の事業者は入札に参加・取引を行うことができません。\nご了承ください。");
+    }
+
     // パスワード重複チェック
     if ($data["passwd"] != $_POST['passwd_02']) throw new Exception("パスワードとパスワード(確認用)が異なっています。");
 
