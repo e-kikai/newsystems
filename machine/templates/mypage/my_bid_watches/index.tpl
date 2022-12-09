@@ -59,9 +59,14 @@
             <th class="min_price">最低入札金額</th>
             <th class="addr_1">都道府県</th>
 
-            <th class="created_at">ウォッチ日時</th>
             {if $bid_open.status == 'bid'}
+              <th class="created_at">ウォッチ日時</th>
               <th class="delete">解除</th>
+            {/if}
+            {if in_array($bid_open.status, array('carryout', 'after'))}
+              <th class="created_at_min">入札日時</th>
+              <th class="min_price border-start">落札金額</th>
+              <th class="same_count">入札<br />件数</th>
             {/if}
           </tr>
         {/if}
@@ -100,8 +105,9 @@
 
           <td class="addr_1">{$mw.addr1}</td>
 
-          <td class="created_at">{$mw.created_at|date_format:'%Y/%m/%d %H:%M'}</td>
           {if $bid_open.status == 'bid'}
+            <td class="created_at">{$mw.created_at|date_format:'%Y/%m/%d %H:%M'}</td>
+
             <td class='delete text-center'>
               {if !empty($mw.deleted_at)}
                 取消済
@@ -114,6 +120,24 @@
                     <i class="far fa-star"></i> 解除
                   </button>
                 </form>
+              {/if}
+            </td>
+          {/if}
+
+          {if in_array($bid_open.status, array('carryout', 'after'))}
+            <td class="created_at_min">{$mw.created_at|date_format:'%Y/%m/%d %H:%M'}</td>
+            <td class="min_price border-start">
+              {if !empty($bids_result[$mw.bid_machine_id])}
+                {$bids_result[$mw.bid_machine_id].amount|number_format}円
+                {if $bids_result[$mw.bid_machine_id].same_count > 1}
+                  <br />
+                  (同額:{$bids_result[$mw.bid_machine_id].same_count})
+                {/if}
+              {/if}
+            </td>
+            <td class="same_count">
+              {if !empty($bids_count[$mw.bid_machine_id])}
+                {$bids_count[$mw.bid_machine_id]|number_format}
               {/if}
             </td>
           {/if}

@@ -24,7 +24,7 @@ $bid_opens = $bid_open_model->getList();
 /// 表示変数アサイン ///
 $_smarty->assign(array(
   'pageTitle'       => "入札会一覧",
-  'pageDescription' => '現在までに開催された入札会の一覧です。ここから履歴を閲覧することもできます',
+  'pageDescription' => '現在までに開催された入札会の一覧です。ここから各種履歴を閲覧することもできます。',
   'pankuzu'         => array(
     '/mypage/' => 'マイページ'
   ),

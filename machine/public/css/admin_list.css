@@ -437,7 +437,7 @@ button.cancel:not(.btn) {
 }
 
 a.auto:not(.btn),
-button.auto:not(.btn) {
+button.cancel:not(.btn) {
   font-size: 11px;
   height: 19px;
   line-height: 17px;

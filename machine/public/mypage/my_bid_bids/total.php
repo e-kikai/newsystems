@@ -38,19 +38,20 @@ $q = array(
   'page'           => Req::query('page', 1),
   'order'          => Req::query('order'),
 );
-$bmModel = new BidMachine();
-$bidMachineList = $bmModel->getList($q);
+$bid_machine_model = new BidMachine();
+$bid_machines = $bid_machine_model->getList($q);
+$bid_machines_count = $bid_machine_model->getCount($q);
 
 /// ページャ ///
 Zend_Paginator::setDefaultScrollingStyle('Sliding');
-$pgn = Zend_Paginator::factory(intval($count));
+$pgn = Zend_Paginator::factory(intval($bid_machines_count));
 $pgn->setCurrentPageNumber($q['page'])
   ->setItemCountPerPage($q['limit'])
   ->setPageRange(15);
 
 /// 落札結果を取得 ///
 if (in_array($bid_open['status'], array('carryout', 'after'))) {
-  $ids = $my_bid_bid_model->bid_machines2ids($bidMachineList);
+  $ids = $my_bid_bid_model->bid_machines2ids($bid_machines);
   $bids_count  = $my_bid_bid_model->count_by_bid_machine_id($ids);
   $bids_result = $my_bid_bid_model->results_by_bid_machine_id($ids);
 
@@ -87,14 +88,16 @@ if ($output == 'csv') {
 
 /// 表示変数アサイン ///
 $_smarty->assign(array(
-  'pageTitle'       => "{$bid_open["title"]} 入札一覧",
-  'pageDescription' => '現在までに行った入札の一覧です。期間内であれば取消を行うことができます。',
+  'pageTitle'       => "{$bid_open["title"]} 全落札結果",
+  'pageDescription' => "{$bid_open["title"]}の全出品商品の落札結果です。",
   'pankuzu'         => array(
     '/mypage/' => 'マイページ',
     '/mypage/bid_opens/' => '入札会一覧'
   ),
 
-  'my_user'     => $my_user,
-  'bid_open'    => $bid_open,
-  'my_bid_bids' => $my_bid_bids,
-))->display('mypage/my_bid_bids/index.tpl');
+  'my_user'      => $my_user,
+  'bid_open'     => $bid_open,
+  "bid_machines" => $bid_machines,
+  'pager'        => $pgn->getPages(),
+  'cUri'         => "/mypage/my_bid_bids/total.php?o={$bid_open_id}",
+))->display('mypage/my_bid_bids/total.tpl');

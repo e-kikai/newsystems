@@ -39,6 +39,17 @@ $select = $my_bid_bid_model->my_select()
 
 $my_bid_bids = $bid_open_model->fetchAll($select);
 
+/// 落札結果を取得 ///
+if (in_array($bid_open['status'], array('carryout', 'after'))) {
+  $ids = $my_bid_bid_model->bid_machines2ids($my_bid_bids, "bid_machine_id");
+  $bids_count  = $my_bid_bid_model->count_by_bid_machine_id($ids);
+  $bids_result = $my_bid_bid_model->results_by_bid_machine_id($ids);
+
+  $_smarty->assign(array(
+    "bids_count"  => $bids_count,
+    "bids_result" => $bids_result,
+  ));
+}
 // /// CSVに出力する場合 ///
 // if ($output == 'csv') {
 //   if (!in_array($bid_open['status'], array('carryout', 'after'))) {

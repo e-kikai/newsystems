@@ -65,13 +65,25 @@
 
           {if in_array($bid_open.status, array('carryout', 'after'))}
             <td class="min_price sepa2">
-              {$bids_result[$m.id].company} {$bids_result[$m.id].name}
+              {$bids_result[$bb.bid_machine_id].company} {$bids_result[$bb.bid_machine_id].name}
             </td>
             <td class="min_price">
-              {if !empty($bids_result[$m.id].amount)}
-                {$bids_result[$m.id].amount|number_format}円
+              {if !empty($bids_result[$bb.bid_machine_id].amount)}
+                {$bids_result[$bb.bid_machine_id].amount|number_format}円
               {/if}
             </td>
+
+            <td class="min_price border-start">
+              {if !empty($bids_result[$bb.bid_machine_id].amount)}
+                {$bids_result[$bb.bid_machine_id].amount|number_format}円
+              {/if}
+              {if $bids_result[$bb.bid_machine_id].same_count > 1}
+                <br />
+                (同額:{$bids_result[$bb.bid_machine_id].same_count})
+              {/if}
+            </td>
+            <td class="same_count">{$bids_count[$bb.bid_machine_id]|number_format}</td>
+
           {/if}
         </tr>
       {/foreach}

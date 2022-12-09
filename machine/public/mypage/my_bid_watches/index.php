@@ -25,7 +25,7 @@ $bid_open_model = new BidOpen();
 $bid_open = $bid_open_model->get($bid_open_id);
 
 // // 出品期間のチェック
-// $my_bid_bid_model = new MyBidBid();
+$my_bid_bid_model = new MyBidBid();
 // $e = $my_bid_bid_model->check_date_errors($bid_open);
 
 if (!empty($e)) throw new Exception($e);
@@ -40,6 +40,18 @@ $select = $my_bid_watch_model->my_select()
 
 // ->where("bid_machine_id IN (SELECT id FROM bid_machines WHERE bid_open_id = ?)", $bid_open_id);
 $my_bid_watches = $my_bid_watch_model->fetchAll($select);
+
+/// 落札結果を取得 ///
+if (in_array($bid_open['status'], array('carryout', 'after'))) {
+  $ids = $my_bid_bid_model->bid_machines2ids($my_bid_watches, "bid_machine_id");
+  $bids_count  = $my_bid_bid_model->count_by_bid_machine_id($ids);
+  $bids_result = $my_bid_bid_model->results_by_bid_machine_id($ids);
+
+  $_smarty->assign(array(
+    "bids_count"  => $bids_count,
+    "bids_result" => $bids_result,
+  ));
+}
 
 /// 表示変数アサイン ///
 $_smarty->assign(array(
