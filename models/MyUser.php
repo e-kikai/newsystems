@@ -12,7 +12,7 @@ class MyUser extends MyTableAbstract
 {
   protected $_name = 'my_users';
 
-  const SYSTEM_MY_USER_ID = 1;
+  const SYSTEM_MY_USER_ID = 2;
 
   // フィルタ条件
   protected $_insert_filter = array('rules' => array(

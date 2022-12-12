@@ -6,6 +6,46 @@
 
   {literal}
     <script type="text/javascript">
+      $(function() {
+
+        /// 自動入札の入札取消処理 ///
+        $('button.auto_bid_delete').click(function() {
+          var $_self = $(this);
+          var $_parent = $_self.closest('tr');
+
+          var data = {'id': $.trim($_self.val())}
+
+          // 送信確認
+          var mes = "出品番号 : " + $_parent.find('td.list_no').text() + "\n";
+          mes += $.trim($_parent.find('td.name').text()) + ' ';
+          mes += $_parent.find('td.maker').text() + ' ' + $_parent.find('td.model').text() + "\n\n";
+
+          mes += "この自動入札での入札を取消します。よろしいですか。";
+
+          if (!confirm(mes)) { return false; }
+
+          $_self.attr('disabled', 'disabled');
+
+          // 送信処理
+          $.post('/admin/ajax/auto_bid_bid.php', {
+            'target': 'member',
+            'action': 'delete',
+            'data': data,
+          }, function(res) { // 結果コールバック
+            if (res != 'success') {
+              $_self.removeAttr('disabled');
+              alert(res);
+              return false;
+            }
+
+            alert('自動入札の入札を取消しました。');
+            location.reload();
+            return false;
+          }, 'text');
+
+          return false;
+        });
+      });
     </script>
     <style type="text/css">
     </style>
@@ -33,7 +73,6 @@
             <th class="company">入札ユーザ<br />アカウント</th>
             <th class="min_price">最低入札金額</th>
             <th class="min_price">入札金額</th>
-            <th class="comment">備考欄</th>
             <th class="created_at">入札日時</th>
             {if in_array($bid_open.status, array('carryout', 'after'))}
               <th class="min_price sepa2">落札金額</th>
@@ -56,11 +95,17 @@
             <a href="/bid_detail.php?m={$bb.bid_machine_id}" target="_blank">{$bb.name}</a>
           </td>
           <td class="maker">{$bb.maker}</td>
-          <td class="model">{$bb.model}</td>
-          <td class="model">{$bb.uniq_account}</td>
+          <td class="model">{$bb.model} {$bb.id}</td>
+          <td class="uniq_account">
+            {if $bb.my_user_id == MyUser::SYSTEM_MY_USER_ID}
+              <span class="fst-italic text-warning">自動入札</span><br />
+              <button class="auto_bid_delete" value="{$bb.id}">✕ 取消</button>
+            {else}
+              {$bb.uniq_account}
+            {/if}
+          </td>
           <td class="min_price">{$bb.min_price|number_format}円</td>
           <td class="min_price">{$bb.amount|number_format}円</td>
-          <td class="comment">{$bb.comment}</td>
           <td class="created_at">{$bb.created_at|date_format:'%Y/%m/%d %H:%M'}</td>
 
           {if in_array($bid_open.status, array('carryout', 'after'))}

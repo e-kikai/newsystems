@@ -453,8 +453,8 @@ a.mylist_link:active {
 
 /*** bid_detail ***/
 .large_img_area img {
-  width: 100%;
-  margin-bottom: 8px;
+  width: 96%;
+  margin: 4px auto;
 }
 
 /*** 一括問い合わせ ***/

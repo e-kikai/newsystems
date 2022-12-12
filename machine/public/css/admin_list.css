@@ -472,7 +472,13 @@ button.auto_delete:not(.btn) {
 button.cancel_delete:not(.btn) {
   font-size: 11px;
   height: 19px;
-  line-height: 17px;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+button.auto_bid_delete:not(.btn) {
+  font-size: 11px;
+  height: 19px;
   box-shadow: none;
   text-shadow: none;
 }

@@ -27,9 +27,7 @@ try {
 
         // 情報のチェック
         if (empty($bid_machine)) throw new Exception("商品情報が取得できませんでした。");
-        if ($bid_machine["company_id"] != $_user['company_id']) {
-            throw new Exception("自社の出品商品ではありません。");
-        }
+        if ($bid_machine["company_id"] != $_user['company_id']) throw new Exception("自社の出品商品ではありません。");
 
         if ($action == "set") { // 自動入札設定処理
             $bid_machine_model->set_auto($d['id']);

@@ -155,4 +155,21 @@ class MyBidBid extends MyTableAbstract
 
         return $ids;
     }
+
+    static public $_adds = [0.1, 0.3, 0.5, 1, 1.5, 2, 2.2, 3];
+
+    /**
+     * 自動入札用、金額生成処理
+     *
+     * @access public
+     * @param  int  $amount 元の入札金額
+     * @return array 加算した入札金額
+     */
+    static function auto_amount($amount)
+    {
+        $digits = pow(10, floor(log10($amount)));
+        $late   = MyBidBid::$_adds[array_rand(MyBidBid::$_adds)];
+
+        return $amount + ($digits * $late);
+    }
 }
