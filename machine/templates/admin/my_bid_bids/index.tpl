@@ -70,7 +70,7 @@
             <th class="name">機械名</th>
             <th class="maker">メーカー</th>
             <th class="model">型式</th>
-            <th class="company">入札ユーザ<br />アカウント</th>
+            <th class="uniq_account">入札ユーザ<br />アカウント</th>
             <th class="min_price">最低入札金額</th>
             <th class="min_price">入札金額</th>
             <th class="created_at">入札日時</th>
@@ -98,7 +98,7 @@
           <td class="model">{$bb.model} {$bb.id}</td>
           <td class="uniq_account">
             {if $bb.my_user_id == MyUser::SYSTEM_MY_USER_ID}
-              <span class="fst-italic text-warning">自動入札</span><br />
+              <span class="fst-italic text-danger">自動入札</span><br />
               <button class="auto_bid_delete" value="{$bb.id}">✕ 取消</button>
             {else}
               {$bb.uniq_account}

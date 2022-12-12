@@ -366,12 +366,11 @@ table.list td.sepa2 {
 /* 削除ボタン */
 table.list th.delete,
 table.list td.delete {
-  width: 42px;
+  width: 50px;
   text-align: center;
 }
 
 button.delete:not(.btn) {
-  width: 50px;
   font-size: 11px;
   height: 19px;
   line-height: 15px;
@@ -405,6 +404,10 @@ table.list .company {
   width: 80px;
 }
 
+table.list .uniq_account {
+  width: 64px;
+}
+
 table.list th.cancel,
 table.list td.cancel {
   width: 70px;
@@ -412,7 +415,7 @@ table.list td.cancel {
 
 table.list th.auto,
 table.list td.auto {
-  width: 70px;
+  width: 50px;
 }
 
 table.list td.cancel {
@@ -437,7 +440,7 @@ button.cancel:not(.btn) {
 }
 
 a.auto:not(.btn),
-button.cancel:not(.btn) {
+button.auto:not(.btn) {
   font-size: 11px;
   height: 19px;
   line-height: 17px;
@@ -462,11 +465,21 @@ button.auto:hover:not(.btn) {
 }
 
 button.auto_delete:not(.btn) {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: #fff;
+
   font-size: 11px;
   height: 19px;
-  line-height: 17px;
   box-shadow: none;
   text-shadow: none;
+}
+
+a.auto_delete:hover:not(.btn),
+button.auto_delete:hover:not(.btn) {
+  background-color: #5c636a;
+  border-color: #565e64;
+  color: #fff;
 }
 
 button.cancel_delete:not(.btn) {
@@ -477,10 +490,20 @@ button.cancel_delete:not(.btn) {
 }
 
 button.auto_bid_delete:not(.btn) {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: #fff;
+
   font-size: 11px;
   height: 19px;
   box-shadow: none;
   text-shadow: none;
+}
+
+button.auto_bid_delete:hover:not(.btn) {
+  background-color: #5c636a;
+  border-color: #565e64;
+  color: #fff;
 }
 
 table.list tr.canceled td {

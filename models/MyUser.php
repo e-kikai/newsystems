@@ -13,6 +13,7 @@ class MyUser extends MyTableAbstract
   protected $_name = 'my_users';
 
   const SYSTEM_MY_USER_ID = 2;
+  const RAND_STR = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
   // フィルタ条件
   protected $_insert_filter = array('rules' => array(
@@ -51,7 +52,8 @@ class MyUser extends MyTableAbstract
     $data = $this->insert_filtering($data);
 
     // $data = array_merge($this->_default_data, $data); // 初期値
-    $data["uniq_account"] = uniqid("", 1);
+    // $data["uniq_account"] = uniqid("", 1);
+    $data["uniq_account"] = MyUser::generate_uniq_account();
     $data["check_token"]  = sha1(uniqid(mt_rand(), true));
     $data["passwd"]       = sha1($data["passwd"]);
 
@@ -100,5 +102,16 @@ class MyUser extends MyTableAbstract
     if (empty($res)) throw new Exception('パスワードが保存できませんでした。');
 
     return $this;
+  }
+
+  /**
+   * ユニークアカウントを生成
+   *
+   * @access  public
+   * @return string  ユニークアカウント(10桁)
+   */
+  static public function generate_uniq_account()
+  {
+    return substr(str_shuffle(str_repeat(MyUser::RAND_STR, 10)), 0, 10);
   }
 }
