@@ -56,7 +56,7 @@ class MyBidBid extends MyTableAbstract
         if (empty($bid_open)) {
             $e = '入札会情報が取得出来ませんでした';
         } else if (!in_array($bid_open['status'], array('carryout', 'after'))) {
-            $e = "{$bidOpen['title']}は、まだ終了していません\n";
+            $e = "{$bid_open['title']}は、まだ終了していません\n";
             $e .= "入札期間 : " . date('Y/m/d H:i', strtotime($bid_open['bid_start_date'])) . " ～ " . date('m/d H:i', strtotime($bid_open['bid_end_date']));
         }
 

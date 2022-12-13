@@ -76,7 +76,7 @@
             <th class="created_at">入札日時</th>
             {if in_array($bid_open.status, array('carryout', 'after'))}
               <th class="min_price sepa2">落札金額</th>
-              <th class="res">結果</th>
+              <th class="same_count">入札数</th>
             {/if}
           </tr>
         {/if}
@@ -95,7 +95,7 @@
             <a href="/bid_detail.php?m={$bb.bid_machine_id}" target="_blank">{$bb.name}</a>
           </td>
           <td class="maker">{$bb.maker}</td>
-          <td class="model">{$bb.model} {$bb.id}</td>
+          <td class="model">{$bb.model}</td>
           <td class="uniq_account">
             {if $bb.my_user_id == MyUser::SYSTEM_MY_USER_ID}
               <span class="fst-italic text-danger">自動入札</span><br />
@@ -110,15 +110,6 @@
 
           {if in_array($bid_open.status, array('carryout', 'after'))}
             <td class="min_price sepa2">
-              {$bids_result[$bb.bid_machine_id].company} {$bids_result[$bb.bid_machine_id].name}
-            </td>
-            <td class="min_price">
-              {if !empty($bids_result[$bb.bid_machine_id].amount)}
-                {$bids_result[$bb.bid_machine_id].amount|number_format}円
-              {/if}
-            </td>
-
-            <td class="min_price border-start">
               {if !empty($bids_result[$bb.bid_machine_id].amount)}
                 {$bids_result[$bb.bid_machine_id].amount|number_format}円
               {/if}

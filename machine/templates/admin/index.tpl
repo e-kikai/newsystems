@@ -272,7 +272,11 @@
                 <a href="/admin/bid_list.php?o={$b.id}&output=csv&limit=999999999"><i class="fas fa-file-csv"></i> 印刷CSV</a> |
                 <a href="{$_conf.media_dir}pdf/list_pdf_{$b.id}.pdf" target="_blank"><i class="fas fa-file-pdf"></i> 印刷PDF</a>
               </li>
+              {*
               <li><a href="/admin/bid_list.php?o={$b.id}"><i class="fas fa-list-check"></i> 落札結果一覧</a></li>
+              *}
+              <li><a href="/admin/my_bid_bids/total.php?o={$b.id}"><i class="fas fa-list-check"></i> 落札結果一覧</a></li>
+
               {*
             <li><a href="{$_conf.media_dir}pdf/list_pdf_{$b.id}.pdf" target="_blank"><div class="label pdf">印刷用PDF</div>商品リスト</a></li>
             *}

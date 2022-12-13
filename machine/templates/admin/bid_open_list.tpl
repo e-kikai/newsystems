@@ -17,8 +17,10 @@
       <tr>
         <th class='id'>ID</th>
         <th class="title">タイトル</th>
-        <th class="condition">結果</th>
+        <th class="">結果</th>
+        {*
         <th class="organizer">主催者名</th>
+        *}
         <th class="entry_start_date">登録開始日時</th>
         <th class="bid_date">入札期間</th>
         <th class="condition">状況</th>
@@ -29,24 +31,34 @@
       <tr>
         <td class='id'>{$b.id}</td>
         <td class='title'>
+          {*
           {if in_array($b.status, array('carryout', 'after'))}
             <a href="/admin/bid_list.php?o={$b.id}">{$b.title}</a>
           {else}
             {$b.title}
           {/if}
+          *}
+
+          {$b.title}
         </td>
-        <td class="condition">
+        <td class="">
           {if in_array($b.status, array('carryout', 'after'))}
             {if Companies::checkRank($rank, 'B会員')}
               <a href="/admin/bid_machine_list.php?o={$b.id}">出品</a> |
             {/if}
 
             {if $b.user_bid_date < $smarty.const.BID_USER_START_DATE}
-              <a href="/admin/bid_bid_list.php?o={$b.id}">入札</a>
+              <a href="/admin/bid_bid_list.php?o={$b.id}">入札</a> |
+              <a href="/admin/bid_list.php?o={$b.id}">結果一覧</a>
+            {else}
+              <a href="/admin/my_bid_bids/?o={$b.id}">ユーザ入札</a> |
+              <a href="/admin/my_bid_bids/total.php?o={$b.id}">結果一覧</a>
             {/if}
           {/if}
         </td>
+        {*
         <td class='organizer'>{$b.organizer}</td>
+        *}
         <td class='entry_start_date'>{$b.entry_start_date|date_format:'%Y/%m/%d %H:%M'}</td>
         <td class='bid_date'>
           {$b.bid_start_date|date_format:'%Y/%m/%d %H:%M'} ～
