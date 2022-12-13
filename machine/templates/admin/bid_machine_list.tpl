@@ -343,7 +343,14 @@
               <td class="min_price sepa">{if !empty($m.payment)}{$m.payment|number_format}円{/if}</td>
             {else}
               <td class="min_price sepa2">
-                {$bids_result[$m.id].company} {$bids_result[$m.id].name}
+                {if !empty($bids_result[$m.id])}
+                  {if $bids_result[$m.id]["my_user_id"] == MyUser::SYSTEM_MY_USER_ID}
+                    <span class="fst-italic text-danger">自動入札</span>
+                  {else}
+                    {$bids_result[$m.id]["my_user_id"]}
+                    {$bids_result[$m.id].company} {$bids_result[$m.id].name}
+                  {/if}
+                {/if}
               </td>
               <td class="min_price">
                 {if !empty($bids_result[$m.id].amount)}

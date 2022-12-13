@@ -98,8 +98,10 @@
           <td class="model">{$bb.model}</td>
           <td class="uniq_account">
             {if $bb.my_user_id == MyUser::SYSTEM_MY_USER_ID}
-              <span class="fst-italic text-danger">自動入札</span><br />
-              <button class="auto_bid_delete" value="{$bb.id}">✕ 取消</button>
+              <span class="fst-italic text-danger">自動入札</span>
+              {if !in_array($bid_open.status, array('carryout', 'after'))}
+                <br /><button class="auto_bid_delete" value="{$bb.id}">✕ 取消</button>
+              {/if}
             {else}
               {$bb.uniq_account}
             {/if}

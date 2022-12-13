@@ -32,72 +32,76 @@ if (!empty($e)) throw new Exception($e);
 
 /// 出品商品情報一覧を取得 ///
 $q = array(
-  'bid_open_id'    => $bid_open_id,
+    'bid_open_id'    => $bid_open_id,
 
-  'limit'          => Req::query('limit', 50),
-  'page'           => Req::query('page', 1),
-  'order'          => Req::query('order'),
+    'limit'          => Req::query('limit', 50),
+    'page'           => Req::query('page', 1),
+    'order'          => Req::query('order'),
 );
 $bid_machine_model = new BidMachine();
 $bid_machines = $bid_machine_model->getList($q);
 $bid_machines_count = $bid_machine_model->getCount($q);
 
-/// ページャ ///
-Zend_Paginator::setDefaultScrollingStyle('Sliding');
-$pgn = Zend_Paginator::factory(intval($bid_machines_count));
-$pgn->setCurrentPageNumber($q['page'])
-  ->setItemCountPerPage($q['limit'])
-  ->setPageRange(15);
-
 /// 落札結果を取得 ///
-if (in_array($bid_open['status'], array('carryout', 'after'))) {
-  $ids = $my_bid_bid_model->bid_machines2ids($bid_machines);
-  $bids_count  = $my_bid_bid_model->count_by_bid_machine_id($ids);
-  $bids_result = $my_bid_bid_model->results_by_bid_machine_id($ids);
-
-  $_smarty->assign(array(
-    "bids_count"  => $bids_count,
-    "bids_result" => $bids_result,
-  ));
-}
+$ids = $my_bid_bid_model->bid_machines2ids($bid_machines);
+$bids_count  = $my_bid_bid_model->count_by_bid_machine_id($ids);
+$bids_result = $my_bid_bid_model->results_by_bid_machine_id($ids);
 
 /// CSVに出力する場合 ///
 if ($output == 'csv') {
-  if (!in_array($bid_open['status'], array('carryout', 'after'))) {
-    throw new Exception("{$bid_open['title']}は現在、落札商品個別計算表の出力は行えません");
-  }
+    $data = [];
+    foreach ($bid_machines as $bm) {
+        if (!empty($bids_count[$bm["id"]])) {
+            $bm["bid_count"] = $bids_count[$bm["id"]];
+        }
+        if (!empty($bids_result[$bm["id"]])) {
+            $bm["res_amount"] = $bids_result[$bm["id"]]["amount"];
+            $bm["same_count"] = $bids_result[$bm["id"]]["same_count"];
+        }
 
-  $filename = "{$bid_open_id}_bid_bid_list.csv";
-  $header   = array(
-    'id'         => '商品ID',
-    'list_no'    => '出品番号',
-    'name'       => '商品名',
-    'maker'      => 'メーカー',
-    'model'      => '型式',
-    'year'       => '年式',
-    'company'    => '出品会社',
-    'min_price'  => '最低入札金額',
-    'amount'     => '入札金額',
-    'comment'    => '備考欄',
-    'res_amount' => '落札金額',
-    'csv_res'    => '落札結果',
-  );
-  B::downloadCsvFile($header, $bidBidList, $filename);
-  exit;
+        $data[] = $bm;
+    }
+
+    $filename = "{$bid_open_id}_bid_bid_list.csv";
+    $header   = array(
+        'list_no'    => '出品番号',
+        'name'       => '商品名',
+        'maker'      => 'メーカー',
+        'model'      => '型式',
+        'year'       => '年式',
+        'company'    => '出品会社',
+        'min_price'  => '最低入札金額',
+        'bid_count'  => '入札数',
+        'res_amount' => '落札金額',
+        'same_count' => '同額札',
+    );
+    B::downloadCsvFile($header, $data, $filename);
+} else {
+    /// ページャ ///
+    Zend_Paginator::setDefaultScrollingStyle('Sliding');
+    $pgn = Zend_Paginator::factory(intval($bid_machines_count));
+    $pgn->setCurrentPageNumber($q['page'])
+        ->setItemCountPerPage($q['limit'])
+        ->setPageRange(15);
+
+    /// 表示変数アサイン ///
+    $_smarty->assign(array(
+        'pageTitle'       => "{$bid_open["title"]} 全落札結果",
+        'pageDescription' => "{$bid_open["title"]}の全出品商品の落札結果です。",
+        'pankuzu'         => array(
+            '/mypage/' => 'マイページ',
+            '/mypage/bid_opens/' => '入札会一覧'
+        ),
+
+        'my_user'      => $my_user,
+        'bid_open'     => $bid_open,
+        "bid_machines" => $bid_machines,
+
+        "bids_count"  => $bids_count,
+        "bids_result" => $bids_result,
+
+        'pager'        => $pgn->getPages(),
+        'cUri'         => "/mypage/my_bid_bids/total.php?o={$bid_open_id}",
+    ))->display('mypage/my_bid_bids/total.tpl');
 }
-
-/// 表示変数アサイン ///
-$_smarty->assign(array(
-  'pageTitle'       => "{$bid_open["title"]} 全落札結果",
-  'pageDescription' => "{$bid_open["title"]}の全出品商品の落札結果です。",
-  'pankuzu'         => array(
-    '/mypage/' => 'マイページ',
-    '/mypage/bid_opens/' => '入札会一覧'
-  ),
-
-  'my_user'      => $my_user,
-  'bid_open'     => $bid_open,
-  "bid_machines" => $bid_machines,
-  'pager'        => $pgn->getPages(),
-  'cUri'         => "/mypage/my_bid_bids/total.php?o={$bid_open_id}",
-))->display('mypage/my_bid_bids/total.tpl');
+exit;

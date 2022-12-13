@@ -64,6 +64,11 @@
                   <a href="/mypage/my_bid_bids/total.php?o={$b.id}" class="list-group-item list-group-item-action">
                     <i class="fas fa-list-check"></i> 全体の落札結果一覧
                   </a>
+
+                  <a href="/mypage/my_bid_bids/total.php?o={$b.id}&output=csv&limit=999999999"
+                    class="list-group-item list-group-item-action">
+                    <i class="fas fa-file-csv"></i> 全体の落札結果一覧 - 印刷CSV
+                  </a>
                 {/if}
               </ul>
             {/if}
