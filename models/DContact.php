@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 大宝機械サイトお問い合せ送信モデルクラス
  *
@@ -16,17 +17,17 @@ class DContact extends Zend_Db_Table_Abstract
 
     function __construct()
     {
-        //// メールサーバ設定 ////
+        /// メールサーバ設定 ///
         // $conf = new Zend_Config_Ini(APP_PATH . '/config/mailsend.ini');
         // $this->_mailConf = $conf->conf->toArray();
         $conf = new Zend_Config_Ini(APP_PATH . '/config/mailsend.ini');
         $this->_mailConf = $conf->conf->toArray();
         // $this->_testFlag = $conf->test;
 
-        //// メール送信クラス ////
+        /// メール送信クラス ///
         // $this->_mailsend = new Mailsend();
 
-        //// メール送信処理 ////
+        /// メール送信処理 ///
         $tr = new Zend_Mail_Transport_Smtp($this->_mailConf['server']['name'], $this->_mailConf['server']);
         Zend_Mail::setDefaultTransport($tr);
 
@@ -79,7 +80,9 @@ class DContact extends Zend_Db_Table_Abstract
     public function sendMachine($companyId, $data)
     {
         // メールブラックリスト
-        if ($data['mail'] == '07.05.15.oga@gmail.com') { return $this; }
+        if ($data['mail'] == '07.05.15.oga@gmail.com') {
+            return $this;
+        }
 
         /// 会社情報を取得 ///
         $companyTable = new Companies();
@@ -90,7 +93,7 @@ class DContact extends Zend_Db_Table_Abstract
         $site_url = "http://www.daihou.co.jp";
         $siteName = "{$company['company']} ウェブサイト";
 
-        //// お問い合せ内容の整理 ////
+        /// お問い合せ内容の整理 ///
         $d = array(
             'user_name'     => $data['name'],
             'user_company'  => $data['company'],
@@ -118,7 +121,7 @@ class DContact extends Zend_Db_Table_Abstract
                 throw new Exception('お問い合わせ先の機械情報を取得できませんでした');
             }
 
-            foreach($machineList as $m) {
+            foreach ($machineList as $m) {
                 // 送信内容
                 $body = <<< EOS
 {$siteName}のお問い合せフォームから、
@@ -147,23 +150,23 @@ FAX : {$data['fax']}
 EOS;
                 $subject = "{$siteName}: 中古機械についてのお問い合せ通知";
 
-                //// メール送信・お問い合わせ内容の保存 ////
+                /// メール送信・お問い合わせ内容の保存 ///
                 // $this->_mailsend->sendMail($company['contact_mail'], $data['mail'], $body, $subject);
                 $mail = new Zend_Mail('ISO-2022-JP');
                 $mail->setFrom(
                     $this->_mailConf['from_mail'],
                     mb_encode_mimeheader($this->_utf2iso($siteName), 'iso-2022-jp')
-                    )
-                //   ->addTo(array($data['mail']))
-                  ->addTo(array($company['contact_mail']))
-                  ->setSubject($this->_utf2iso($subject))
-                  ->setReplyTo($data['mail'])
-                  ->setBodyText($this->_utf2iso($body))
-                  ->send();
+                )
+                    //   ->addTo(array($data['mail']))
+                    ->addTo(array($company['contact_mail']))
+                    ->setSubject($this->_utf2iso($subject))
+                    ->setReplyTo($data['mail'])
+                    ->setBodyText($this->_utf2iso($body))
+                    ->send();
 
                 $this->set($d + array('machine_id' => $m['id'], 'company_id' => $companyId));
 
-                $targets.= "{$m['no']} {$m['name']} {$m['maker']} {$m['model']}\n";
+                $targets .= "{$m['no']} {$m['name']} {$m['maker']} {$m['model']}\n";
             }
         } else {
             // 対象が会社
@@ -175,7 +178,7 @@ EOS;
                 throw new Exception('お問い合わせ先の会社情報を取得できませんでした');
             }
 
-            foreach($companyList as $c) {
+            foreach ($companyList as $c) {
                 // 送信内容
                 $body = <<< EOS
 {$siteName}のお問い合せフォームから、
@@ -199,14 +202,14 @@ FAX : {$data['fax']}
 EOS;
                 $subject = "{$siteName}:お問い合せ通知";
 
-                //// メール送信・お問い合わせ内容の保存 ////
+                /// メール送信・お問い合わせ内容の保存 ///
                 // $this->_mailsend->sendMail($company['contact_mail'], $data['mail'], $body, $subject);
                 // $this->_mailsend->sendMail($data['mail'], $data['mail'], $body, $subject);
                 $mail = new Zend_Mail('ISO-2022-JP');
                 $mail->setFrom(
                     $this->_mailConf['from_mail'],
                     mb_encode_mimeheader($this->_utf2iso($siteName), 'iso-2022-jp')
-                    )
+                )
                     //   ->addTo(array($data['mail']))
                     ->addTo(array($company['contact_mail']))
                     ->setSubject($this->_utf2iso($subject))
@@ -216,7 +219,7 @@ EOS;
 
                 $this->set($d + array('machine_id' => NULL, 'company_id' => $companyId));
 
-                $targets.= "{$c['company']}\n";
+                $targets .= "{$c['company']}\n";
 
                 // トラッキングログ(Web入札会用)
                 // if (preg_match('/\/bid_detail.php\?m\=([0-9]+)/', $data['message'], $matches)) {
@@ -234,7 +237,7 @@ EOS;
             }
         }
 
-        //// お問い合わせ確認メール ////
+        /// お問い合わせ確認メール ///
         // 送信内容
         $body = <<< EOS
 ※ このメールは、自動返信メールです。
@@ -272,12 +275,12 @@ EOS;
         $mail->setFrom(
             $this->_mailConf['from_mail'],
             mb_encode_mimeheader($this->_utf2iso($siteName), 'iso-2022-jp')
-    )
-          ->addTo(array($data['mail']))
-          ->setSubject($this->_utf2iso($subject))
-          ->setReplyTo($data['mail'])
-          ->setBodyText($this->_utf2iso($body))
-          ->send();
+        )
+            ->addTo(array($data['mail']))
+            ->setSubject($this->_utf2iso($subject))
+            ->setReplyTo($data['mail'])
+            ->setBodyText($this->_utf2iso($body))
+            ->send();
 
         return $this;
     }
@@ -295,10 +298,12 @@ EOS;
         $data = MyFilter::filtering($data, $this->_filters);
 
         // メールブラックリスト
-        if ($data['mail'] == '07.05.15.oga@gmail.com') { return $this; }
+        if ($data['mail'] == '07.05.15.oga@gmail.com') {
+            return $this;
+        }
 
         /// サイトフラグ ///
-        $data["message"] = "<自社ウェブサイトからの問い合わせ>\n\n" . $data["message"] ;
+        $data["message"] = "<自社ウェブサイトからの問い合わせ>\n\n" . $data["message"];
 
         /// お問い合わせ内容の保存 ///
         if (!$result = $this->insert($data)) {

@@ -1,0 +1,138 @@
+@charset "utf-8";
+
+.img_area img {
+  display: block;
+  margin: 0 auto 8px auto;
+  max-width: 480px;
+}
+
+.message_area {
+  width: 480px;
+  margin: 0;
+  float: left;
+}
+
+.message_area strong {
+  font-weight: bold;
+  font-size: 16px;
+  margin: 18px 0;
+}
+
+.message_area p {
+  margin: 12px 0;
+  font-size: 14px;
+}
+
+.contents_area {
+  width: 474px;
+  float: right;
+}
+
+.contents_area table.contents {
+  border-collapse: separate;
+  border-spacing: 0 3px;
+}
+
+.contents_area table.contents th {
+  border: 1px outset #aaa;
+  padding: 6px;
+  text-align: left;
+  line-height: 1.6;
+  background: #ddd;
+  width: 100px;
+  vertical-align: middle;
+}
+
+.contents_area table.contents td {
+  border: 1px outset #aaa;
+  padding: 6px;
+  text-align: left;
+  line-height: 1.6;
+
+  text-align: left;
+  background: #eee;
+  width: 360px;
+}
+
+.contents_area table.contents span.tel,
+.contents_area table.contents span.fax {
+  color: #c00;
+  font-size: 16px;
+  vertical-align: middle;
+}
+
+.contents_area table.contents .access_car td a {
+  padding-left: 18px;
+  background: url("imgs/icon_car.png") no-repeat 0 0;
+}
+
+.contents_area table.contents .access_train td a {
+  padding-left: 18px;
+  background: url("imgs/icon_train.png") no-repeat 0 0;
+}
+
+/*** Google Map ***/
+#gmap,
+#gmap2 {
+  width: 474px;
+  height: 474px;
+  border: 1px solid #aaa;
+  margin: 16px auto;
+}
+
+div.lat,
+div.lng {
+  display: none;
+}
+
+/*************/
+button.mylist {
+  position: absolute;
+  top: -27px;
+  right: 8px;
+  width: 224px;
+  background: white;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#eaeaea),
+    to(#c5c5c5)
+  );
+  background: -moz-linear-gradient(-90deg, #eaeaea, #c5c5c5);
+  background: -o-linear-gradient(-90deg, #eaeaea, #c5c5c5);
+  background: linear-gradient(to bottom, #eaeaea, #c5c5c5);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#EAEAEA', endColorstr='#C5C5C5');
+  color: #ea570f;
+  border: 1px solid #c5c5c5;
+  margin-left: 6px;
+}
+
+a.contact {
+  width: 240px;
+}
+
+a.e-kikai_sticker {
+  border: 3px double #009c0c;
+  background: #e9fee7;
+  margin: 8px 0;
+  text-decoration: none;
+  width: 394px;
+  display: block;
+}
+
+a.e-kikai_sticker img.sticker_img {
+  display: inline-block;
+  vertical-align: top;
+}
+
+a.e-kikai_sticker .sticker_name {
+  font-size: 21px;
+  color: #005f07;
+  display: inline-block;
+  line-height: 61px;
+  font-weight: bold;
+  vertical-align: top;
+  width: 216px;
+  text-align: center;
+}

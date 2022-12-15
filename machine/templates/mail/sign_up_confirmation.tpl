@@ -13,3 +13,8 @@ Web入札会へのご参加、よろしくお願いいたします。
 
 マシンライフ｜全機連の中古機械情報サイト
 {$_conf.site_uri}
+
+※ この自動通知メールは、マシンライフより自動的に送信されています。
+※ このメールに返信しないようお願いいたします。
+
+Copyright &copy; {$smarty.now|date_format:"%Y"} {$_conf.copyright} All Rights Reserved.

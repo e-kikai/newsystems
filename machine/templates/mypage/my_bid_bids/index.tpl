@@ -136,8 +136,7 @@
             <td class="result">
               {if $bids_result[$bb.bid_machine_id].my_user_id == $_my_user["id"]}
                 <span class="bid_true">落札</span>
-                <a href="contact.php?c={$bb.company_id}&b=1&o={$bid_open_id}&bm={$bb.bid_machine_id}"
-                  class="btn-xs btn btn-success btn-trade" value="{$bb.bid_machine_id}">
+                <a href="mypage/my_bid_trades/show.php?m={$bb.bid_machine_id}" class="btn-xs btn btn-success btn-trade">
                   <i class="fas fa-comments-dollar"></i> 取引
                 </a>
               {else}

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * お問い合せモデルクラス
  *
@@ -14,12 +15,12 @@ class Mailsend
 
     function __construct()
     {
-        //// メールサーバ設定 ////
+        /// メールサーバ設定 ///
         $conf = new Zend_Config_Ini(APP_PATH . '/config/mailsend.ini');
         $this->_mailConf = $conf->conf->toArray();
         $this->_testFlag = $conf->test;
 
-        //// メール送信処理 ////
+        /// メール送信処理 ///
         $tr = new Zend_Mail_Transport_Smtp($this->_mailConf['server']['name'], $this->_mailConf['server']);
         Zend_Mail::setDefaultTransport($tr);
     }
@@ -46,7 +47,7 @@ class Mailsend
      * @param string $subject タイトル
      * @return $this
      */
-    public function sendMail($to, $from, $body, $subject, $file=null, $type='text')
+    public function sendMail($to, $from, $body, $subject, $file = null, $type = 'text')
     {
         // テスト用
         if ($this->_testFlag) {
@@ -55,15 +56,17 @@ class Mailsend
         }
 
         // メールブラックリスト
-        if ($from == '07.05.15.oga@gmail.com') { return $this; }
+        if ($from == '07.05.15.oga@gmail.com') {
+            return $this;
+        }
 
         $mail = new Zend_Mail('ISO-2022-JP');
         $mail->setFrom(
             $this->_mailConf['from_mail'],
             mb_encode_mimeheader($this->_utf2iso($this->_mailConf['from']), 'iso-2022-jp')
-            )
-          ->addTo(array($to))
-          ->setSubject($this->_utf2iso($subject));
+        )
+            ->addTo(array($to))
+            ->setSubject($this->_utf2iso($subject));
 
         // HTMLメールかどうか
         if ($type == 'html') {
