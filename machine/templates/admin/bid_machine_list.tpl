@@ -347,8 +347,10 @@
                   {if $bids_result[$m.id]["my_user_id"] == MyUser::SYSTEM_MY_USER_ID}
                     <span class="fst-italic text-danger">自動入札</span>
                   {else}
-                    {$bids_result[$m.id]["my_user_id"]}
                     {$bids_result[$m.id].company} {$bids_result[$m.id].name}
+                    <a href="admin/my_bid_trades/show.php?m={$m.id}" class="btn-xs btn btn-success btn-trade">
+                      <i class="fas fa-comments-dollar"></i> 取引
+                    </a>
                   {/if}
                 {/if}
               </td>

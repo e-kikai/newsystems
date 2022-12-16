@@ -34,4 +34,4 @@
 ※ この自動通知メールは、マシンライフより自動的に送信されています。
 ※ このメールに返信しないようお願いいたします。
 
-Copyright &copy; {$smarty.now|date_format:"%Y"} {$_conf.copyright} All Rights Reserved.
+Copyright © {$smarty.now|date_format:"%Y"} {$_conf.copyright} All Rights Reserved.

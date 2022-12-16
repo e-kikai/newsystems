@@ -15,7 +15,7 @@
             return false;
           }
           var mes = "この取引内容を投稿します。よろしいですか。\n\n";
-          mes += "※ 取引の内容は、出品会社にメールで通知されます。";
+          mes += "※ 取引の内容は、落札者にメールで通知されます。";
 
           if (!confirm(mes)) { return false; }
 
@@ -65,40 +65,34 @@
             </div>
           </div>
 
+          {*
           <p class="text-danger">
             ＜※ 注意事項＞<br />
             落札金額には、<br />
             送料・梱包費・諸経費などが含まれていない場合があります。<br />
             ご入金の前に必ず「取引」で金額の確認を行ってください。
           </p>
-
+          *}
         </div>
 
         <div class="bid_machine">
-          <h2><i class="fas fa-building"></i> 出品会社情報</h2>
+          <h2><i class="fas fa-circle-user"></i> 落札者情報</h2>
           <dl class="row">
+            <dt class="col-4">氏名</dt>
+            <dd class="col-8"> {$my_user.name}</dd>
             <dt class="col-4">会社名</dt>
-            <dd class="col-8">
-              <a href="company_detail.php?c={$company.id}">
-                {$company.company}
-              </a>
-            </dd>
+            <dd class="col-8"> {$my_user.company}</dd>
             <dt class="col-4">住所</dt>
-            <dd class="col-8">〒 {$company.zip}<br />{$company.addr1} {$company.addr2} {$company.addr3}</dd>
-            <dt class="col-4">問い合わせTEL</dt>
-            <dd class="col-8">{$company.contact_tel}</dd>
-            <dt class="col-4">問い合わせFAX</dt>
-            <dd class="col-8">{$company.contact_fax}</dd>
-            <dt class="col-4">担当者</dt>
-            <dd class="col-8">{$company.officer}</dd>
-            <dt class="col-4">営業時間</dt>
-            <dd class="col-8">{$company.infos.opening}</dd>
-            <dt class="col-4">定休日</dt>
-            <dd class="col-8">{$company.infos.holiday}</dd>
+            <dd class="col-8">〒 {$my_user.zip}<br />{$my_user.addr_1} {$my_user.addr_2} {$my_user.addr_3}</dd>
+            <dt class="col-4">TEL</dt>
+            <dd class="col-8">{$my_user.tel}</dd>
+            <dt class="col-4">FAX</dt>
+            <dd class="col-8">{$my_user.fax}</dd>
           </dl>
         </div>
       </div>
       <div class="col-7">
+        {*
         <div class="text-danger fw-bold">
           <i class="fas fa-triangle-exclamation"></i> 取引に関する注意事項
           - <span class="text-decoration-underline">必ずお読みください。</span>
@@ -109,8 +103,9 @@
           ・ 入金確認後に商品の発送します。
           商品到着後、<a href="mypage/my_bid_trade/fin.php?m={$bid_machine.id}">受取確認・評価</a>を行ってください。
         </div>
+        *}
 
-        <form id="trade" method="post" action="mypage/my_bid_trades/create_do.php">
+        <form id="trade" method="post" action="admin/my_bid_trades/create_do.php">
           <input type="hidden" name="bid_machine_id" value="{$bid_machine.id}" />
 
           <div class="form-floating">
@@ -131,16 +126,16 @@
         {else}
           <div class="row">
             {foreach $my_bid_trades as $bt}
-              {if $bt.answer_flag == true}
+              {if $bt.answer_flag == false}
                 <div class="col-10">
-                  <div>{'/(株式|有限|合.)会社/'|preg_replace:'':$company.company} | {$bt.created_at|date_format:'%Y/%m/%d %H:%M'}</div>
+                  <div>{$bt.created_at|date_format:'%Y/%m/%d %H:%M'}</div>
                   <div class="alert alert-secondary">
                     {$bt.comment|escape|nl2br nofilter}
                   </div>
                 </div>
               {else}
                 <div class="col-10 offset-2">
-                  <div>{$bt.created_at|date_format:'%Y/%m/%d %H:%M'}</div>
+                  <div>{$my_user.company} {$my_user.name} | {$bt.created_at|date_format:'%Y/%m/%d %H:%M'}</div>
                   <div class="alert alert-success">
                     {$bt.comment|escape|nl2br nofilter}
                   </div>
@@ -152,16 +147,4 @@
       </div>
     </div>
   </div>
-
-  <hr />
-
-  <div class="d-grid gap-2 col-6 mx-auto my-3">
-    <a href="/mypage/my_bid_bids/?o={$bid_machine.bid_open_id}" class="btn btn-outline-secondary">
-      <i class="fas fa-pen-to-square"></i> 入札一覧(落札一覧)に戻る
-    </a>
-    <a href="/mypage/" class="btn btn-outline-secondary">
-      <i class="fas fa-house"></i> マイページ トップに戻る
-    </a>
-  </div>
-
 {/block}

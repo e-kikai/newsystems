@@ -443,11 +443,19 @@ a.auto:not(.btn),
 button.auto:not(.btn) {
   font-size: 11px;
   height: 19px;
-  line-height: 17px;
   text-align: center;
   background: #f0ad4e;
   border: #eea236;
   color: #333;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+a.btn-trade,
+button.btn-trade {
+  font-size: 11px;
+  padding: 2px 6px;
+  text-align: center;
   box-shadow: none;
   text-shadow: none;
 }

@@ -34,6 +34,7 @@ class MyBidTrade extends MyTableAbstract
         '商品ID'   => array('fields' => 'bid_machine_id', 'Digits', 'NotEmpty'),
         'ユーザID' => array('fields' => 'my_user_id', 'Digits', 'NotEmpty'),
         '内容'     => array('fields' => 'comment', 'NotEmpty'),
+        '回答'     => array('fields' => 'answer_flag'),
     ));
 
     /**
