@@ -117,6 +117,7 @@ class MyBidBid extends MyTableAbstract
             LEFT JOIN my_users u ON u.id = bb.my_user_id
             WHERE bb.deleted_at IS NULL
             AND u.deleted_at IS NULL
+            AND u.freezed_at IS NOT NULL
             ORDER BY bb.bid_machine_id, amount DESC, sameno DESC, bb.created_at ASC
         ) bb1 ON bb1.bid_machine_id = bm.id
         LEFT JOIN (

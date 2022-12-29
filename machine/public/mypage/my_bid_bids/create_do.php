@@ -22,8 +22,10 @@ try {
     /// ユーザ情報 ///
     $my_user_model = new MyUser();
     $my_user       = $my_user_model->get($_my_user['id']);
+    if (empty($my_user)) throw new Exception("ユーザ情報が取得できませんでした。");
 
-    // TODO: ブラックリスト、凍結チェック
+    // 凍結チェック
+    if (!empty($my_user["freezed_at"])) throw new Exception("現在、入札を行えません。");
 
     /// 入札商品情報を取得 ///
     $bid_machines_model = new BidMachine();
