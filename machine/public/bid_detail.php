@@ -18,6 +18,8 @@ try {
     if (empty($machineId)) {
         throw new Exception('入札会商品情報が取得出来ません');
     }
+    $r = Req::query('r');
+    $r = !empty($r) ? $r : "";
 
     /// 入札商品情報を取得 ///
     $bmModel = new BidMachine();
@@ -145,6 +147,20 @@ try {
     // // ML結果
     // $tbuTable = new TrackingBidResult();
     // $recommends = $tbuTable->getRecommends($bidOpen["id"], 'machine', $machineId);
+
+    // ロギング
+    if (BidDetailLog::set_utag()) {
+        $bid_detail_log_model = new BidDetailLog();
+        $bid_detail_log_model->set([
+            "bid_machine_id" => $machineId,
+            "my_user_id"     => $_my_user['id'],
+            "utag"           => $_SESSION["utag"],
+            "ip"             => $_SESSION["ip"],
+            "host"           => $_SESSION["host"],
+            "r"              => $r,
+            "referer"        => $_SERVER['HTTP_REFERER'],
+        ]);
+    }
 
     /// 新 : 落札結果を取得 ///
     if (in_array($bidOpen['status'], array('carryout', 'after'))) {

@@ -274,7 +274,7 @@
           {* ユーザ入札対応 *}
           {if $bidOpen.user_bid_date > $smarty.const.BID_USER_START_DATE}
             {if in_array($bidOpen.status, array('bid', 'carryout', 'after'))}
-              <td class="num">{$details_count[$m.id]}</td>
+              <td class="num">{$bid_details_count[$m.id]}</td>
               <td class="num">{$watches_count[$m.id]}</td>
               <td class="num">{$bids_count[$m.id]}</td>
             {/if}

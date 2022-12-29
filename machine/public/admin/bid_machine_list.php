@@ -69,6 +69,10 @@ try {
     $my_bid_watch_model = new MyBidWatch();
     $watches_count = $my_bid_watch_model->count_by_bid_machine_id($ids);
 
+    // 新 : 詳細アクセス件数取得
+    $bid_detail_log_model = new BidDetailLog();
+    $bid_details_count    = $bid_detail_log_model->count_by_bid_machine_id($ids);
+
     /// 落札結果を取得 ///
     if (in_array($bidOpen['status'], array('carryout', 'after'))) {
 
@@ -198,6 +202,7 @@ try {
 
         "watches_count"  => $watches_count,
         "bids_count"     => $bids_count,
+        "bid_details_count" => $bid_details_count,
     ))->display("admin/bid_machine_list.tpl");
 } catch (Exception $e) {
     /// エラー画面表示 ///
