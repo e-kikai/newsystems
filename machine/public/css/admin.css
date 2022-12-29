@@ -57,3 +57,17 @@ a.back_link {
   display: inline-block;
   margin: 8px;
 }
+
+.menu_area {
+  width: 500px;
+  margin: 16px auto;
+}
+
+.menu_area li {
+  display: block;
+  list-style: none;
+  font-size: 15px;
+  height: 24px;
+  line-height: 24px;
+  padding: 0 16px;
+}

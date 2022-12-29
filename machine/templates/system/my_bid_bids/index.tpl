@@ -6,46 +6,45 @@
 
   {literal}
     <script type="text/javascript">
-      $(function() {
+      // $(function() {
+      //   /// 自動入札の入札取消処理 ///
+      //   $('button.auto_bid_delete').click(function() {
+      //     var $_self = $(this);
+      //     var $_parent = $_self.closest('tr');
 
-        /// 自動入札の入札取消処理 ///
-        $('button.auto_bid_delete').click(function() {
-          var $_self = $(this);
-          var $_parent = $_self.closest('tr');
+      //     var data = {'id': $.trim($_self.val())}
 
-          var data = {'id': $.trim($_self.val())}
+      //     // 送信確認
+      //     var mes = "出品番号 : " + $_parent.find('td.list_no').text() + "\n";
+      //     mes += $.trim($_parent.find('td.name').text()) + ' ';
+      //     mes += $_parent.find('td.maker').text() + ' ' + $_parent.find('td.model').text() + "\n\n";
 
-          // 送信確認
-          var mes = "出品番号 : " + $_parent.find('td.list_no').text() + "\n";
-          mes += $.trim($_parent.find('td.name').text()) + ' ';
-          mes += $_parent.find('td.maker').text() + ' ' + $_parent.find('td.model').text() + "\n\n";
+      //     mes += "この自動入札での入札を取消します。よろしいですか。";
 
-          mes += "この自動入札での入札を取消します。よろしいですか。";
+      //     if (!confirm(mes)) { return false; }
 
-          if (!confirm(mes)) { return false; }
+      //     $_self.attr('disabled', 'disabled');
 
-          $_self.attr('disabled', 'disabled');
+      //     // 送信処理
+      //     $.post('/admin/ajax/auto_bid_bid.php', {
+      //       'target': 'member',
+      //       'action': 'delete',
+      //       'data': data,
+      //     }, function(res) { // 結果コールバック
+      //       if (res != 'success') {
+      //         $_self.removeAttr('disabled');
+      //         alert(res);
+      //         return false;
+      //       }
 
-          // 送信処理
-          $.post('/admin/ajax/auto_bid_bid.php', {
-            'target': 'member',
-            'action': 'delete',
-            'data': data,
-          }, function(res) { // 結果コールバック
-            if (res != 'success') {
-              $_self.removeAttr('disabled');
-              alert(res);
-              return false;
-            }
+      //       alert('自動入札の入札を取消しました。');
+      //       location.reload();
+      //       return false;
+      //     }, 'text');
 
-            alert('自動入札の入札を取消しました。');
-            location.reload();
-            return false;
-          }, 'text');
-
-          return false;
-        });
-      });
+      //     return false;
+      //   });
+      // });
     </script>
     <style type="text/css">
     </style>
@@ -56,7 +55,7 @@
 
   {if empty(count($my_bid_bids))}
     <div class="alert alert-warning col-8 mx-auto">
-      <i class="fas fa-pen-to-square"></i> 自社出品への入札は、まだありません。
+      <i class="fas fa-pen-to-square"></i> 入札は、まだありません。
     </div>
   {/if}
 
@@ -65,15 +64,23 @@
       {foreach $my_bid_bids as $bb}
         {if $bb@first}
           <tr>
-            <th class="list_no">出品番号</th>
+            <th class="id">ID</th>
+            <th class="user_name">入札ユーザ</th>
+            <th class="min_price">入札金額</th>
+            <th class="created_at">入札日時</th>
+
+            <th class="id sepa2">出品番号</th>
+            {*
             <th class="img"></th>
             <th class="name">機械名</th>
             <th class="maker">メーカー</th>
             <th class="model">型式</th>
             <th class="uniq_account">入札ユーザ<br />アカウント</th>
+            *}
+            <th class="name">商品名</th>
             <th class="min_price">最低入札金額</th>
-            <th class="min_price">入札金額</th>
-            <th class="created_at">入札日時</th>
+            <th class="company">出品会社</th>
+
             {if in_array($bid_open.status, array('carryout', 'after'))}
               <th class="min_price sepa2">落札金額</th>
               <th class="same_count">入札数</th>
@@ -82,7 +89,14 @@
         {/if}
 
         <tr {if !empty($bb.deleted_at)} class="deleted" {/if}>
-          <td class="list_no fs-5 text-center">{$bb.list_no}</td>
+          <td class="id text-right">{$bb.id}</td>
+          <td class="user_name">{$bb.my_user_id} : {$bb.user_name} {$bb.user_company}</td>
+
+          <td class="min_price">{$bb.amount|number_format}円</td>
+          <td class="created_at">{$bb.created_at|date_format:'%m/%d %H:%M:%S'}</td>
+
+          <td class="id text-right sepa2">{$bb.list_no}</td>
+          {*
           <td class="img">
             {if !empty($bb.top_img)}
               <a href="/bid_detail.php?m={$bb.bid_machine_id}" target="_blank">
@@ -106,9 +120,13 @@
               {$bb.uniq_account}
             {/if}
           </td>
+          *}
+          <td class="name">
+            <a href="/bid_detail.php?m={$bb.bid_machine_id}" target="_blank">{$bb.name} {$bb.maker} {$bb.model}</a>
+          </td>
           <td class="min_price">{$bb.min_price|number_format}円</td>
-          <td class="min_price">{$bb.amount|number_format}円</td>
-          <td class="created_at">{$bb.created_at|date_format:'%m/%d %H:%M:%S'}</td>
+          <td class='company'>{'/(株式|有限|合.)会社/u'|preg_replace:' ':$bb.company|trim}</td>
+
 
           {if in_array($bid_open.status, array('carryout', 'after'))}
             <td class="min_price sepa2">

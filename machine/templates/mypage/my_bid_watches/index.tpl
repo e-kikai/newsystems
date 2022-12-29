@@ -106,7 +106,7 @@
           <td class="addr_1">{$mw.addr1}</td>
 
           {if $bid_open.status == 'bid'}
-            <td class="created_at">{$mw.created_at|date_format:'%Y/%m/%d %H:%M'}</td>
+            <td class="created_at">{$mw.created_at|date_format:'%m/%d %H:%M:%S'}</td>
 
             <td class='delete text-center'>
               {if !empty($mw.deleted_at)}

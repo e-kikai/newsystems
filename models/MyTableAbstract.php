@@ -30,6 +30,14 @@ class MyTableAbstract extends Zend_Db_Table_Abstract
       ->where("{$this->_name}.deleted_at IS NULL")->order("{$this->_name}.id DESC");
   }
 
+  public function my_count()
+  {
+    $select = $this->select()->from($this->_name, 'count(*) as count')->where("{$this->_name}.deleted_at IS NULL");
+    $res = $this->fetchRow($select);
+
+    return $res["count"];
+  }
+
   /**
    * IDから情報を取得(論理削除込)
    *

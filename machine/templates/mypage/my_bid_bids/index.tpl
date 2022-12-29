@@ -121,7 +121,8 @@
           {/if}
 
           {if in_array($bid_open.status, array('carryout', 'after'))}
-            <td class="created_at_min">{$bb.created_at|date_format:'%Y/%m/%d %H:%M'}</td>
+            <td class="created_at_min">{$bb.created_at|date_format:'%m/%d %H:%M:%S'}</td>
+
             <td class="min_price border-start">
               {if !empty($bids_result[$bb.bid_machine_id].amount)}
                 {$bids_result[$bb.bid_machine_id].amount|number_format}円

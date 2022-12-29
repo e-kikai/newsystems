@@ -4,22 +4,8 @@
   <link href="{$_conf.site_uri}{$_conf.css_dir}admin.css" rel="stylesheet" type="text/css" />
   {literal}
     <script type="text/javascript">
-      $(function() {});
     </script>
     <style type="text/css">
-      .menu_area {
-        width: 500px;
-        margin: 16px auto;
-      }
-
-      .menu_area li {
-        display: block;
-        list-style: none;
-        font-size: 15px;
-        height: 24px;
-        line-height: 24px;
-        padding: 0 16px;
-      }
     </style>
   {/literal}
 {/block}
@@ -97,6 +83,8 @@
       <a href="/system/bid_open_list.php">Web入札会一覧</a> >>
       <a href="/system/bid_open_form.php">新規登録</a>
     </li>
+    <li><a href="/system/my_users/"><i class="fas fa-users"></i> 入札会ユーザ一覧</a></li>
+
 
     {if !empty($bidOpenList)}
       <li>▼▼▼現在開催中の入札会▼▼▼</li>
@@ -144,6 +132,11 @@
           {/if}
           <li><a href="system/bid_makelist.php?o={$b.id}">出品番号付加、リストPDF生成</a></li>
           <li><a href="system/bid_announce_form.php?o={$b.id}">お知らせ・引取指図書フラグ変更</a></li>
+
+          <hr />
+          <li><a href="/system/bid_detail_logs/?o={$b.id}"><i class="fas fa-file-lines"></i> 詳細アクセスログ</a></li>
+          <li><a href="/system/my_bid_watches/?o={$b.id}"><i class="fas fa-star"></i> ウォッチリストログ</a></li>
+          <li><a href="/system/my_bid_bids/?o={$b.id}"><i class="fas fa-pen-to-square"></i> 入札ログ</a></li>
         </div>
 
         {*

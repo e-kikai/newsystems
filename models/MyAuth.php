@@ -168,18 +168,26 @@ class MyAuth extends Zend_Db_Table
      */
     public static function logout()
     {
-        // セッション変数を全て解除する
-        $_SESSION = array();
+        // // セッション変数を全て解除する
+        // $_SESSION = array();
 
-        // セッションを切断するにはセッションクッキーも削除する
-        // Note: セッション情報だけでなくセッションを破壊する
-        if (isset($_COOKIE[session_name()])) {
-            setcookie(session_name(), '', time() - 42000, '/');
+        // // セッションを切断するにはセッションクッキーも削除する
+        // // Note: セッション情報だけでなくセッションを破壊する
+        // if (isset($_COOKIE[session_name()])) {
+        //     setcookie(session_name(), '', time() - 42000, '/');
+        // }
+
+        // // 最終的に、セッションを破壊する
+        // session_destroy();
+        // return true;
+
+        // MyAuthが追加されたためsession_destroyまではしない
+        if (isset($_SESSION[self::$_namespace])) {
+            unset($_SESSION[self::$_namespace]);
+            return true;
+        } else {
+            return false;
         }
-
-        // 最終的に、セッションを破壊する
-        session_destroy();
-        return true;
     }
 
     /**
@@ -378,5 +386,31 @@ class MyAuth extends Zend_Db_Table
 
         // 認証処理
         return isset($my_user['id']) && $token == $my_user['check_token'];
+    }
+
+    /**
+     * 管理者の代理ログイン処理
+     *
+     * @access public
+     * @param  string $companyId 代理ログインする会社ID）
+     * @return boolean ログインが成功すればtrue
+     */
+    public function systemLogin($my_user_id)
+    {
+        // 代理ログイン
+        // ログイン情報を取得
+        $my_user_model = new MyUser();
+        $my_user = $my_user_model->get($my_user_id);
+
+        if (empty($my_user)) throw new Exception('ユーザ情報が取得出来ませんでした id:' . $my_user_id);
+
+        // ログイン情報の保持（パスワードだけ除く）
+        unset($my_user['passwd']);
+        $_SESSION[self::$_namespace] = $my_user;
+
+        // 最終ログイン日時
+        $_SESSION['session_last_login'] = time();
+
+        return true;
     }
 }

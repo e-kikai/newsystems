@@ -118,7 +118,11 @@ table.list .view_option {
 }
 
 table.list .created_at {
-  width: 80px;
+  width: 120px;
+}
+
+table.list .user_name {
+  width: 150px;
 }
 
 table.list td.check,
@@ -134,7 +138,7 @@ img.thumbnail {
 }
 
 /* ボタンデフォルトをリセット */
-.center_container button {
+.center_container button:not(.btn) {
   box-shadow: none;
   text-shadow: none;
   color: #000;
@@ -143,13 +147,13 @@ img.thumbnail {
   width: auto;
 }
 
-.center_container button:hover {
+.center_container button:hover:not(.btn) {
   color: #000;
   background: #31d2f2;
   border-color: #25cff2;
 }
 
-.center_container button:active {
+.center_container button:active:not(.btn) {
   top: auto;
 }
 /*** 検索エリア ***/
@@ -405,7 +409,13 @@ table.list .company {
 }
 
 table.list .uniq_account {
-  width: 64px;
+  width: 92px;
+}
+
+table.list th.system_button,
+table.list td.system_button {
+  width: 50px;
+  text-align: center;
 }
 
 table.list th.cancel,
