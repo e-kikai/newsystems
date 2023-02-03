@@ -31,6 +31,22 @@ try {
 
         if ($action == "set") { // 自動入札設定処理
             $bid_machine_model->set_auto($d['id']);
+
+            // 既に入札が行われている場合は、自動入札を行う
+            $my_bid_bid_model = new MyBidBid();
+            $bids_result = $my_bid_bid_model->results_by_bid_machine_id($d['id']);
+
+            if (!empty($bids_result[$d['id']]) && $bids_result[$d['id']]["my_user_id"] != MyUser::SYSTEM_MY_USER_ID) {
+                $my_bid_bid_model->my_insert(
+                    [
+                        "my_user_id"     => MyUser::SYSTEM_MY_USER_ID,
+                        "bid_machine_id" => $d['id'],
+                        "amount"         => MyBidBid::auto_amount($bids_result[$d['id']]["amount"]),
+                        "comment"        => "自動入札",
+                        "sameno"         => mt_rand(),
+                    ]
+                );
+            }
         } else if ($action == "delete") {  // 自動入札解除
             $bid_machine_model->delete_auto($d['id']);
         } else {

@@ -195,9 +195,12 @@
           <tr>
             <th class="img"></th>
             <th class="list_no">出品番号</th>
+            {*
             <th class="name">機械名</th>
             <th class="maker">メーカー</th>
             <th class="model">型式</th>
+            *}
+            <th class="name">商品名</th>
             {if in_array($bidOpen.status, array('entry', 'margin'))}
               <th class="year">年式</th>
               <th class="location">在庫場所</th>
@@ -241,13 +244,15 @@
               {else}
                 <th class="company sepa2">落札ユーザ</th>
                 <th class="min_price">落札金額</th>
+                <th class="trade">取引</th>
               {/if}
 
             {/if}
           </tr>
         {/if}
 
-        <tr {if $m.canceled_at != null}class="canceled" {/if}>
+        <tr {* {if $m.canceled_at != null}class="canceled" {/if} *}>
+
           <td class="img">
             {if !empty($m.top_img)}
               <img class="lazy" src='imgs/blank.png' data-original="{$_conf.media_dir}machine/thumb_{$m.top_img}" alt='' />
@@ -255,6 +260,8 @@
             {/if}
           </td>
           <td class="list_no">{$m.list_no}</td>
+
+          {*
           <td class="name">
             {if $bidOpen.status == 'entry' || (in_array($bidOpen.status, array('margin', 'bid')) && Auth::check('system'))}
               <a href="/admin/bid_machine_form.php?m={$m.id}">{$m.name}</a>
@@ -264,6 +271,16 @@
           </td>
           <td class="maker">{$m.maker}</td>
           <td class="model">{$m.model}</td>
+          *}
+
+          <td class="name">
+            {if $bidOpen.status == 'entry' || (in_array($bidOpen.status, array('margin', 'bid')) && Auth::check('system'))}
+              <a href="/admin/bid_machine_form.php?m={$m.id}">{$m.name} {$m.maker} {$m.model}</a>
+            {else}
+              <a href="/admin/bid_detail.php?m={$m.id}">{$m.name} {$m.maker} {$m.model}</a>
+            {/if}
+          </td>
+
           {if in_array($bidOpen.status, array('entry', 'margin'))}
             <td class="year">{$m.year}</td>
             <td class="location">{$m.addr1}<br />({$m.location})</td>
@@ -301,6 +318,7 @@
                   <i class="fas fa-wand-magic-sparkles"></i> 設定
                 </button>
               {else}
+                設定中<br />
                 <button class="auto_delete" value="{$m.id}">
                   <i class="fas fa-wand-magic"></i> 解除
                 </button>
@@ -342,21 +360,37 @@
               <td class="min_price">{if !empty($m.rFee)}{$m.rFee|number_format}円<br />({$m.rPer|number_format}%){/if}</td>
               <td class="min_price sepa">{if !empty($m.payment)}{$m.payment|number_format}円{/if}</td>
             {else}
-              <td class="min_price sepa2">
+              <td class="company sepa2">
                 {if !empty($bids_result[$m.id])}
                   {if $bids_result[$m.id]["my_user_id"] == MyUser::SYSTEM_MY_USER_ID}
                     <span class="fst-italic text-danger">自動入札</span>
                   {else}
                     {$bids_result[$m.id].company} {$bids_result[$m.id].name}
-                    <a href="admin/my_bid_trades/show.php?m={$m.id}" class="btn-xs btn btn-success btn-trade">
-                      <i class="fas fa-comments-dollar"></i> 取引
-                    </a>
                   {/if}
                 {/if}
               </td>
               <td class="min_price">
                 {if !empty($bids_result[$m.id].amount)}
                   {$bids_result[$m.id].amount|number_format}円
+                {/if}
+              </td>
+              <td class="trade">
+                {if !empty($bids_result[$m.id])}
+                  {if $bids_result[$m.id]["my_user_id"] == MyUser::SYSTEM_MY_USER_ID}
+                    <span class="fst-italic text-danger">自動入札</span>
+                  {else}
+                    <a href="admin/my_bid_trades/show.php?m={$m.id}" class="btn-xs btn btn-success btn-trade">
+                      <i class="fas fa-comments-dollar"></i> 取引
+                    </a>
+
+                    <div>
+                      {if !empty($m.star)}
+                        <span class="star">{str_repeat("★", $m.star)}</span>
+                      {else}
+                        受取確認前
+                      {/if}
+                    </div>
+                  {/if}
                 {/if}
               </td>
             {/if}

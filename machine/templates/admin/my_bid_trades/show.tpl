@@ -88,6 +88,17 @@
             <dd class="col-8">{$my_user.tel}</dd>
             <dt class="col-4">FAX</dt>
             <dd class="col-8">{$my_user.fax}</dd>
+
+            <hr />
+
+            <dt class="col-4">受取確認</dt>
+            <dd class="col-8">
+              {if !empty($bid_machine.star)}
+                受取確認済 : <span class="star">{str_repeat("★", $bid_machine.star)}</span>
+              {else}
+                受取確認前
+              {/if}
+            </dd>
           </dl>
         </div>
       </div>

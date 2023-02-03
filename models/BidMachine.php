@@ -1612,4 +1612,33 @@ class BidMachine extends Zend_Db_Table_Abstract
 
     return $this;
   }
+
+  /**
+   * 受取確認・評価を登録
+   *
+   * @access public
+   * @param  int $id 出品商品ID
+   * @param  int $star 評価値
+   *
+   * @return $this
+   */
+  public function set_star($id, $star)
+  {
+    if ($star < 1 || $star > 5) throw new Exception("評価が範囲外です。{$star}");
+
+    $data = [
+      'star'       => $star,
+      'changed_at' => new Zend_Db_Expr('current_timestamp'),
+    ];
+
+    var_dump($data);
+
+    // 更新処理
+    $res = $this->update($data, $this->_db->quoteInto('id = ?', $id));
+
+    if (empty($res)) throw new Exception("受取確認・評価が保存できませんでした id:{$id}");
+
+    echo $res;
+    return $this;
+  }
 }

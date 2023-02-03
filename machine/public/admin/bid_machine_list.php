@@ -76,6 +76,12 @@ try {
     /// 落札結果を取得 ///
     if (in_array($bidOpen['status'], array('carryout', 'after'))) {
 
+        // タイトルを出品商品 個別計算表似表示変更
+        $_smarty->assign(array(
+            'pageTitle'       => $bidOpen['title'] . ' : 出品商品 個別計算表',
+            'pageDescription' => "入札会出品商品の落札結果個別計算表です。落札されなかった商品は、「在庫に登録」から中古機械在庫に再利用できます。",
+        ));
+
         // 新 : ユーザ入札対応
         if ($bidOpen["user_bid_date"] < BID_USER_START_DATE) {
             $resultListAsKey = $bmModel->getResultListAsKey($bidOpenId);
@@ -107,26 +113,16 @@ try {
             $tax      = floor($sum * $bidOpen['tax'] / 100);
             $finalSum = $sum + $tax;
 
-
             $_smarty->assign(array(
-                'pageTitle'       => $bidOpen['title'] . ' : 出品商品 個別計算表',
-                'pageDescription' => "入札会出品商品の落札結果個別計算表です。落札されなかった商品は、「在庫に登録」から中古機械在庫に再利用できます。",
-
                 'sum'      => $sum,
                 'tax'      => $tax,
                 'finalSum' => $finalSum,
             ));
-        } else {
-            $ids = $my_bid_bid_model->bid_machines2ids($bidMachineList);
-            $bids_count  = $my_bid_bid_model->count_by_bid_machine_id($ids);
+        } else { // 新処理
             $bids_result = $my_bid_bid_model->results_by_bid_machine_id($ids);
 
             $_smarty->assign(array(
-                'pageTitle'       => $bidOpen['title'] . ' : 出品商品 個別計算表',
-                'pageDescription' => "入札会出品商品の落札結果個別計算表です。落札されなかった商品は、「在庫に登録」から中古機械在庫に再利用できます。",
-
-                "bids_count"      => $bids_count,
-                "bids_result"     => $bids_result,
+                "bids_result" => $bids_result,
             ));
         }
     } else {
@@ -140,24 +136,56 @@ try {
         /// CSVに出力する ///
         if (in_array($bidOpen['status'], array('carryout', 'after'))) {
             $filename = $bidOpenId . '_bid_machine_list_02.csv';
-            $header   = array(
-                'id'          => '商品ID',
-                'list_no'     => '出品番号',
-                'name'        => '商品名',
-                'maker'       => 'メーカー',
-                'model'       => '型式',
-                'year'        => '年式',
-                'min_price'   => '最低入札金額',
-                'res_company' => '落札会社',
-                'res_amount'  => '落札金額',
-                'demeh'       => 'デメ半(' . $bidOpen['deme'] . '%)',
-                'rFee'        => '落札会社手数料',
-                'rPer'        => '手数料率(%)',
-                'jFee'        => '事務局手数料',
-                'jPer'        => '手数料率(%)',
-                'payment'     => '支払金額',
-            );
-            B::downloadCsvFile($header, $bidMachineList, $filename);
+
+            // 新 : ユーザ入札対応
+            if ($bidOpen["user_bid_date"] < BID_USER_START_DATE) { // 旧処理
+                $data = $bidMachineList;
+                $header = array(
+                    'list_no'    => '出品番号',
+                    'name'       => '商品名',
+                    'maker'      => 'メーカー',
+                    'model'      => '型式',
+                    'year'       => '年式',
+                    'company'    => '出品会社',
+                    'min_price'  => '最低入札金額',
+                    'bid_count'  => '入札数',
+                    'res_amount' => '落札金額',
+                    'same_count' => '同額札',
+                );
+            } else { // 新処理
+
+                $data = [];
+                foreach ($bidMachineList as $bm) {
+                    if (!empty($bids_count[$bm["id"]])) {
+                        $bm["bid_count"] = $bids_count[$bm["id"]];
+                    }
+                    if (!empty($bids_result[$bm["id"]])) {
+                        $bm["res_amount"] = $bids_result[$bm["id"]]["amount"];
+                        $bm["same_count"] = $bids_result[$bm["id"]]["same_count"];
+                        $bm["my_user_name"] = $bids_result[$bm["id"]]["name"];
+                        $bm["my_user_company"] = $bids_result[$bm["id"]]["company"];
+                    }
+
+                    $data[] = $bm;
+                }
+
+                $header   = array(
+                    'list_no'    => '出品番号',
+                    'name'       => '商品名',
+                    'maker'      => 'メーカー',
+                    'model'      => '型式',
+                    'year'       => '年式',
+                    'company'    => '出品会社',
+                    'min_price'  => '最低入札金額',
+                    'bid_count'  => '入札数',
+                    'my_user_name' => '落札ユーザ名',
+                    'my_user_company' => '落札ユーザ会社名',
+                    'res_amount' => '落札金額',
+                    'same_count' => '同額札',
+                );
+            }
+
+            B::downloadCsvFile($header, $data, $filename);
             exit;
         } else {
             $filename = $bidOpenId . '_bid_machine_list.csv';

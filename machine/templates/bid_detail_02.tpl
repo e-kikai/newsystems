@@ -10,6 +10,15 @@
   <link href="{$_conf.site_uri}{$_conf.css_dir}same_list.css" rel="stylesheet" type="text/css" />
   <link href="{$_conf.site_uri}{$_conf.css_dir}admin_form.css" rel="stylesheet" type="text/css" />
 
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@zenkiren" />
+  <meta name="twitter:title" content="{$pageTitle}" />
+  <meta name="og:title" content="{$pageTitle}" />
+  <meta name="twitter:description"
+    content="出品番号 {$machine.list_no}, 最低入札金額 {$machine.min_price|number_format}円 |
+    {$machine.addr1}・{$machine.company|regex_replace:'/(株式|有限|合.)会社/u':''}。入札依頼は{$bidOpen.user_bid_date|date_format:'%Y/%m/%d %H:%M'}まで。" />
+  <meta name="twitter:image" content="{$_conf.media_dir}machine/{$machine.top_img}">
+
   {if MyAuth::check()}
     {literal}
       <script type="text/javascript">

@@ -37,7 +37,15 @@
 
 {block 'main'}
 
-  <div class="bg_margin"></div>
+  {*
+  <div class="bg_margin">
+    <a href="https://us8.list-manage.com/survey?u=64c744bd0ade288be955860a6&id=f9b2878d8f&attribution=false"
+      target="_blank">
+      <img src="./imgs/survey_banner.png" style="width:100%;" />
+    </a>
+  </div>
+  *}
+
   <div class="sp_area">
     {if !empty($bidOpenList)}
       {foreach $bidOpenList as $b}
@@ -208,19 +216,15 @@
   ><img class="banner" src="{$_conf.media_dir}banner/ad_gdj_h_02.gif" /></a>
   *}
 
-    {assign "pAds" array(
-      array('大阪機械団地組合',
-      'ad_omdc.png', 'http://www.omdc.or.jp/'),
-      array('大阪機械業連合会',
-      'ad_daikiren.png',
-      'http://www.zenkiren.org/index.php?%E5%A4%A7%E9%98%AA%E6%A9%9F%E6%A2%B0%E6%A5%AD%E9%80%A3%E5%90%88%E4%BC%9A',),
-      array('中部機械業連合会',
-        'ad_chukiren.png',
-      'http://www.zenkiren.org/index.php?%E4%B8%AD%E9%83%A8%E6%A9%9F%E6%A2%B0%E6%A5%AD%E9%80%A3%E5%90%88%E4%BC%9A',),
-      array('東京機械業連合会',
-      'ad_toukiren.png',
-      'http://www.zenkiren.org/index.php?%E6%9D%B1%E4%BA%AC%E6%A9%9F%E6%A2%B0%E6%A5%AD%E9%80%A3%E5%90%88%E4%BC%9A',)
-      )}
+
+    {assign "pAds"
+          [
+            ['大阪機械団地組合', 'ad_omdc.png', 'http://www.omdc.or.jp/'],
+            ['大阪機械業連合会', 'ad_daikiren.png', 'http://www.zenkiren.org/index.php?%E5%A4%A7%E9%98%AA%E6%A9%9F%E6%A2%B0%E6%A5%AD%E9%80%A3%E5%90%88%E4%BC%9A'],
+            ['中部機械業連合会', 'ad_chukiren.png',  'http://www.zenkiren.org/index.php?%E4%B8%AD%E9%83%A8%E6%A9%9F%E6%A2%B0%E6%A5%AD%E9%80%A3%E5%90%88%E4%BC%9A'],
+            ['東京機械業連合会', 'ad_toukiren.png',  'http://www.zenkiren.org/index.php?%E6%9D%B1%E4%BA%AC%E6%A9%9F%E6%A2%B0%E6%A5%AD%E9%80%A3%E5%90%88%E4%BC%9A']
+          ]
+      }
     {if (shuffle($pAds))}
       {foreach array_rand($pAds, 4) as $key}
         <a href="{$pAds[$key][2]}" target="_blank" {if $key@first} class="first" {/if}
@@ -228,6 +232,7 @@
             src="{$_conf.media_dir}banner/{$pAds[$key][1]}" alt="{$pAds[0]}" /></a>
       {/foreach}
     {/if}
+
     <br class="clear" />
   </div>
 

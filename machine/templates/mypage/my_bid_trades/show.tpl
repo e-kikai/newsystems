@@ -72,6 +72,16 @@
             ご入金の前に必ず「取引」で金額の確認を行ってください。
           </p>
 
+          <div>
+            {if !empty($bid_machine.star)}
+              受取確認済 : <span class="star">{str_repeat("★", $bid_machine.star)}</span>
+            {else}
+              <a href="mypage/my_bid_trades/star.php?m={$bid_machine.id}" class="btn btn-success">
+                <span class="star">★</span> 受取確認・評価
+              </a>
+            {/if}
+          </div>
+
         </div>
 
         <div class="bid_machine">
@@ -106,8 +116,7 @@
         <div class="alert alert-danger text-danger">
           ・ 取引開始は、下見・入札期間終了後1週間以内にお願いいたします。<br />
           ・ 発送方法、送料、梱包などの確認は必ず行ってください。<br />
-          ・ 入金確認後に商品の発送します。
-          商品到着後、<a href="mypage/my_bid_trade/fin.php?m={$bid_machine.id}">受取確認・評価</a>を行ってください。
+          ・ 入金確認後に商品の発送します。到着後 ★ 受取確認・評価を行ってください。
         </div>
 
         <form id="trade" method="post" action="mypage/my_bid_trades/create_do.php">

@@ -6,7 +6,8 @@
   {$mAds.tachikawa = array('立川商店', 'ad_tachikawa.png', 'http://www.tachikawa-kikai.com/')}
   {$mAds.hirai = array('平井鈑金機工', 'ad_hirai.png', 'http://www.hiraibankin.com/')}
   {* {$mAds.yushi = array('ユウシ', 'ad_yushi.png', 'https://www.yuushi.co.jp/index.html')} *}
-  {$mAds.kusumoto = array('楠本機械', 'ad_kusumoto.png', 'https://kusumotokikai.e-kikai.com/')}
+  {* {$mAds.kusumoto = array('楠本機械', 'ad_kusumoto.png', 'https://kusumotokikai.e-kikai.com/')} *}
+  {$mAds.kusumoto = array('楠本機械', 'ad_kusumoto.png', 'https://kusumotokikai.co.jp/')}
   {$mAds.sanwa = array('三和精機', 'ad_sanwa_02.gif', 'https://sanwa-seiki.jp/')}
   {$mAds.horikawa = array('堀川機械', 'ad_horikawa.png', 'https://horikawakikai.e-kikai.com/')}
   {* {if strtotime("2018/04/01 00:00:00") > time()}
@@ -23,6 +24,7 @@
   {$mAds.mechany = array('メカニー', 'mechany.gif', 'https://www.mechany.com/')}
   {$mAds.asia = array('アジアマシナリー', 'asia.png', 'https://www.asia-machinery.co.jp/')}
 
+  {$mAds.mori = array('森鉄工所', 'mori.gif', 'https://moritekkousho.jp/')}
   {$num = 10}
 
   {*
