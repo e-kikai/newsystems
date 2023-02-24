@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 機械情報モデルクラス
  *
@@ -63,10 +64,10 @@ class Machine extends Zend_Db_Table_Abstract
 
     // その他能力
     private $_otherSpecs = array(
-        'x2'     => array(array(0,1),              '✕'),
-        'x3'     => array(array(0,1,2),            '✕'),
-        'c3'     => array(array(0,1,2),            ' : '),
-        't2'     => array(array(0,1),              '～'),
+        'x2'     => array(array(0, 1),              '✕'),
+        'x3'     => array(array(0, 1, 2),            '✕'),
+        'c3'     => array(array(0, 1, 2),            ' : '),
+        't2'     => array(array(0, 1),              '～'),
         'nc'     => array(array('maker', 'model'), ' '),
     );
 
@@ -140,48 +141,50 @@ class Machine extends Zend_Db_Table_Abstract
      * @param  array  $q 検索クエリ
      * @return array 機械検索結果一覧
      */
-    public function getList($q) {
-        //// WHERE句 ////
+    public function getList($q)
+    {
+        /// WHERE句 ///
         $where = $this->_makeWhere($q, true);
-        if (!$where) { throw new Exception('検索条件が設定されていません'); };
+        if (!$where) {
+            throw new Exception('検索条件が設定されていません');
+        };
 
-        ///// ORDER BY句 ////
+        /// ORDER BY句 ///
         $orderBy = 'ORDER BY ';
         if (!empty($q['sort'])) {
             if ($q['sort'] == 'company') {
-                $orderBy.= self::ORDER_BY_COMPANY_ASC;
+                $orderBy .= self::ORDER_BY_COMPANY_ASC;
             } else if ($q['sort'] == 'created_at') {
-                $orderBy.= self::ORDER_BY_CREATED_AT;
+                $orderBy .= self::ORDER_BY_CREATED_AT;
             } else if ($q['sort'] == 'random') {
-                $orderBy.= self::ORDER_BY_RANDOM;
+                $orderBy .= self::ORDER_BY_RANDOM;
             } else if ($q['sort'] == 'img_random') {
-                $orderBy.= self::ORDER_BY_IMG_RANDOM;
-
+                $orderBy .= self::ORDER_BY_IMG_RANDOM;
             } else if ($q['sort'] == 'no') {
-                $orderBy.= ' m.no, ';
+                $orderBy .= ' m.no, ';
             } else if ($q['sort'] == 'no_int') {
-                $orderBy.= " CAST(REGEXP_REPLACE(m.no, '[^0-9]', '') as INTEGER), ";
+                $orderBy .= " CAST(REGEXP_REPLACE(m.no, '[^0-9]', '') as INTEGER), ";
             } else if ($q['sort'] == 'name') {
-                $orderBy.= ' m.name COLLATE "ja_JP.utf8" , ';
+                $orderBy .= ' m.name COLLATE "ja_JP.utf8" , ';
             } else if ($q['sort'] == 'maker') {
-                $orderBy.= ' m.maker COLLATE "ja_JP.utf8" , ';
+                $orderBy .= ' m.maker COLLATE "ja_JP.utf8" , ';
             } else if ($q['sort'] == 'model') {
-                $orderBy.= ' m.model, ';
+                $orderBy .= ' m.model, ';
             } else if ($q['sort'] == 'year') {
-                $orderBy.= ' m.year, ';
+                $orderBy .= ' m.year, ';
             }
         }
-        $orderBy.= self::ORDER_DEFAULT;
+        $orderBy .= self::ORDER_DEFAULT;
 
-        //// LIMIT句、OFFSET句 ////
+        /// LIMIT句、OFFSET句 ///
         if (!empty($q['limit'])) {
-            $orderBy.= $this->_db->quoteInto(' LIMIT ? ', $q['limit']);
+            $orderBy .= $this->_db->quoteInto(' LIMIT ? ', $q['limit']);
             if (!empty($q['page'])) {
-                $orderBy.= $this->_db->quoteInto(' OFFSET ? ', $q['limit'] * ($q['page'] - 1));
+                $orderBy .= $this->_db->quoteInto(' OFFSET ? ', $q['limit'] * ($q['page'] - 1));
             }
         }
 
-        //// SQLクエリを作成・一覧を取得 ////
+        /// SQLクエリを作成・一覧を取得 ///
         $sql = "SELECT m.* FROM view_machines m WHERE {$where} {$orderBy};";
         $result = $this->_db->fetchAll($sql);
 
@@ -209,12 +212,15 @@ class Machine extends Zend_Db_Table_Abstract
      * @param  array  $q 検索クエリ
      * @return array 機械検索結果一覧
      */
-    public function getNewsList($q) {
-        //// WHERE句 ////
+    public function getNewsList($q)
+    {
+        /// WHERE句 ///
         $where = $this->_makeWhere($q, true);
-        if (!$where) { throw new Exception('検索条件が設定されていません'); };
+        if (!$where) {
+            throw new Exception('検索条件が設定されていません');
+        };
 
-        ///// ORDER BY句 ////
+        //// ORDER BY句 ///
         $orderBy = 'ORDER BY created_at DESC ';
         if (!empty($q['sort'])) {
             if ($q['sort'] == 'company') {
@@ -224,15 +230,15 @@ class Machine extends Zend_Db_Table_Abstract
             }
         }
 
-        //// LIMIT句、OFFSET句 ////
+        /// LIMIT句、OFFSET句 ///
         if (!empty($q['limit'])) {
-            $orderBy.= $this->_db->quoteInto(' LIMIT ? ', $q['limit']);
+            $orderBy .= $this->_db->quoteInto(' LIMIT ? ', $q['limit']);
             if (!empty($q['page'])) {
-                $orderBy.= $this->_db->quoteInto(' OFFSET ? ', $q['limit'] * ($q['page'] - 1));
+                $orderBy .= $this->_db->quoteInto(' OFFSET ? ', $q['limit'] * ($q['page'] - 1));
             }
         }
 
-        //// SQLクエリを作成・一覧を取得 ////
+        /// SQLクエリを作成・一覧を取得 ///
         $sql = "SELECT
           *
         FROM
@@ -264,10 +270,10 @@ class Machine extends Zend_Db_Table_Abstract
      */
     public function getCount($q)
     {
-        //// WHERE句 ////
+        /// WHERE句 ///
         $where = $this->_makeWhere($q);
 
-        //// SQLクエリを作成・一覧を取得 ////
+        /// SQLクエリを作成・一覧を取得 ///
         $sql = "SELECT count(m.*) AS count FROM view_machines m WHERE {$where};";
         $result = $this->_db->fetchOne($sql);
         return $result;
@@ -282,10 +288,10 @@ class Machine extends Zend_Db_Table_Abstract
      */
     public function getMakerList($q)
     {
-        //// WHERE句 ////
+        /// WHERE句 ///
         $where = $this->_makeWhere($q);
 
-        ///// ORDER BY句 ////
+        //// ORDER BY句 ///
         $orderBy = 'ORDER BY count DESC, maker_kana collate "ja_JP.utf8" ASC ';
         if (!empty($q['sort'])) {
             if ($q['sort'] == 'maker') {
@@ -293,7 +299,7 @@ class Machine extends Zend_Db_Table_Abstract
             }
         }
 
-        //// SQLクエリを作成・一覧を取得 ////
+        /// SQLクエリを作成・一覧を取得 ///
         /*
         $sql = "SELECT
             mc.maker_master AS maker,
@@ -333,10 +339,10 @@ class Machine extends Zend_Db_Table_Abstract
      */
     public function getGenreList($q)
     {
-        //// WHERE句 ////
+        /// WHERE句 ///
         $where = $this->_makeWhere($q);
 
-        //// SQLクエリを作成・一覧を取得 ////
+        /// SQLクエリを作成・一覧を取得 ///
         $sql = "SELECT
           g.*,
           mc.count
@@ -360,10 +366,10 @@ class Machine extends Zend_Db_Table_Abstract
      */
     public function getLargeGenreList($q)
     {
-        //// WHERE句 ////
+        /// WHERE句 ///
         $where = $this->_makeWhere($q);
 
-        //// SQLクエリを作成・一覧を取得 ////
+        /// SQLクエリを作成・一覧を取得 ///
         $sql = "SELECT
           l.*,
           mc.count
@@ -387,10 +393,10 @@ class Machine extends Zend_Db_Table_Abstract
      */
     public function getAddr1List($q)
     {
-        //// WHERE句 ////
+        /// WHERE句 ///
         $where = $this->_makeWhere($q);
 
-        //// SQLクエリを作成・一覧を取得 ////
+        /// SQLクエリを作成・一覧を取得 ///
         $sql = "SELECT
           s.STATE as addr1,
           s.order_no AS sorder,
@@ -444,10 +450,10 @@ class Machine extends Zend_Db_Table_Abstract
      */
     public function getCapacityList($q)
     {
-        //// WHERE句 ////
+        /// WHERE句 ///
         $where = $this->_makeWhere($q);
 
-        //// SQLクエリを作成・一覧を取得 ////
+        /// SQLクエリを作成・一覧を取得 ///
         $sql = "SELECT
           m.capacity_label,
           m.capacity_unit,
@@ -472,7 +478,7 @@ class Machine extends Zend_Db_Table_Abstract
         $res = $this->_db->fetchAll($sql);
 
         $result  = array();
-        foreach($res as $key => $r) {
+        foreach ($res as $key => $r) {
             $capTmp = intval($r['capacity']);
             if ($capTmp < 10) {
                 // 10以下は、0～にまとめる
@@ -483,11 +489,15 @@ class Machine extends Zend_Db_Table_Abstract
                 $cap = intval($capTmp / pow(10, $log)) * pow(10, $log);
             }
 
-            if ($key == 0 ||
-              $temp['capacity_label'] != $r ['capacity_label'] ||
-              $temp['capacity_unit'] != $r ['capacity_unit'] ||
-              $temp['capacity'] != $cap) {
-                if (!empty($temp)) { $result[] = $temp; }
+            if (
+                $key == 0 ||
+                $temp['capacity_label'] != $r['capacity_label'] ||
+                $temp['capacity_unit'] != $r['capacity_unit'] ||
+                $temp['capacity'] != $cap
+            ) {
+                if (!empty($temp)) {
+                    $result[] = $temp;
+                }
                 $temp = array(
                     'capacity_label' => $r['capacity_label'],
                     'capacity_unit'  => $r['capacity_unit'],
@@ -495,12 +505,13 @@ class Machine extends Zend_Db_Table_Abstract
                     'capacity_max'   => $cap + pow(10, $log),
                     'count'          => $r['count'],
                 );
-
             } else {
                 $temp['count'] += $r['count'];
             }
         }
-        if (!empty($temp)) { $result[] = $temp; }
+        if (!empty($temp)) {
+            $result[] = $temp;
+        }
 
         return $result;
     }
@@ -514,10 +525,10 @@ class Machine extends Zend_Db_Table_Abstract
      */
     public function getCompanyList($q)
     {
-        //// WHERE句 ////
+        /// WHERE句 ///
         $where = $this->_makeWhere($q);
 
-        //// SQLクエリを作成・一覧を取得 ////
+        /// SQLクエリを作成・一覧を取得 ///
         $sql = "SELECT
           c.*,
           mc.count AS count
@@ -542,8 +553,11 @@ class Machine extends Zend_Db_Table_Abstract
      * @param  integer $companyId 会社ID
      * @return array   機械情報を取得
      */
-    public function get($id, $companyId=NULL) {
-        if (empty($id)) { throw new Exception('機械IDが設定されていません'); }
+    public function get($id, $companyId = NULL)
+    {
+        if (empty($id)) {
+            throw new Exception('機械IDが設定されていません');
+        }
 
         $where = '';
         if (!empty($companyId)) {
@@ -567,8 +581,11 @@ class Machine extends Zend_Db_Table_Abstract
      * @param  integer $id 機械ID
      * @return array   機械情報一覧を取得
      */
-    public function getSameList($id) {
-        if (empty($id)) { throw new Exception('機械IDが設定されていません'); }
+    public function getSameList($id)
+    {
+        if (empty($id)) {
+            throw new Exception('機械IDが設定されていません');
+        }
 
         // SQLクエリを作成
         $sql = "SELECT
@@ -597,8 +614,11 @@ class Machine extends Zend_Db_Table_Abstract
      * @param  integer $id 機械ID
      * @return array   機械情報一覧を取得
      */
-    public function getLogList($id) {
-        if (empty($id)) { throw new Exception('機械IDが設定されていません'); }
+    public function getLogList($id)
+    {
+        if (empty($id)) {
+            throw new Exception('機械IDが設定されていません');
+        }
 
         // SQLクエリを作成
         $sql = "SELECT
@@ -657,11 +677,13 @@ class Machine extends Zend_Db_Table_Abstract
      */
     public function getFaviList($q)
     {
-        //// WHERE句 ////
+        /// WHERE句 ///
         $where = $this->_makeWhere($q, true);
-        if (!$where) { throw new Exception('検索条件が設定されていません'); };
+        if (!$where) {
+            throw new Exception('検索条件が設定されていません');
+        };
 
-        ///// ORDER BY句 ////
+        //// ORDER BY句 ///
         $orderBy = 'ORDER BY ac.count DESC ';
         if (!empty($q['sort'])) {
             if ($q['sort'] == 'company') {
@@ -671,15 +693,15 @@ class Machine extends Zend_Db_Table_Abstract
             }
         }
 
-        //// LIMIT句、OFFSET句 ////
+        /// LIMIT句、OFFSET句 ///
         if (!empty($q['limit'])) {
-            $orderBy.= $this->_db->quoteInto(' LIMIT ? ', $q['limit']);
+            $orderBy .= $this->_db->quoteInto(' LIMIT ? ', $q['limit']);
             if (!empty($q['page'])) {
-                $orderBy.= $this->_db->quoteInto(' OFFSET ? ', $q['limit'] * ($q['page'] - 1));
+                $orderBy .= $this->_db->quoteInto(' OFFSET ? ', $q['limit'] * ($q['page'] - 1));
             }
         }
 
-        //// 検索クエリを作成・実行 ////
+        /// 検索クエリを作成・実行 ///
         $sql = "SELECT
           m.*
         FROM
@@ -712,7 +734,8 @@ class Machine extends Zend_Db_Table_Abstract
      * @param  string $limit 表示件数
      * @return array 機械情報一覧を取得
      */
-    public function getIPLogList($limit=18) {
+    public function getIPLogList($limit = 18)
+    {
         // SQLクエリを作成
         $sql = "SELECT
           m.*
@@ -752,7 +775,8 @@ class Machine extends Zend_Db_Table_Abstract
      * @param  array $id 機械ID配列
      * @return $this
      */
-    public function deleteById($id, $companyId) {
+    public function deleteById($id, $companyId)
+    {
         if (empty($id)) {
             throw new Exception('削除する機械IDが設定されていません');
         }
@@ -775,7 +799,8 @@ class Machine extends Zend_Db_Table_Abstract
      * @param  array $rex ユニークID配列(入力されたもの以外を削除)
      * @return $this
      */
-    public function deleteByNotUsedId($usedId, $companyId) {
+    public function deleteByNotUsedId($usedId, $companyId)
+    {
         if (empty($usedId)) {
             return "No delete. / ";
         }
@@ -799,21 +824,27 @@ class Machine extends Zend_Db_Table_Abstract
      * @param  string $dataJson  クロールで取得した機械情報(JSON)
      * @return string INSERT数、UPDATE数の表示
      */
-    public function setCrawledData($companyId, $dataJson) {
+    public function setCrawledData($companyId, $dataJson)
+    {
         $context = stream_context_create(
             [
-            'ssl' => [
-                'verify_peer'      => false,
-                'verify_peer_name' => false
+                'ssl' => [
+                    'verify_peer'      => false,
+                    'verify_peer_name' => false
+                ]
             ]
-        ]);
+        );
 
-        //// データをJSONからデコード ////
-        if (empty($dataJson))       { throw new Exception('データJSONがありません'); }
+        /// データをJSONからデコード ///
+        if (empty($dataJson)) {
+            throw new Exception('データJSONがありません');
+        }
         $data = json_decode($dataJson, true);
-        if (empty($data[0]['uid'])) { return 'No update and insert.'; }
+        if (empty($data[0]['uid'])) {
+            return 'No update and insert.';
+        }
 
-        //// ジャンル情報(機械名マッチングテーブルの生成) ////
+        /// ジャンル情報(機械名マッチングテーブルの生成) ///
         // CSVを取得
         if (($ugf = B::file2utf(dirname(__FILE__) . '/../machine/public/system/csv/crawl_genres.csv')) === FALSE) {
             throw new Exception('ジャンル変換表CSVファイルが開けませんでした');
@@ -831,12 +862,14 @@ class Machine extends Zend_Db_Table_Abstract
             $uGList[strtoupper($g['genre'])] = $g['id'];
         }
 
-        //// 会社情報を取得 ////
+        /// 会社情報を取得 ///
         $cModel  = new Company();
         $company = $cModel->get($companyId);
-        if (empty($company)) { throw new Exception('会社情報がありません'); }
+        if (empty($company)) {
+            throw new Exception('会社情報がありません');
+        }
 
-        //// 会社ごとに特別に処理するフラグ ////
+        /// 会社ごとに特別に処理するフラグ ///
         // メカニー : 画像のhttpヘッダを取得して更新確認
         $headFlag  = in_array($companyId, array(232));
         // 三善機械 : ファイル命名規則を変更
@@ -845,11 +878,11 @@ class Machine extends Zend_Db_Table_Abstract
         // 立川商店 : ファイル命AWS
         $awsFlag = in_array($companyId, array(13));
 
-        //// 登録件数・変更件数の初期化 ////
+        /// 登録件数・変更件数の初期化 ///
         $insertNum = 0;
         $updateNum = 0;
 
-        //// 登録・変更用DB処理の共通部分 ////
+        /// 登録・変更用DB処理の共通部分 ///
         // WHERE句、会社ID
         $baseWhere = $this->_db->quoteInto(' company_id = ?', $companyId);
 
@@ -860,7 +893,7 @@ class Machine extends Zend_Db_Table_Abstract
         );
         $insertM = array('company_id' => $companyId);
 
-        //// ファイル処理クラスの初期化 ////
+        /// ファイル処理クラスの初期化 ///
         $fModel = new File();
         $_conf = Zend_Registry::get('_conf');
 
@@ -870,26 +903,30 @@ class Machine extends Zend_Db_Table_Abstract
 
             // ジャンルマッチ : 機械名(ヒント)テーブルから取得
             if (empty($m['genre_id'])) {
-                if (!empty($uGList[$hint])) { $m['genre_id'] = $uGList[$hint]; }
+                if (!empty($uGList[$hint])) {
+                    $m['genre_id'] = $uGList[$hint];
+                }
             }
 
             // どのジャンルにも当てはまらない場合は、「その他機械」
-            if (empty($m['genre_id'])) { $m['genre_id'] = 390; }
+            if (empty($m['genre_id'])) {
+                $m['genre_id'] = 390;
+            }
 
-            //// 機械名 ////
+            /// 機械名 ///
             $capacity  = !empty($m['capacity']) ? B::f($m['capacity']) : null;
             // $m['name'] = $this->makeName($usedName, $m['genre_id'], $capacity);
             $m['name'] = $usedName;
             $m['hint'] = $hint;
 
-            //// 画像・PDFファイルの取得 ////
+            /// 画像・PDFファイルの取得 ///
             $m['top_img'] = '';
             $m['imgs']    = array();
             $m['pdfs']    = array();
 
-            //// 画像ファイルの取得・保存処理 ////
+            /// 画像ファイルの取得・保存処理 ///
             if (!empty($m['used_imgs'])) {
-                foreach($m['used_imgs'] as $i) {
+                foreach ($m['used_imgs'] as $i) {
                     // ファイル名の生成
                     if ($namedFlag) {
                         // 三善機械 : 命名規則が特殊
@@ -898,12 +935,13 @@ class Machine extends Zend_Db_Table_Abstract
                         // 立川商店 : AWSなのでファイル名が長い
                         $ftemp = preg_replace('/(\?.*)$/', '', $i);
                         $img = 'c_' . $companyId . '_' . preg_replace('/[^0-9a-zA-Z]/', '', $m['uid']) . '_' . preg_replace('/^(.*(\/|\?))/', '', $ftemp);
-
                     } else {
                         $img = 'c_' . $companyId . '_' . preg_replace('/[^0-9a-zA-Z]/', '', $m['uid']) . '_' . preg_replace('/^(.*(\/|\?))/', '', $i);
                     }
 
-                    if (!preg_match('/\./', $img)) { $img.= '.jpeg'; } // 拡張子のない場合は付加
+                    if (!preg_match('/\./', $img)) {
+                        $img .= '.jpeg';
+                    } // 拡張子のない場合は付加
 
                     if ($m['top_img'] != $img && !in_array($img, $m['imgs'])) {
                         // ファイルの格納パス
@@ -912,7 +950,9 @@ class Machine extends Zend_Db_Table_Abstract
                         $filePath = $realPath . '/' . $img;
 
                         // @ba-ta 20181129 ファイル格納パス確認
-                        if (!@file_exists($tempPath)) { mkdir($tempPath, '0777'); }
+                        if (!@file_exists($tempPath)) {
+                            mkdir($tempPath, '0777');
+                        }
 
                         // メカニー : httpヘッダからファイルサイズを取得
                         // if ($headFlag) { $headers = @get_headers($i, true); }
@@ -942,23 +982,30 @@ class Machine extends Zend_Db_Table_Abstract
                                 // サムネイル生成
                                 $fModel->makeThumbnail($tempPath, $realPath, $img);
 
-                                rename($tempPath . '/' . $img, $realPath . '/'. $img);
-                            } else { continue; }
+                                rename($tempPath . '/' . $img, $realPath . '/' . $img);
+                            } else {
+                                continue;
+                            }
                         }
 
                         // 画像ファイル名データの格納
-                        if (empty($m['top_img']))       { $m['top_img'] = $img; }
-                        else if ($m['top_img'] != $img) { $m['imgs'][]  = $img; }
+                        if (empty($m['top_img'])) {
+                            $m['top_img'] = $img;
+                        } else if ($m['top_img'] != $img) {
+                            $m['imgs'][]  = $img;
+                        }
                     }
                 }
             }
 
-            //// PDFファイルの取得・保存処理 ////
+            /// PDFファイルの取得・保存処理 ///
             if (!empty($m['used_pdfs'])) {
-                foreach($m['used_pdfs'] as $key => $i) {
+                foreach ($m['used_pdfs'] as $key => $i) {
                     // ファイル名の生成
                     $pdf = 'c_' . $companyId . '_' . $m['uid'] . '_' . preg_replace('/^(.*\/)/', '', $i);
-                    if (!preg_match('/\./', $pdf)) { $pdf.= '.pdf'; } // 拡張子のない場合は付加
+                    if (!preg_match('/\./', $pdf)) {
+                        $pdf .= '.pdf';
+                    } // 拡張子のない場合は付加
 
                     if ((empty($m['pdfs']) || !in_array($pdf, $m['pdfs']))) {
                         // ファイルの格納パス
@@ -973,7 +1020,9 @@ class Machine extends Zend_Db_Table_Abstract
 
                             if ($fileData = @file_get_contents($i, false, $context)) {
                                 file_put_contents($filePath, $fileData);
-                            } else { continue; }
+                            } else {
+                                continue;
+                            }
                         }
 
                         // PDFファイル名データの格納
@@ -982,7 +1031,7 @@ class Machine extends Zend_Db_Table_Abstract
                 }
             }
 
-            //// 在庫場所 ////
+            /// 在庫場所 ///
             $location = B::f($m['location']);
             if ($location == '本社') {
                 // 本社の場合は、会社情報の住所情報を格納
@@ -995,7 +1044,7 @@ class Machine extends Zend_Db_Table_Abstract
                 );
             } else {
                 //
-                foreach($company['offices'] as $o) {
+                foreach ($company['offices'] as $o) {
                     if ($location == $o['name']) {
                         $m += array(
                             'addr1' => $o['addr1'],
@@ -1011,13 +1060,13 @@ class Machine extends Zend_Db_Table_Abstract
             // 在庫場所がない場合は、空白
             $m += array('addr1' => null, 'addr2' => null, 'addr3' => null, 'lat' => null, 'lng' => null,);
 
-            //// その他能力(空白) ////
+            /// その他能力(空白) ///
             $m['others'] = array();
 
-            //// UPDATEのWHERE句の作成 ////
+            /// UPDATEのWHERE句の作成 ///
             $where = $baseWhere . $this->_db->quoteInto(' AND used_id = ?', (string)$m['uid']);
 
-            //// 不要な配列要素を削除 ////
+            /// 不要な配列要素を削除 ///
             $usedId = $m['uid'];
             unset($m['used_imgs'], $m['used_pdfs'], $m['uid']);
 
@@ -1026,28 +1075,32 @@ class Machine extends Zend_Db_Table_Abstract
                 $m[$val] = json_encode($m[$val], JSON_UNESCAPED_UNICODE);
             }
 
-            //// 更新・登録処理 ////
+            /// 更新・登録処理 ///
             $res = $this->update($updateM + $m, $where);
             if (!$res) {
                 // 該当するユニークIDがなく更新できない時は、新規登録処理を行う
                 $this->insert($insertM + $m + array('used_id' => $usedId));
                 $insertNum++;
-            } else { $updateNum++; }
+            } else {
+                $updateNum++;
+            }
         }
 
         return "{$updateNum} machines update / {$insertNum} machines insert success.";
     }
 
-    //// 名前・主能力 ////
-    public function makeName($usedName, $genreId, $capacity=null)
+    /// 名前・主能力 ///
+    public function makeName($usedName, $genreId, $capacity = null)
     {
         // ジャンル情報を取得
         $sql = 'SELECT * FROM genres WHERE id = ? LIMIT 1;';
         $g   = $this->_db->fetchRow($sql, $genreId);
 
-        if (empty($g)) { return $usedName; }
+        if (empty($g)) {
+            return $usedName;
+        }
 
-        //// 命名規則を取得 ////
+        /// 命名規則を取得 ///
         $name = $g['naming'];
 
         if (!empty($capacity)) {
@@ -1083,7 +1136,7 @@ class Machine extends Zend_Db_Table_Abstract
      * @param  array  $ignore 格納・取得を拒否するテンプレート
      * @return string 格納したテンプレート
      */
-    public function template($p=NULL, $ignore=NULL)
+    public function template($p = NULL, $ignore = NULL)
     {
         // 初期化
         if (empty($_SESSION['machine']['listTemplate'])) {
@@ -1091,8 +1144,10 @@ class Machine extends Zend_Db_Table_Abstract
         }
 
         // テンプレート候補一覧にあれば格納
-        if (!empty($p) &&
-            in_array($p, $this->_templates)) {
+        if (
+            !empty($p) &&
+            in_array($p, $this->_templates)
+        ) {
             $_SESSION['machine']['listTemplate'] = $p;
         }
 
@@ -1113,7 +1168,8 @@ class Machine extends Zend_Db_Table_Abstract
      * @param  boolean $check 検索条件チェック
      * @return string  where句
      */
-    private function _makeWhere($q, $check=false) {
+    private function _makeWhere($q, $check = false)
+    {
         $arr = array();
 
         // 特大ジャンルID（複数選択可）
@@ -1194,8 +1250,11 @@ class Machine extends Zend_Db_Table_Abstract
         if (!empty($q['is_watch'])) {
             $wModel = new Watchlist();
             $watchlist = $wModel->getList();
-            if (!empty($watchlist)) { $arr[] = $this->_db->quoteInto(' m.id IN (?) ', $watchlist); }
-            else { $arr[] = ' 1 = 2 '; }
+            if (!empty($watchlist)) {
+                $arr[] = $this->_db->quoteInto(' m.id IN (?) ', $watchlist);
+            } else {
+                $arr[] = ' 1 = 2 ';
+            }
         }
 
         // キーワード検索
@@ -1206,9 +1265,9 @@ class Machine extends Zend_Db_Table_Abstract
                 " coalesce(m.location, '')  || ' ' || " .
                 // " g.genre || ' ' || coalesce(c.company, '') ILIKE ? ";
                 " m.genre || ' ' || coalesce(m.company, '') ILIKE ? ";
-            $k= preg_replace("/(\s|　)+/", ' ', $q['keyword']);
-            foreach(explode(" ", $k) as $key => $val) {
-                $arr[] = $this->_db->quoteInto($temp, '%'.$val.'%');
+            $k = preg_replace("/(\s|　)+/", ' ', $q['keyword']);
+            foreach (explode(" ", $k) as $key => $val) {
+                $arr[] = $this->_db->quoteInto($temp, '%' . $val . '%');
             }
         }
 
@@ -1222,7 +1281,7 @@ class Machine extends Zend_Db_Table_Abstract
                 " m.genre || ' ' || coalesce(m.company, '') ~ ? ";
             $ork = trim(preg_replace("/(\s|　|\||｜)+/", '|', $q['orkeyword']));
             if (!empty($ork)) {
-              $arr[] = $this->_db->quoteInto($temp, 'xxxxx|' . $ork . '|xxxxx');
+                $arr[] = $this->_db->quoteInto($temp, 'xxxxx|' . $ork . '|xxxxx');
             }
         }
 
@@ -1232,7 +1291,7 @@ class Machine extends Zend_Db_Table_Abstract
             $arr[] = $this->_db->quoteInto(' m.no IN (?) ', explode(' ', $nos));
         }
 
-        //// ここまでで、検索条件チェック ////
+        /// ここまでで、検索条件チェック ///
         if ($check == true && count($arr) == 0) {
             return false;
         }
@@ -1402,7 +1461,8 @@ class Machine extends Zend_Db_Table_Abstract
 
         // 特大ジャンルID（複数選択可）
         if (!empty($q['xl_genre_id'])) {
-            $temp[] = $this->_db->quoteInto("
+            $temp[] = $this->_db->quoteInto(
+                "
                 SELECT 'x' as key, x.id as id, x.xl_genre as label
                 FROM xl_genres x
                 WHERE x.id IN(?) ",
@@ -1412,7 +1472,8 @@ class Machine extends Zend_Db_Table_Abstract
 
         // 大ジャンルID（複数選択可）
         if (!empty($q['large_genre_id'])) {
-            $temp[] = $this->_db->quoteInto("
+            $temp[] = $this->_db->quoteInto(
+                "
                 SELECT 'l' as key, l.id as id, l.large_genre as label
                 FROM large_genres l
                 WHERE l.id IN(?) ",
@@ -1422,7 +1483,8 @@ class Machine extends Zend_Db_Table_Abstract
 
         // ジャンルID（複数選択可）
         if (!empty($q['genre_id'])) {
-            $temp[] = $this->_db->quoteInto("
+            $temp[] = $this->_db->quoteInto(
+                "
                 SELECT 'g' as key, g.id as id, g.genre as label
                 FROM genres g
                 WHERE g.id IN(?) ",
@@ -1432,7 +1494,8 @@ class Machine extends Zend_Db_Table_Abstract
 
         // 掲載会社ID
         if (!empty($q['company_id'])) {
-            $temp[] = $this->_db->quoteInto("
+            $temp[] = $this->_db->quoteInto(
+                "
                 SELECT 'c' as key, c.id as id, c.company as label
                 FROM companies c
                 WHERE c.id IN(?) ",
@@ -1442,8 +1505,9 @@ class Machine extends Zend_Db_Table_Abstract
 
         // メーカー
         if (!empty($q['maker'])) {
-            foreach((array)$q['maker'] as $m) {
-                $temp[] = $this->_db->quoteInto("
+            foreach ((array)$q['maker'] as $m) {
+                $temp[] = $this->_db->quoteInto(
+                    "
                     SELECT 'm' as key, 1 as id, ? as label ",
                     $m
                 );
@@ -1569,7 +1633,8 @@ class Machine extends Zend_Db_Table_Abstract
      * @param  integer $companyId 会社ID
      * @return $this
      */
-    public function setMultiple($column, $data, $id, $companyId) {
+    public function setMultiple($column, $data, $id, $companyId)
+    {
         if (empty($id)) {
             throw new Exception('変更する機械IDが設定されていません');
         }
@@ -1598,15 +1663,15 @@ class Machine extends Zend_Db_Table_Abstract
      * @param  array $q 検索クエリ
      * @return array メーカー一覧(件数順)
      */
-    public function getMakerGenreList($q=NULL)
+    public function getMakerGenreList($q = NULL)
     {
-        //// WHERE句 ////
+        /// WHERE句 ///
         $where = '';
         if (!empty($q)) {
             $where = ' AND ' . $this->_makeWhere($q);
         }
 
-        //// 検索クエリを作成・実行 ////
+        /// 検索クエリを作成・実行 ///
         $sql = "SELECT
           m.maker,
           sum(m.c) AS count,
@@ -1638,28 +1703,40 @@ class Machine extends Zend_Db_Table_Abstract
     // その他能力を文字列に結合する共通処理
     public function makerOthers($specLabels, $others)
     {
-        if (empty($specLabels) || empty($others)) { return ''; }
+        if (empty($specLabels) || empty($others)) {
+            return '';
+        }
 
         $temp = array();
 
-        foreach($specLabels as $lKey => $l) {
+        foreach ($specLabels as $lKey => $l) {
             $v = '';
             if (!empty($others[$lKey])) {
                 if (!empty($this->_otherSpecs[$l['type']])) {
                     // 複数値表示
-                    foreach($this->_otherSpecs[$l['type']][0] as $j) {
+                    foreach ($this->_otherSpecs[$l['type']][0] as $j) {
                         if ($others[$lKey][$j]) {
-                            if ($v != '') { $v.= $this->_otherSpecs[$l['type']][1]; }  // セパレータ表示
-                            $v.= $others[$lKey][$j]; // 能力値表示
+                            if ($v != '') {
+                                $v .= $this->_otherSpecs[$l['type']][1];
+                            }  // セパレータ表示
+                            $v .= $others[$lKey][$j]; // 能力値表示
                         }
                     }
-                } else { $v = $others[$lKey]; } // 単数値表示
+                } else {
+                    $v = $others[$lKey];
+                } // 単数値表示
             }
 
-            if ($v == '') { continue; }
+            if ($v == '') {
+                continue;
+            }
 
-            if (!empty($l['label'])) { $v = $l['label'] . ':' . $v; }
-            if (!empty($l['unit']))  { $v.= $l['unit']; }
+            if (!empty($l['label'])) {
+                $v = $l['label'] . ':' . $v;
+            }
+            if (!empty($l['unit'])) {
+                $v .= $l['unit'];
+            }
 
             $temp[] = $v;
         }
@@ -1676,13 +1753,13 @@ class Machine extends Zend_Db_Table_Abstract
      * @param  integer $num 取得件数条件
      * @return array   検索結果一覧
      */
-    public function getDoubleSearchList($select, $num=10)
+    public function getDoubleSearchList($select, $num = 10)
     {
-        //// SELECT(GROUP BY)句 ////
+        /// SELECT(GROUP BY)句 ///
         $select = ' m.large_genre_id, m.large_genre, m.maker_master ';
         $where  = " (m.maker_master <> '' AND m.maker_master <> '(不明)' AND m.maker_master IS NOT NULL) ";
 
-        //// 検索クエリを作成・実行 ////
+        /// 検索クエリを作成・実行 ///
         $sql = "SELECT
           {$select}, count(*) as count
         FROM

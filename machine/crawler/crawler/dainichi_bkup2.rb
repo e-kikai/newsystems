@@ -17,19 +17,12 @@ class Dainichi < Base
     # 親クラスのコンストラクタ
     super()
 
-    @company     = '株式会社大日機工'
-    @company_id  = 240
-    @start_uri   = 'https://dnkk.co.jp/wcshop/products/list?disp_number=50'
+    @company    = '株式会社大日機工'
+    @company_id = 240
+    @start_uri  = 'http://www.dnkk.co.jp/products/list.php#1'
 
-    @q      = [
-                ['https://dnkk.co.jp/wcshop/products/list?disp_number=50&pageno=2', 2],
-                ['https://dnkk.co.jp/wcshop/products/list?disp_number=50&pageno=3', 2],
-                ['https://dnkk.co.jp/wcshop/products/list?disp_number=50&pageno=4', 2],
-                ['https://dnkk.co.jp/wcshop/products/list?disp_number=50&pageno=5', 2],
-              ]
-
-    @crawl_allow = /pageno/
-    @crawl_deny  = /xxx/
+    @crawl_allow = /list.php#[0-9]+$/
+    @crawl_deny  = nil
   end
 
   #
@@ -39,7 +32,7 @@ class Dainichi < Base
   #
   def scrape
     #### ページ情報のスクレイピング ####
-    (@p/'table tr').each do |m|
+    (@p/'table.listarea tr').each do |m|
       begin
         #### 既存情報の場合スキップ ####
         next unless detail_link = m%'a'
@@ -47,8 +40,7 @@ class Dainichi < Base
         detail_uri  = detail_link[:href].f
         uid         = detail_uri.gsub(/[^0-9]/, '')
 
-        # next if m%'img[alt=売約済]'
-        next if m.text =~ /売却済/
+        next if m%'img[alt=売約済]'
         next unless check_uid(uid)
 
         #### ディープクロール ####
@@ -56,28 +48,29 @@ class Dainichi < Base
         p2 = nokogiri(detail_uri)
 
         temp = {
-          uid:      uid,
-          location: "本社",
+          :uid   => uid,
+          :no    => (p2%'#detailrightblock table tr:nth(1) td').text.f,
+          :name  => (p2%'#detailrightblock table tr:nth(4) td').text.f,
+          :hint  => (p2%'#detailrightblock table tr:nth(4) td').text.f,
+          :maker => (p2%'#detailrightblock table tr:nth(2) td').text.f,
+          :model => (p2%'#detailrightblock table tr:nth(3) td').text.f,
+          :year  => (p2%'#detailrightblock table tr:nth(5) td').text.f.gsub(/[^0-9]/, ''),
+          :spec  => (p2%'#detailrightblock table tr:nth(6) td').text.f,
+          :location => (p2%'#detailrightblock table tr:nth(7) td').text.f,
+          :price  => (p2%'#detailrightblock table tr:nth(8) td').text.f.gsub(/[^0-9]/, '').to_i,
         }
 
-        (p2/'th').each do |th|
-          next unless (th%'+ td')
-
-          td_text = (th%'+ td').text.f
-
-          case th.text.f
-          when /在庫番号/; temp[:no]      = td_text
-          when /機械名/;   temp[:name]    = td_text
-          when /メーカー/; temp[:maker]   = td_text
-          when /型式/;     temp[:model]   = td_text
-          when /年式/;     temp[:year]    = td_text.gsub(/[^0-9]/, '')
-          when /主仕様/;   temp[:spec]    = td_text
-          when /価格/;     price          = td_text.gsub(/[^0-9]/, '').to_i
-          when /コメント/; temp[:comment] = td_text
-          end
+        # 仕様・コメント
+        spec_html = (p2%'#detailrightblock table tr:nth(6) td').inner_html
+        if spec_html && /^(.*)\<br.*?\>\s*\<br.*?\>(.*)$/m =~ spec_html
+          sec_html     = $1
+          comment_html = $2
+          temp[:spec]    = sec_html.f.gsub(/\<.*?\>/, '')
+          temp[:comment] = comment_html.f.gsub(/\<.*?\>/, '')
         end
 
-        temp[:hint] = temp[:name];
+        # 在庫場所
+        temp[:location] = '本社' if /本社/ =~ temp[:location]
 
         # 主能力
         if /旋盤/ =~ temp[:name] && /NC/ !~ temp[:name]
@@ -123,10 +116,10 @@ class Dainichi < Base
 
         # 画像
         temp[:used_imgs] = []
-        (p2/'#detail_image_box__slides img').each do |i|
-          # log.debug(i.to_s)
-          next if i[:src] =~ /(junbi|gif)/
-          temp[:used_imgs] << join_uri(@p.uri, i[:src])
+        (p2/'#thumb a').each do |i|
+          if /(\/upload\/save_image\/.*\.jpg)/ =~ i[:onmouseover]
+            temp[:used_imgs] << join_uri("http://www.dnkk.co.jp/", $1)
+          end
         end
 
         @d << temp

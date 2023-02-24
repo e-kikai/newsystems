@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AJAXでクロール設定・結果のセット・削除
  *
@@ -7,25 +8,25 @@
  * @version 0.0.2
  * @since 2012/05/25
  */
-//// 設定ファイル読み込み ////
+/// 設定ファイル読み込み ///
 
 set_time_limit(30000);
 
 require_once '../../../lib-machine.php';
 try {
-    //// 認証 ////
+    /// 認証 ///
     // Auth::isAuth('catalog');
 
     // タイムアウトを長く設定
     // set_time_limit(3000);
 
-    //// パラメータ取得 ////
+    /// パラメータ取得 ///
     $companyId = Req::post('id');
     $company   = Req::post('company');
     $data      = Req::post('data');
     $rex       = Req::post('rex');
 
-    /////////test //////////
+    ///////test ////////
     /*
     $tarray = Req::post('tarray');
 
@@ -48,7 +49,7 @@ try {
     exit;
     */
 
-    //// 会社情報のチェック ////
+    /// 会社情報のチェック ///
     $sql = 'SELECT * FROM companies WHERE id = ? AND company = ?;';
     $res = $_db->fetchRow($sql, array($companyId, $company));
 
@@ -56,12 +57,12 @@ try {
         throw new Exception('会社情報を取得できませんでした');
     }
 
-    //// 既存機械情報の削除 ////
+    /// 既存機械情報の削除 ///
     $mModel = new Machine();
     $res = $mModel->deleteByNotUsedId(json_decode($rex, true), $companyId);
 
-    //// 機械情報の保存 ////
-    $res.= $mModel->setCrawledData($companyId, $data);
+    /// 機械情報の保存 ///
+    $res .= $mModel->setCrawledData($companyId, $data);
 
     exit($res);
 } catch (Exception $e) {

@@ -146,7 +146,7 @@
         </dd>
       </dl>
 
-      <div class="g-recaptcha" data-sitekey="6LfkPfkiAAAAACTK3yNXM34tTTTdIt5bAZaDQlv9"></div>
+      <div class="g-recaptcha" data-sitekey="6LeBHK8kAAAAAGqnJ04JuAjh2RrFOIffvieY2ojN"></div>
 
       <button type="submit" name="submit" class="submit btn btn-primary" value="login">
         <i class="fas fa-user-plus"></i> ユーザ登録する
