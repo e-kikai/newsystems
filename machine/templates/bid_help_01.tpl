@@ -7,34 +7,18 @@
     <script type="text/javascript">
     </script>
     <style type="text/css">
-      p {
-        font-size: 15px;
-      }
-
-      p strong {
-        color: #933;
-      }
-
-      .bid_help_area img {
-        width: 80%;
-        display: block;
-        margin: 8px auto 64px auto;
-        border: 1px solid #333;
-      }
-
-      .bid_help_area {
-        margin: 32px auto;
-      }
     </style>
   {/literal}
 {/block}
 
 {block name='main'}
   <div class="bid_help_area">
+    {*
     <h2>商品のさがし方</h2>
+    *}
     <p>
-      <a
-        href="bid_door.php?o={$bidOpenId}">Web入札会のトップページ</a>の、<strong>地域会場とジャンルからさがす</strong>から、Web入札会に出品されている商品をさがすことができます。<br />
+      <a href="bid_door.php?o={$bidOpenId}">Web入札会のトップページ</a>
+      の、<strong>地域会場とジャンルからさがす</strong>から、Web入札会に出品されている商品をさがすことができます。<br />
 
       まず、商品をさがしたい<strong>地域</strong>を選択します。(「全国」を選択することもできます)
     </p>
@@ -78,15 +62,36 @@
 
     <h2>入札方法について</h2>
     <p>
+      入札方法についてくわしくは、
+      <a href="bid_help_02.php?o={$bidOpenId}"><i class="fas fa-circle-info"></i> Web入札会 入札方法について</a> をご覧ください。
+      {*
       Web入札会への入札は、全機連の会員会社が行うことができます。<br />
       入札を行いたい場合は、<strong>フォームから問い合わせ</strong>から出品者入札を依頼するか、電話で出品者に入札の依頼を行って下さい。<br />
       (入札する商品の商品番号、商品名、入札金額をお伝え下さい。)<br /><br />
 
-      また、もし既にお取引のある全機連会員がある場合、そちらの会社に入札を依頼することもできます。<br /><br />
+      また、もし既にお取引のある全機連会員がある場合、そちらの会社に入札を依頼することもできます。*}
+      <br /><br />
 
       <strong>
         ※ 入札には締切時間がありますので、時間の余裕を持って入札を依頼することをお勧めいたします。
       </strong>
     </p>
+
+
+  </div>
+
+  <hr />
+  <div class="d-grid gap-2 col-6 mx-auto my-3">
+
+    <a href="/mypage/login.php" class="btn btn-outline-secondary">
+      <i class="fas fa-right-to-bracket"></i> マイページ - ログイン
+    </a>
+
+    <a href="bid_help_02.php?o={$bidOpenId}" class="btn btn-outline-secondary">
+      <i class="fas fa-circle-info"></i> Web入札会 入札方法について
+    </a>
+    <a href="bid_help.php?o={$bidOpenId}" class="btn btn-outline-secondary">
+      <i class="fas fa-circle-question"></i> Web入札会 よくある質問
+    </a>
   </div>
 {/block}

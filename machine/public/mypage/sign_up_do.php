@@ -21,6 +21,11 @@ try {
         throw new Exception("Web入札会には国内事業者のみ参加できます。\n\n申し訳ありませんが、国外の事業者は入札に参加・取引を行うことができません。\nご了承ください。");
     }
 
+    // 利用規約チェック
+    if (empty($_POST["terms"])) {
+        throw new Exception("ユーザ登録を行うには、Web入札会 利用規約に同意して頂く必要があります。");
+    }
+
     // パスワード重複チェック
     if ($data["passwd"] != $_POST['passwd_02']) throw new Exception("パスワードとパスワード(確認用)が異なっています。");
 
@@ -55,5 +60,6 @@ try {
 
         'errorMes' => $e->getMessage(),
         "data"     => $data,
+        "recaptcha_sitekey" => $_conf->recaptcha_sitekey,
     ))->display("mypage/sign_up.tpl");
 }

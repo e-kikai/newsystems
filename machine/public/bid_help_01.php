@@ -40,7 +40,7 @@ try {
 
     /// 表示変数アサイン ///
     $_smarty->assign(array(
-        'pageTitle'   => '入札会 入札方法について',
+        'pageTitle'   => 'Web入札会 商品のさがし方',
         'pankuzu'     => array(
             '/bid_door.php?o=' . $bidOpenId => $bidOpen['title'],
         ),
@@ -50,7 +50,7 @@ try {
 } catch (Exception $e) {
     /// 表示変数アサイン ///
     $_smarty->assign(array(
-        'pageTitle'    => '入札会 入札方法について',
+        'pageTitle'    => 'Web入札会 商品のさがし方',
         'errorMes' => $e->getMessage()
     ))->display('error.tpl');
 }

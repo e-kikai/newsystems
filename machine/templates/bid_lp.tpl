@@ -105,7 +105,7 @@
         margin: 8px auto;
       }
 
-      /*** Web入札会開催日程　以下を追加 ***/
+      /*** Web入札会開催日程 以下を追加 ***/
       table.tender_schedule {
         width: 890px;
         padding: 20px 0px 0px 0px;
@@ -135,6 +135,19 @@
         width: 890px;
         text-align: right;
       }
+
+      div.lp_01_cont5tit {
+        height: 49px;
+      }
+
+      img.step {
+        object-fit: cover;
+        object-position: 0 0;
+        width: 200px;
+        height: 478px;
+        display: block;
+        margin: 0 auto 20px 0;
+      }
     </style>
   {/literal}
 
@@ -155,11 +168,11 @@
         value="{if time() < strtotime($bidOpen.preview_start_date)}{$bidOpen.preview_start_date|date_format:'%m月%d日'}({B::strtoweek($bidOpen.preview_start_date)}){/if}">
 
       <div style="position:relative;height:420px;">
-        <img src="./imgs/lp_01_r.png" 　alt="全機連Web入札会のご案内">
+        <img src="./imgs/lp_01_r.png" alt="全機連Web入札会のご案内">
         <div class="lp_01_title" style="position:absolute;top: 22px;left: 48px;text-align:left;width:600px;">
           {$bidOpen.title|escape|regex_replace:'/(Web入札会|([a-zA-Z])+|([^a-zA-Z])+)/':'<span>$1</span>' nofilter}</div>
         <span class="lp_01_title" style="position:relative;top:-360px;left:330px;"><a class="mylist" href="#"
-            target="_blank"><img src="./imgs/lp_01_r_bot.png" 　alt="全機連Web入札会のご案内"></a></span>
+            target="_blank"><img src="./imgs/lp_01_r_bot.png" alt="全機連Web入札会のご案内"></a></span>
         <span class="lp_01_info" style="position:absolute;top:232px;left:70px;text-align:left;">
           下見期間 : {$bidOpen.preview_start_date|date_format:'%Y年%m月%d日'}({B::strtoweek($bidOpen.preview_start_date)}) ～
           {$bidOpen.preview_end_date|date_format:'%m月%d日'}({B::strtoweek($bidOpen.preview_end_date)})<br />
@@ -179,11 +192,11 @@
       {/foreach}
 
       <div>
-        <a href="./bid_lp_photo.php?o={$bidOpenId}"><img src="./imgs/bid201403/img/c_02.png" 　alt="Webアルバム"></a>
+        <a href="./bid_lp_photo.php?o={$bidOpenId}"><img src="./imgs/bid201403/img/c_02.png" alt="Webアルバム"></a>
       </div>
 
       <a class="link_button" href="bid_door.php?o={$bidOpenId}">
-        <img src="./imgs/bid201403/img/c_button_r.png" alt="Web入札会　出品機械を下見する">
+        <img src="./imgs/bid201403/img/c_button_r.png" alt="Web入札会 出品機械を下見する">
         <div class="link_label">
           下見期間{$bidOpen.preview_start_date|date_format:'%Y年%m月%d日'}～{$bidOpen.preview_end_date|date_format:'%m月%d日'}にて開催!
         </div>
@@ -228,14 +241,19 @@
       </div>
 
       <a class="link_button" href="bid_door.php?o={$bidOpenId}">
-        <img src="./imgs/bid201403/img/c_button_r.png" alt="Web入札会　出品機械を下見する">
+        <img src="./imgs/bid201403/img/c_button_r.png" alt="Web入札会 出品機械を下見する">
         <div class="link_label">
           下見期間{$bidOpen.preview_start_date|date_format:'%Y年%m月%d日'}～{$bidOpen.preview_end_date|date_format:'%m月%d日'}にて開催!
         </div>
       </a>
 
+      <!--
+      <img src="./imgs/lp_new_bid_01.png" alt="" style="width: 950px;margin: 8px auto" />
+      -->
+      <img src="./imgs/bid_lp_news_01.png" alt="" style="width: 760px;margin: 32px auto" />
+
       <div style="position:relative;">
-        <img src="./imgs/lp_01_06_r.png" 　alt="全機連Web入札会 開催要項">
+        <img src="./imgs/lp_01_06_r.png" alt="全機連Web入札会 開催要項">
 
         <div class="c_06_title">{$bidOpen.title}<br />開催要項</div>
         <div class="c_06_info">
@@ -254,7 +272,7 @@
       </div>
 
       <a class="link_button" href="bid_door.php?o={$bidOpenId}">
-        <img src="./imgs/bid201403/img/c_button_r.png" alt="Web入札会　出品機械を下見する">
+        <img src="./imgs/bid201403/img/c_button_r.png" alt="Web入札会 出品機械を下見する">
         <div class="link_label">
           下見期間{$bidOpen.preview_start_date|date_format:'%Y年%m月%d日'}～{$bidOpen.preview_end_date|date_format:'%m月%d日'}にて開催!
         </div>
@@ -295,7 +313,7 @@
         {/foreach}
       </table>
       <div class="right">
-        <a class="form_button" href="./imgs/2019schedule.pdf" target="_blank"><img src="./imgs/2014schedule.png"
+        <a class="form_button" href="./imgs/2023schedule.pdf" target="_blank"><img src="./imgs/2014schedule.png"
             alt="2019年Web入札会日程(スケジュール)"></a>
       </div>
 
@@ -309,47 +327,124 @@
 
       <div class="lp_waku_01">
         <div class="lp_waku_01_tit">ユーザー企業様にとって入札会のメリットは、</div>
-        <div class="lp_waku_01_txt">たくさんの中古機械の中から、比較検討することができ、ユーザー企業の予算に合わせて、<br />(せり上がり方式でなく) 中古機械のプロがエージェントとなり、<br />
-          欲しい中古機械や機械部品を予算内で購入できる仕組みです！</div>
+        <div class="lp_waku_01_txt">たくさんの中古機械の中から、比較検討することができ、<br />
+          ユーザー企業の予算に合わせて、
+          {*
+          (せり上がり方式でなく) 中古機械のプロがエージェントとなり、<br />
+          *}
+          欲しい中古機械や機械部品を予算内で購入できる仕組みです！
+        </div>
       </div>
 
 
       <div style="" class="lp_01_cont5tit">① 希望価格での取引が実現！</div>
       <div style="margin:0 0 20px 50px;width:800px;" class="lp_01_txt">
-        オークションと異なり、価格がせり上がっていく仕組みではないので、ユーザー企業にとっては、冷静な御判断の元、希望価格で落札していただけるメリットがございます。</div>
+        オークションと異なり、価格がせり上がっていく仕組みではないので、<br />
+        ユーザー企業にとっては、冷静な御判断の元、希望価格で落札していただけるメリットがございます。<br />
 
+        出品会社にお問い合わせすることもできますので、じっくり考えて入札をしてみてください。
+      </div>
+
+      {*
       <div style="" class="lp_01_cont5tit">② 面倒な交渉は業者におまかせ！</div>
       <div style="margin:0 0 20px 50px;width:800px;" class="lp_01_txt">
-        また、機械業者がユーザー企業に代わって入札を行いますので、価格交渉や専門的な知識を必要とせずに参加いただけることも大きなメリットです。</div>
+        また、機械業者がユーザー企業に代わって入札を行いますので、価格交渉や専門的な知識を必要とせずに参加いただけることも大きなメリットです。
+      </div>
+      *}
 
-      <div style="" class="lp_01_cont5tit">③ 掘り出しものもたくさん発見？！</div>
+      <div style="" class="lp_01_cont5tit">② ユーザ登録を行うだけで、どなたでも入札に参加可能</div>
       <div style="margin:0 0 20px 50px;width:800px;" class="lp_01_txt">
-        細かな工具や設備棚などの出品もあります。必要なものが見つかればお買い得は間違いなしですね！また、工作機械は製造業にとって、「ものづくりの道具」になります。様々な道具を情報収集することで、生産コストを大幅に改善できる可能性もございます。
+        ユーザ登録(初回のみ)して、マイページにログインするだけで、入札に参加可能です。<br />
+        ユーザ登録は、どなたでも無料で行なえます(国内事業者のみ)。
+      </div>
+      <div style="" class="lp_01_cont5tit">③ 信頼と実績のある、全機連の会員会社が出品</div>
+      <div style="margin:0 0 20px 50px;width:800px;" class="lp_01_txt">
+
+        また、出品は信頼のある全機連会員の機械業者なので、<br />
+        落札後の手続きや専門的な知識を必要する場合などにも対応できることも、大きなメリットです。
+      </div>
+
+      <div style="" class="lp_01_cont5tit">④ 掘り出しものもたくさん発見？！</div>
+      <div style="margin:0 0 20px 50px;width:800px;" class="lp_01_txt">
+        細かな工具や設備棚などの出品もあります。必要なものが見つかればお買い得は間違いなしですね！<br />
+        また、工作機械は製造業にとって、「ものづくりの道具」になります。様々な道具を情報収集することで、<br />
+        生産コストを大幅に改善できる可能性もございます。
       </div>
 
       <div style="" class="lp_01_htit">入札会参加のステップ</div>
 
       <div style="text-align:center;position:relative;font-size:18px;line-height:26px;">
-        <img src="../imgs/lp_01_cont05_01.png">
+        <img src="../imgs/lp_01_cont05_01.png" class="step">
+
+        {*
+        <span style="position:absolute;top:21px;left:208px;width:700px;text-align:left;">
+        *}
         <span style="position:absolute;top:21px;left:208px;width:700px;text-align:left;">
           下見期間中に出品中古機械を検索し、入札金額をご検討ください。<br>
+          {*
           出品中古機械に関するお問い合わせや不明な点を、専用問合せフォームから直接出品商社にお問い合わせができます。
+          *}
+          商品に関するお問い合わせや不明な点がありましたら、<br />
+          各商品の問合せフォームから直接出品会社にお問い合わせができます。
         </span>
+
+        {*
         <span style="position:absolute;top:170px;left:230px;width:680px;text-align:left;">
+        *}
+
+        {*
           入札締切期間までに、希望入札金額や中古機械の状況など全機連会員からの入札のサポートに従い入札の手続きを行ってください。
         </span>
         <span style="position:absolute;top:281px;left:230px;width:680px;text-align:left;">
-          入札を希望される中古機械についてのご質問は、直接出品企業へお問い合わせフォームよりお問い合わせください。また、入札に関するサポートは、こちらより、最寄りの全機連会員にお問い合わせを頂くか中古機械出品企業へお問い合わせください。
+          入札を希望される中古機械についてのご質問は、<br />
+          直接出品企業へお問い合わせフォームよりお問い合わせください。<br />
+        *}
+
+        <span style="position:absolute;top:138px;left:208px;width:680px;text-align:left;">
+
+          商品の内容、価格などを比較検討の上、<br />
+          ユーザ登録(初回のみ)・マイページログインを行っていただき、 <br />
+          各商品の詳細ページにある入札フォームより、入札を行って下さい。<br /><br />
+
+          また、マイページでは、
+          ウォッチリストなどの便利機能や、入札の履歴の確認、<br />
+          期間内の入札の取り消しなどを行えます。
+
+          {*
+          また、入札に関するサポートは、こちらより、最寄りの全機連会員にお問い合わせを頂くか中古機械出品企業へお問い合わせください。
+          *}
         </span>
+        {*
         <span style="position:absolute;top:400px;left:208px;width:700px;text-align:left;">
           落札結果や、搬出のお打ち合わせなどを全機連商社からサポートさせて頂きます。
         </span>
+        *}
+
+        <span style="position:absolute;top:350px;left:208px;width:700px;text-align:left;">
+
+          入札期間が終了したら、落札結果が公開されます。<br /><br />
+
+          商品を落札されましたら、チャット形式の取引フォームから<br />
+          出品会社と代金の振り込み、搬出の打ち合わせなどの取引を行って下さい。
+        </span>
       </div><br clear=all>
-      <div><img src="../imgs/lp_01_cont05_02.png" 　alt="Web入札会参加のステップ"></div>
+
+      <div style="font-size:21px;color:brown;text-align:center;margin:32px auto;">
+        よりくわしい入札会の参加方法は、Web入札会 マニュアルをごらんください。 <br />
+        ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓<br /><br />
+
+        ///// マニュアル(PDF)へのリンク /////
+      </div>
+
+      {*
+      <div><img src="../imgs/lp_01_cont05_02.png"  alt="Web入札会参加のステップ"></div>
+      *}
+
+
 
 
       <a class="link_button" href="bid_door.php?o={$bidOpenId}">
-        <img src="./imgs/bid201403/img/c_button_r.png" alt="Web入札会　出品機械を下見する">
+        <img src="./imgs/bid201403/img/c_button_r.png" alt="Web入札会 出品機械を下見する">
         <div class="link_label">
           下見期間{$bidOpen.preview_start_date|date_format:'%Y年%m月%d日'}～{$bidOpen.preview_end_date|date_format:'%m月%d日'}にて開催!
         </div>
@@ -358,6 +453,11 @@
 
       <div style="" class="lp_01_etc">
         <div style="" class="lp_01_etc_tit">■入札について </div>
+
+        <div style="font-size:21px;color:brown;text-align:center;margin:32px auto;"> ///// ここに規約を表示する (PDFダウンロードリンクも) ////
+        </div>
+
+        {*
         <ol style="" class="lp_01_etc_txt">
           <li>入札資格者は、全日本機械業連合会会員及び大阪機械卸業団地協同組合組合員に限ります。<br>
             ウェブ入札会参加登録会員様マシンライフ会員様は、全機連会員企業を通じて入札参加することができます。</li>
@@ -388,10 +488,12 @@
           <li>詳細は Web 入札規程に基づき行います。</li>
           <li>落札者は落札額の 8％を消費税として加算させて頂きます。</li>
         </ol>
+
+        *}
       </div>
 
       <a class="link_button" href="bid_door.php?o={$bidOpenId}">
-        <img src="./imgs/bid201403/img/c_button_r.png" alt="Web入札会　出品機械を下見する">
+        <img src="./imgs/bid201403/img/c_button_r.png" alt="Web入札会 出品機械を下見する">
         <div class="link_label">
           下見期間{$bidOpen.preview_start_date|date_format:'%Y年%m月%d日'}～{$bidOpen.preview_end_date|date_format:'%m月%d日'}にて開催!
         </div>

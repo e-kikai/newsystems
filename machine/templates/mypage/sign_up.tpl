@@ -14,9 +14,14 @@
         let sign_up_form = document.getElementById('sign_up_form');
         sign_up_form.addEventListener('submit', () => {
           let domestic = sign_up_form.domestic.value;
+          let terms = sign_up_form.terms.checked;
 
           if (domestic != true) {
             alert('Web入札会には国内事業者のみ参加できます。\n\n申し訳ありませんが、国外の事業者は入札に参加・取引を行うことができません。\nご了承ください。')
+            event.stopPropagation();
+            event.preventDefault();
+          } else if (terms != true) {
+            alert('ユーザ登録を行うには、\nWeb入札会 利用規約に同意して頂く必要があります。')
             event.stopPropagation();
             event.preventDefault();
           }
@@ -62,6 +67,22 @@
       });
     </script>
     <style type="text/css">
+      .terms_area {
+        border: #ff8a9e solid 1px;
+        background: #fdd7de;
+        margin: 16px auto;
+        width: 100%;
+        padding-bottom: 16px;
+        text-align: center;
+        border-radius: 8px;
+        font-size: 15px;
+      }
+
+      .terms_area a {
+        margin: 16px auto;
+        display: block;
+        width: auto;
+      }
     </style>
   {/literal}
 {/block}
@@ -146,7 +167,19 @@
         </dd>
       </dl>
 
-      <div class="g-recaptcha" data-sitekey="6LeBHK8kAAAAAGqnJ04JuAjh2RrFOIffvieY2ojN"></div>
+      <div class="g-recaptcha" data-sitekey="{$recaptcha_sitekey}"></div>
+
+      <div class="terms_area">
+        <a href="./imgs/bid_user_manual_2023.pdf" target="_blank">
+          <i class="fas fa-file-pdf"></i>
+          マシンライフWeb入札会 利用規約
+        </a>
+        <div>
+          <input class="form-check-input" type="checkbox" name="terms" id="terms" value="1">
+          <label class="form-check-label" for="terms">利用規約を読んで、利用規約に同意する</label>
+        </div>
+      </div>
+
 
       <button type="submit" name="submit" class="submit btn btn-primary" value="login">
         <i class="fas fa-user-plus"></i> ユーザ登録する

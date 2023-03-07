@@ -1625,3 +1625,70 @@ td.trade {
 table td.trade {
   text-align: center;
 }
+
+.bid_help_area {
+  font-size: 15px;
+}
+
+.bid_help_area p {
+  padding: 16px 0;
+}
+
+.bid_help_area strong {
+  color: #933;
+}
+
+.bid_help_area img {
+  width: 80%;
+  display: block;
+  margin: 8px auto 64px auto;
+  border: 1px solid #333;
+}
+
+.bid_help_area {
+  margin: 32px auto;
+}
+
+.bid_help_area h4 {
+  font-size: 1.1rem;
+}
+
+.bid_help_area em {
+  color: #339;
+}
+
+.bid_help_area li {
+  list-style: square;
+  margin: 4px auto;
+}
+
+kbd {
+  padding: 0.2rem 0.4rem;
+  color: #fff;
+  background-color: #212529;
+  border-radius: 0.2rem;
+  background: rgb(12 110 253);
+  padding: 6px 20px;
+}
+
+.bid_help_area table.contact tr th {
+  padding: 8px;
+  width: 260px;
+}
+
+.bid_help_area table.contact tr td {
+  padding: 8px;
+  width: 540px;
+}
+
+.bid_help_area table.contact tr.header th {
+  background: #edfdff;
+  font-weight: bold;
+  text-align: center;
+}
+
+.bid_help_area table.contact tr.header td {
+  background: #edfdff;
+  font-weight: bold;
+  text-align: center;
+}

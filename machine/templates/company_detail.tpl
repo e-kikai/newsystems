@@ -8,6 +8,7 @@
   *}
 
   <script type="text/javascript" src="{$_conf.site_uri}{$_conf.js_dir}ekikaiMylist.js"></script>
+  <link href="{$_conf.site_uri}{$_conf.css_dir}company_detail.css" rel="stylesheet" type="text/css" />
 
   {literal}
     <script type="text/javascript">

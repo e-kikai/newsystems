@@ -17,6 +17,7 @@ try {
         'pankuzu'     => array(
             '/mypage/login.php' => 'マイページ - ログイン',
         ),
+        "recaptcha_sitekey" => $_conf->recaptcha_sitekey,
     ))->display("mypage/sign_up.tpl");
 } catch (Exception $e) {
     /// エラー画面表示 ///
