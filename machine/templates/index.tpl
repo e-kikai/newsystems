@@ -161,7 +161,7 @@
     {/if}
 
     <a href="./bid_schedule.php" target="_blank" onClick="ga('send', 'event', 'banner', 'bid', 'bid_schedule', 1, true);">
-      <img src="./imgs/2022bid.png" alt="2022年度Web入札会スケジュール" />
+      <img src="./imgs/bid_2023.png" alt="2023年度Web入札会スケジュール" />
     </a>
 
     <a href="./help_banner.php" target="_blank" onClick="ga('send', 'event', 'banner', 'bid', 'ad_rec', 1, true);">
@@ -218,13 +218,13 @@
 
 
     {assign "pAds"
-          [
-            ['大阪機械団地組合', 'ad_omdc.png', 'http://www.omdc.or.jp/'],
-            ['大阪機械業連合会', 'ad_daikiren.png', 'http://www.zenkiren.org/index.php?%E5%A4%A7%E9%98%AA%E6%A9%9F%E6%A2%B0%E6%A5%AD%E9%80%A3%E5%90%88%E4%BC%9A'],
-            ['中部機械業連合会', 'ad_chukiren.png',  'http://www.zenkiren.org/index.php?%E4%B8%AD%E9%83%A8%E6%A9%9F%E6%A2%B0%E6%A5%AD%E9%80%A3%E5%90%88%E4%BC%9A'],
-            ['東京機械業連合会', 'ad_toukiren.png',  'http://www.zenkiren.org/index.php?%E6%9D%B1%E4%BA%AC%E6%A9%9F%E6%A2%B0%E6%A5%AD%E9%80%A3%E5%90%88%E4%BC%9A']
-          ]
-      }
+              [
+                ['大阪機械団地組合', 'ad_omdc.png', 'http://www.omdc.or.jp/'],
+                ['大阪機械業連合会', 'ad_daikiren.png', 'http://www.zenkiren.org/index.php?%E5%A4%A7%E9%98%AA%E6%A9%9F%E6%A2%B0%E6%A5%AD%E9%80%A3%E5%90%88%E4%BC%9A'],
+                ['中部機械業連合会', 'ad_chukiren.png',  'http://www.zenkiren.org/index.php?%E4%B8%AD%E9%83%A8%E6%A9%9F%E6%A2%B0%E6%A5%AD%E9%80%A3%E5%90%88%E4%BC%9A'],
+                ['東京機械業連合会', 'ad_toukiren.png',  'http://www.zenkiren.org/index.php?%E6%9D%B1%E4%BA%AC%E6%A9%9F%E6%A2%B0%E6%A5%AD%E9%80%A3%E5%90%88%E4%BC%9A']
+              ]
+          }
     {if (shuffle($pAds))}
       {foreach array_rand($pAds, 4) as $key}
         <a href="{$pAds[$key][2]}" target="_blank" {if $key@first} class="first" {/if}

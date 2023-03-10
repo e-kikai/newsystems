@@ -23,11 +23,26 @@
         // 選択可能期間の設定
         $('input.date.entry_start').datepicker("option", 'onClose', function(selectedDate) {
           $('input.date.bid_start').datepicker("option", "minDate", selectedDate);
+          $('input.date.entry_end').datepicker("option", "minDate", selectedDate);
+        });
+
+        $('input.date.entry_end').datepicker("option", 'onClose', function(selectedDate) {
+          $('input.date.entry_start').datepicker("option", "maxDate", selectedDate);
+        });
+
+        $('input.date.preview_start_date').datepicker("option", 'onClose', function(selectedDate) {
+          $('input.date.preview_end_date').datepicker("option", "minDate", selectedDate);
+        });
+
+        $('input.date.preview_end_date').datepicker("option", 'onClose', function(selectedDate) {
+          $('input.date.preview_start_date').datepicker("option", "maxDate", selectedDate);
         });
 
         $('input.date.bid_start').datepicker("option", 'onClose', function(selectedDate) {
           $('input.date.bid_end').datepicker("option", "minDate", selectedDate);
+          $('input.date.user_bid_date').datepicker("option", "minDate", selectedDate);
         });
+
         $('input.date.bid_end').datepicker("option", 'onClose', function(selectedDate) {
           $('input.date.bid_start').datepicker("option", "maxDate", selectedDate);
           $('input.date.billing_date').datepicker("option", "minDate", selectedDate);
@@ -135,8 +150,8 @@
             'min_price': $.trim($('input.min_price').val()),
             'rate': $.trim($('input.rate').val()),
             'tax': $.trim($('input.tax').val()),
-            'motobiki': $.trim($('input.motobiki').val()),
-            'deme': $.trim($('input.deme').val()),
+            // 'motobiki': $.trim($('input.motobiki').val()),
+            // 'deme': $.trim($('input.deme').val()),
 
             // 'entry_limit_style': $.trim($('input.entry_limit_style:checked').val()),
             // 'entry_limit_num': $.trim($('input.entry_limit_num').val()),
@@ -192,7 +207,7 @@
       }
 
       input.date {
-        width: 90px;
+        width: 100px;
       }
 
       input.time {

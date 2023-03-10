@@ -52,8 +52,8 @@
       {/foreach}
     </table>
     <div class="right">
-      <a class="form_button" href="../imgs/2022schedule.pdf" target="_blank"><img src="./imgs/2014schedule.png"
-          alt="2022年Web入札会日程(スケジュール)"></a>
+      <a class="form_button" href="../imgs/2023schedule.pdf" target="_blank"><img src="./imgs/2014schedule.png"
+          alt="2023年Web入札会日程(スケジュール)"></a>
     </div>
 
     {*
@@ -88,7 +88,7 @@
         </time>
       </td>
       <td itemprop="location">
-       {$bi.place|escape|nl2br nofilter}
+        {$bi.place|escape|nl2br nofilter}
       </td>
 
       <td>

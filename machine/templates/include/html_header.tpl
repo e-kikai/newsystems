@@ -105,7 +105,7 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   {/if}
 
-  <link href="{$_conf.libjs_uri}/css/common.css?2021051007" rel="stylesheet" type="text/css" />
+  <link href="{$_conf.libjs_uri}/css/common.css?20230308" rel="stylesheet" type="text/css" />
 
   {* 印刷用CSS *}
   <link href="{$_conf.libjs_uri}/css/print.css?20180717" rel="stylesheet" type="text/css" media="print" />
