@@ -65,7 +65,9 @@
       {*
       <button type="submit" class="company_list_submit">検索</button>
       *}
-      <button type="submit" class="btn btn-lg btn-info rounded ms-1">検索</button>
+      <button type="submit" class="btn btn-md rounded ms-1 btn-primary">
+        <i class="fas fa-magnifying-glass"></i> 検索
+      </button>
     </form>
   </div>
 

@@ -1433,7 +1433,7 @@ label.error {
 
 .machine_news {
   position: relative;
-  height: 60px;
+  height: 66px;
   padding: 4px;
   margin: 0;
   background: #fff;
@@ -1446,7 +1446,7 @@ label.error {
 .machine_news a.img_link {
   display: block;
   position: absolute;
-  top: 4px;
+  top: 2px;
   left: 16px;
   width: 80px;
   height: 60px;
@@ -1460,7 +1460,7 @@ label.error {
 .machine_news .news_span {
   display: block;
   position: absolute;
-  top: 4px;
+  top: 0;
   left: 112px;
   font-size: 15px;
   color: #b00;
@@ -1469,7 +1469,7 @@ label.error {
 .machine_news a.names {
   display: block;
   position: absolute;
-  top: 24px;
+  top: 20px;
   left: 112px;
   font-size: 15px;
   text-decoration: none;

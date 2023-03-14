@@ -300,13 +300,8 @@
         text-align: center;
 
         position: absolute;
-        /*
-        margin: 4px auto 16px auto;
-        top: 238px;
-        left: 236px;
-        */
         top: 290px;
-        left: 360px;
+        right: 200px;
       }
 
       .door_infos a.bid_help,
@@ -400,8 +395,20 @@
     {*
     <a class="bid_help" href="bid_help_01.php?o={$bidOpenId}">入札方法のご依頼方法<br />解説はこちら</a>
     *}
-    <a class="help_link" href="bid_help.php?o={$bidOpenId}">
-      <i class="fas fa-circle-question"></i> 入札会よくある質問
+
+
+    <a class="help_link" href="bid_help.php?o={$bidOpenId}" style="">
+      <i class="fas fa-circle-question"></i> よくある質問
+    </a>
+  </div>
+
+  <div>
+    <a class="bid_help" href="bid_help_01.php?o={$bidOpenId}" style="">
+      <i class="fas fa-circle-question"></i> 商品のさがし方
+    </a>
+
+    <a class="bid_help" href="bid_help_02.php?o={$bidOpenId}" style="">
+      <i class="fas fa-circle-question"></i> 入札方法について
     </a>
   </div>
 

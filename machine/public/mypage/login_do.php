@@ -19,9 +19,20 @@ if ($auth->login($_POST['mail'], $_POST['passwd'], isset($_POST['check']))) {
   // $lModel->set('machine', 'login');
 
   $_SESSION["flash_notice"] = "マイページにログインしました。\nWeb入札会にご参加ありがとうございます。";
-  header('Location: /mypage/');
+
+  $ref = !empty($_POST['ref']) ? $_POST['ref'] : "/mypage/";
+  header('Location: ' . $ref);
 } else {
   $_SESSION["flash_alert"] = "マイページにログイン出来ませんでした。\nお手数ですが、入力したメールアドレスとパスワードをご確認下さい。";
-  header('Location: /mypage/login.php?e=1');
+
+  /// 表示変数アサイン ///
+  $_smarty->assign(array(
+    'pageTitle'       => 'マイページ - ログイン',
+    'pageDescription' => '入札会で入札を行うためのユーザログインです。メールアドレスとパスワードを入力してください。',
+
+    'ref' => $_POST['ref'],
+  ))->display("mypage/login.tpl");
+
+  // header('Location: /mypage/login.php');
 }
 exit;

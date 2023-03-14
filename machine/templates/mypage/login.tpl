@@ -24,6 +24,10 @@
 
 {block 'main'}
   <form class="login" method="post" action="/mypage/login_do.php">
+    {if !empty($ref)}
+      <input type="hidden" name="ref" value="{$ref}" />
+    {/if}
+
     <div class="d-grid gap-2 col-6 mx-auto mt-3">
       <dl>
         <dt><label for="mail" class="form-label">メールアドレス</label></dt>

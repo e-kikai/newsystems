@@ -131,7 +131,8 @@ class MyAuth extends Zend_Db_Table
         // 認証失敗で、ログインページにリダイレクト
         if (MyAuth::check() == false) {
             $redirect = !empty($return) ? $return : self::$_redirect;
-            header('Location: ' . $redirect . '?e=' . $code);
+            $_SESSION["flash_alert"] = "マイページにログインしていません。";
+            header('Location: ' . $redirect);
             exit;
         }
     }

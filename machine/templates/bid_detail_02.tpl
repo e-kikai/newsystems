@@ -359,13 +359,16 @@
           {if in_array($bidOpen.status, array('bid'))}
             <h2>入札に参加するには？</h2>
 
-            <p class="contents">
-              商品への入札を行うには、<br />
-              <a href="/mypage/sign_up.php"><i class="fas fa-user-plus"></i> 入札会ユーザ登録</a>を行うことでだれでも行なえます。<br /><br />
-
-              Web入札会ユーザ登録より登録を行い、<br />
-              <a href="/mypage/login.php"><i class="fas fa-right-to-bracket"></i> マイページにログイン</a>してください。
-            </p>
+            <div class="d-grid gap-2 col-12 mx-auto my-4">
+              <div>商品への入札は、ユーザ登録を行うことでどなたでも行なえます。</div>
+              <a href="/mypage/sign_up.php" class="btn btn-outline-secondary mb-4">
+                <i class="fas fa-user-plus"></i> 入札に参加するには - 入札会ユーザ登録
+              </a>
+              <div>ユーザ登録を行った後、マイページにログインしてください。</div>
+              <a href="/mypage/login.php?r=1" class="btn btn-outline-secondary">
+                <i class="fas fa-right-to-bracket"></i> マイページ - ログイン
+              </a>
+            </div>
 
           {elseif in_array($bidOpen.status, array('entry', 'margin'))}
             <p class="contents">

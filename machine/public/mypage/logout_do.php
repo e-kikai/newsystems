@@ -14,5 +14,6 @@ require_once '../../lib-machine.php';
 MyAuth::logout();
 
 /// ログインページにリダイレクト ///
-header('Location:/mypage/login.php?e=3');
+$_SESSION["flash_notice"] = "ログアウトしました。\nWeb入札会へのご参加、ありがとうございました。\nまたのご利用お待ちしております。";
+header('Location:/mypage/login.php');
 exit;

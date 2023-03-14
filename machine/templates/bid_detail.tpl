@@ -293,11 +293,7 @@
 
 
 {block name='main'}
-
-
   {if !empty($machine)}
-
-
     {include "include/bid_timer.tpl"}
 
     <div class="next_area">
@@ -308,9 +304,7 @@
           onclick="ga('send', 'event', 'detail_link', 'prev', '{$prevMachine.id}', 1, true);">
           ←前の商品
         </a>
-
       {/if}
-
 
       {if !empty($nextMachine)}
         <a class="next_link" href="bid_detail.php?m={$nextMachine.id}"
