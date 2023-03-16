@@ -11,6 +11,7 @@
 
   <script type="text/javascript" src="{$_conf.site_uri}{$_conf.js_dir}same_list.js"></script>
   <link href="{$_conf.site_uri}{$_conf.css_dir}same_list.css" rel="stylesheet" type="text/css" />
+  <link href="{$_conf.site_uri}{$_conf.css_dir}bid_door.css" rel="stylesheet" type="text/css" />
 
   <script type="text/javascript">
     {literal}
@@ -46,314 +47,6 @@
       });
     </script>
     <style type="text/css">
-      /*** 特大ジャンル ***/
-      .xl_area {
-        position: relative;
-        width: 100%;
-        margin-right: 6px;
-        margin-bottom: 10px;
-      }
-
-      .xl_area .xl_genre,
-      .xl_area .region,
-      .xl_area a.all_list {
-        display: inline-block;
-        position: relative;
-        z-index: 100;
-
-        width: 226px;
-        height: 36px;
-        line-height: 36px;
-        margin: 4px 3px;
-        border: 1px solid #CCC;
-        background: #EEE;
-        text-align: center;
-        cursor: pointer;
-        font-size: 15px;
-
-        text-decoration: none;
-        color: #333;
-      }
-
-      .xl_area .xl_genre {
-        /*
-        height: 136px;
-        */
-        height: 168px;
-      }
-
-      .xl_area .xl_genre img {
-        display: block;
-        margin: auto;
-        /*
-        max-width: 120px;
-        max-height: 90px;
-        */
-        width: 120px;
-        height: 120px;
-        object-fit: cover;
-      }
-
-      .xl_area .xl_genre:hover,
-      .xl_area .region:hover,
-      .xl_area a.all_list:hover {
-        background: #FFFFCC;
-        color: #FF6633;
-        border-color: #FF9933;
-      }
-
-      .xl_area .xl_large_genre_area {
-        position: absolute;
-        z-index: 3000;
-
-        top: 48px;
-        left: 0;
-
-        width: 220px;
-        border: 1px solid #FF6633;
-        background: #FFFFCC;
-        display: none;
-      }
-
-      .xl_area .xl_large_genre_area:after {
-        content: '';
-        position: absolute;
-        border-bottom: 10px solid #FFFF99;
-        border-right: 5px solid transparent;
-        border-left: 5px solid transparent;
-        top: -9px;
-        left: 5px;
-      }
-
-      .xl_area .xl_large_genre_area:before {
-        content: '';
-        position: absolute;
-        border-bottom: 10px solid #FF6633;
-        border-right: 5px solid transparent;
-        border-left: 5px solid transparent;
-        top: -11px;
-        left: 5px;
-      }
-
-      .xl_area .xl_large_genre_area a {
-        display: block;
-        width: 200px;
-        margin: 4px 12px;
-        text-align: left;
-        text-decoration: none;
-        height: 22px;
-        line-height: 22px;
-        font-size: 14px;
-      }
-
-      .xl_area .xl_large_genre_area a.all_genre {
-        border-bottom: 1px #FF6633 dotted;
-      }
-
-      .bid_search_comment {
-        position: relative;
-        font-size: 25px;
-        font-weight: bold;
-        color: #004675;
-        text-align: center;
-        width: 700px;
-        margin: 0 auto 0 50px;
-      }
-
-      /*** 地域タブ ***/
-      .xl_area .xl_large_genre_area a {
-        color: #076AB6;
-      }
-
-      .xl_area .xl_large_genre_area a:hover {
-        color: #F60;
-      }
-
-      .ui-tabs .ui-tabs-panel.tab_area {
-        background: #FFF;
-        padding: 0;
-        /*
-        height: 438px;
-        */
-        height: 528px;
-      }
-
-      .ui-tabs .ui-tabs-nav {
-        background: #FFF;
-        border-width: 0;
-        border-bottom: 1px solid #CCC;
-        border-radius: 0;
-      }
-
-      .ui-tabs .ui-tabs-nav li.ui-tabs-active {
-        border-color: #CCC;
-      }
-
-      a.ui-tabs-anchor:focus {
-        outline: 0;
-      }
-
-      .ui-tabs .ui-tabs-nav li {
-        font-size: 17px;
-        font-weight: normal;
-        border: 1px solid #62A21D;
-        background: #62A21D;
-        color: #FFF;
-      }
-
-      .ui-tabs .ui-tabs-nav li a {
-        color: #FFF;
-        padding: .5em .5em;
-      }
-
-      .ui-tabs .ui-tabs-nav li.ui-tabs-active {
-        background: #FFF;
-        color: #62A21D;
-        border: 1px solid #CCC;
-        border-bottom: 1px solid #FFF;
-      }
-
-      .ui-tabs .ui-tabs-nav li.ui-tabs-active a {
-        color: #62A21D;
-      }
-
-      a.list_pdf {
-        display: block;
-        position: absolute;
-        left: 730px;
-        top: 0;
-        width: 178px;
-        height: 36px;
-        line-height: 36px;
-        font-size: 13px;
-        font-weight: normal;
-        background: #CCC;
-        color: #333;
-        text-align: left;
-        text-indent: 36px;
-        border-radius: 0.3em;
-        text-decoration: none;
-      }
-
-      a.list_pdf:hover {
-        background: #F60;
-        color: #FFF;
-      }
-
-      a.list_pdf:hover img {
-        opacity: 1;
-      }
-
-      a.list_pdf img {
-        position: absolute;
-        left: 2px;
-        top: 2px;
-      }
-
-      .all_img {
-        position: absolute;
-        top: 36px;
-        left: 53px;
-        font-size: 34px;
-        font-family: "ヒラギノ明朝 Pro W6", "Hiragino Mincho Pro", "HGS明朝E", "ＭＳ Ｐ明朝", serif;
-        font-weight: bold;
-        text-align: center;
-        color: #333;
-        width: 118px;
-        border: 1px solid #CCC;
-        height: 88px;
-        line-height: 90px;
-        background: #FFF;
-        overflow: hidden;
-        margin: auto;
-      }
-
-      /*** ヘッダ ***/
-      .bid_door_main {
-        position: relative;
-        background-image: url('/imgs/bid_door.png');
-        height: 206px;
-      }
-
-      .bid_door_main .bid_door_title {
-        position: absolute;
-        color: #FFF;
-        font-size: 58px;
-        font-weight: bold;
-        text-shadow: 4px 4px 4px #000;
-        width: 510px;
-        top: 46px;
-        left: 12px;
-        line-height: 1.1;
-      }
-
-      .bid_door_main .bid_door_info {
-        position: absolute;
-        color: #FFFF00;
-        font-size: 18px;
-        top: 46px;
-        left: 520px;
-      }
-
-      /*****/
-      .door_infos {
-        text-align: center;
-
-        position: absolute;
-        top: 290px;
-        right: 200px;
-      }
-
-      .door_infos a.bid_help,
-      .door_infos button.mylist_movie,
-      .door_infos a.help_link {
-        display: inline-block;
-        position: static;
-        margin: 0 8px;
-        box-shadow: none;
-        vertical-align: bottom;
-        border: 1px solid #FFF;
-        line-height: 58px;
-        width: 260px;
-      }
-
-      h1,
-      .header_preview_date {
-        display: none;
-      }
-
-      h3.bid_open_title {
-        position: absolute;
-        top: -12px;
-        width: 560px;
-      }
-
-      .bid_open {
-        border: 1px dotted #147543;
-        margin: 6px auto;
-        padding: 3px;
-        width: 555px;
-        position: absolute;
-        top: 15px;
-        background: #FFF;
-        height: 68px;
-        overflow: auto;
-      }
-
-      .bid_door_main_container {
-        overflow: hidden;
-        height: 220px;
-        margin-top: 52px;
-      }
-
-      .bid_head a.mylist_link,
-      .bid_head a.mylist_link:active {
-        top: 0;
-      }
-
-      .bid_head .head_search_no {
-        bottom: -30px;
-      }
     </style>
   {/literal}
 {/block}
@@ -396,7 +89,6 @@
     <a class="bid_help" href="bid_help_01.php?o={$bidOpenId}">入札方法のご依頼方法<br />解説はこちら</a>
     *}
 
-
     <a class="help_link" href="bid_help.php?o={$bidOpenId}" style="">
       <i class="fas fa-circle-question"></i> よくある質問
     </a>
@@ -409,6 +101,14 @@
 
     <a class="bid_help" href="bid_help_02.php?o={$bidOpenId}" style="">
       <i class="fas fa-circle-question"></i> 入札方法について
+    </a>
+
+    <a class="bid_terms" href="terms_2023.pdf" style="" target="_blank">
+      <i class="fas fa-file-pdf"></i> 利用規約
+    </a>
+
+    <a class="bid_terms" href="machinelife_privacy_2023.pdf" style="" target="_blank">
+      <i class="fas fa-file-pdf"></i> プライバシーポリシー
     </a>
   </div>
 

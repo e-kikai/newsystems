@@ -170,9 +170,12 @@
       <div class="g-recaptcha" data-sitekey="{$recaptcha_sitekey}"></div>
 
       <div class="terms_area">
-        <a href="./imgs/bid_user_manual_2023.pdf" target="_blank">
-          <i class="fas fa-file-pdf"></i>
-          マシンライフWeb入札会 利用規約
+        <a href="./imgs/terms_2023.pdf" target="_blank">
+          <i class="fas fa-file-pdf"></i> マシンライフWeb入札会 利用規約
+        </a>
+
+        <a href="./imgs/machinelife_privacy_2023.pdf" target="_blank">
+          <i class="fas fa-file-pdf"></i> プライバシーポリシー
         </a>
         <div>
           <input class="form-check-input" type="checkbox" name="terms" id="terms" value="1">

@@ -27,6 +27,25 @@
       });
     </script>
     <style type="text/css">
+      th.delete,
+      td.delete {
+        width: 40px;
+      }
+
+      th.contact,
+      td.contact {
+        width: 82px;
+      }
+
+      th.bid,
+      td.bid {
+        width: 82px;
+      }
+
+      th.addr_1,
+      td.addr_1 {
+        width: 70px;
+      }
     </style>
   {/literal}
 {/block}
@@ -52,14 +71,17 @@
             <th class="model">型式</th>
             *}
             <th class="full_name_02">機械名/メーカー/型式</th>
+            {*
             <th class="year">年式</th>
+            *}
 
-            <th class="company">出品会社</th>
-
-            <th class="min_price">最低入札金額</th>
             <th class="addr_1">都道府県</th>
+            <th class="company">出品会社</th>
+            <th class="contact">問い合せ</th>
+            <th class="min_price">最低入札金額</th>
 
             {if $bid_open.status == 'bid'}
+              <th class="bid">入札</th>
               <th class="created_at">ウォッチ日時</th>
               <th class="delete">解除</th>
             {/if}
@@ -91,7 +113,11 @@
           <td class="full_name_02">
             <a href="/bid_detail.php?m={$mw.bid_machine_id}" target="_blank">{$mw.name} {$mw.maker} {$mw.model}</a>
           </td>
+          {*
           <td class="year">{$mw.year}</td>
+          *}
+
+          <td class="addr_1">{$mw.addr1}</td>
 
           <td class="company">
             {if !empty($mw.company)}
@@ -101,11 +127,23 @@
             {/if}
           </td>
 
+          <td class="contact">
+            <a href="/contact.php?o={$bid_open_id}&bm={$mw.bid_machine_id}" target="_blank" class=" btn btn-warning btn-sm">
+              <i class="fas fa-paper-plane"></i> 問合
+            </a>
+          </td>
+
           <td class="min_price text-right">{$mw.min_price|number_format}円</td>
 
-          <td class="addr_1">{$mw.addr1}</td>
 
           {if $bid_open.status == 'bid'}
+
+            <td class="bid">
+              <a href="/contact.php?o={$bid_open_id}&bm={$mw.bid_machine_id}" target="_blank" class=" btn btn-primary btn-sm">
+                <i class="fas fa-pen-to-square"></i> 入札
+              </a>
+            </td>
+
             <td class="created_at">{$mw.created_at|date_format:'%m/%d %H:%M:%S'}</td>
 
             <td class='delete text-center'>
@@ -116,8 +154,8 @@
                   <input type="hidden" name="id" value="{$mw.bid_machine_id}" />
                   <input type="hidden" name="o" value="{$bid_open.id}" />
 
-                  <button class="delete btn btn-outline-warning" value="{$mw.bid_machine_id}">
-                    <i class="far fa-star"></i> 解除
+                  <button class="delete btn btn-outline-danger" value="{$mw.bid_machine_id}">
+                    <i class="fas fa-circle-minus"></i>
                   </button>
                 </form>
               {/if}

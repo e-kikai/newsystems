@@ -432,15 +432,29 @@
       <div style="font-size:21px;color:brown;text-align:center;margin:32px auto;">
         よりくわしい入札会の参加方法は、Web入札会 マニュアルをごらんください。 <br />
         ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓<br /><br />
+      </div>
 
-        ///// マニュアル(PDF)へのリンク /////
+      <div>
+        <a class="bid_help" href="bid_help_01.php?o={$bidOpenId}" style="">
+          <i class="fas fa-circle-question"></i> 商品のさがし方
+        </a>
+
+        <a class="bid_help" href="bid_help_02.php?o={$bidOpenId}" style="">
+          <i class="fas fa-circle-question"></i> 入札方法について
+        </a>
+
+        <a class="bid_terms" href="./imgs/terms_2023.pdf" style="" target="_blank">
+          <i class="fas fa-file-pdf"></i> 利用規約
+        </a>
+
+        <a class="bid_terms" href="./imgs/machinelife_privacy_2023.pdf" style="" target="_blank">
+          <i class="fas fa-file-pdf"></i> プライバシーポリシー
+        </a>
       </div>
 
       {*
       <div><img src="../imgs/lp_01_cont05_02.png"  alt="Web入札会参加のステップ"></div>
       *}
-
-
 
 
       <a class="link_button" href="bid_door.php?o={$bidOpenId}">
@@ -450,14 +464,15 @@
         </div>
       </a>
 
-
+      {*
       <div style="" class="lp_01_etc">
         <div style="" class="lp_01_etc_tit">■入札について </div>
 
         <div style="font-size:21px;color:brown;text-align:center;margin:32px auto;"> ///// ここに規約を表示する (PDFダウンロードリンクも) ////
         </div>
+        *}
 
-        {*
+      {*
         <ol style="" class="lp_01_etc_txt">
           <li>入札資格者は、全日本機械業連合会会員及び大阪機械卸業団地協同組合組合員に限ります。<br>
             ウェブ入札会参加登録会員様マシンライフ会員様は、全機連会員企業を通じて入札参加することができます。</li>
@@ -490,7 +505,9 @@
         </ol>
 
         *}
-      </div>
+
+      {*
+    </div>
 
       <a class="link_button" href="bid_door.php?o={$bidOpenId}">
         <img src="./imgs/bid201403/img/c_button_r.png" alt="Web入札会 出品機械を下見する">
@@ -498,7 +515,7 @@
           下見期間{$bidOpen.preview_start_date|date_format:'%Y年%m月%d日'}～{$bidOpen.preview_end_date|date_format:'%m月%d日'}にて開催!
         </div>
       </a>
-
+*}
     </div>
   </div>
 
