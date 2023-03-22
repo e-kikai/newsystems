@@ -447,8 +447,8 @@
   <div class="search">
     並び替え:
     {foreach ['name' => 'ジャンル・機械名', 'list_no' => '出品番号', 'model' => '型式',
-          'year_desc' => '年式:新しい順', 'year' => '年式:古い順', 'location' => '都道府県',
-          'min_price' => '最低入札金額:安い順', 'min_price_desc' => '最低入札金額:高い順'] as $key => $o}
+            'year_desc' => '年式:新しい順', 'year' => '年式:古い順', 'location' => '都道府県',
+            'min_price' => '最低入札金額:安い順', 'min_price_desc' => '最低入札金額:高い順'] as $key => $o}
     {if $key == $q.order || ($key == 'name' && empty($q.order))}
       <span class="order_selected">{$o}</span>
     {else}
@@ -597,15 +597,16 @@
     *}
 
     {if !empty($smarty.session.bid_batch) && !empty($smarty.session.bid_batch[$m.id])}
-      <button class="mylist" value="{$m.id}" style="display:none;"
+      <button class="mylist btn btn-primary" value="{$m.id}" style="display:none;"
         onclick="ga('send', 'event', 'bid_batch', 'set', '{$m.id}', 1, true);"><span
           class="mylist_pluse">＋</span>一括問い合わせに追加</button>
-      <button class="delete_mylist" value="{$m.id}"
+      <button class="delete_mylist btn btn-primary" value="{$m.id}"
         onclick="ga('send', 'event', 'bid_batch', 'delete', '{$m.id}', 1, true);">一括問い合わせ削除</button>
     {else}
-      <button class="mylist" value="{$m.id}" onclick="ga('send', 'event', 'bid_batch', 'set', '{$m.id}', 1, true);"><span
+      <button class="mylist btn btn-primary" value="{$m.id}"
+        onclick="ga('send', 'event', 'bid_batch', 'set', '{$m.id}', 1, true);"><span
           class="mylist_pluse">＋</span>一括問い合わせに追加</button>
-      <button class="delete_mylist" value="{$m.id}" style="display:none;"
+      <button class="delete_mylist btn btn-primary" value="{$m.id}" style="display:none;"
         onclick="ga('send', 'event', 'bid_batch', 'delete', '{$m.id}', 1, true);">一括問い合わせ削除</button>
     {/if}
 

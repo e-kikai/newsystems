@@ -132,6 +132,7 @@
     <div class='detail_container'>
       <table class="spec bid-table">
         <tr class="">
+
           <th>出品番号</th>
           <td class="bid_machine_id">{* {$machine.id} - *}{$machine.list_no}</td>
 
@@ -275,6 +276,10 @@
               <input type="hidden" name="id" class="bid_machine_id" value="{$machineId}" />
 
               <table class="form spec w-100">
+                <tr class="bid">
+                  <th>最低入札金額</th>
+                  <td class="">{$machine.min_price|number_format}円</td>
+                </tr>
                 <tr class="bid">
                   <th>入札金額 <span class="required">(必須)</span></th>
                   <td>

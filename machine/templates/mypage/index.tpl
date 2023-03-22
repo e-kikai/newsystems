@@ -88,6 +88,25 @@
         <a href="/mypage/bid_opens/" class="list-group-item list-group-item-action">
           <i class="fas fa-list"></i> 過去の入札会一覧
         </a>
+
+        <a class="list-group-item list-group-item-action" href="bid_help_01.php?o={$bidOpenId}" style="">
+          <i class="fas fa-circle-question"></i> 商品のさがし方
+        </a>
+
+        <a class="list-group-item list-group-item-action" href="bid_help_02.php?o={$bidOpenId}" style="">
+          <i class="fas fa-circle-question"></i> 入札方法について
+        </a>
+        <a class="list-group-item list-group-item-action" href="bid_help.php?o={$bidOpenId}" style="">
+          <i class="fas fa-circle-question"></i> よくある質問
+        </a>
+        <a class="list-group-item list-group-item-action" href="./imgs/terms_2023.pdf" style="" target="_blank">
+          <i class="fas fa-file-pdf"></i> 利用規約
+        </a>
+
+        <a class="list-group-item list-group-item-action" href="./imgs/machinelife_privacy_2023.pdf" style=""
+          target="_blank">
+          <i class="fas fa-file-pdf"></i> プライバシーポリシー
+        </a>
       </ul>
 
       <hr />

@@ -17,6 +17,7 @@ MyAuth::is_auth();
 $bid_machine_id = Req::post('id');
 $amount         = intval(Req::post('amount'));
 $comment        = Req::post('comment');
+$ref            = Req::post('r');
 
 try {
     /// ユーザ情報 ///
@@ -30,6 +31,13 @@ try {
     /// 入札商品情報を取得 ///
     $bid_machines_model = new BidMachine();
     $bid_machine = $bid_machines_model->get($bid_machine_id);
+
+    // 戻る場所
+    if ($ref == "watch") {
+        $return_url = '/mypage/my_bid_watches/?o=' . $bid_machine["bid_open_id"];
+    } else {
+        $return_url = '/mypage/my_bid_bids/create_fin.php?m=' . $bid_machine_id;
+    }
 
     if (empty($bid_machine)) throw new Exception("入札商品情報がありませんでした。");
 
@@ -78,10 +86,10 @@ try {
         );
     }
 
-    header('Location: /mypage/my_bid_bids/create_fin.php?m=' . $bid_machine_id);
-    exit;
+    // header('Location: /mypage/my_bid_bids/create_fin.php?m=' . $bid_machine_id);
+    // exit;
+    $_SESSION["flash_notice"] = "入札を受け付けました。\n\n入札の結果については、下見・入札期間終了まで、今しばらくお待ち下さい。";
 
-    $return_url = "/mypage/my_bid_bids/create_fin.php?id={$bid_open_id}";
     header('Location: ' . $return_url);
     exit;
 } catch (Exception $e) {

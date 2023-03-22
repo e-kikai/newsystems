@@ -103,16 +103,16 @@
       <i class="fas fa-circle-question"></i> 入札方法について
     </a>
 
-    <a class="bid_terms" href="terms_2023.pdf" style="" target="_blank">
+    <a class="bid_terms" href="./imgs/terms_2023.pdf" style="" target="_blank">
       <i class="fas fa-file-pdf"></i> 利用規約
     </a>
 
-    <a class="bid_terms" href="machinelife_privacy_2023.pdf" style="" target="_blank">
+    <a class="bid_terms" href="./imgs/machinelife_privacy_2023.pdf" style="" target="_blank">
       <i class="fas fa-file-pdf"></i> プライバシーポリシー
     </a>
   </div>
 
-  {include "./bid_login_area.tpl"}
+  {include "./include/bid_login_area.tpl"}
 
   <div class="bid_search_comment">さあ、お気に入りの中古機械を探しだしてみてください！！
     {if !empty($bidOpen.list_pdf)}
@@ -253,7 +253,7 @@
     </div>
   {/if}
 
-  {include "./bid_login_area.tpl"}
+  {include "./include/bid_login_area.tpl"}
 
   {assign "keywords" ""}
   {include file="include/mnok_ads.tpl"}

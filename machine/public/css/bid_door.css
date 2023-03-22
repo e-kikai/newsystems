@@ -300,11 +300,6 @@ h3.bid_open_title {
   margin-top: 52px;
 }
 
-.bid_head a.mylist_link,
-.bid_head a.mylist_link:active {
-  top: 0;
-}
-
 .bid_head .head_search_no {
   bottom: -30px;
 }

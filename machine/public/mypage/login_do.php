@@ -30,7 +30,7 @@ if ($auth->login($_POST['mail'], $_POST['passwd'], isset($_POST['check']))) {
     'pageTitle'       => 'マイページ - ログイン',
     'pageDescription' => '入札会で入札を行うためのユーザログインです。メールアドレスとパスワードを入力してください。',
 
-    'ref' => $_POST['ref'],
+    'ref' => !empty($_POST['ref']) ?  $_POST['ref'] : "",
   ))->display("mypage/login.tpl");
 
   // header('Location: /mypage/login.php');

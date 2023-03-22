@@ -88,16 +88,22 @@
         <div class='image_carousel'>
           <div class='carousel_products'>
             {foreach $bo['machines'] as $sm}
+              {*
               <div class="same_machine">
                 <a href="bid_detail.php?m={$sm.id}"
                   onclick="ga('send', 'event', 'seach2bid', 'bid', 'search_detail', 1, true);">
                   <img src="{$_conf.media_dir}machine/thumb_{$sm.top_img}" alt="" />
                   <div class="min_price">
                     <span class="min_price_title">最低入札金額</span>
-                    <br />{$sm.min_price|number_format}円
+                    <br />
+
+                    {$sm.min_price|number_format}円
                   </div>
                 </a>
               </div>
+              *}
+              {include file='include/bid_samecard.tpl' machine=$sm label='door_favorite'}
+
             {/foreach}
           </div>
         </div>
@@ -106,12 +112,16 @@
           <div class="scrollLeft"></div>
         {/if}
       </div>
+      {include "./include/bid_login_area.tpl"}
+
     {else}
       <a href="bid_door.php?o={$bo.id}" class="search_bid_banner"
         onclick="ga('send', 'event', 'seach2bid', 'bid', 'search_banner', 1, true);">
         <div class="bid_title">{$bo.title} 開催中</div>
         <div class="bid_banner_now">入札会トップページはこちら <span class="bid_banner_click">Click▶</span></div>
       </a>
+      {include "./include/bid_login_area.tpl"}
+
     {/if}
   {/foreach}
 
