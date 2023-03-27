@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 機械情報モデルクラス
  *
@@ -62,8 +63,9 @@ class BidOpen extends Zend_Db_Table_Abstract
      * @param  string  $q   検索クエリ
      * @return array 機械検索結果一覧
      */
-    public function getList($q=null) {
-        //// WHERE句 ////
+    public function getList($q = null)
+    {
+        /// WHERE句 ///
         $where = '';
 
         // 入札
@@ -71,15 +73,15 @@ class BidOpen extends Zend_Db_Table_Abstract
             $where = ' AND o.entry_start_date <= now() AND o.carryout_end_date >= now() ';
         }
 
-        if  (!empty($q['isdisplay'])) {
+        if (!empty($q['isdisplay'])) {
             $where = ' AND o.bid_start_date <= now() AND o.user_bid_date >= now() ';
         }
 
-        if  (!empty($q['islast'])) {
+        if (!empty($q['islast'])) {
             $where = 'AND o.carryout_end_date > now() ';
         }
 
-        //// LIMIT句、OFFSET句 ////
+        /// LIMIT句、OFFSET句 ///
         $orderBy = ' ORDER BY o.bid_end_date DESC ';
         if (!empty($q['order'])) {
             if (($q['order']) == 'bid_end_date') {
@@ -88,13 +90,13 @@ class BidOpen extends Zend_Db_Table_Abstract
         }
 
         if (!empty($q['limit'])) {
-            $orderBy.= $this->_db->quoteInto(' LIMIT ? ', $q['limit']);
+            $orderBy .= $this->_db->quoteInto(' LIMIT ? ', $q['limit']);
             if (!empty($q['page'])) {
-                $orderBy.= $this->_db->quoteInto(' OFFSET ? ', $q['limit'] * ($q['page'] - 1));
+                $orderBy .= $this->_db->quoteInto(' OFFSET ? ', $q['limit'] * ($q['page'] - 1));
             }
         }
 
-        //// SQLクエリを作成・一覧を取得 ////
+        /// SQLクエリを作成・一覧を取得 ///
         $sql = "SELECT
           o.*,
           count(m.*) as count
@@ -110,7 +112,7 @@ class BidOpen extends Zend_Db_Table_Abstract
           o.id
         {$orderBy};";
         $result = $this->_db->fetchAll($sql);
-        foreach($result as $key => $bo) {
+        foreach ($result as $key => $bo) {
             $result[$key]['status'] = self::checkStatus($bo);
         }
 
@@ -128,10 +130,10 @@ class BidOpen extends Zend_Db_Table_Abstract
      */
     public function getCount($q)
     {
-        //// WHERE句 ////
+        /// WHERE句 ///
         $where = $this->_makeWhere($q);
 
-        /// SQLクエリを作成・一覧を取得 ////
+        /// SQLクエリを作成・一覧を取得 ///
         $sql = "SELECT
             count(m.*) AS count
         FROM
@@ -154,7 +156,8 @@ class BidOpen extends Zend_Db_Table_Abstract
      * @param  string  $id 入札会開催ID
      * @return array 入札会開催情報を取得
      */
-    public function get($id) {
+    public function get($id)
+    {
         if (empty($id)) {
             throw new Exception('入札会開催IDが設定されていません');
         }
@@ -196,13 +199,13 @@ class BidOpen extends Zend_Db_Table_Abstract
         $now = time();
         if (strtotime($bo['entry_start_date']) > $now) {
             return 'before';
-        } else if  (strtotime($bo['entry_start_date']) <= $now && strtotime($bo['entry_end_date']) > $now) {
+        } else if (strtotime($bo['entry_start_date']) <= $now && strtotime($bo['entry_end_date']) > $now) {
             return 'entry';
-        } else if  (strtotime($bo['entry_end_date']) <= $now && strtotime($bo['bid_start_date']) > $now) {
+        } else if (strtotime($bo['entry_end_date']) <= $now && strtotime($bo['bid_start_date']) > $now) {
             return 'margin';
-        } else if  (strtotime($bo['bid_start_date']) <= $now && strtotime($bo['bid_end_date']) > $now) {
+        } else if (strtotime($bo['bid_start_date']) <= $now && strtotime($bo['bid_end_date']) > $now) {
             return 'bid';
-        } else if  (strtotime($bo['bid_end_date']) <= $now && strtotime($bo['carryout_end_date']) > $now) {
+        } else if (strtotime($bo['bid_end_date']) <= $now && strtotime($bo['carryout_end_date']) > $now) {
             return 'carryout';
         } else {
             return 'after';
@@ -217,13 +220,21 @@ class BidOpen extends Zend_Db_Table_Abstract
      * @param  array $status 入札会ステータス
      * @return string 入札会ステータス(日本語)
      */
-    static public function statusLabel($status) {
-        if      ($status == 'before')   { return '入札会開始前'; }
-        else if ($status == 'entry')    { return '出品期間'; }
-        else if ($status == 'margin')   { return '入札開始前'; }
-        else if ($status == 'bid')      { return '下見・入札期間'; }
-        else if ($status == 'carryout') { return '入札終了・搬出期間'; }
-        else if ($status == 'after')    { return '入札会終了'; }
+    static public function statusLabel($status)
+    {
+        if ($status == 'before') {
+            return '開始前';
+        } else if ($status == 'entry') {
+            return '出品期間';
+        } else if ($status == 'margin') {
+            return '入札開始前';
+        } else if ($status == 'bid') {
+            return '下見・入札期間';
+        } else if ($status == 'carryout') {
+            return '入札終了・搬出期間';
+        } else if ($status == 'after') {
+            return '入札会終了';
+        }
 
         return '不明';
     }
@@ -234,14 +245,21 @@ class BidOpen extends Zend_Db_Table_Abstract
      * @access static public
      * @return array 入札会の入札数一覧
      */
-    public function getBidCountList() {
-        //// SQLクエリを作成・一覧を取得 ////
+    public function getBidCountList()
+    {
+        /// SQLクエリを作成・一覧を取得 ///
         $sql = "SELECT
           bo.*,
           bbt1.count,
           bbt1.company_count,
           bbt1.result_count,
-          bbt2.result_price_sum
+          bbt2.result_price_sum,
+          bbt3.product_count,
+          bbt4.my_bid_count,
+          bbt4.my_bid_user_count,
+          bbt4.my_bid_result_count,
+          bbt5.my_bid_result_price_sum,
+          bbt6.my_bid_watch_count
         FROM
           bid_opens bo
           LEFT JOIN (
@@ -265,12 +283,51 @@ class BidOpen extends Zend_Db_Table_Abstract
              WHERE     bm2.deleted_at IS NULL
             GROUP BY   bm2.bid_open_id
           ) bbt2 ON bbt2.bid_open_id = bo.id
+          LEFT JOIN (
+            SELECT
+              bm3.bid_open_id,
+              count(bm3.*) AS product_count
+            FROM       bid_machines bm3
+            WHERE      bm3.deleted_at IS NULL
+            GROUP BY   bm3.bid_open_id
+          ) bbt3 ON bbt3.bid_open_id = bo.id
+
+          LEFT JOIN (
+            SELECT
+              bm4.bid_open_id,
+              count(bb4.*) AS my_bid_count,
+              count(DISTINCT bb4.my_user_id) AS my_bid_user_count,
+              count(DISTINCT bb4.bid_machine_id) AS my_bid_result_count
+            FROM       my_bid_bids bb4
+            INNER JOIN bid_machines bm4 ON bm4.id = bb4.bid_machine_id
+            WHERE      bb4.deleted_at IS NULL AND bm4.deleted_at IS NULL
+            GROUP BY   bm4.bid_open_id
+          ) bbt4 ON bbt4.bid_open_id = bo.id
+          LEFT JOIN (
+            SELECT
+              bm5.bid_open_id,
+              sum(bb5.result_price) AS my_bid_result_price_sum
+            FROM
+              (SELECT bb51.bid_machine_id, max(bb51.amount) as result_price FROM my_bid_bids bb51 WHERE bb51.deleted_at IS NULL GROUP BY bb51.bid_machine_id) bb5
+            INNER JOIN bid_machines bm5 ON bm5.id = bb5.bid_machine_id
+             WHERE     bm5.deleted_at IS NULL
+            GROUP BY   bm5.bid_open_id
+          ) bbt5 ON bbt5.bid_open_id = bo.id
+          LEFT JOIN (
+            SELECT
+              bm6.bid_open_id,
+              count(bw6.*) AS my_bid_watch_count
+            FROM       my_bid_watches bw6
+            INNER JOIN bid_machines bm6 ON bm6.id = bw6.bid_machine_id
+            WHERE      bw6.deleted_at IS NULL AND bm6.deleted_at IS NULL
+            GROUP BY   bm6.bid_open_id
+          ) bbt6 ON bbt6.bid_open_id = bo.id
         WHERE
           bo.deleted_at IS NULL
         ORDER BY
           bo.id DESC;";
         $result = $this->_db->fetchAll($sql);
-        foreach($result as $key => $bo) {
+        foreach ($result as $key => $bo) {
             $result[$key]['status'] = self::checkStatus($bo);
         }
 
@@ -284,7 +341,8 @@ class BidOpen extends Zend_Db_Table_Abstract
      * @param  array $id 入札会ID
      * @return $this
      */
-    public function deleteById($id) {
+    public function deleteById($id)
+    {
         if (empty($id)) {
             throw new Exception('削除する入札会IDが設定されていません');
         }
@@ -307,7 +365,7 @@ class BidOpen extends Zend_Db_Table_Abstract
      * @param  array $id 入札会ID
      * @return $this
      */
-    public function set($data, $id=null)
+    public function set($data, $id = null)
     {
         // 入力された日時を整形
         if (!empty($data['entry_start_time'])) {
@@ -415,13 +473,13 @@ class BidOpen extends Zend_Db_Table_Abstract
             throw new Exception("入札会情報が取得出来ませんでした");
         }
 
-        //// リストNoのセット処理 ////
+        /// リストNoのセット処理 ///
         // 機械情報を取得
         $bmModel = new BidMachine();
         $bidMachineList = $bmModel->getList(array('bid_open_id' => $id, 'order' => 'list_no'));
         $maxListNo = $bmModel->getMaxListNo($id);
 
-        foreach($bidMachineList as $key => $m) {
+        foreach ($bidMachineList as $key => $m) {
             if (empty($m['list_no'])) {
                 $maxListNo++;
                 $bidMachineList[$key]['list_no'] = $maxListNo;
@@ -430,8 +488,8 @@ class BidOpen extends Zend_Db_Table_Abstract
             }
         }
 
-        //// リストPDFの生成 ////
-        //// 表示変数アサイン ////
+        /// リストPDFの生成 ///
+        /// 表示変数アサイン ///
         $res = $_smarty->assign(array(
             'bidOpenId'      => $id,
             'bidOpen'        => $bidOpen,
@@ -442,7 +500,7 @@ class BidOpen extends Zend_Db_Table_Abstract
         // echo $res; exit;
 
         include("mpdf/mpdf.php");
-        $mpdf=new mPDF('ja', 'A4', 12, '', 10, 10, 15, 15, 9, 9, 'L');
+        $mpdf = new mPDF('ja', 'A4', 12, '', 10, 10, 15, 15, 9, 9, 'L');
         $mpdf->SetHeader($bidOpen['title'] . ' 出品商品リスト');
         $mpdf->setFooter('{PAGENO}');
         $mpdf->WriteHTML($res);
@@ -465,7 +523,8 @@ class BidOpen extends Zend_Db_Table_Abstract
      * @param  string  $id 入札会開催ID
      * @return array マイリスト使用状況を取得
      */
-    public function getMylistLog($id) {
+    public function getMylistLog($id)
+    {
         if (empty($id)) {
             throw new Exception('入札会開催IDが設定されていません');
         }

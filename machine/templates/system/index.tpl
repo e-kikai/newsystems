@@ -110,16 +110,28 @@
           {if $b.status == 'entry'}
             <li><a href="/system/bid_list.php?o={$b.id}">商品リスト</a></li>
           {elseif in_array($b.status, array('margin', 'bid', 'carryoff'))}
-            <li><a href="/bid_door.php?o={$b.id}" target="_blank">Web入札会トップページ</a></li>
-            <li><a href="/system/bid_list.php?o={$b.id}">商品リスト</a></li>
+            <li>
+              <a href="/bid_door.php?o={$b.id}" target="_blank">
+                <i class="fas fa-door-open"></i> Web入札会トップページ
+              </a>
+            </li>
+            <li>
+              <a href="/system/bid_list.php?o={$b.id}">
+                <i class="fas fa-list"></i> 商品リスト
+              </a>
+            </li>
             {*
           <li><a href="system/bid_makelist.php?o={$b.id}">出品番号付加、リストPDF生成</a></li>
           *}
             <li><a href="/system/bid_mylist_log.php?o={$b.id}">マイリスト使用状況</a></li>
           {elseif $b.status == 'carryout'}
-            <li><a href="/bid_door.php?o={$b.id}" target="_blank">Web入札会トップページ</a></li>
             <li>
-              <a href="system/bid_list.php?o={$b.id}">落札結果一覧</a> >>
+              <a href="/bid_door.php?o={$b.id}" target="_blank">
+                <i class="fas fa-door-open"></i> Web入札会トップページ
+              </a>
+            </li>
+            <li>
+              <a href="system/bid_list.php?o={$b.id}"><i class="fas fa-list"></i> 落札結果一覧</a> >>
               <a href="system/bid_result.php?o={$b.id}&output=csv">CSV出力</a>
             </li>
             <li>
@@ -130,13 +142,24 @@
             <li><a href="system/bid_result.php?o={$b.id}&output=pdf&type=receipt" target="_blank">領収証印刷(PDF)</a></li>
             <li><a href="/system/bid_mylist_log.php?o={$b.id}">マイリスト使用状況</a></li>
           {/if}
-          <li><a href="system/bid_makelist.php?o={$b.id}">出品番号付加、リストPDF生成</a></li>
-          <li><a href="system/bid_announce_form.php?o={$b.id}">お知らせ・引取指図書フラグ変更</a></li>
+          <li>
+            <a href="system/bid_makelist.php?o={$b.id}">
+              <i class="fas fa-file-pdf"></i> 出品番号付加、リストPDF生成
+            </a>
+          </li>
+          <li>
+            <a href="system/bid_announce_form.php?o={$b.id}">
+              <i class="fas fa-info-circle"></i> お知らせ・引取指図書フラグ変更
+            </a>
+          </li>
 
           <hr />
+
           <li><a href="/system/bid_detail_logs/?o={$b.id}"><i class="fas fa-file-lines"></i> 詳細アクセスログ</a></li>
           <li><a href="/system/my_bid_watches/?o={$b.id}"><i class="fas fa-star"></i> ウォッチリストログ</a></li>
+          {*
           <li><a href="/system/my_bid_bids/?o={$b.id}"><i class="fas fa-pen-to-square"></i> 入札ログ</a></li>
+          *}
         </div>
 
         {*

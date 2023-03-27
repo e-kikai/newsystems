@@ -326,7 +326,7 @@ table.list th.groups {
 
 table.list td.min_price,
 table.list th.min_price {
-  width: 72px;
+  width: 100px;
 }
 
 table.list .charge,
@@ -352,8 +352,33 @@ div.table_area {
   width: 100%;
   overflow: scroll;
   border: 1px solid #777;
-  margin-bottom: 6px;
-  height: calc(100vh - 240px);
+  height: calc(100vh - 170px);
+  background: #fefefe;
+}
+
+div.max_area {
+  margin: 0 calc(50% - 49vw);
+  width: 98vw;
+}
+
+div.table_area table {
+  max-width: 100%;
+  min-width: 964px;
+}
+
+table.list .referer {
+  max-width: 500px;
+  word-break: break-word;
+}
+
+table.list .login_user {
+  width: 240px;
+  word-break: break-word;
+}
+
+table.list .max-name {
+  width: 280px;
+  word-break: break-word;
 }
 
 table.list th.sepa,
@@ -409,7 +434,7 @@ table.list .company {
 }
 
 table.list .uniq_account {
-  width: 92px;
+  width: 112px;
 }
 
 table.list th.system_button,
@@ -560,6 +585,15 @@ table.list td.num {
 }
 
 table.list th {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   padding: 2px 0;
+}
+
+table.list td.status,
+table.list th.status {
+  width: 100px;
+}
+
+table.list tr.bid td {
+  background: rgb(255, 255, 123);
 }

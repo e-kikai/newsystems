@@ -16,7 +16,7 @@ Auth::isAuth('system');
 
 /// 変数を取得 ///
 $page  = Req::query('page', 1);
-$limit = Req::query('limit', 50);
+$limit = Req::query('limit', 100);
 
 $my_user_model = new MyUser();
 

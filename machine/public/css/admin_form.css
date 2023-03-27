@@ -237,7 +237,7 @@ button.catalog_select {
 
 .model_label {
   display: inline-block;
-  width: 170px;
+  width: 140px;
   text-align: left;
   vertical-align: middle;
   padding: 0 3px;
@@ -245,9 +245,14 @@ button.catalog_select {
 
 .catalog_area {
   display: inline-block;
-  width: 100px;
+  width: 200px;
   vertical-align: middle;
   padding: 0 3px;
+}
+
+input.catalog_id {
+  width: 120px;
+  text-align: right;
 }
 
 table.form td input.location {
@@ -359,7 +364,7 @@ div.uid {
 }
 
 button.catalog_search {
-  width: 160px;
+  width: 100px;
 }
 
 .catalog_farea {

@@ -59,13 +59,13 @@
     </div>
   {/if}
 
-  <div class="table_area">
+  <div class="table_area max_area">
     <table class="machines list">
       {foreach $my_bid_bids as $bb}
         {if $bb@first}
           <tr>
             <th class="id">ID</th>
-            <th class="user_name">入札ユーザ</th>
+            <th class="login_user">入札ユーザ</th>
             <th class="min_price">入札金額</th>
             <th class="created_at">入札日時</th>
 
@@ -77,7 +77,7 @@
             <th class="model">型式</th>
             <th class="uniq_account">入札ユーザ<br />アカウント</th>
             *}
-            <th class="name">商品名</th>
+            <th class="max-name">商品名</th>
             <th class="min_price">最低入札金額</th>
             <th class="company">出品会社</th>
 
@@ -90,7 +90,7 @@
 
         <tr {if !empty($bb.deleted_at)} class="deleted" {/if}>
           <td class="id text-right">{$bb.id}</td>
-          <td class="user_name">{$bb.my_user_id} : {$bb.user_name} {$bb.user_company}</td>
+          <td class="login_user">{$bb.my_user_id} : {$bb.user_name} {$bb.user_company}</td>
 
           <td class="min_price">{$bb.amount|number_format}円</td>
           <td class="created_at">{$bb.created_at|date_format:'%m/%d %H:%M:%S'}</td>
@@ -121,7 +121,7 @@
             {/if}
           </td>
           *}
-          <td class="name">
+          <td class="max-name">
             <a href="/bid_detail.php?m={$bb.bid_machine_id}" target="_blank">{$bb.name} {$bb.maker} {$bb.model}</a>
           </td>
           <td class="min_price">{$bb.min_price|number_format}円</td>

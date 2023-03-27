@@ -19,6 +19,10 @@
 
       var ncMakerList = ["ファナック", "メルダス", "トスナック", "OSP", "プロフェッショナル", "マザトロール"];
 
+      var curi = 'https://catalog.zenkiren.net';
+      var muri = 'https://s3-ap-northeast-1.amazonaws.com/machinelife/catalog/public/media/';
+
+
       $(function() {
         //// ジャンル・メーカー・在庫場所一覧取得(初期化) ////
         $.getJSON('../ajax/admin_genre.php',
@@ -38,10 +42,24 @@
                 lng: val['lng']
               })
             });
-            locationList.push({ label: '現場(地図には非表示)', value: '現場', addr1: '', addr2: '', addr3: '', lat: '',
-              lng: '' });
-            locationList.push({ label: 'その他(地図に表示させる場合は、住所を入力してください)', value: '', addr1: '', addr2: '', addr3: '',
-              lat: '', lng: '' });
+            locationList.push({
+              label: '現場(地図には非表示)',
+              value: '現場',
+              addr1: '',
+              addr2: '',
+              addr3: '',
+              lat: '',
+              lng: ''
+            });
+            locationList.push({
+              label: 'その他(地図に表示させる場合は、住所を入力してください)',
+              value: '',
+              addr1: '',
+              addr2: '',
+              addr3: '',
+              lat: '',
+              lng: ''
+            });
 
             // フォームの初期化
             $('.large_genre_id').change();
@@ -357,8 +375,6 @@
                 }
 
                 // カタログ一覧の作成
-                var curi = 'https://catalog.zenkiren.net';
-                var muri = 'https://s3-ap-northeast-1.amazonaws.com/machinelife/catalog/public/media/';
                 $.each(catalogList, function(i, val) {
                   $('.catalog_list tbody').append(
                     '<tr>' +
@@ -390,20 +406,34 @@
                 });
 
                 // 選択ボタンイベント
-                $('button.catalog_select').click(function() {
+                $('button.catalog_select').on('click', function() {
                   var catalog_id = $(this).val();
                   $('input.catalog_id').val(catalog_id);
-                  $('.catalog_area').html(
-                    '<a href="' + curi + '/catalog_pdf.php?id=' + catalog_id + '" target="_blank">' +
-                    catalog_id + '</a>'
-                  );
-                  // $('.catalog_list').hide();
+                  // $('.catalog_area').html(
+                  //   '<a href="' + curi + '/catalog_pdf.php?id=' + catalog_id + '" target="_blank">' +
+                  //   catalog_id + '</a>'
+                  // );
+                  $('.catalog_area a').attr('href', curi + '/catalog_pdf.php?id=' + catalog_id).show();
+
                   $('.catalog_list').dialog("close");
                 });
               });
           }
+
           return false;
         });
+
+        // カタログ表示確認URL
+        $('input.catalog_id').on('change', function() {
+          var catalog_id = $(this).val();
+
+          if (catalog_id == '') {
+            $('.catalog_area a').hide();
+          } else {
+            $('.catalog_area a').attr('href', curi + '/catalog_pdf.php?id=' + catalog_id).show();
+          }
+        });
+        $('input.catalog_id').triggerHandler('change');
 
         //// 営業所の緯度経度の取得 ////
         // ジオコーディング
@@ -601,13 +631,16 @@
         <th>型式</th>
         <td>
           <input type="text" name="model" class="model" value="{$machine.model}" placeholder="型式" />
-          <input type="hidden" name="catalog_id" class="catalog_id" value="{$machine.catalog_id}" />
           <div>
-            <div class="model_label">電子カタログ<span class="memberonly">(会員のみ公開)</span></div>
+            <div class="model_label">電子カタログ連携{* <span class="memberonly">(会員のみ公開)</span>*} </div>
             <button class="catalog_search">カタログ検索</button>
             <div class="catalog_area">
-              <a href="' + curi + '/catalog_pdf.php?id={$machine.catalog_id}" target="_blank">
-                {$machine.catalog_id}
+              <input type="text" name="catalog_id" class="catalog_id" value="{$machine.catalog_id}"
+                placeholder="カタログID" />
+
+              <a href="https://catalog.zenkiren.net/catalog_pdf.php?id={$machine.catalog_id}" target="_blank">
+                {* {$machine.catalog_id} *}
+                <i class="fas fa-file-pdf"></i> 表示確認
               </a>
             </div>
           </div>
@@ -673,7 +706,7 @@
         <th>試運転</th>
         <td>
           {html_radios name='commission' options=['' => '不可', '1' => '可']
-            selected=$machine.commission separator=' '}
+                                                                                                              selected=$machine.commission separator=' '}
         </td>
       </tr>
 
@@ -703,7 +736,7 @@
         selected=$machine.price_tax separator=' '}
       *}
           {html_options name='price_tax' options=['' => '仲間価格(税込価格)', '1' => '仲間価格(税抜き)', '2' => 'ユーザ価格(税込価格)', '3' => 'ユーザ価格(税抜き)']
-            selected=$machine.price_tax separator=' '}
+                                                                                                              selected=$machine.price_tax separator=' '}
         </td>
       </tr>
 
@@ -782,7 +815,7 @@
         <th>表示オプション</th>
         <td>
           {html_radios name='view_option' options=['' => '表示', '1' => '非表示', '2' => '商談中']
-          selected=$machine.view_option separator=' '}
+                                                                                                            selected=$machine.view_option separator=' '}
         </td>
       </tr>
 

@@ -49,13 +49,13 @@
   {*** ページャ ***}
   {include file="include/pager.tpl"}
 
-  <div class="table_area">
+  <div class="table_area max_area">
     <table class="machines list">
       {foreach $my_users as $mu}
         {if $mu@first}
           <tr>
             <th class="id">ID</th>
-            <th class="company">会社名</th>
+            <th class="user_name">会社名</th>
             <th class="user_name">氏名</th>
             <th class="uniq_account">都道府県</th>
             <th class="website">確認</th>
@@ -79,7 +79,7 @@
 
         <tr>
           <td class="id text-right">{$mu.id}</td>
-          <td class="company">{$mu.company}</td>
+          <td class="user_name">{$mu.company}</td>
           <td class="user_name">{$mu.name}</td>
           <td class="uniq_account">{$mu.addr_1}</td>
           <td class="website">{if !empty($mu.checkd_at)}◯{/if}</td>
@@ -131,6 +131,6 @@
     </table>
   </div>
   {*** ページャ ***}
-  {include file="include/pager.tpl"}
+  {* {include file="include/pager.tpl"} *}
 
 {/block}
