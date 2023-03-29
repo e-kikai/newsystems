@@ -7,82 +7,6 @@
     <script type="text/javascript">
     </script>
     <style type="text/css">
-      .help_contents p {
-        width: 94%;
-        margin: 4px auto;
-      }
-
-      /*** バナー広告掲載案内 ***/
-      .price_box {
-        width: 240px;
-        height: 150px;
-        border: 1px solid #777;
-        float: left;
-        margin-left: 32px;
-        box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.6);
-        padding: 8px;
-      }
-
-      .price_title {
-        color: #49739F;
-        font-size: 18px;
-        font-weight: bold;
-      }
-
-      .price_sub {
-        background: #49739F;
-        color: #FFF;
-        font-size: 16px;
-        font-weight: bold;
-        padding: 1px 16px;
-        border-radius: 16px;
-        width: 180px;
-        margin-top: 4px;
-      }
-
-      .price_contents {
-        color: #666;
-        font-size: 18px;
-        font-weight: bold;
-      }
-
-      .bannerinfo {
-        width: 760px;
-        margin: 16px auto;
-      }
-
-      .bannerinfo dt {
-        display: block;
-        float: left;
-        width: 210px;
-        height: 90px;
-        line-height: 60px;
-        text-align: center;
-        font-size: 18px;
-        font-weight: bold;
-        margin: 8px;
-        clear: both;
-        background-image: url('./imgs/banner_arrow_b.png');
-      }
-
-      .bannerinfo dt.odd {
-        background-image: url('./imgs/banner_arrow_y.png');
-      }
-
-      .bannerinfo dd {
-        display: block;
-        float: left;
-        width: 500px;
-        margin: 8px;
-      }
-
-      img.banner_sample {
-        display: block;
-        float: left;
-        margin-left: 32px;
-        margin-right: 8px;
-      }
-
       .form_button:link,
       .form_button:visited,
       .form_button:active,
@@ -99,20 +23,12 @@
         background: #3973E1;
         box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.6);
       }
-
-      .companybid_sample {
-        width: 420px;
-        float: left;
-        margin: 2px 16px 16px 2px;
-        display: block;
-        border: 1px solid #333;
-      }
     </style>
   {/literal}
 {/block}
 
 {block 'main'}
-  <div class="help_contents">
+  <div class="help_contents banner">
     <h2>広告バナー掲載</h2>
     <p>
       貴社の企業広告バナーをマシンライフ中古機械情報のトップページ上段に掲載し、貴社サイトへリンク致します。<br />
@@ -235,7 +151,11 @@
       送信後、内容確認のメールが自動送信されます。
     </p>
 
-    <a class="form_button" href="help_banner_form.php">お申し込みフォーム</a>
+    <div class="d-grid gap-3 col-4 mx-auto">
+      <a class="btn btn-primary btn-lg" href="help_banner_form.php">
+        <i class="fas fa-paper-plane"></i> お申し込みフォーム
+      </a>
+    </div>
   </div>
 
 {/block}

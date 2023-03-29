@@ -62,6 +62,9 @@ span.data_area {
 .model2_area input,
 .model2_area select {
   margin-right: 24px;
+  height: 26px;
+  border-radius: 4px;
+  border: 1px solid #999;
 }
 
 .location_area {
@@ -112,6 +115,14 @@ select.limit {
   vertical-align: top;
   height: 24px;
   margin-left: 32px;
+  border-radius: 4px;
+  border: 1px solid #999;
+}
+
+select.sort {
+  height: 24px;
+  border-radius: 4px;
+  border: 1px solid #999;
 }
 
 /*** 在庫機械テーブル ***/
@@ -158,6 +169,10 @@ select.limit {
   line-height: 1.3em;
 }
 
+.anchor_area li {
+  width: 64px;
+}
+
 .filter_area.state li,
 .filter_area.city li {
   width: 6em;
@@ -176,7 +191,7 @@ select.limit {
 }
 
 .capacity_area li {
-  width: auto;
+  width: 115px;
 }
 
 .filter_area li label {
@@ -186,7 +201,6 @@ select.limit {
 
 .capacity_area li label {
   width: auto;
-  margin-right: 0.8em;
 }
 
 .capacity_label_area {
@@ -349,8 +363,7 @@ button.contact_full_company:active {
 
 /*** メンバー情報 ***/
 .machine_list.company td {
-  height: 136px;
-  height: 120px;
+  min-height: 86px;
 }
 
 .machine_list.company .machines td.checkbox {
@@ -569,10 +582,15 @@ img.hoverimg {
 }
 
 .machine_list.list .img img {
+  /*
   max-height: 120px;
   max-width: 120px;
+  */
   display: block;
   margin: auto;
+  object-fit: cover;
+  width: 90px;
+  height: 90px;
 }
 
 .machine_list.list .imgs img {
@@ -1056,10 +1074,6 @@ button.genre_open {
   height: 25px;
 }
 
-.machine_tab a {
-  text-shadow: none;
-}
-
 /****/
 a.movie {
   display: block;
@@ -1081,13 +1095,16 @@ table.machine_list.list .machines td.checkbox {
   width: 128px;
 }
 
-th.tdname,
-td.tdname,
 th.maker,
 td.maker,
 th.model,
 td.model {
   width: 90px;
+}
+
+th.tdname,
+td.tdname {
+  width: 120px;
 }
 
 td.tdname,
@@ -1138,7 +1155,7 @@ table.machines button.mylist_company {
 }
 
 .machine_list.list .machines .img {
-  width: 114px;
+  width: 94px;
 }
 
 .label.pdf,

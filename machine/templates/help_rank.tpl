@@ -7,24 +7,6 @@
     <script type="text/javascript">
     </script>
     <style type="text/css">
-      .help_contents p {
-        width: 94%;
-        margin: 8px auto;
-      }
-
-      table td.rank,
-      table th.rank {
-        width: 100px;
-      }
-
-      table td.price,
-      table th.price {
-        width: 120px;
-      }
-
-      table td.price {
-        text-align: right;
-      }
     </style>
   {/literal}
 {/block}
@@ -33,18 +15,18 @@
   <div class="help_contents">
     <h2>マシンライフ会員区分別利用サービスについて</h2>
     <p>
-      マシンライフ事業は全日本機械業連合会（以下全機連）の会員様を対象にしたサービスで会員区分ごとに<br />
+      マシンライフ事業は全日本機械業連合会（以下全機連）の会員様を対象にしたサービスで会員区分ごとに
       {*
     ご利用いただけるサービスが異なりますので、<br />
     会員区分の変更をご希望の場合は、下記リンク先の『会員区分変更届』をご利用下さい。<br />
     *}
-      ご利用いただけるサービスが異なります。<br />
+      ご利用いただけるサービスが異なります。<br /><br />
       全機連の会員様であれば、自動的にC会員のサービスがご利用可能となっています。<br />
       尚、アカウント、パスワードがご不明な場合は、事務局へお問い合せ下さい。
     </p>
 
     <h2>会員区分と年会費及び参加可能事業</h2>
-    <table class="list">
+    <table class="list rand_table">
       <tr>
         <th class="rank">会員区分</th>
         <th class="price">年会費(税込)</th>

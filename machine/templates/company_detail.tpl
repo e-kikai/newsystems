@@ -107,7 +107,11 @@
 
         <tr class='machine_list'>
           <th>在庫一覧</th>
-          <td><a href="/search.php?c={$company.id}">在庫一覧</a></td>
+          <td>
+            <a href="/search.php?c={$company.id}">
+              <i class="fas fa-list"></i> 在庫一覧
+            </a>
+          </td>
         </tr>
 
         <tr class='infos access_train'>
@@ -117,7 +121,9 @@
               {$company.infos.access_train|escape|default:""|nl2br nofilter}<br />
             {/if}
             <a href='https://www.google.co.jp/maps?daddr={$company.addr1|urlencode}{$company.addr2|urlencode}{$company.addr3|urlencode}&hl=ja&ie=UTF8'
-              target='_blank'>Google乗換案内</a>
+              target='_blank'>
+              <i class="fas fa-train"></i> 乗換案内
+            </a>
           </td>
         </tr>
 
@@ -128,7 +134,9 @@
               {$company.infos.access_car|escape|default:""|nl2br nofilter}<br />
             {/if}
             <a href='https://www.google.co.jp/maps?daddr={$company.addr1|urlencode}{$company.addr2|urlencode}{$company.addr3|urlencode}&hl=ja&ie=UTF8&dirflg=d'
-              target='_blank'>Googleルート案内</a>
+              target='_blank'>
+              <i class="fas fa-car"></i> Googleルート案内
+            </a>
           </td>
         </tr>
 

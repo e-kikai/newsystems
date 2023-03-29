@@ -1,33 +1,31 @@
 {literal}
-<script type="text/javascript">
-$(function() {
-    $('.anchor_area a[href*=#]').click(function() {
+  <script type="text/javascript">
+    $(function() {
+      $('.anchor_area a[href*=#]').click(function() {
         var target = $(this.hash);
         if (target) {
-            var targetOffset = target.offset().top;
-            $('html,body').animate({scrollTop: targetOffset},400,"easeInOutQuart");
-            return false;
+          var targetOffset = target.offset().top;
+          $('html,body').animate({scrollTop: targetOffset},400,"easeInOutQuart");
+          return false;
         }
+      });
     });
-});
-</script>
-<style>
-.machine_list.company td {
-  height: 86px;
-}
-</style>
+  </script>
+  <style>
+  </style>
 {/literal}
 
 <div class='machine_full'>
 
   {*** アンカーリンク ***}
-  <div class="filter_area capacity_area anchor_area">
+  <div class="filter_area anchor_area">
     <li>
       <span class="area_label">50音順</span>
     </li>
     {foreach $companyList as $c}
       {if !$c@index || B::get50onRow($c.company_kana) != B::get50onRow($companyList[$c@key-1].company_kana)}
-        <li><a href="{$smarty.server.REQUEST_URI}#{B::get50onRow($c.company_kana)}">{B::get50onRow($c.company_kana)}</a></li>
+        <li><a href="{$smarty.server.REQUEST_URI}#{B::get50onRow($c.company_kana)}">{B::get50onRow($c.company_kana)}</a>
+        </li>
       {/if}
     {/foreach}
   </div>
@@ -95,10 +93,10 @@ $(function() {
         <td class='img'>
           <a href='/company_detail.php?c={$c.id}'>
             {if !empty($c.top_img)}
-              <img class="top_image hover lazy" src='imgs/blank.png'
-                data-original="{$_conf.media_dir}company/{$c.top_img}" alt="{$c.company}" title="{$c.company}" />
-                <noscript><img src="{$_conf.media_dir}machine/thumb_{$m.top_img}" alt="" /></noscript>
-                <br />
+              <img class="top_image hover lazy" src='imgs/blank.png' data-original="{$_conf.media_dir}company/{$c.top_img}"
+                alt="{$c.company}" title="{$c.company}" />
+              <noscript><img src="{$_conf.media_dir}machine/thumb_{$m.top_img}" alt="" /></noscript>
+              <br />
             {/if}
             会社情報を見る
           </a>
@@ -116,11 +114,12 @@ $(function() {
           <span class='count_no'>{$c.count|default:0}</span>件<br />
           {if preg_match("/company_list/", $smarty.server.REQUEST_URI)}
             <a href="search.php?c={$c.id}">
-          {else}
-            <a href='{$smarty.server.REQUEST_URI|regex_replace:"/\&?c=[0-9]+/":""}{if preg_match("/\?/", $smarty.server.REQUEST_URI)}&{else}?{/if}c={$c.id}'>
-          {/if}
-            在庫一覧
-          </a>
+            {else}
+              <a
+                href='{$smarty.server.REQUEST_URI|regex_replace:"/\&?c=[0-9]+/":""}{if preg_match("/\?/", $smarty.server.REQUEST_URI)}&{else}?{/if}c={$c.id}'>
+              {/if}
+              在庫一覧
+            </a>
         </td>
         <td class="buttons">
           <a class='contact' href='contact.php?c[]={$c.id}'>問い合わせ</a>

@@ -380,6 +380,9 @@ body {
   background-position: 0 96px;
 
   background-color: #fff;
+
+  overflow-wrap: break-word;
+  word-break: keep-all;
 }
 
 body.mini {
@@ -443,6 +446,17 @@ header .keyword span {
 header .keyword input {
   vertical-align: middle;
   width: 220px;
+  height: 24px;
+}
+
+select.addr1 {
+  height: 24px;
+  border: 1px solid #999;
+  border-radius: 4px;
+}
+
+.keyword_area button.keyword_submit {
+  height: 24px;
 }
 
 header .keyword button:not(.btn) {
@@ -794,13 +808,10 @@ header.mini #textsizer {
   border: 1px solid #bbb;
   border-bottom: 0;
   width: 136px;
-  height: 22px;
-  line-height: 24px;
   font-size: 15px;
   text-align: center;
   color: #333;
   text-decoration: none;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
   bottom: 0;
   right: 0;
 }
@@ -1691,4 +1702,113 @@ kbd {
   background: #edfdff;
   font-weight: bold;
   text-align: center;
+}
+
+/*** ヘルプコンテンツ ***/
+.help_contents p {
+  width: 94%;
+  margin: 8px auto 16px;
+}
+
+.help_contents ul {
+  width: 94%;
+  margin: 8px auto 16px;
+}
+
+.help_contents ul ol {
+  font-size: 1rem;
+  margin: 4px 0;
+}
+
+.price_box {
+  width: 240px;
+  height: 170px;
+  border: 1px solid #777;
+  float: left;
+  margin-left: 32px;
+  box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.6);
+  padding: 8px;
+}
+
+.price_title {
+  color: #49739f;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.price_sub {
+  background: #49739f;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 1px 16px;
+  border-radius: 16px;
+  width: 180px;
+  margin-top: 4px;
+}
+
+.price_contents {
+  color: #666;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/*** バナー広告掲載案内 ***/
+.bannerinfo {
+  width: 760px;
+  margin: 16px auto;
+}
+
+.bannerinfo dt {
+  display: block;
+  float: left;
+  width: 210px;
+  height: 90px;
+  line-height: 60px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 8px;
+  clear: both;
+  background-image: url("../../imgs/banner_arrow_b.png");
+}
+
+.bannerinfo dt.odd {
+  background-image: url("../../imgs/banner_arrow_y.png");
+}
+
+.bannerinfo dd {
+  display: block;
+  float: left;
+  width: 500px;
+  margin: 8px;
+}
+
+img.banner_sample {
+  display: block;
+  float: left;
+  margin-left: 32px;
+  margin-right: 8px;
+}
+
+.companybid_sample {
+  width: 420px;
+  float: left;
+  margin: 2px 16px 16px 2px;
+  display: block;
+  border: 1px solid #333;
+}
+
+table.rand_table td.rank,
+table.rand_table th.rank {
+  width: 100px;
+}
+
+table.rand_table td.price,
+table.rand_table th.price {
+  width: 120px;
+}
+
+table.rand_table td.price {
+  text-align: right;
 }

@@ -71,6 +71,7 @@
         <div class="bid_banner_now">入札会トップページはこちら <span class="bid_banner_click">Click▶</span></div>
       </a>
     {/if}
+    {include "./include/bid_login_area.tpl"}
   {/foreach}
 
   {if !empty($h1Title)}

@@ -61,21 +61,11 @@
   vertical-align: middle;
 }
 
-.contents_area table.contents .access_car td a {
-  padding-left: 18px;
-  background: url("imgs/icon_car.png") no-repeat 0 0;
-}
-
-.contents_area table.contents .access_train td a {
-  padding-left: 18px;
-  background: url("imgs/icon_train.png") no-repeat 0 0;
-}
-
 /*** Google Map ***/
 #gmap,
 #gmap2 {
   width: 474px;
-  height: 474px;
+  height: 670px;
   border: 1px solid #aaa;
   margin: 16px auto;
 }
