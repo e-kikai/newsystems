@@ -11,15 +11,11 @@
 
 require_once '../../../lib-machine.php';
 /// 認証 ///
-Auth::isAuth('member');
+Auth::isAuth('system');
 
 /// 変数を取得 ///
 $bid_open_id = Req::query('o');
 $output      = Req::query('output');
-
-/// 会社情報を取得 ///
-$company_model = new Company();
-$company = $company_model->get($_user['company_id']);
 
 /// 入札会情報を取得 ///
 $bid_open_model = new BidOpen();
@@ -60,6 +56,9 @@ if ($output == 'csv') {
     if (!empty($bids_result[$bm["id"]])) {
       $bm["res_amount"] = $bids_result[$bm["id"]]["amount"];
       $bm["same_count"] = $bids_result[$bm["id"]]["same_count"];
+      $bm["s_user_id"]      = $bids_result[$bm["id"]]["my_user_id"];
+      $bm["s_user_name"]    = $bids_result[$bm["id"]]["name"];
+      $bm["s_user_company"] = $bids_result[$bm["id"]]["company"];
     }
 
     $data[] = $bm;
@@ -75,6 +74,9 @@ if ($output == 'csv') {
     'company'    => '出品会社',
     'min_price'  => '最低入札金額',
     'bid_count'  => '入札数',
+    's_user_id'      => '落札ユーザID',
+    's_user_company' => '落札ユーザ会社名',
+    's_user_name'    => '落札ユーザ氏名',
     'res_amount' => '落札金額',
     'same_count' => '同額札',
   );
@@ -91,12 +93,10 @@ if ($output == 'csv') {
   /// 表示変数アサイン ///
   $_smarty->assign(array(
     'pageTitle'       => "{$bid_open["title"]} 落札結果一覧",
-    'pageDescription' => '入札会の落札結果一覧です。',
     'pankuzu'          => array(
-      '/admin/' => '会員ページ',
+      '/system/' => '管理者ページ',
+      '/system/bid_open_list.php' => '入札会開催一覧',
     ),
-
-    'company'     => $company,
     'bid_open'     => $bid_open,
     "bid_machines" => $bid_machines,
 
@@ -104,7 +104,7 @@ if ($output == 'csv') {
     "bids_result" => $bids_result,
 
     'pager'        => $pgn->getPages(),
-    'cUri'         => "/admin/my_bid_bids/total.php?o={$bid_open_id}",
-  ))->display('admin/my_bid_bids/total.tpl');
+    'cUri'         => "/system/my_bid_bids/total.php?o={$bid_open_id}",
+  ))->display('system/my_bid_bids/total.tpl');
 }
 exit;

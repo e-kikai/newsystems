@@ -6,13 +6,13 @@
   <script type="text/javascript">
     {literal}
       $(function() {
-        //// 数値のみに自動整形 ////
+        /// 数値のみに自動整形 ///
         $('input.number').change(function() {
           var number = mb_convert_kana($(this).val(), 'KVrn').replace(/[^0-9.]/g, '');
           $(this).val(number ? parseInt(number) : '');
         });
 
-        //// 処理 ////
+        /// 処理 ///
         $('button.submit').click(function() {
           var data = {
             'id': $.trim($('input.bid_open_id').val()),
@@ -20,7 +20,7 @@
             'sashizu_flag': $.trim($('input.sashizu_flag:checked').val()),
           };
 
-          //// 入力のチェック ////
+          /// 入力のチェック ///
           var e = '';
           $('input[required]').each(function() {
             if ($(this).val() == '') {
@@ -29,7 +29,7 @@
             }
           });
 
-          //// エラー表示 ////
+          /// エラー表示 ///
           if (e != '') { alert(e); return false; }
 
           // 送信確認
@@ -59,14 +59,6 @@
       });
     </script>
     <style type="text/css">
-      table.form td textarea.fee_calc {
-        width: 150px;
-        height: 120px;
-      }
-
-      table.form td textarea.announce {
-        height: 8.6em;
-      }
     </style>
   {/literal}
 {/block}
@@ -74,10 +66,12 @@
 {block 'main'}
   <input type="hidden" class="bid_open_id" value="{$bidOpenId}" />
 
+  {*
   <div class="form_comment">
     <span class="alert">※</span>
-    　項目名が<span class="required">黄色</span>の項目は必須入力項目です。
+    項目名が<span class="required">黄色</span>の項目は必須入力項目です。
   </div>
+  *}
 
   <table class="info form">
     <tr class="title">
@@ -92,14 +86,15 @@
       </td>
     </tr>
 
-
+    {*
     <tr class="announce_list">
       <th>引取指図書フラグ</th>
       <td>
         {html_radios name='sashizu_flag' class='sashizu_flag' options=['' => '不可', '1' => '出力可']
-             selected=$bidOpen.sashizu_flag separator=' '}
+          selected=$bidOpen.sashizu_flag separator=' '}
       </td>
     </tr>
+    *}
   </table>
 
   <button type="button" name="submit" class="submit">保存</button>

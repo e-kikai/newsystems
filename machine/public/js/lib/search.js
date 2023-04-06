@@ -43,7 +43,7 @@ function MachineList()
         maplocation_area_tmpl: $('#maplocation_area_tmpl').html()
     });
 
-    //// 機械一覧の初期化 ///
+    /// 機械一覧の初期化 ///
     var search = location.search;
     if (location.pathname == '/mylist.php') {
         search += (!search ? '?' : '&') + 'mylist=1'
@@ -69,7 +69,7 @@ function MachineList()
         self.filtering('nochange');
     });
 
-    //// 検索条件リスト ////
+    /// 検索条件リスト ///
     this.$_genreList    = $('.genre_area input');
     this.$_makerList    = $('.maker_area input');
     this.$_inputModel   = $('#model2');
@@ -313,7 +313,7 @@ function MachineList()
             this.mapMake('#gmap');
         }
 
-        //// サムネイル画像の遅延読み込み再設定 ////
+        /// サムネイル画像の遅延読み込み再設定 ///
         this.lazyload();
 
         // location.hash = 't=' + template + '&p=' + page;
@@ -341,7 +341,7 @@ function MachineList()
      */
     this.mapMake = function(expr)
     {
-        //// 地図の初期化、イベントの初期化(1回だけ実行) ////
+        /// 地図の初期化、イベントの初期化(1回だけ実行) ///
         if (!self.map) {
             // googlemap生成
             self.gc  = new google.maps.Geocoder(); // ジオコーディング
@@ -349,7 +349,7 @@ function MachineList()
                 mapTypeId : google.maps.MapTypeId.ROADMAP
             });
 
-            //// 地図用メソッドの生成 ////
+            /// 地図用メソッドの生成 ///
             /**
              * 地図移動
              */
@@ -423,12 +423,12 @@ function MachineList()
                 return self;
             }
 
-            //// 地図移動イベントハンドラ ////
+            /// 地図移動イベントハンドラ ///
             $('.maplocation_area.state a.move').live('click', function() {
                 var state = $(this).text();
                 self.mapMove(state, 9);
 
-                //// 市区町村絞り込み生成 ////
+                /// 市区町村絞り込み生成 ///
                 var cities = [];
                 $.each(fKeys, function(key, i){
                     var m = list[i];
@@ -463,7 +463,7 @@ function MachineList()
             });
         }
 
-        //// リセット処理 ////
+        /// リセット処理 ///
         // 表示位置リセット
         self.reset();
 
@@ -472,7 +472,7 @@ function MachineList()
 
         // マーカーの設定(再設定)
         $.each(adds, function(key, add) {
-            //// マーカークリックでウィンドウ生成の内容 ////
+            /// マーカークリックでウィンドウ生成の内容 ///
             var msg = '<a class="map_company" href="company_detail.php?c=' + add.elem.company_id + '">' + add.elem.company + '</a>' +
                 '<div class="map_location">' + add.elem.location + '</div>' +
                 '<div class="map_pure_addr">' + key + '</div>' +
@@ -492,14 +492,14 @@ function MachineList()
                 icon: mapMarker
             });
 
-            //// ウィンドウの生成 ////
+            /// ウィンドウの生成 ///
             var infowin = new google.maps.InfoWindow({content:msg});
 
-            //// マーカーとウィンドウをこのオブジェクトに登録 ////
+            /// マーカーとウィンドウをこのオブジェクトに登録 ///
             add.marker  = marker;
             add.infowin = infowin;
 
-            //// MAPのイベントハンドラ登録 ////
+            /// MAPのイベントハンドラ登録 ///
             // マーカーmouseoverで開く
             google.maps.event.addListener(marker, 'mouseover', function(event) {
                 // マーカー点滅・ウィンドウを表示
@@ -518,7 +518,7 @@ function MachineList()
         });
     }
 
-    //// lazyloadのセット ////
+    /// lazyloadのセット ///
     this.lazyload = function()
     {
         $('img.lazy').lazyload({
@@ -550,13 +550,13 @@ function MachineList()
 }
 
 $(function() {
-    /// 在庫一覧オブジェクト ////
+    /// 在庫一覧オブジェクト ///
     var ml = new MachineList();
 
-    //// サムネイル画像の遅延読み込み（Lazyload） ////
+    /// サムネイル画像の遅延読み込み（Lazyload） ///
     ml.lazyload();
 
-    //// イベントハンドラ ////
+    /// イベントハンドラ ///
     // ページャ
     $('.pager a.num, .pager a.jump').live('click', function() {
         ml.pager($(this).text());
@@ -608,7 +608,7 @@ $(function() {
     // ソート
     $('.sort_area input:radio').live('change', function() { ml.sort(); });
 
-    //// 画像拡大処理 ////
+    /// 画像拡大処理 ///
     // 表示枠の作成
     $('<img class="hoverimg">').appendTo('body').hide();
 
@@ -623,13 +623,13 @@ $(function() {
             .show();
     }).live('mouseout', function() { $('.hoverimg').hide(); });
 
-    //// 表示切替 ////
+    /// 表示切替 ///
     $('.machine_tab a').click(function() {
         if ($(this).attr('class').match(/([0-9a-zA-Z]+)_tab/)) { ml.template(RegExp.$1); }
         return false;
     });
 
-    //// 画像で表示 スクロールリスト ////
+    /// 画像で表示 スクロールリスト ///
     $('.scrollRight').live('click', function() {
         $_i = $(this).parent().find('.image_carousel');
         $_i.animate({'scrollLeft': $_i.scrollLeft() + $_i.width()}, 1000, 'easeOutCubic');
@@ -642,31 +642,31 @@ $(function() {
         $(window).triggerHandler('scroll');
     });
 
-    //// 動画ボタン再生 ////
-    $('button.movie').live('click', function() {
-        if (!$('#movie_dialog').length) {
-            $('<div id="movie_dialog" style="width:640px;height:480px;">').appendTo('body');
-        }
+    /// 動画ボタン再生 ///
+    // $('button.movie').live('click', function() {
+    //     if (!$('#movie_dialog').length) {
+    //         $('<div id="movie_dialog" style="width:640px;height:480px;">').appendTo('body');
+    //     }
 
-        var $_moDir = $('#movie_dialog');
-        var contents = '<iframe width="640" height="480" id="movie_dialog" ' +
-            'src="https://www.youtube.com/embed/' +
-            $(this).val() + '?rel=0" frameborder="0" allowfullscreen></iframe>';
+    //     var $_moDir = $('#movie_dialog');
+    //     var contents = '<iframe width="640" height="480" id="movie_dialog" ' +
+    //         'src="https://www.youtube.com/embed/' +
+    //         $(this).val() + '?rel=0" frameborder="0" allowfullscreen></iframe>';
 
-        $_moDir.html(contents).dialog({
-            show: "fade",
-            hide: "fade",
-            closeText: '閉じる',
-            title: '動画の再生',
-            width: 675,
-            height: 540,
-            resizable: false,
-            modal: true,
-            close: function() { $_moDir.empty(); }
-        });
+    //     $_moDir.html(contents).dialog({
+    //         show: "fade",
+    //         hide: "fade",
+    //         closeText: '閉じる',
+    //         title: '動画の再生',
+    //         width: 675,
+    //         height: 540,
+    //         resizable: false,
+    //         modal: true,
+    //         close: function() { $_moDir.empty(); }
+    //     });
 
-        return false;
-    });
+    //     return false;
+    // });
 
     // 期間指定の処理
     $('input[name=pe][type=radio]').change(function() {

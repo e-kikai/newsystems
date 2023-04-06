@@ -27,7 +27,8 @@
           <tr>
             <th class="id">ID</th>
             <th class="login_user">ユーザ</th>
-            <th class="created_at">登録日時</th>
+            <th class="created_at">ウォッチ日時</th>
+            <th class="created_at">取消日時</th>
 
             <th class="id sepa2">出品番号</th>
             {*
@@ -42,8 +43,9 @@
             <th class="company">出品会社</th>
 
             {if in_array($bid_open.status, array('carryout', 'after'))}
-              <th class="min_price sepa2">落札金額</th>
-              <th class="same_count">入札数</th>
+              <th class="border-start same_count">入札<br />件数</th>
+              <th class="company sepa2">落札ユーザ</th>
+              <th class="min_price">落札金額</th>
             {/if}
           </tr>
         {/if}
@@ -53,6 +55,7 @@
           <td class="login_user">{$mw.my_user_id} : {$mw.user_name} {$mw.user_company}</td>
 
           <td class="created_at">{$mw.created_at|date_format:'%m/%d %H:%M:%S'}</td>
+          <td class="created_at">{$mw.deleted_at|date_format:'%m/%d %H:%M:%S'}</td>
 
           <td class="id text-right sepa2">{$mw.list_no}</td>
           {*
@@ -73,7 +76,7 @@
             {if $mw.my_user_id == MyUser::SYSTEM_MY_USER_ID}
               <span class="fst-italic text-danger">自動入札</span>
               {if !in_array($bid_open.status, array('carryout', 'after'))}
-                <br /><button class="auto_bid_delete" value="{$mw.id}">✕ 取消</button>
+                <br /><button class="auto_bid_delete" value="{$mw.bid_machine_id}">✕ 取消</button>
               {/if}
             {else}
               {$mw.uniq_account}
@@ -88,16 +91,33 @@
 
 
           {if in_array($bid_open.status, array('carryout', 'after'))}
-            <td class="min_price sepa2">
-              {if !empty($bids_result[$mw.bid_machine_id].amount)}
-                {$bids_result[$mw.bid_machine_id].amount|number_format}円
-              {/if}
-              {if $bids_result[$mw.bid_machine_id].same_count > 1}
-                <br />
-                (同額:{$bids_result[$mw.bid_machine_id].same_count})
+            <td class="same_count">
+              {if !empty($bids_count[$mw.bid_machine_id])}
+                {$bids_count[$mw.bid_machine_id]|number_format}
               {/if}
             </td>
-            <td class="same_count">{$bids_count[$mw.bid_machine_id]|number_format}</td>
+
+            <td class="company sepa2">
+              {if !empty($bids_result[$mw.bid_machine_id])}
+                {if $bids_result[$mw.bid_machine_id]["my_user_id"] == MyUser::SYSTEM_MY_USER_ID}
+                  <span class="fst-italic text-danger">自動入札</span>
+                {else}
+                  {$bids_result[$mw.bid_machine_id].my_user_id} :
+                  {$bids_result[$mw.bid_machine_id].company}
+                  {$bids_result[$mw.bid_machine_id].name}
+                {/if}
+              {/if}
+            </td>
+
+            <td class="min_price border-start">
+              {if !empty($bids_result[$mw.bid_machine_id])}
+                {$bids_result[$mw.bid_machine_id].amount|number_format}円
+                {if $bids_result[$mw.bid_machine_id].same_count > 1}
+                  <br />
+                  (同額:{$bids_result[$mw.bid_machine_id].same_count})
+                {/if}
+              {/if}
+            </td>
 
           {/if}
         </tr>

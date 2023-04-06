@@ -131,15 +131,36 @@
               </a>
             </li>
             <li>
-              <a href="system/bid_list.php?o={$b.id}"><i class="fas fa-list"></i> 落札結果一覧</a> >>
-              <a href="system/bid_result.php?o={$b.id}&output=csv">CSV出力</a>
+              <a href="system/my_bid_bids/total.php?o={$b.id}"><i class="fas fa-list"></i> 落札結果一覧</a> >>
+              <a href="system/my_bid_bids/total.php?o={$b.id}&output=csv">
+                <i class="fas fa-file-csv"></i> CSV出力
+              </a>
             </li>
+            <li>
+              <a href="system/my_bid_bids/companies.php?o={$b.id}">
+                <i class="fas fa-calculator"></i> 出品会社ごとの集計
+              </a> >>
+              <a href="system/my_bid_bids/companies.php?o={$b.id}&output=csv">
+                <i class="fas fa-file-csv"></i> CSV出力
+              </a>
+            </li>
+            <li>
+              <a href="system/my_bid_bids/my_users.php?o={$b.id}">
+                <i class="fas fa-calculator"></i> ユーザごとの集計
+              </a> >>
+              <a href="system/my_bid_bids/my_users.php?o={$b.id}&output=csv">
+                <i class="fas fa-file-csv"></i> CSV出力
+              </a>
+            </li>
+
+            {*
             <li>
               <a href="system/bid_result.php?o={$b.id}" target="_blank">落札・出品集計一覧</a> >>
               <a href="system/bid_result.php?o={$b.id}&output=csv&type=sum">CSV出力</a>
             </li>
             <li><a href="system/bid_result.php?o={$b.id}&output=pdf&type=sum" target="_blank">落札・出品集計表印刷(PDF)</a></li>
             <li><a href="system/bid_result.php?o={$b.id}&output=pdf&type=receipt" target="_blank">領収証印刷(PDF)</a></li>
+            *}
             <li><a href="/system/bid_mylist_log.php?o={$b.id}">マイリスト使用状況</a></li>
           {/if}
           <li>
@@ -149,17 +170,33 @@
           </li>
           <li>
             <a href="system/bid_announce_form.php?o={$b.id}">
-              <i class="fas fa-info-circle"></i> お知らせ・引取指図書フラグ変更
+              {* <i class="fas fa-info-circle"></i> お知らせ・引取指図書フラグ変更 *}
+              <i class="fas fa-info-circle"></i> お知らせ変更
             </a>
           </li>
 
           <hr />
 
-          <li><a href="/system/bid_detail_logs/?o={$b.id}"><i class="fas fa-file-lines"></i> 詳細アクセスログ</a></li>
-          <li><a href="/system/my_bid_watches/?o={$b.id}"><i class="fas fa-star"></i> ウォッチリストログ</a></li>
-          {*
-          <li><a href="/system/my_bid_bids/?o={$b.id}"><i class="fas fa-pen-to-square"></i> 入札ログ</a></li>
-          *}
+          <li>
+            <a href="/system/bid_detail_logs/?o={$b.id}"><i class="fas fa-file-lines"></i> 詳細アクセスログ</a> >>
+            <a href="/system/bid_detail_logs/?o={$b.id}&output=csv">
+              <i class="fas fa-file-csv"></i> CSV出力
+            </a>
+          </li>
+          <li>
+            <a href="/system/my_bid_watches/?o={$b.id}"><i class="fas fa-star"></i> ウォッチリストログ</a> >>
+            <a href="/system/my_bid_watches/?o={$b.id}&output=csv">
+              <i class="fas fa-file-csv"></i> CSV出力
+            </a>
+          </li>
+          {if $b.status == 'carryout'}
+            <li>
+              <a href="/system/my_bid_bids/?o={$b.id}"><i class="fas fa-pen-to-square"></i> 入札ログ</a> >>
+              <a href="/system/my_bid_bids/?o={$b.id}&output=csv">
+                <i class="fas fa-file-csv"></i> CSV出力
+              </a>
+            </li>
+          {/if}
         </div>
 
         {*

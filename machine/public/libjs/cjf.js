@@ -2,13 +2,13 @@
  * 共通Javascropt関数
  */
 var cjf = {
-    //// showAlert表示枠のjQueryオブジェクトを格納 ////
+    /// showAlert表示枠のjQueryオブジェクトを格納 ///
     _showAlertJqo : null,
 
-    //// showAlertのsetTimeoutハンドルを格納 ////
+    /// showAlertのsetTimeoutハンドルを格納 ///
     _showAlertTimeout : null,
 
-    //// 拡大縮小枠のjQueryオブジェクトを格納 ////
+    /// 拡大縮小枠のjQueryオブジェクトを格納 ///
     _showMapboxJqo : null,
 
     /**
@@ -135,7 +135,7 @@ var cjf = {
 }
 
 $(function(){
-    //// 動画ボタン再生 ////
+    /// 動画ボタン再生 ///
     $(document).on('click', 'button.movie, a.movie, .label.movie', function() {
         if (!$('#movie_dialog').length) {
             $('<div id="movie_dialog" style="width:640px;height:480px;">').appendTo('body');
@@ -178,7 +178,7 @@ $(function(){
     setTimeout(function() { $(window).triggerHandler('scroll'); }, 100);
 });
 
-//// Stringにtrim追加 ////
+/// Stringにtrim追加 ///
 String.prototype.trim = function() {
     return this.replace(/^\s+|\s+$/g, "");
 }

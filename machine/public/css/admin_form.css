@@ -681,3 +681,12 @@ table.form td.list_no {
 .form_comment ul li {
   margin: 4px 0;
 }
+
+table.form td textarea.fee_calc {
+  width: 150px;
+  height: 120px;
+}
+
+table.form td textarea.announce {
+  height: 8.6em;
+}

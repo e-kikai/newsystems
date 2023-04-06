@@ -597,3 +597,22 @@ table.list th.status {
 table.list tr.bid td {
   background: rgb(255, 255, 123);
 }
+
+.table_area.max_area {
+  background-color: transparent;
+  border: none;
+}
+
+.table_area.max_area table.list {
+  width: auto;
+  min-width: auto;
+}
+
+.table_area.max_area table tfoot {
+  border-top: 3px double #333;
+}
+
+td.company2,
+th.company2 {
+  width: 180px;
+}

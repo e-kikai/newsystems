@@ -411,25 +411,20 @@
               {if $machine.addr3}
                 <a class="button accessmap"
                   href="https://maps.google.co.jp/maps?f=q&amp;q={$machine.addr1|escape:"url"}{$machine.addr2|escape:"url"}{$machine.addr3|escape:"url"}+({$machine.location|escape:"url"})&source=embed&amp;hl=ja&amp;geocode=&amp;ie=UTF8&amp;t=m&z=14"
-                  target="_blank">MAP</a>
-
+                  target="_blank">
+                  <i class="fas fa-map-location-dot"></i> MAP
+                </a>
               {/if}
             </td>
           </tr>
           <tr class="label_area">
             <td colspan="2">
-
-              {if $machine.commission == 1}<div class="label commission">試運転可</div>
-              {/if}
-
+              {if $machine.commission == 1}<div class="label commission">試運転可</div>{/if}
               {if !empty($machine.pdfs)}
-
                 {foreach $machine.pdfs as $key => $val}
                   <a href="{$_conf.media_dir}machine/{$val}" class="label pdf" target="_blank"
                     title="クリックで資料PDFを閲覧できます">PDF:{$key}</a>
-
                 {/foreach}
-
               {/if}
             </td>
           </tr>
@@ -616,7 +611,9 @@
                 *}
             <a class="contact" href="contact.php?o={$bidOpenId}&bm={$machine.id}" target="_blank"
               {* onclick="_gaq.push(['_trackEvent', 'bid_contact', 'detail_middle']);" *}
-              onclick="ga('send', 'event', 'bid_contact', 'detail_middle');">フォームから問い合せ</a>
+              onclick="ga('send', 'event', 'bid_contact', 'detail_middle');">
+              <i class="fas fa-paper-plane"></i> フォームから問い合せ
+            </a>
 
           {/if}
 
@@ -630,7 +627,9 @@
             *}
 
           <a class="button contact_tel subwindow" href="bid_detail_tel.php?m={$machine.id}"
-            onclick="ga('send', 'event', 'bid_contact', 'detail_tel_middle');">電話で問い合わせ</a>
+            onclick="ga('send', 'event', 'bid_contact', 'detail_tel_middle');">
+            <i class="fas fa-phone"></i> 電話で問い合わせ
+          </a>
 
           {*
             <div class="tel_label">お問い合わせTEL</div>
@@ -712,7 +711,6 @@
           {if $sm@total > 6}
             <div class="scrollRight"></div>
             <div class="scrollLeft"></div>
-
           {/if}
         </div>
 
@@ -724,7 +722,6 @@
         {if !empty($machine.top_img)}
           <img class="lazy" src='imgs/blank.png' data-original="{$_conf.media_dir}machine/{$machine.top_img}" alt="" />
           <noscript><img src="{$_conf.media_dir}machine/{$machine.top_img}" alt="" /></noscript>
-
         {/if}
 
         {if !empty($machine.imgs)}
@@ -732,7 +729,6 @@
           {foreach $machine.imgs as $i}
             <img class="lazy" src='imgs/blank.png' data-original="{$_conf.media_dir}machine/{$i}" alt='' />
             <noscript><img src="{$_conf.media_dir}machine/{$i}" alt='' /></noscript>
-
           {/foreach}
 
         {/if}
@@ -808,18 +804,10 @@
 
                     {/if}
                     <div class="names">
-
-                      {if !empty($sm.maker)}<div class="name">{$sm.maker}</div>
-                      {/if}
-
-                      {if !empty($sm.model)}<div class="name">{$sm.model}</div>
-                      {/if}
-
-                      {if !empty($sm.year)}<div class="name">{$sm.year}年式</div>
-                      {/if}
-
-                      {if !empty($sm.addr1)}<div class="name">{$sm.addr1}</div>
-                      {/if}
+                      {if !empty($sm.maker)}<div class="name">{$sm.maker}</div>{/if}
+                      {if !empty($sm.model)}<div class="name">{$sm.model}</div>{/if}
+                      {if !empty($sm.year)}<div class="name">{$sm.year}年式</div>{/if}
+                      {if !empty($sm.addr1)}<div class="name">{$sm.addr1}</div>{/if}
                     </div>
                     <div class="min_price">{$sm.min_price|number_format}円</div>
                   </a>
@@ -1043,8 +1031,6 @@
     {assign "keywords" "{$machine.name}|{$machine.maker}|{$machine.model}|{$machine.genre}"}
 
     {include file="include/mnok_ads.tpl"}
-
-
   {else}
     <div class="error_mes">
       指定された方法では、入札会商品情報の特定ができませんでした<br />

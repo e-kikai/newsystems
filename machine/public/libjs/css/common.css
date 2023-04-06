@@ -257,7 +257,7 @@ button:hover:not(.btn) {
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4477a1', endColorstr='#81a8cb');
 }
 
-a.contact:active,
+/* a.contact:active,
 a.back_button:active,
 button:active:not(.btn) {
   top: 1px;
@@ -265,7 +265,7 @@ button:active:not(.btn) {
   box-shadow: 1px 1px 0.1em rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 1px 1px 0.1em rgba(0, 0, 0, 0.4);
   -webkit-box-shadow: 1px 1px 0.1em rgba(0, 0, 0, 0.4);
-}
+} */
 
 /* 問い合わせ */
 a.contact {

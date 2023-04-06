@@ -16,7 +16,7 @@
 
           // 送信確認
           if (!confirm("id : " + data['id'] +
-            "\nこの入札会情報を削除します。よろしいですか。\n\n※ 終了した入札会の場合、\n「過去の入札会」からも削除されます。")) { return false; }
+              "\nこの入札会情報を削除します。よろしいですか。\n\n※ 終了した入札会の場合、\n「過去の入札会」からも削除されます。")) { return false; }
 
           $.post('/system/ajax/bid.php', {
             'target': 'system',
@@ -84,19 +84,46 @@
       {if in_array($b.status, array('carryout', 'after'))}
         <tr>
           <td colspan="5">
-            落札結果(
-            <a href="system/bid_list.php?o={$b.id}">一覧</a>|
-            <a href="system/bid_result.php?o={$b.id}&output=csv">CSV</a>
-            )
-            落札・出品集計(
-            <a href="system/bid_result.php?o={$b.id}" target="_blank">一覧</a>|
-            <a href="system/bid_result.php?o={$b.id}&output=csv&type=sum">CSV</a>|
-            <a href="system/bid_result.php?o={$b.id}&output=pdf&type=sum" target="_blank">PDF</a>
-            )
-            <a href="system/bid_result.php?o={$b.id}&output=pdf&type=receipt" target="_blank">領収証PDF</a>
+            {if $b.user_bid_date > $smarty.const.BID_USER_START_DATE}
+              結果(
+              <a href="system/my_bid_bids/total.php?o={$b.id}"><i class="fas fa-list"></i></a>|
+              <a href="system/my_bid_bids/total.php?o={$b.id}&output=csv"><i class="fas fa-file-csv"></i></a>
+              )
+              会社集計(
+              <a href="system/my_bid_bids/companies.php?o={$b.id}"><i class="fas fa-list"></i></a>|
+              <a href="system/my_bid_bids/companies.php?o={$b.id}&output=csv"><i class="fas fa-file-csv"></i></a>
+              )
+              ユーザ集計(
+              <a href="system/my_bid_bids/my_users.php?o={$b.id}"><i class="fas fa-list"></i></a>|
+              <a href="system/my_bid_bids/my_users.php?o={$b.id}&output=csv"><i class="fas fa-file-csv"></i></a>
+              )
+              詳細アクセス(
+              <a href="system/bid_detail_logs/?o={$b.id}"><i class="fas fa-list"></i></a>|
+              <a href="system/bid_detail_logs/?o={$b.id}&output=csv"><i class="fas fa-file-csv"></i></a>
+              )
+              ウォッチ(
+              <a href="system/my_bid_watches/?o={$b.id}"><i class="fas fa-list"></i></a>|
+              <a href="system/my_bid_watches/?o={$b.id}&output=csv"><i class="fas fa-file-csv"></i></a>
+              )
+              入札(
+              <a href="system/my_bid_bids/?o={$b.id}"><i class="fas fa-list"></i></a>|
+              <a href="system/my_bid_bids/?o={$b.id}&output=csv"><i class="fas fa-file-csv"></i></a>
+              )
+            {else}
+              落札結果(
+              <a href="system/bid_list.php?o={$b.id}">一覧</a>|
+              <a href="system/bid_result.php?o={$b.id}&output=csv">CSV</a>
+              )
+              落札・出品集計(
+              <a href="system/bid_result.php?o={$b.id}" target="_blank">一覧</a>|
+              <a href="system/bid_result.php?o={$b.id}&output=csv&type=sum">CSV</a>|
+              <a href="system/bid_result.php?o={$b.id}&output=pdf&type=sum" target="_blank">PDF</a>
+              )
+              <a href="system/bid_result.php?o={$b.id}&output=pdf&type=receipt" target="_blank">領収証PDF</a>
+            {/if}
           </td>
-        <tr>
-        {/if}
-      {/foreach}
+        </tr>
+      {/if}
+    {/foreach}
   </table>
 {/block}

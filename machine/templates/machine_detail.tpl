@@ -41,17 +41,6 @@
       });
     </script>
     <style type="text/css">
-      #gmap2 {
-        width: 100%;
-      }
-
-      h1 {
-        display: none;
-      }
-
-      h1.detail_h1 {
-        display: block;
-      }
     </style>
   {/literal}
 {/block}
@@ -124,7 +113,7 @@
           {/if}
 
           {if !empty($machine.youtube) && preg_match_all('/([\w\-]{11})/', $machine.youtube, $res)}
-            <div>
+            <div class="movies">
               {foreach $res[0] as $y}
                 <a href="javascript:void(0)" data-youtubeid="{$y}" class="movie" title="クリックで動画再生します">
                   <img src="http://img.youtube.com/vi/{$y}/mqdefault.jpg" class="youtube_thumb" />
@@ -246,11 +235,15 @@
                   {if preg_match('/^[a-zA-Z0-9]/',$company.addr1)}
                     <a class="accessmap"
                       href="https://maps.google.co.jp/maps?f=q&amp;q={$company.lat|escape:"url"} {$company.lng|escape:"url"}+({$company.company|escape:"url"})&source=embed&amp;hl=ja&amp;geocode=&amp;ie=UTF8&amp;t=m"
-                      style="color:#0000FF;text-align:left" target="_blank">MAP</a>
+                      style="color:#0000FF;text-align:left" target="_blank">
+                      <i class="fas fa-map-location-dot"></i> MAP
+                    </a>
                   {else}
                     <a class="accessmap"
                       href="https://maps.google.co.jp/maps?f=q&amp;q={$machine.addr1|escape:"url"}{$machine.addr2|escape:"url"}{$machine.addr3|escape:"url"}+({$machine.location|escape:"url"})&source=embed&amp;hl=ja&amp;geocode=&amp;ie=UTF8&amp;t=m&z=14"
-                      target="_blank">MAP</a>
+                      target="_blank">
+                      <i class="fas fa-map-location-dot"></i> MAP
+                    </a>
                   {/if}
                 {/if}
               </td>
@@ -273,7 +266,8 @@
               <td colspan="2">
                 {if !empty($bidMachineIds[$machine.id])}
                   <a href="bid_detail.php?m={$bidMachineIds[$machine.id].bid_machine_id}" class="label bid" target="_blank"
-                    title="クリックで出品商品ページへリンクします">{$bidMachineIds[$machine.id].bid_title} 出品中
+                    title="クリックで出品商品ページへリンクします">
+                    <i class="fas fa-pen-to-square"></i> {$bidMachineIds[$machine.id].bid_title} 出品中
                     {*
               <br />最低入札金額 : {$bidMachineIds[$machine.id].min_price|number_format}円
               *}

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * テーブル基底クラス
  *
@@ -9,7 +10,7 @@
  */
 class MyTable extends Zend_Db_Table_Abstract
 {
-    //// 共通設定のデフォルト ////
+    /// 共通設定のデフォルト ///
     protected $_jname             = '';      // テーブルの論理名
     protected $_view              = '';      // SELECT対象(デフォルトは$_nameと一緒)
     protected $_filters           = array(); // フィルタ・バリデータ条件
@@ -22,7 +23,9 @@ class MyTable extends Zend_Db_Table_Abstract
     public function __construct()
     {
         // $_viewが定義されていない場合、$_nameをディフォルトにする
-        if (empty($this->_view)) { $this->_view = $this->_name; }
+        if (empty($this->_view)) {
+            $this->_view = $this->_name;
+        }
 
         parent::__construct();
     }
@@ -34,22 +37,22 @@ class MyTable extends Zend_Db_Table_Abstract
      * @param  array $q 検索クエリ
      * @return array    取得した情報一覧の2次元配列
      */
-    public function getList($q=null)
+    public function getList($q = null)
     {
-        //// WHERE句を生成 ////
+        /// WHERE句を生成 ///
         $whereSql   = $this->_makeWhereSql($q);
 
-        //// ORDER BY句を生成 ////
+        /// ORDER BY句を生成 ///
         $OrderBySql = $this->_makeOrderBySql($q);
 
-        //// LIMIT句、OFFSET句を生成 ////
+        /// LIMIT句、OFFSET句を生成 ///
         $limitSql   = $this->_makeLimitSql($q);
 
-        //// SQLクエリを作成・一覧を取得 ////
+        /// SQLクエリを作成・一覧を取得 ///
         $sql = "SELECT t.* FROM {$this->_view} t {$whereSql} {$OrderBySql} {$limitSql};";
         $result = $this->_db->fetchAll($sql);
 
-        //// JSON展開 ////
+        /// JSON展開 ///
         if (!empty($this->_jsonColumns)) {
             $result = B::decodeTableJson($result, $this->_jsonColumns);
         }
@@ -65,7 +68,7 @@ class MyTable extends Zend_Db_Table_Abstract
      * @param  boolean $check 検索条件チェック
      * @return string  生成したwhere句
      */
-    protected function _makeWhereSql($q, $check=false)
+    protected function _makeWhereSql($q, $check = false)
     {
         $whereArr = $this->_makeWhereSqlArray($q, $check);
 
@@ -89,7 +92,7 @@ class MyTable extends Zend_Db_Table_Abstract
      * @param  boolean $check 検索条件チェック
      * @return string  生成したwhere句
      */
-    protected function _makeWhereSqlArray($q, $check=false)
+    protected function _makeWhereSqlArray($q, $check = false)
     {
         $whereArr = array();
 
@@ -105,7 +108,7 @@ class MyTable extends Zend_Db_Table_Abstract
             $whereArr[] = " m.top_img IS NOT NULL AND m.top_img <> '' ";
         }
 
-        //// ここまでで、検索条件チェック ////
+        /// ここまでで、検索条件チェック ///
         if ($check == true && count($whereArr) == 0) {
             return false;
         }
@@ -149,9 +152,9 @@ class MyTable extends Zend_Db_Table_Abstract
     {
         $limitSql = '';
         if (!empty($q['limit'])) {
-            $limitSql.= $this->_db->quoteInto(' LIMIT ? ', $q['limit']);
+            $limitSql .= $this->_db->quoteInto(' LIMIT ? ', $q['limit']);
             if (!empty($q['page'])) {
-                $limitSql.= $this->_db->quoteInto(' OFFSET ? ', $q['limit'] * ($q['page'] - 1));
+                $limitSql .= $this->_db->quoteInto(' OFFSET ? ', $q['limit'] * ($q['page'] - 1));
             }
         }
 
@@ -166,10 +169,10 @@ class MyTable extends Zend_Db_Table_Abstract
      */
     public function getCount($q)
     {
-        //// WHERE句 ////
+        /// WHERE句 ///
         $whereSql = $this->_makeWhereSql($q);
 
-        //// SQLクエリを作成・一覧を取得 ////
+        /// SQLクエリを作成・一覧を取得 ///
         $sql = "SELECT count(t.*) AS count FROM {$this->_view} t {$whereSql};";
         $result = $this->_db->fetchOne($sql);
 
@@ -185,7 +188,9 @@ class MyTable extends Zend_Db_Table_Abstract
      */
     public function get($id)
     {
-        if (empty($id)) { throw new Exception("{$this->_jname}のIDが設定されていません"); }
+        if (empty($id)) {
+            throw new Exception("{$this->_jname}のIDが設定されていません");
+        }
 
         // 削除日チェック
         $deletedAtSql = '';
@@ -197,7 +202,7 @@ class MyTable extends Zend_Db_Table_Abstract
         $sql = "SELECT t.* FROM {$this->_view} t WHERE {$deletedAtSql} t.{$this->_primary} = ? LIMIT 1;";
         $result = $this->_db->fetchRow($sql, $id);
 
-        //// JSON展開 ////
+        /// JSON展開 ///
         if (!empty($this->_jsonColumns)) {
             $result = B::decodeRowJson($result, $this->_jsonColumns);
         }
@@ -214,7 +219,9 @@ class MyTable extends Zend_Db_Table_Abstract
      */
     public function deleteById($id)
     {
-        if (empty($id)) { throw new Exception("削除する{$this->_jname}のIDが設定されていません"); }
+        if (empty($id)) {
+            throw new Exception("削除する{$this->_jname}のIDが設定されていません");
+        }
 
         // 削除条件SQLのWHERE句(該当IDかつ既に削除されていないもの)
         $whereArr = array();
@@ -237,24 +244,26 @@ class MyTable extends Zend_Db_Table_Abstract
      * @param  integer $id   保存対象のID(NULLの場合は新規登録)
      * @return $this
      */
-    public function set($id=null, $data)
+    public function set($id = null, $data)
     {
-        //// 保存する情報のフィルタリング・バリデーション・JSONエンコード ////
+        /// 保存する情報のフィルタリング・バリデーション・JSONエンコード ///
         $data = MyFilter::filtering($data, $this->_filters, $this->_jsonColumns);
 
-        //// 保存処理 ////
+        /// 保存処理 ///
         if (empty($id)) {
-            //// 新規処理 ////
+            /// 新規処理 ///
             $res = $this->insert($data);
         } else {
-            //// 更新処理 ////
+            /// 更新処理 ///
             if ($this->_canSetChangedAt) {
                 $data['changed_at'] = new Zend_Db_Expr('current_timestamp');
             }
             $res = $this->update($data, $this->_primary . $this->_db->quoteInto(' = ? ', $id));
         }
 
-        if (empty($res)) { throw new Exception("{$this->_jname}が保存できませんでした id:{$id}"); }
+        if (empty($res)) {
+            throw new Exception("{$this->_jname}が保存できませんでした id:{$id}");
+        }
 
         return $this;
     }

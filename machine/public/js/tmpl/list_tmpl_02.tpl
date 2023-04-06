@@ -7,13 +7,10 @@
       <div class='img_area'>
         <a href='/machine_detail.php?m={{>id}}' target="_blank">
           {{if top_img}}
-            <img class="top_image hover lazy" src='imgs/blank.png'
-              data-original="{{>media_dir}}machine/thumb_{{>top_img}}"
-              data-source="{{>media_dir}}machine/{{>top_img}}"
-              alt="中古{{>name}} {{>maker}} {{>model}}" />
+            <img class="top_image hover lazy" src='imgs/blank.png' data-original="{{>media_dir}}machine/thumb_{{>top_img}}"
+              data-source="{{>media_dir}}machine/{{>top_img}}" alt="中古{{>name}} {{>maker}} {{>model}}" />
           {{else}}
-            <img class='top_image noimage' src='./imgs/noimage.png'
-              alt="中古{{>name}} {{>maker}} {{>model}}" />
+            <img class='top_image noimage' src='./imgs/noimage.png' alt="中古{{>name}} {{>maker}} {{>model}}" />
           {{/if}}
         </a>
       </div>
@@ -30,24 +27,29 @@
     <div>{{>spec}}</div>
 
     {{if _render_youtube}}
-      <a href="javascript:void(0)" data-youtubeid="{{>_render_youtube}}" class="label movie">動画</a>
+      <a href="javascript:void(0)" data-youtubeid="{{>_render_youtube}}" class="label movie">
+        <i class="fas fa-video"></i> 動画
+      </a>
     {{/if}}
 
     {{if bid_open_id}}
       <a href="bid_detail.php?m={{>bid_machine_id}}" class="label bid" target="_blank">
-        Web入札会出品中
+        <i class="fas fa-pen-to-square"></i> Web入札会出品中
       </a>
     {{/if}}
 
     {{if view_option == 2}}<div class="label vo2">商談中</div>{{/if}}
     {{if commission == 1}}<div class="label commission">試運転可</div>{{/if}}
     {{for _render_pdfs}}
-      <a href="{{>data}}"
-        class="label pdf" target="_blank">PDF:{{>key}}</a>
+      <a href="{{>data}}" class="label pdf" target="_blank">
+        <i class="fas fa-file-pdf"></i> PDF:{{>key}}
+      </a>
     {{/for}}
 
     {{if catalog_id}}
-      <a href="https://catalog.zenkiren.net/catalog_pdf.php?id={{>catalog_id}}" class="label catalog" target="_blank">電子カタログ</a>
+      <a href="https://catalog.zenkiren.net/catalog_pdf.php?id={{>catalog_id}}" class="label catalog" target="_blank">
+        <i class="far fa-file-pdf"></i> 電子カタログ
+      </a>
     {{/if}}
 
     {{if label_title}}
@@ -73,6 +75,7 @@
       {{/if}}
 
       <button class='mylist' value='{{>id}}'>マイリスト</button>
-    {{else}}売却日: {{>deleted_at}}{{/if}}
+    {{else}}売却日: {{>deleted_at}}
+    {{/if}}
   </td>
 </tr>

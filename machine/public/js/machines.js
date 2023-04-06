@@ -25,7 +25,7 @@ function MachineList()
     var addresses  = {};
     var mapDefault = new google.maps.LatLng(37.44446074079564, 137.2412109375);
 
-    //// 在庫機械一覧JQO生成 ////
+    /// 在庫機械一覧JQO生成 ///
     this.$_list = $('.machine');
     this.$_list.each(function() {
         var $_self = $(this);
@@ -116,7 +116,7 @@ function MachineList()
         }
     });
 
-    //// 在庫場所絞り込みリスト生成 ////
+    /// 在庫場所絞り込みリスト生成 ///
     locations.sort();
     // ユニーク化・表示の生成
     var d = '<div class="location_area">' +
@@ -147,7 +147,7 @@ function MachineList()
     $('div.model2_area').after(d);
     $('#gmap').before(d2);
 
-    //// 主能力リスト表示生成 ////
+    /// 主能力リスト表示生成 ///
     $.each(capacities, function(key, caps) {
         // ソート
         caps.vals.sort(function(a, b) { return(parseFloat(a) - parseFloat(b)); });
@@ -176,7 +176,7 @@ function MachineList()
         $(caps.firstElem).before(d);
     });
 
-    //// 検索条件リスト ////
+    /// 検索条件リスト ///
     this.$_genreList    = $('.genre_area input');
     this.$_makerList    = $('.maker_area input');
     /*
@@ -188,7 +188,7 @@ function MachineList()
     this.$_locationList = $('.location_area input');
     this.$_capacityList = $('.capacity_area input');
 
-    //// 新着用、期間の初期値を取得 ////
+    /// 新着用、期間の初期値を取得 ///
     /*
     var now = new Date();
     var nowDate = new Date(now.getFullYear() + '/' + (now.getMonth() + 1) + '/' + now.getDate());
@@ -233,7 +233,7 @@ function MachineList()
             dtTime = nowDate.getTime() / 1000 - sPeriod * (60*60*24);
         }
 
-        //// デフォルトで期間指定していて、期間をオーバーして場合 ////
+        /// デフォルトで期間指定していて、期間をオーバーして場合 ///
         // if (defaultTime != '' && defaultTime > dtTime) {
         if (defaultTime != '') {
             this.$_periodForm.submit();
@@ -329,7 +329,7 @@ function MachineList()
         // 地図の位置のリセット
         self.map.setCenter(mapDefault);
         self.map.setZoom(5);
-        //// 地図用メソッドの生成 ////
+        /// 地図用メソッドの生成 ///
         /**
          * 地図移動
          */
@@ -411,7 +411,7 @@ function MachineList()
 
         // マップ用変数の初期化
         $.each(addresses, function(key, add) {
-            //// 表示される内容を検索 ////
+            /// 表示される内容を検索 ///
             var msgBody = '';
             $.each(add.elems, function(key2, elem) {
                 if ($(elem).css('display') == 'none') { return true; }
@@ -419,7 +419,7 @@ function MachineList()
                     elem.name + ' ' + elem.maker + ' ' + elem.model + '</div>';
             });
 
-            //// マーカークリックでウィンドウ生成の内容 ////
+            /// マーカークリックでウィンドウ生成の内容 ///
             var msg = '<div class="map_company">' + add.company + '</div>' +
                 '<div class="map_location">' + add.location + '</div>' +
                 '<div class="map_pure_addr">' + add.pure_addr + '</div>' +
@@ -454,14 +454,14 @@ function MachineList()
                     icon: "imgs/100305_orange.gif"
                 });
 
-                //// ウィンドウの生成 ////
+                /// ウィンドウの生成 ///
                 var infowin = new google.maps.InfoWindow({content:msg});
 
-                //// マーカーとウィンドウをこのオブジェクトに登録 ////
+                /// マーカーとウィンドウをこのオブジェクトに登録 ///
                 add.marker  = marker;
                 add.infowin = infowin;
 
-                //// MAPのイベントハンドラ登録 ////
+                /// MAPのイベントハンドラ登録 ///
                 // マーカーmouseoverで開く
                 google.maps.event.addListener(marker, 'mouseover', function(event) {
                     // マーカー点滅・ウィンドウを表示
@@ -485,7 +485,7 @@ function MachineList()
 };
 
 $(function() {
-    //// maker carousel表示 ////
+    /// maker carousel表示 ///
     /*
     $('#maker_carousel').filter(function() {
         return $(this).find('li').length > 6;
@@ -498,10 +498,10 @@ $(function() {
     });
     */
 
-    //// 在庫一覧オブジェクト ////
+    /// 在庫一覧オブジェクト ///
     var ml = new MachineList();
 
-    //// 絞り込みイベントハンドラ ////
+    /// 絞り込みイベントハンドラ ///
     $('.genre_area input:checkbox, .maker_area input:checkbox, input#model2,' +
         '.location_area input:checkbox, .capacity_area input:checkbox')
     .change(function() { ml.refine(); });
@@ -553,7 +553,7 @@ $(function() {
         });
     }
 
-    //// 新マップ表示イベントハンドラ ////
+    /// 新マップ表示イベントハンドラ ///
     // 地図で表示
     $('.machine_tab .map_tab').click(function() {
         $('.machine_tab a').removeClass('selected');
@@ -630,7 +630,7 @@ $(function() {
         return false;
     });
 
-    //// 地図移動イベントハンドラ ////
+    /// 地図移動イベントハンドラ ///
     $('.map_location_area .move').click(function() {
         var address = $(this).text();
 
@@ -644,7 +644,7 @@ $(function() {
         return false;
     });
 
-    //// 画像拡大処理 ////
+    /// 画像拡大処理 ///
     // 表示枠の作成
     $('<img class="hoverimg">').appendTo('body').hide();
 
@@ -662,7 +662,7 @@ $(function() {
         }
     );
 
-    //// 地図で表示のイベントハンドラ ////
+    /// 地図で表示のイベントハンドラ ///
     $('.map_machine').hover(function() {
         ml.$_list.filter('[data-id=' + $(this).data('id') + ']')
             .each(function() {
@@ -673,7 +673,7 @@ $(function() {
     });
 
 
-    //// サムネイル画像の遅延読み込み（Lazyload） ////
+    /// サムネイル画像の遅延読み込み（Lazyload） ///
     $('img.lazy').lazyload({
         effect : "fadeIn",
         threshold : 250,
@@ -689,7 +689,7 @@ $(function() {
         }
     });
 
-    //// ソート処理 ////
+    /// ソート処理 ///
     /*
     $('.machine_order a').click(function() {
         $(this).attr('href').match(/#([a-z_]+)-([a-z]+)/);
@@ -716,13 +716,13 @@ $(function() {
     });
     */
 
-    //// マイリストイベントハンドラ ////
-    //// マイリストに登録（機械：単一） ////
+    /// マイリストイベントハンドラ ///
+    /// マイリストに登録（機械：単一） ///
     $('button.mylist').click(function() {
         mylist.set($(this).val(), 'machine');
     });
 
-    //// マイリストに登録（機械：一括） ////
+    /// マイリストに登録（機械：一括） ///
     $('button.mylist_full').click(function() {
         var machines = $('input.machine_check:checked').map(function() { return $(this).val(); }).get();
         if (machines.length) {
@@ -732,18 +732,18 @@ $(function() {
         }
     });
 
-    //// マイリストに登録（検索条件：単一） ////
+    /// マイリストに登録（検索条件：単一） ///
     $('button.input_mylist_genres').click(function() {
         // var id = $(this).val().split(',');
         mylist.set($(this).val(), 'genres');
     });
 
-    //// マイリストに登録（会社：単一） ////
+    /// マイリストに登録（会社：単一） ///
     $('button.mylist_company').click(function() {
         mylist.set($(this).val(), 'company');
     });
 
-    //// マイリストに登録（会社：一括） ////
+    /// マイリストに登録（会社：一括） ///
     $('button.mylist_full_company').click(function() {
         var companies = $('input.machine_check:checked').map(function() { return $(this).val(); }).get();
         if (companies.length) {
@@ -753,7 +753,7 @@ $(function() {
         }
     });
 
-    //// 問い合わせ（一括） ////
+    /// 問い合わせ（一括） ///
     $('button.contact_full').click(function() {
         if ($('input.machine_check:checked').length) {
             url = 'contact.php?';
@@ -766,7 +766,7 @@ $(function() {
         }
     });
 
-    //// マイリストから削除する（機械：一括） ////
+    /// マイリストから削除する（機械：一括） ///
     $('button.mylist_delete').click(function() {
         var machines = $('input.machine_check:checked').map(function() { return $(this).val(); }).get();
         if (machines.length) {
@@ -776,7 +776,7 @@ $(function() {
         }
     });
 
-    //// マイリストから削除する（検索条件：単一） ////
+    /// マイリストから削除する（検索条件：単一） ///
     $('button.mylist_delete_genres').click(function() {
         var genres = $('input.machine_check:checked').map(function() { return $(this).val(); }).get();
         if (genres.length) {
@@ -786,7 +786,7 @@ $(function() {
         }
     });
 
-    //// マイリストから削除する（会社：一括） ////
+    /// マイリストから削除する（会社：一括） ///
     $('button.mylist_delete_company').click(function() {
         var companies = $('input.machine_check:checked').map(function() { return $(this).val(); }).get();
         if (companies.length) {
@@ -796,7 +796,7 @@ $(function() {
         }
     });
 
-    //// 問い合わせ（会社：一括） ////
+    /// 問い合わせ（会社：一括） ///
     $('button.contact_full_company').click(function() {
         if ($('input.machine_check:checked').length) {
             url = 'contact.php?';
@@ -815,7 +815,7 @@ $(function() {
     });
 
 
-    //// 画像で表示イベントハンドラ ////
+    /// 画像で表示イベントハンドラ ///
     // 横スクロールイベント
     $('.imagelist .data').filter(function() {
         return $(this).find('.imgs li').length > 3;
@@ -897,7 +897,7 @@ $(function() {
             });
     });
 
-    //// jqzoom ////
+    /// jqzoom ///
     /*
     $(".zoom").each(function() {
         var $_self = $(this);
@@ -928,32 +928,32 @@ $(function() {
     });
     */
 
-    //// 動画ボタン再生 ////
-    $('button.movie').click(function() {
-        if (!$('#movie_dialog').length) {
-            $('<div id="movie_dialog" style="width:640px;height:480px;">').appendTo('body');
-        }
-        var $_moDir = $('#movie_dialog');
+    /// 動画ボタン再生 ///
+    // $('button.movie').click(function() {
+    //     if (!$('#movie_dialog').length) {
+    //         $('<div id="movie_dialog" style="width:640px;height:480px;">').appendTo('body');
+    //     }
+    //     var $_moDir = $('#movie_dialog');
 
-        var contents = '<iframe width="640" height="480" id="movie_dialog" ' +
-            'src="https://www.youtube.com/embed/' +
-            $(this).val() +
-            '?rel=0" frameborder="0" allowfullscreen></iframe>';
+    //     var contents = '<iframe width="640" height="480" id="movie_dialog" ' +
+    //         'src="https://www.youtube.com/embed/' +
+    //         $(this).val() +
+    //         '?rel=0" frameborder="0" allowfullscreen></iframe>';
 
-        $_moDir.html(contents).dialog({
-            show: "fade",
-            hide: "fade",
-            closeText: '閉じる',
-            title: '動画の再生',
-            width: 675,
-            height: 540,
-            resizable: false,
-            modal: true,
-            close: function() { $_moDir.empty(); }
-        });
+    //     $_moDir.html(contents).dialog({
+    //         show: "fade",
+    //         hide: "fade",
+    //         closeText: '閉じる',
+    //         title: '動画の再生',
+    //         width: 675,
+    //         height: 540,
+    //         resizable: false,
+    //         modal: true,
+    //         close: function() { $_moDir.empty(); }
+    //     });
 
-        return false;
-    });
+    //     return false;
+    // });
 
     // lazyload用のスクロールイベント
     $('.machine_list.map').scroll(function() {
@@ -963,7 +963,7 @@ $(function() {
 
 /*
 $('body').load(function() {
-    //// end画像の位置調整 ////
+    /// end画像の位置調整 ///
     $('.triangle').each(function() {
         var sibling_img = $(this).siblings('.last_img');
         var pos = sibling_img.position();

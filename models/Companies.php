@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 掲載会社情報テーブルクラス
  *
@@ -12,7 +13,7 @@ class Companies extends MyTable
     protected $_name              = 'companies';
     protected $_primary           = 'id';
 
-    //// 共通設定 ////
+    /// 共通設定 ///
     protected $_jname             = '会社情報';
     protected $_view              = 'view_companies';
 
@@ -49,7 +50,7 @@ class Companies extends MyTable
         'ランク'               => array('fields' => 'rank',              'Digits'),
         '親会社ID'             => array('fields' => 'parent_company_id', 'Digits'),
     ), 'filters' => array(
-         'rank'                => array(array('Callback', 'Companies::formatRank')),
+        'rank'                => array(array('Callback', 'Companies::formatRank')),
     ));
 
     protected $_memberFilters     = array('rules' => array(
@@ -77,8 +78,11 @@ class Companies extends MyTable
         202 => '特別会員',
     );
 
-    //// 配列定数のGETTER ////
-    static public function getRankRatio() { return self::$_rankRatio; }
+    /// 配列定数のGETTER ///
+    static public function getRankRatio()
+    {
+        return self::$_rankRatio;
+    }
 
     /**
      * 検索クエリからWHERE句の生成
@@ -88,7 +92,8 @@ class Companies extends MyTable
      * @param  boolean $check 検索条件チェック
      * @return string  生成したwhere句
      */
-    protected function _makeWhereSqlArray($q, $check=false) {
+    protected function _makeWhereSqlArray($q, $check = false)
+    {
         $whereArr = array();
 
         if (!empty($q['id'])) {
@@ -114,12 +119,12 @@ class Companies extends MyTable
 
         if (!empty($q['rankeq'])) {
             $whereArr[] = $this->_db->quoteInto(' t.rank = ? ', self::formatRank($q['rankeq']));
-        } else if (isset($q['rankeq'] ) && $q['rankeq'] === '0') {
+        } else if (isset($q['rankeq']) && $q['rankeq'] === '0') {
             $whereArr[] = ' (t.rank = 0 OR t.rank IS NULL) ';
         }
 
         if (!empty($q['is_parent'])) {
-            $whereArr[] =' t.parent_company_id IS NULL ';
+            $whereArr[] = ' t.parent_company_id IS NULL ';
         }
         // var_dump($whereArr);
         return $whereArr;
@@ -135,8 +140,11 @@ class Companies extends MyTable
     protected function _makeOrderBySql($q)
     {
         $sort = '';
-        if      (!empty($q['is_region'])) { $sort = 'region'; }
-        else if (!empty($q['notnull']))   { $sort = 'company'; }
+        if (!empty($q['is_region'])) {
+            $sort = 'region';
+        } else if (!empty($q['notnull'])) {
+            $sort = 'company';
+        }
 
         return parent::_makeOrderBySql(array('sort' => $sort));
     }
@@ -149,12 +157,12 @@ class Companies extends MyTable
      * @param  string $id 団体ID(NULLの場合は、すべて)
      * @return array  団体情報と件数(メールアドレスがある場合のみ)
      */
-    public function countForMail($groupId=NULL)
+    public function countForMail($groupId = NULL)
     {
         $whereSql = '';
         if (!empty($groupId)) {
-            $whereSql.= $this->_db->quoteInto(' c.group_id IN ( SELECT g2.id FROM groups g2 WHERE g2.parent_id = ? ', $groupId);
-            $whereSql.= $this->_db->quoteInto(' OR c.group_id = ? ) AND ', $groupId);
+            $whereSql .= $this->_db->quoteInto(' c.group_id IN ( SELECT g2.id FROM groups g2 WHERE g2.parent_id = ? ', $groupId);
+            $whereSql .= $this->_db->quoteInto(' OR c.group_id = ? ) AND ', $groupId);
         }
 
         $sql = "SELECT count(c.*) FROM view_companies c WHERE {$whereSql} (c.mail IS NOT NULL AND c.mail <> '');";
@@ -170,12 +178,12 @@ class Companies extends MyTable
      * @param  string $groupId 団体ID(NULLの場合は、すべて)
      * @return array  会社情報一覧(メールアドレスがある場合のみ)
      */
-    public function getListForMail($groupId=NULL)
+    public function getListForMail($groupId = NULL)
     {
         $whereSql = '';
         if (!empty($groupId)) {
-            $whereSql.= $this->_db->quoteInto(' c.group_id IN ( SELECT g2.id FROM groups g2 WHERE g2.parent_id = ? ', $groupId);
-            $whereSql.= $this->_db->quoteInto(' OR c.group_id = ? ) AND ', $groupId);
+            $whereSql .= $this->_db->quoteInto(' c.group_id IN ( SELECT g2.id FROM groups g2 WHERE g2.parent_id = ? ', $groupId);
+            $whereSql .= $this->_db->quoteInto(' OR c.group_id = ? ) AND ', $groupId);
         }
 
         $sql = "SELECT c.company, c.mail FROM companies c WHERE {$whereSql} (c.mail IS NOT NULL AND c.mail <> '');";
@@ -194,15 +202,19 @@ class Companies extends MyTable
      */
     public function memberSet($companyId, $data)
     {
-        if (empty($id)) { throw new Exception('会社IDがありません'); }
+        if (empty($id)) {
+            throw new Exception('会社IDがありません');
+        }
 
-        //// フィルタリング・バリデーション・JSONエンコード(会員ページ用の保存項目)  ////
+        /// フィルタリング・バリデーション・JSONエンコード(会員ページ用の保存項目)  ///
         $data = MyFilter::filter($data, $this->_memberFilters, $this->_jsonColumns);
 
         // 会員ページ用なので変更のみ、新規登録は行えない
         $data['changed_at'] = new Zend_Db_Expr('current_timestamp');
         $result = $this->update($data, $this->_db->quoteInto('id = ?', $companyId));
-        if (empty($result)) { throw new Exception('会社情報が保存できませんでした'); }
+        if (empty($result)) {
+            throw new Exception('会社情報が保存できませんでした');
+        }
 
         return $this;
     }
@@ -217,7 +229,7 @@ class Companies extends MyTable
      */
     public function set($companyId = null, $data)
     {
-        //// フィルタリング・バリデーション ////
+        /// フィルタリング・バリデーション ///
         $data = MyFilter::filter($data, $this->_filters);
 
         if (empty($companyId)) {
@@ -233,7 +245,9 @@ class Companies extends MyTable
             $res = $this->update($data, $this->_db->quoteInto('id = ?', $companyId));
         }
 
-        if (empty($res)) { throw new Exception('会社情報が保存できませんでした'); }
+        if (empty($res)) {
+            throw new Exception('会社情報が保存できませんでした');
+        }
 
         return $this;
     }
@@ -248,7 +262,9 @@ class Companies extends MyTable
      */
     public function setBidEntries($companyId, $data)
     {
-        if (empty($companyId)) { throw new Exception('会社IDがありません'); }
+        if (empty($companyId)) {
+            throw new Exception('会社IDがありません');
+        }
 
         // JSONデータ保管
         $temp['bid_entries'] = json_encode($data['bid_entries'], JSON_UNESCAPED_UNICODE);
@@ -256,7 +272,9 @@ class Companies extends MyTable
 
         $result = $this->update($temp, $this->_db->quoteInto('id = ?', $companyId));
 
-        if (empty($result)) { throw new Exception('会社情報(Web入札会商品出品登録)が保存できませんでした'); }
+        if (empty($result)) {
+            throw new Exception('会社情報(Web入札会商品出品登録)が保存できませんでした');
+        }
 
         return $this;
     }
@@ -312,8 +330,10 @@ class Companies extends MyTable
                 $result = $data;
             } else {
                 // 丁度の値でない場合は、低い方の近似値を探す
-                foreach(self::$_rankRatio as $val => $r) {
-                    if ($data - $val >= 0 && $val > $result) { $result = $val; }
+                foreach (self::$_rankRatio as $val => $r) {
+                    if ($data - $val >= 0 && $val > $result) {
+                        $result = $val;
+                    }
                 }
             }
         } else if ($temp = array_search($data, self::$_rankRatio)) {

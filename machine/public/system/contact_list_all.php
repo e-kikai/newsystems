@@ -1,4 +1,5 @@
 <?php
+
 /**
  * お問い合わせ一覧(すべて)表示隠しページ表示
  *
@@ -7,19 +8,19 @@
  * @version 0.0.1
  * @since   2013/02/05
  */
-//// 設定ファイル読み込み ////
+/// 設定ファイル読み込み ///
 require_once '../../lib-machine.php';
 try {
-    //// 認証 ////
+    /// 認証 ///
     Auth::isAuth('system');
 
-    //// 変数を取得 ////
+    /// 変数を取得 ///
     $output = Req::query('output');
-    $month  = Req::query('monthYear') ? Req::query('monthYear') . '/' . Req::query('monthMonth') .'/01' : null;
+    $month  = Req::query('monthYear') ? Req::query('monthYear') . '/' . Req::query('monthMonth') . '/01' : null;
 
     $cModel = new Contact();
 
-    //// CSVに出力する場合 ////
+    /// CSVに出力する場合 ///
     if ($output == 'csv') {
         // $mailuserList = $cModel->getMailuserList();
         $mailuserList = $cModel->getContactMailList();
@@ -34,7 +35,7 @@ try {
         B::downloadCsvFile($header, $mailuserList, 'contact_all_mailuser.csv');
         exit;
     } else if ($output == 'csvall') {
-        //// お問い合わせ一覧を取得 ////
+        /// お問い合わせ一覧を取得 ///
         $contactList = $cModel->getList('ALL', $month);
         $filename    = (Req::query('monthYear') ? (Req::query('monthYear') . Req::query('monthMonth')) : 'last') . '_contact_all.csv';
 
@@ -64,10 +65,10 @@ try {
         exit;
     }
 
-    //// お問い合わせ一覧を取得 ////
+    /// お問い合わせ一覧を取得 ///
     $contactList = $cModel->getList('ALL', $month);
 
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle'     => 'お問い合わせ一覧(すべて)',
         'pankuzu'       => array('/system/' => '管理者ページ'),
@@ -77,7 +78,7 @@ try {
         'monthMonth'    => Req::query('monthMonth'),
     ))->display("system/contact_list_all.tpl");
 } catch (Exception $e) {
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle' => 'お問い合わせ一覧(すべて)',
         'errorMes'  => $e->getMessage()

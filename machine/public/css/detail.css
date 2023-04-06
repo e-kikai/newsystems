@@ -631,3 +631,28 @@ a.button.contact_tel {
 .contactbar .contact_tel {
   top: 26px;
 }
+
+#gmap2 {
+  width: 100%;
+}
+
+h1 {
+  display: none;
+}
+
+h1.detail_h1 {
+  display: block;
+}
+
+.movies {
+  margin-left: -6px;
+}
+
+.movies .movie {
+  margin: 0 6px 4px 0;
+  display: inline-block;
+}
+
+img.youtube_thumb {
+  width: 100%;
+}

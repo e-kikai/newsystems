@@ -68,7 +68,7 @@
             <th class="login_user">入札ユーザ</th>
             <th class="min_price">入札金額</th>
             <th class="created_at">入札日時</th>
-
+            <th class="created_at">取消日時</th>
             <th class="id sepa2">出品番号</th>
             {*
             <th class="img"></th>
@@ -94,7 +94,7 @@
 
           <td class="min_price">{$bb.amount|number_format}円</td>
           <td class="created_at">{$bb.created_at|date_format:'%m/%d %H:%M:%S'}</td>
-
+          <td class="created_at">{$bb.deleted_at|date_format:'%m/%d %H:%M:%S'}</td>
           <td class="id text-right sepa2">{$bb.list_no}</td>
           {*
           <td class="img">
@@ -132,10 +132,10 @@
             <td class="min_price sepa2">
               {if !empty($bids_result[$bb.bid_machine_id].amount)}
                 {$bids_result[$bb.bid_machine_id].amount|number_format}円
-              {/if}
-              {if $bids_result[$bb.bid_machine_id].same_count > 1}
-                <br />
-                (同額:{$bids_result[$bb.bid_machine_id].same_count})
+                {if $bids_result[$bb.bid_machine_id].same_count > 1}
+                  <br />
+                  (同額:{$bids_result[$bb.bid_machine_id].same_count})
+                {/if}
               {/if}
             </td>
             <td class="same_count">{$bids_count[$bb.bid_machine_id]|number_format}</td>

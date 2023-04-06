@@ -220,7 +220,9 @@
               {if $machine.addr3}
                 <a class="accessmap"
                   href="https://maps.google.co.jp/maps?f=q&amp;q={$machine.addr1|escape:"url"}{$machine.addr2|escape:"url"}{$machine.addr3|escape:"url"}+({$machine.location|escape:"url"})&source=embed&amp;hl=ja&amp;geocode=&amp;ie=UTF8&amp;t=m&z=14"
-                  target="_blank">MAP</a>
+                  target="_blank">
+                  <i class="fas fa-map-location-dot"></i> MAP
+                </a>
               {/if}
             </td>
           </tr>
@@ -394,11 +396,15 @@
         <div class='contact_area'>
           {if !empty($company.contact_mail)}
             <a class="contact" href="contact.php?o={$bidOpenId}&bm={$machine.id}" target="_blank"
-              onclick="ga('send', 'event', 'bid_contact', 'detail_middle');">フォームから問い合せ</a>
+              onclick="ga('send', 'event', 'bid_contact', 'detail_middle');">
+              <i class="fas fa-paper-plane"></i> フォームから問い合せ
+            </a>
           {/if}
 
           <a class="button contact_tel subwindow" href="bid_detail_tel.php?m={$machine.id}"
-            onclick="ga('send', 'event', 'bid_contact', 'detail_tel_middle');">電話で問い合わせ</a>
+            onclick="ga('send', 'event', 'bid_contact', 'detail_tel_middle');">
+            <i class="fas fa-phone"></i> 電話で問い合わせ
+          </a>
 
           {if !empty($smarty.session.bid_batch) && !empty($smarty.session.bid_batch[$machine.id])}
             <button class="mylist" value="{$machine.id}" style="display:none;"

@@ -288,14 +288,17 @@
 
               {if !empty($m.youtube) && preg_match_all('/([\w\-]{11})/', $m.youtube, $res)}
                 {foreach $res[0] as $y}
-                  <a href="javascript:void(0)" data-youtubeid="{$y}" class="label movie" title="クリックで動画再生します">動画</a>
+                  <a href="javascript:void(0)" data-youtubeid="{$y}" class="label movie" title="クリックで動画再生します">
+                    <i class="fas fa-video"></i> 動画
+                  </a>
                 {/foreach}
               {/if}
 
               {*** 入札会 ***}
               {if !empty($bidMachineIds[$m.id])}
-                <a href="bid_detail.php?m={$bidMachineIds[$m.id].bid_machine_id}" class="label bid"
-                  target="_blank">Web入札会出品中</a>
+                <a href="bid_detail.php?m={$bidMachineIds[$m.id].bid_machine_id}" class="label bid" target="_blank">
+                  <i class="fas fa-pen-to-square"></i> Web入札会出品中
+                </a>
               {/if}
 
               {*** ラベル枠 ***}
@@ -303,12 +306,15 @@
               {if $m.commission == 1}<div class="label commission">試運転可</div>{/if}
               {if !empty($m.pdfs)}
                 {foreach $m.pdfs as $key => $val}
-                  <a href="{$_conf.media_dir}machine/{$val}" class="label pdf" target="_blank">PDF:{$key}</a>
+                  <a href="{$_conf.media_dir}machine/{$val}" class="label pdf" target="_blank">
+                    <i class="fas fa-file-pdf"></i> PDF:{$key}
+                  </a>
                 {/foreach}
               {/if}
               {if Auth::check('member') && !empty($m.catalog_id)}
-                <a href="{$_conf.catalog_uri}/catalog_pdf.php?id={$m.catalog_id}" class="label catalog"
-                  target="_blank">電子カタログ</a>
+                <a href="{$_conf.catalog_uri}/catalog_pdf.php?id={$m.catalog_id}" class="label catalog" target="_blank">
+                  <i class="far fa-file-pdf"></i> 電子カタログ
+                </a>
               {/if}
 
               {*
