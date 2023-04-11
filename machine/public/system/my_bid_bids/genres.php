@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 会社ごとの集計ページ
+ * ジャンルごとの集計ページ
  *
  * @access  public
  * @author  川端洋平
@@ -15,6 +15,7 @@ Auth::isAuth('system');
 
 /// 変数を取得 ///
 $bid_open_id = Req::query('o');
+$target      = Req::query('target');
 $output      = Req::query('output');
 
 /// 入札会情報を取得 ///
@@ -30,16 +31,34 @@ $results = [];
 
 $bid_machine_model = new BidMachine();
 $bm_select = $bid_machine_model->select()->setIntegrityCheck(false)
-    ->from("bid_machines as bm", "bm.company_id as id")
+    ->from("bid_machines as bm", null)
+    ->join(["ge" => "genres"], "ge.id = bm.genre_id", null)
+    ->join(["la" => "large_genres"], "la.id = ge.large_genre_id", null)
+    ->join(["xl" => "xl_genres"], "xl.id = la.xl_genre_id", null)
     ->where("bm.bid_open_id = ?", $bid_open_id)
-    ->where("bm.deleted_at IS NULL")
-    ->group("bm.company_id")->order("bm.company_id");
+    ->where("bm.deleted_at IS NULL");
+
+if ($target == "xl_genre") { // 特大ジャンル
+    $bm_select->columns(["xl.id", "xl.xl_genre"])
+        ->group(["xl.id", "xl.order_no"])->order("xl.order_no");
+    $gt = "特大ジャンル";
+} else if ($target == "large_genre") { // 大ジャンル
+    $bm_select->columns(["la.id", "xl.xl_genre", "la.large_genre"])
+        ->group(["xl.id", "xl.order_no", "la.id", "la.order_no"])
+        ->order(["xl.order_no", "la.order_no"]);
+    $gt = "大ジャンル";
+} else { // ジャンル
+    $bm_select->columns(["ge.id", "xl.xl_genre", "la.large_genre", "ge.genre"])
+        ->group(["xl.id", "xl.order_no", "la.id", "la.order_no", "ge.id", "ge.order_no"])
+        ->order(["xl.order_no", "la.order_no",  "ge.order_no"]);
+    $gt = "ジャンル";
+}
 
 /// 出品件数、金額 ///
 $select = clone $bm_select;
-$select->join(["co" => "companies"], "co.id = bm.company_id", ["co.company", "co.addr1"])
-    ->group(["co.company", "co.addr1"])
-    ->columns("count(bm.id) as c, sum(bm.min_price) as price, count(bm.auto_at) as auto");
+$select
+    ->columns("count(bm.id) as c, sum(bm.min_price) as price, count(bm.auto_at) as auto")
+    ->columns("count(DISTINCT bm.company_id) as co");
 
 $res = $_db->fetchAll($select);
 
@@ -49,11 +68,13 @@ $res = $_db->fetchAll($select);
 
 $ids = array_column($res, "id");
 
-$results["会社名"]      = array_column($res, "company", "id");
-$results["都道府県"]    = array_column($res, "addr1", "id");
+if (!empty($res[0]["xl_genre"]))    $results["特大ジャンル"] = array_column($res, "xl_genre", "id");
+if (!empty($res[0]["large_genre"])) $results["大ジャンル"]   = array_column($res, "large_genre", "id");
+if (!empty($res[0]["genre"]))       $results["ジャンル"]    = array_column($res, "genre", "id");
 $results["出品数"]      = array_column($res, "c", "id");
 $results["最低金額合計"] = array_column($res, "price", "id");
 $results["自動入札"]    = array_column($res, "auto", "id");
+$results["出品社数"]    = array_column($res, "co", "id");
 
 /// 詳細アクセス ///
 $watches_select = clone $bm_select;
@@ -63,7 +84,7 @@ $watches_select->join(["bdl" => "bid_detail_logs"], "bdl.bid_machine_id = bm.id"
 
 $res = $_db->fetchAll($watches_select);
 
-$results["詳細 アクセス"] = array_column($res, "c", "id");
+$results["詳細 アクセス"]  = array_column($res, "c", "id");
 $results["詳細 utag"]    = array_column($res, "utag", "id");
 $results["詳細 ユーザ数"] = array_column($res, "my_user", "id");
 
@@ -75,8 +96,8 @@ $watches_select->join(["mbw" => "my_bid_watches"], "mbw.bid_machine_id = bm.id",
 
 $res = $_db->fetchAll($watches_select);
 
-$results["ウォッチ"]         = array_column($res, "c", "id");
-$results["うち、削除"]       = array_column($res, "del", "id");
+$results["ウォッチ"]  =  array_column($res, "c", "id");
+$results["うち、削除"] = array_column($res, "del", "id");
 $results["ウォッチ ユーザ数"] = array_column($res, "my_user", "id");
 
 /// 入札数 ///
@@ -134,12 +155,12 @@ if ($output == 'csv') { // CSV
     $header = ["id" => "id"];
     foreach ($keys as $key) $header[$key] = $key;
 
-    $filename = "{$bid_open_id}_companies_total.csv";
+    $filename = "{$bid_open_id}_genres_total.csv";
     B::downloadCsvFile($header, $body, $filename);
 } else {
     /// 表示変数アサイン ///
     $_smarty->assign(array(
-        'pageTitle' => "{$bid_open["title"]} 出品会社ごとの集計",
+        'pageTitle' => "{$bid_open["title"]} {$gt}ごとの集計",
         'pankuzu'          => array(
             '/system/' => '管理者ページ',
             '/system/bid_open_list.php' => '入札会開催一覧',

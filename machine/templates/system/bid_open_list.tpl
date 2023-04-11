@@ -85,7 +85,7 @@
         <tr>
           <td colspan="5">
             {if $b.user_bid_date > $smarty.const.BID_USER_START_DATE}
-              結果(
+              {* 結果(
               <a href="system/my_bid_bids/total.php?o={$b.id}"><i class="fas fa-list"></i></a>|
               <a href="system/my_bid_bids/total.php?o={$b.id}&output=csv"><i class="fas fa-file-csv"></i></a>
               )
@@ -108,7 +108,36 @@
               入札(
               <a href="system/my_bid_bids/?o={$b.id}"><i class="fas fa-list"></i></a>|
               <a href="system/my_bid_bids/?o={$b.id}&output=csv"><i class="fas fa-file-csv"></i></a>
-              )
+              ) *}
+
+              <a href="system/my_bid_bids/total.php?o={$b.id}">
+                <i class="fas fa-list"></i> 結果
+              </a> |
+
+              <a href="system/my_bid_bids/companies.php?o={$b.id}">
+                <i class="fas fa-calculator"></i> 会社
+              </a> |
+              <a href="system/my_bid_bids/my_users.php?o={$b.id}">
+                <i class="fas fa-calculator"></i> ユーザ
+              </a> |
+              <a href="system/my_bid_bids/genres.php?o={$b.id}">
+                <i class="fas fa-calculator"></i>ジャンル
+              </a> |
+              <a href="system/my_bid_bids/genres.php?o={$b.id}&target=large_genre">
+                <i class="fas fa-calculator"></i> 大ジャンル
+              </a> |
+              <a href="system/my_bid_bids/genres.php?o={$b.id}&target=xl_genre">
+                <i class="fas fa-calculator"></i> 特大ジャンル</a> |
+              <a href="system/bid_detail_logs/?o={$b.id}">
+                <i class="fas fa-list"></i> 詳細
+              </a> |
+              <a href="system/my_bid_watches/?o={$b.id}">
+                <i class="fas fa-list"></i> ウォッチ
+              </a> |
+              <a href="system/my_bid_bids/?o={$b.id}">
+                <i class="fas fa-list"></i> 入札
+              </a>
+
             {else}
               落札結果(
               <a href="system/bid_list.php?o={$b.id}">一覧</a>|

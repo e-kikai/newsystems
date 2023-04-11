@@ -1,7 +1,8 @@
 <?php
+
 /**
  * 大ジャンルテーブルクラス
- * 
+ *
  * @access public
  * @author 川端洋平
  * @version 0.2.0
@@ -12,7 +13,7 @@ class XlGenres extends MyTable
     protected $_name     = 'xl_genres';
     protected $_primary  = 'id';
 
-    //// 共通設定 ////
+    /// 共通設定 ///
     protected $_view     = 'view_xl_genres';
     protected $_jname    = '大ジャンル';
 
@@ -23,7 +24,7 @@ class XlGenres extends MyTable
     ));
 
     protected $_orderBys = array(" t.order_no, t.id DESC ");
-    
+
     /**
      * 機械用大ジャンル一覧を取得
      *
@@ -31,7 +32,7 @@ class XlGenres extends MyTable
      * @param  array $q 検索クエリ
      * @return array ジャンル一覧
      */
-    public function getMachineList($q=null)
+    public function getMachineList($q = null)
     {
         // 検索対象VIEWを一時的に機械用に変更
         $tempView    = $this->_view;
@@ -50,10 +51,11 @@ class XlGenres extends MyTable
      *
      * @access protected
      * @param  array   $q 検索クエリ
-     * @param  boolean $check 検索条件チェック     
+     * @param  boolean $check 検索条件チェック
      * @return string  生成したwhere句
      */
-    protected function _makeWhereSqlArray($q, $check=false) {
+    protected function _makeWhereSqlArray($q, $check = false)
+    {
         $whereArr = array();
 
         return $whereArr;

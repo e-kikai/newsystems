@@ -15,6 +15,11 @@
     <div class="error_mes">条件に合う内容がありません。</div>
   {/if}
 
+  <a href="{$smarty.server.REQUEST_URI}&output=csv" class="btn btn-primary"
+    style="position: absolute; right: 8px; top: -46px;">
+    <i class="fas fa-file-csv"></i> CSV出力
+  </a>
+
   <div class="table_area max_area">
     {$keys = array_keys($results)}
     {$cls = []}
@@ -23,6 +28,8 @@
         {$cls[$key] = "min_price"}
       {else if preg_match("/会社|氏名/", $key)}
         {$cls[$key] = "company2"}
+      {else if preg_match("/ジャンル/", $key)}
+        {$cls[$key] = "genre"}
       {else if preg_match("/都道府県/", $key)}
         {$cls[$key] = "addr1"}
       {else}

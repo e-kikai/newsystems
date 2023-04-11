@@ -20,6 +20,11 @@
     </div>
   {/if}
 
+  <a href="{$smarty.server.REQUEST_URI}&output=csv" class="btn btn-primary"
+    style="position: absolute; right: 8px; top: -46px;">
+    <i class="fas fa-file-csv"></i> CSV出力
+  </a>
+
   <div class="table_area max_area">
     <table class="machines list">
       {foreach $my_bid_watches as $mw}

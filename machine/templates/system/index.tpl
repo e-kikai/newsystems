@@ -131,7 +131,8 @@
               </a>
             </li>
             <li>
-              <a href="system/my_bid_bids/total.php?o={$b.id}"><i class="fas fa-list"></i> 落札結果一覧</a> >>
+              <a href="system/my_bid_bids/total.php?o={$b.id}"><i class="fas fa-list"></i> 落札結果一覧</a>
+              >>
               <a href="system/my_bid_bids/total.php?o={$b.id}&output=csv">
                 <i class="fas fa-file-csv"></i> CSV出力
               </a>
@@ -139,7 +140,8 @@
             <li>
               <a href="system/my_bid_bids/companies.php?o={$b.id}">
                 <i class="fas fa-calculator"></i> 出品会社ごとの集計
-              </a> >>
+              </a>
+              >>
               <a href="system/my_bid_bids/companies.php?o={$b.id}&output=csv">
                 <i class="fas fa-file-csv"></i> CSV出力
               </a>
@@ -147,12 +149,23 @@
             <li>
               <a href="system/my_bid_bids/my_users.php?o={$b.id}">
                 <i class="fas fa-calculator"></i> ユーザごとの集計
-              </a> >>
+              </a>
+              >>
               <a href="system/my_bid_bids/my_users.php?o={$b.id}&output=csv">
                 <i class="fas fa-file-csv"></i> CSV出力
               </a>
             </li>
-
+            <li>
+              <a href="system/my_bid_bids/genres.php?o={$b.id}">
+                <i class="fas fa-calculator"></i> ジャンルごとの集計
+              </a> |
+              <a href="system/my_bid_bids/genres.php?o={$b.id}&target=large_genre">
+                <i class="fas fa-calculator"></i> 大ジャンル
+              </a> |
+              <a href="system/my_bid_bids/genres.php?o={$b.id}&target=xl_genre">
+                <i class="fas fa-calculator"></i> 特大ジャンル
+              </a>
+            </li>
             {*
             <li>
               <a href="system/bid_result.php?o={$b.id}" target="_blank">落札・出品集計一覧</a> >>

@@ -14,6 +14,11 @@
 
 {block 'main'}
 
+  <a href="{$smarty.server.REQUEST_URI}&output=csv" class="btn btn-primary"
+    style="position: absolute; right: 8px; top: -46px;">
+    <i class="fas fa-file-csv"></i> CSV出力
+  </a>
+
   {*** ページャ ***}
   {include file="include/pager.tpl"}
 
