@@ -114,19 +114,19 @@
                 <i class="fas fa-list"></i> 結果
               </a> |
 
-              <a href="system/my_bid_bids/companies.php?o={$b.id}">
+              <a href="system/bid_total/companies.php?o={$b.id}">
                 <i class="fas fa-calculator"></i> 会社
               </a> |
-              <a href="system/my_bid_bids/my_users.php?o={$b.id}">
+              <a href="system/bid_total/my_users.php?o={$b.id}">
                 <i class="fas fa-calculator"></i> ユーザ
               </a> |
-              <a href="system/my_bid_bids/genres.php?o={$b.id}">
+              <a href="system/bid_total/genres.php?o={$b.id}">
                 <i class="fas fa-calculator"></i>ジャンル
               </a> |
-              <a href="system/my_bid_bids/genres.php?o={$b.id}&target=large_genre">
+              <a href="system/bid_total/genres.php?o={$b.id}&target=large_genre">
                 <i class="fas fa-calculator"></i> 大ジャンル
               </a> |
-              <a href="system/my_bid_bids/genres.php?o={$b.id}&target=xl_genre">
+              <a href="system/bid_total/genres.php?o={$b.id}&target=xl_genre">
                 <i class="fas fa-calculator"></i> 特大ジャンル</a> |
               <a href="system/bid_detail_logs/?o={$b.id}">
                 <i class="fas fa-list"></i> 詳細

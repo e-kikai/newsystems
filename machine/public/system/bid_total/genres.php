@@ -133,7 +133,8 @@ $bids_delete_select->join(["mbb" => "my_bid_bids"], "mbb.bid_machine_id = bm.id"
 
 $res = $_db->fetchAll($bids_delete_select);
 
-$results["入札取消"] = array_column($res, "c", "id");
+$results["入札取消"]     = array_column($res, "c", "id");
+$results["入札取消 人数"] = array_column($res, "user", "id");
 
 // var_export($results);
 // exit;
@@ -168,6 +169,6 @@ if ($output == 'csv') { // CSV
         'bid_open'  => $bid_open,
         "ids"       => $ids,
         "results"   => $results,
-    ))->display('system/my_bid_bids/companies.tpl');
+    ))->display('system/bid_total/index.tpl');
 }
 exit;

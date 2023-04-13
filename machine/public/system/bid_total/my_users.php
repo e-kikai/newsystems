@@ -99,7 +99,6 @@ $results["落札金額"] = array_column($res, "sum", "id");
 $bids_delete_select = clone $bm_select;
 $bids_delete_select->join(["mbb" => "my_bid_bids"], "mbb.bid_machine_id = bm.id", ["id" => "mbb.my_user_id", "c" => "count(*)"])
     ->where("mbb.deleted_at IS NOT NULL")
-    ->columns("count(DISTINCT mbb.my_user_id) as user")
     ->group("mbb.my_user_id");
 
 $res = $_db->fetchAll($bids_delete_select);
@@ -139,6 +138,6 @@ if ($output == 'csv') { // CSV
         'bid_open'  => $bid_open,
         "ids"       => $ids,
         "results"   => $results,
-    ))->display('system/my_bid_bids/companies.tpl');
+    ))->display('system/bid_total/index.tpl');
 }
 exit;
