@@ -27,5 +27,4 @@
     {*** ページャ ***}
     {include file="include/pager.tpl"}
   </div>
-
 {/block}

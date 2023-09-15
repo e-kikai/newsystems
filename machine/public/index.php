@@ -10,14 +10,14 @@
  */
 require_once '../lib-machine.php';
 try {
-    //// 認証 ////
+    ///  認証 ///
     Auth::isAuth('machine');
 
-    //// パラメータ取得 ////
+    ///  パラメータ取得 ///
     // 新着情報取得日数
     $news = $_conf->news;
 
-    //// 特大ジャンル・大ジャンル一覧を取得 ////
+    ///  特大ジャンル・大ジャンル一覧を取得 ///
     $gModel         = new Genre();
     // $xlGenreList    = $gModel->getXlList(Genre::HIDE_CATALOG);
     // $largeGenreList = $gModel->getLargeList(Genre::HIDE_CATALOG);
@@ -28,29 +28,29 @@ try {
     $largeGenreTable   = new LargeGenres();
     $largeGenreList = $largeGenreTable->getMachineList();
 
-    //// 新着情報を取得 ////
+    ///  新着情報を取得 ///
     $mModel         = new Machine();
     // $newMachineList = $mModel->getList(array('period' => $news, 'sort' => 'created_at', 'limit' => 50));
-    $newMachineList = $mModel->getList(array('xl_genre_id' => array(1, 2, 3, 4, 5), 'period' => $news, 'sort' => 'created_at', 'limit' => 6));
-    //$newToolList    = $mModel->getList(array('xl_genre_id' => array(6,7,8,9,10,11), 'period' => $news, 'sort' => 'created_at', 'limit' => 5));
+    $newMachineList = $mModel->getList(array('xl_genre_id' => array(1, 2, 3, 4, 5, 6), 'period' => $news, 'sort' => 'created_at', 'limit' => 6));
+    //$newToolList    = $mModel->getList(array('xl_genre_id' => array(7,8,9,10,11), 'period' => $news, 'sort' => 'created_at', 'limit' => 5));
 
     // 最近見た機械
     // $IPLogMachineList = $mModel->getIPLogList();
 
-    //// 在庫総数 ////
+    ///  在庫総数 ///
     $mModel        = new Machine();
     $mCountAll     = $mModel->getCountAll();
     $cCountByEntry = $mModel->getCountCompany();
 
-    //// 事務局お知らせ ////
+    ///  事務局お知らせ ///
     // $iModel   = new Info();
     // $infoList = $iModel->getList('machine', null, 20);
 
-    //// SELECT用都道府県一覧 ////
+    ///  SELECT用都道府県一覧 ///
     $stateTable  = new States();
     $addr1List   = $stateTable->getListByTop();
 
-    //// 入札会開催情報の取得 ////
+    ///  入札会開催情報の取得 ///
     $cModel      = new BidOpen();
     $bidOpenList = $cModel->getList(array('isopen' => true));
 
@@ -68,14 +68,14 @@ try {
     }
     $bidOpenYearList = array_reverse($bidOpenYearList);
 
-    //// 入札会バナー情報を取得 ////
+    ///  入札会バナー情報を取得 ///
     $bModel      = new Bidinfo();
     $bidinfoList = $bModel->getList(array('sort' => "bid_date"));
 
     // $temp        = $bModel->getList();
     // $bidinfoList = array($temp[3], $temp[0], $temp[2], $temp[1],);
 
-    //// 表示変数アサイン ////
+    ///  表示変数アサイン ///
     $_smarty->assign(array(
         'pankuzu'          => false,
         'largeGenreList'   => $largeGenreList,
@@ -98,7 +98,7 @@ try {
 
     ))->display('index.tpl');
 } catch (Exception $e) {
-    //// 表示変数アサイン ////
+    ///  表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle' => 'システムエラー',
         'errorMes'  => $e->getMessage()

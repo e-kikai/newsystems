@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 在庫機械情報の追加・変更処理
  *
@@ -9,10 +10,10 @@
  */
 require_once '../../lib-machine.php';
 try {
-    //// 認証 ////
+    /// 認証 ///
     Auth::isAuth('member');
 
-    //// 在庫機械情報を取得 ////
+    /// 在庫機械情報を取得 ///
     $id = Req::post('id');
     $data = array(
         'bid_open_id' =>  Req::post('bid_open_id'),
@@ -42,7 +43,7 @@ try {
     );
 
 
-    /// 画像ファイルを実ディレクトリに移動 ////
+    /// 画像ファイルを実ディレクトリに移動 ///
     $f = new File();
     $data['imgs'] = $f->check(
         (array)Req::post('imgs'),
@@ -68,7 +69,7 @@ try {
     header('Location: /admin/bid_machine_list.php?o=' . $data['bid_open_id']);
     exit;
 } catch (Exception $e) {
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle'       => '入札会商品の変更',
         'pankuzu'   => array(

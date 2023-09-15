@@ -21,11 +21,11 @@ try {
     if ($base == 1) {
         $baseTitle = "新着中古工具一覧";
         $baseKey   = 'tool';
-        $baseXlGenreIds = array(6, 7, 8, 9, 10, 11);
+        $baseXlGenreIds = array(7, 8, 9, 10, 11);
     } else {
         $baseTitle = "新着中古機械一覧";
         $baseKey   = 'machine';
-        $baseXlGenreIds = array(1, 2, 3, 4, 5);
+        $baseXlGenreIds = array(1, 2, 3, 4, 5, 6);
     }
 
     if (Req::query('news_date')) {

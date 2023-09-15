@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 在庫機械情報フォーム
  *
@@ -9,23 +10,25 @@
  */
 require_once '../../lib-machine.php';
 try {
-    //// 認証処理 ////
+    /// 認証処理 ///
     Auth::isAuth('member');
 
     $id = Req::query('m');
 
     $baseBidMachineId = Req::query('bid_machine_id');
 
-    //// 会社情報を取得 ////
+    /// 会社情報を取得 ///
     $cModel = new Company();
     $company = $cModel->get($_user['company_id']);
-    if (empty($company)) { throw new Exception('会社情報が取得できませんでした'); }
+    if (empty($company)) {
+        throw new Exception('会社情報が取得できませんでした');
+    }
 
     if (!Companies::checkRank($company['rank'], 'A会員')) {
         throw new Exception('このページの表示権限がありません');
     }
 
-    //// 機械情報を取得 ////
+    /// 機械情報を取得 ///
     $mModel = new Machine();
     if ($id) {
         // 会社情報のチェック
@@ -54,8 +57,7 @@ try {
             'large_genre_id' => 1,
             'genre_id'       => 1,
             'year'           => '',
-            'others'         => array(
-            ),
+            'others'         => array(),
             'commission'     => null,
             'imgs'           => null,
             'pdfs'           => null,
@@ -70,7 +72,7 @@ try {
             'lng'            => $company['lng'],
         );
     }
-    
+
     // 選択用ジャンル一覧
     // $gModel = new Genre();
     // $largeGenreList = $gModel->getLargeList(Genre::HIDE_CATALOG);
@@ -81,7 +83,7 @@ try {
     // 選択用年号一覧
     $yearList = $mModel->makeYearList();
 
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle'        => $id ? '在庫機械の変更' : '在庫機械 新規登録',
         'pageDescription'  => '在庫機械情報の' . ($id ? '変更' : '新規登録') . 'を行うフォームです。',
@@ -96,7 +98,7 @@ try {
         'yearList'         => $yearList,
     ))->display("admin/machine_form.tpl");
 } catch (Exception $e) {
-    //// エラー画面表示 ////
+    /// エラー画面表示 ///
     $_smarty->assign(array(
         'pageTitle' => $id ? '在庫機械の変更' : '在庫機械 新規登録',
         'pankuzu'   => array(

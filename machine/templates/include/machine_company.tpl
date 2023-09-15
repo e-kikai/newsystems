@@ -12,6 +12,37 @@
     });
   </script>
   <style>
+    .machine_list.company td {
+      padding: 8px;
+    }
+
+    .machine_list.company .machines .img {
+      width: 137px;
+    }
+
+    .machine_list.company .img img {
+      margin: auto;
+    }
+
+    .machine_list.company .company {
+      width: 150px;
+    }
+
+    .machine_list.company .group {
+      width: 160px;
+    }
+
+    .machine_list.company .count {
+      width: 132px;
+    }
+
+    .machine_list.company .buttons {
+      width: 90px;
+    }
+
+    .machine_list.company .img {
+      padding: 0;
+    }
   </style>
 {/literal}
 
@@ -111,7 +142,7 @@
           FAX: {$c.contact_fax}
         </td>
         <td class='count'>
-          <span class='count_no'>{$c.count|default:0}</span>件<br />
+          <span class='count_no'>{$c.count|default:0|number_format}</span>件<br />
           {if preg_match("/company_list/", $smarty.server.REQUEST_URI)}
             <a href="search.php?c={$c.id}">
             {else}

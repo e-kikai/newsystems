@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 仮登録ユーザモデルクラス
  *
@@ -15,7 +16,7 @@ class Preuser extends Zend_Db_Table_Abstract
     // フィルタ条件
     protected $_filter = array('rules' => array(
         // 'メールアドレス' => array('fields' => 'mail', 'EmailAddress', 'NotEmpty', ),
-        'メールアドレス' => array('fields' => 'mail', 'NotEmpty', ),
+        'メールアドレス' => array('fields' => 'mail', 'NotEmpty',),
         '会社名、氏名' => array('fields' => 'user_name',),
     ));
 
@@ -25,7 +26,7 @@ class Preuser extends Zend_Db_Table_Abstract
      * @access public
      * @return array 仮ユーザ一覧
      */
-    public function getList($q=array())
+    public function getList($q = array())
     {
         /*
         $where = ' c.created_at IS NOT NULL ';
@@ -71,7 +72,7 @@ class Preuser extends Zend_Db_Table_Abstract
      * @param integer $id 仮ユーザID
      * @return $this
      */
-    public function set($data, $id=NULL)
+    public function set($data, $id = NULL)
     {
         // フィルタリング・バリデーション
         $data = MyFilter::filter($data, $this->_filter);
@@ -79,7 +80,8 @@ class Preuser extends Zend_Db_Table_Abstract
         //// 仮ユーザの保存 ////
         if (empty($id)) {
             // 新規処理
-            $res = $this->insert($data);
+            // $res = $this->insert($data);
+            $res = $this->_db->insert('preusers', $data);
         } else {
             // 更新処理
             $data['changed_at'] = new Zend_Db_Expr('current_timestamp');
@@ -102,7 +104,8 @@ class Preuser extends Zend_Db_Table_Abstract
      * @param  array $id 仮ユーザID配列
      * @return $this
      */
-    public function deleteById($id) {
+    public function deleteById($id)
+    {
         if (empty($id)) {
             throw new Exception('削除する仮ユーザIDが設定されていません');
         }

@@ -1,6 +1,6 @@
 {**
  * ページャ
- * 
+ *
  * @access public
  * @author 川端洋平
  * @version 0.0.4
@@ -12,17 +12,17 @@
     {if $pager->pageCount > 1}
       <span class="list">
         {if $pager->current != $pager->first}
-          <a class="jump" href="{$cUri}&page={$pager->first}"><<先頭</a>
-          <a class="jump" href="{$cUri}&page={$pager->previous}"><前へ</a>
+          <a class="jump" href="{$cUri}&page={$pager->first}">&lt;&lt;先頭</a>
+          <a class="jump" href="{$cUri}&page={$pager->previous}">&lt;前へ</a>
         {/if}
         {foreach $pager->pagesInRange as $p}
           <a class="num{if $p == $pager->current} current{/if} p_{$p}" href="{$cUri}&page={$p}">{$p}</a>
         {/foreach}
         {if $pager->current != $pager->last}
-          <a class="jump" href="{$cUri}&page={$pager->next}">次へ></a>
-          <a class="jump" href="{$cUri}&page={$pager->last}">最終>></a>
+          <a class="jump" href="{$cUri}&page={$pager->next}">次へ&gt;</a>
+          <a class="jump" href="{$cUri}&page={$pager->last}">最終&gt;&gt;</a>
         {/if}
-    </span>
+      </span>
     {/if}
   </div>
 {/if}

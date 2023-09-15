@@ -65,7 +65,7 @@ class MyBidBid extends MyTableAbstract
 
     public function select_count_by_bid_machine_id()
     {
-        $select = $this->select()
+        $select = $this->_db->select()
             ->from("my_bid_bids", ["bid_machine_id", "count(*) as c"])
             ->where("deleted_at IS NULL")
             ->group("bid_machine_id");

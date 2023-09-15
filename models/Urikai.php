@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 売り買いモデルクラス
  *
@@ -37,16 +38,18 @@ class Urikai extends Zend_Db_Table
      */
     public function getList($q)
     {
-      //// WHERE句 ////
-      $where = $this->_makeWhere($q, true);
-      if (!$where) { throw new Exception('検索条件が設定されていません'); };
+        //// WHERE句 ////
+        $where = $this->_makeWhere($q, true);
+        if (!$where) {
+            throw new Exception('検索条件が設定されていません');
+        };
 
         //// LIMIT句、OFFSET句 ////
         $orderBy = " ORDER BY uk.created_at DESC ";
         if (!empty($q['limit'])) {
-            $orderBy.= $this->_db->quoteInto(' LIMIT ? ', $q['limit']);
+            $orderBy .= $this->_db->quoteInto(' LIMIT ? ', $q['limit']);
             if (!empty($q['page'])) {
-                $orderBy.= $this->_db->quoteInto(' OFFSET ? ', $q['limit'] * ($q['page'] - 1));
+                $orderBy .= $this->_db->quoteInto(' OFFSET ? ', $q['limit'] * ($q['page'] - 1));
             }
         }
 
@@ -76,7 +79,8 @@ class Urikai extends Zend_Db_Table
      * @param  boolean $check 検索条件チェック
      * @return string  where句
      */
-    private function _makeWhere($q, $check=false) {
+    private function _makeWhere($q, $check = false)
+    {
         $arr = array();
 
         if (!empty($q['company_id'])) {
@@ -128,8 +132,11 @@ class Urikai extends Zend_Db_Table
      * @param  integer $companyId 会社ID
      * @return array   売り買い情報
      */
-    public function get($id, $companyId=NULL) {
-        if (empty($id)) { throw new Exception('IDが設定されていません'); }
+    public function get($id, $companyId = NULL)
+    {
+        if (empty($id)) {
+            throw new Exception('IDが設定されていません');
+        }
 
         $where = '';
         if (!empty($companyId)) {
@@ -153,7 +160,7 @@ class Urikai extends Zend_Db_Table
      * @access public
      * @return array 売り買い一覧
      */
-    public function set($id=NULL, $data)
+    public function set($id = NULL, $data)
     {
         // フィルタリング・バリデーション
         $data = MyFilter::filter($data, $this->_filter);
@@ -165,7 +172,8 @@ class Urikai extends Zend_Db_Table
 
         if (empty($id)) {
             // 新規処理
-            $res = $this->insert($data);
+            // $res = $this->insert($data);
+            $res = $this->_db->insert('urikais', $data);
         } else {
             // 更新処理
             $data['changed_at'] = new Zend_Db_Expr('current_timestamp');
@@ -228,7 +236,9 @@ EOS;
         // foreach ($sends as $to) { $mailsend->sendMail($to, null, $body, $subject); }
 
         foreach ($companyList as $co) {
-            if (empty($co["contact_mail"])) { continue; }
+            if (empty($co["contact_mail"])) {
+                continue;
+            }
 
             $b = <<< EOS
 {$co["company"]} 様
@@ -244,7 +254,9 @@ EOS;
 
     public function set_end_date($id)
     {
-        if (empty($id)) { throw new Exception("売り買い情報が指定されていません id:{$id}"); }
+        if (empty($id)) {
+            throw new Exception("売り買い情報が指定されていません id:{$id}");
+        }
 
         // 更新処理
         $res = $this->update(array("end_date" => new Zend_Db_Expr('current_timestamp')), array(
@@ -260,7 +272,9 @@ EOS;
 
     public function unset_end_date($id)
     {
-        if (empty($id)) { throw new Exception("売り買い情報が指定されていません id:{$id}"); }
+        if (empty($id)) {
+            throw new Exception("売り買い情報が指定されていません id:{$id}");
+        }
 
         // 更新処理
         $res = $this->update(array("end_date" => null), array(
@@ -283,7 +297,8 @@ EOS;
      * @param  array $id 売り買いID配列
      * @return $this
      */
-    public function deleteById($id) {
+    public function deleteById($id)
+    {
         if (empty($id)) {
             throw new Exception('削除する売り買いIDが設定されていません');
         }

@@ -70,12 +70,12 @@ try {
 
     /// 表示変数アサイン ///
     $_smarty->assign(array(
-        'pageTitle'     => 'お問い合わせ一覧(すべて)',
-        'pankuzu'       => array('/system/' => '管理者ページ'),
-        'contactList'   => $contactList,
-        'month'         => $month,
-        'monthYear'     => Req::query('monthYear'),
-        'monthMonth'    => Req::query('monthMonth'),
+        'pageTitle'   => 'お問い合わせ一覧(すべて)',
+        'pankuzu'     => array('/system/' => '管理者ページ'),
+        'contactList' => $contactList,
+        'month'       => $month,
+        'monthYear'   => Req::query('monthYear'),
+        'monthMonth'  => Req::query('monthMonth'),
     ))->display("system/contact_list_all.tpl");
 } catch (Exception $e) {
     /// 表示変数アサイン ///

@@ -591,7 +591,8 @@ EOS;
         }
 
         /// お問い合わせ内容の保存 ///
-        if (!$result = $this->insert($data)) {
+        // if (!$result = $this->insert($data)) {
+        if (!$result = $this->_db->insert('contacts', $data)) {
             throw new Exception('お問い合わせ情報が保存できませんでした');
         }
 

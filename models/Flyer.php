@@ -1,4 +1,5 @@
 <?php
+
 /**
  * チラシメールモデルクラス
  *
@@ -48,16 +49,17 @@ class Flyer extends Zend_Db_Table_Abstract
      * @access public
      * @return array チラシメール一覧
      */
-    public function getList($q = null) {
+    public function getList($q = null)
+    {
         /// WHERE句 ///
         $where = $this->_makeWhere($q);
 
         //// LIMIT句、OFFSET句 ////
         $orderBy = ' ORDER BY f.id DESC ';
         if (!empty($q['limit'])) {
-            $orderBy.= $this->_db->quoteInto(' LIMIT ? ', $q['limit']);
+            $orderBy .= $this->_db->quoteInto(' LIMIT ? ', $q['limit']);
             if (!empty($q['page'])) {
-                $orderBy.= $this->_db->quoteInto(' OFFSET ? ', $q['limit'] * ($q['page'] - 1));
+                $orderBy .= $this->_db->quoteInto(' OFFSET ? ', $q['limit'] * ($q['page'] - 1));
             }
         }
 
@@ -71,7 +73,7 @@ class Flyer extends Zend_Db_Table_Abstract
         return $result;
     }
 
-        /**
+    /**
      * 検索クエリからWHERE句の生成
      *
      * @access private
@@ -79,7 +81,8 @@ class Flyer extends Zend_Db_Table_Abstract
      * @param boolean $check 検索条件チェック
      * @return string where句
      */
-    private function _makeWhere($q, $check=false) {
+    private function _makeWhere($q, $check = false)
+    {
         $arr = array();
 
         // 掲載会社ID
@@ -121,8 +124,11 @@ class Flyer extends Zend_Db_Table_Abstract
      * @param  integer $companyId 会社ID
      * @return array   機械情報を取得
      */
-    public function get($id, $companyId=NULL) {
-        if (empty($id)) { throw new Exception('IDが設定されていません'); }
+    public function get($id, $companyId = NULL)
+    {
+        if (empty($id)) {
+            throw new Exception('IDが設定されていません');
+        }
 
         $where = '';
         if (!empty($companyId)) {
@@ -151,7 +157,9 @@ class Flyer extends Zend_Db_Table_Abstract
     public function set($data, $id, $companyId)
     {
         // 会社情報のチェック
-        if (empty($companyId)) { throw new Exception("会社情報がありません"); }
+        if (empty($companyId)) {
+            throw new Exception("会社情報がありません");
+        }
 
         // フィルタリング・バリデーション
         $data = MyFilter::filter($data, $this->_filter);
@@ -164,7 +172,8 @@ class Flyer extends Zend_Db_Table_Abstract
         if (empty($id)) {
             // 新規処理
             $data['company_id'] = $companyId;
-            $res = $this->insert($data);
+            // $res = $this->insert($data);
+            $res = $this->_db->insert('flyers', $data);
         } else {
             // 更新処理
             if (!$this->checkUser($id, $companyId)) {
@@ -177,7 +186,9 @@ class Flyer extends Zend_Db_Table_Abstract
             ));
         }
 
-        if (empty($res)) { throw new Exception("チラシ情報が保存できませんでした id:{$id}"); }
+        if (empty($res)) {
+            throw new Exception("チラシ情報が保存できませんでした id:{$id}");
+        }
 
         return $this;
     }
@@ -193,12 +204,14 @@ class Flyer extends Zend_Db_Table_Abstract
     public function setCampaign($campaign, $id)
     {
         $data = array(
-          'campaign'   => $campaign,
-          'changed_at' =>  new Zend_Db_Expr('current_timestamp')
+            'campaign'   => $campaign,
+            'changed_at' =>  new Zend_Db_Expr('current_timestamp')
         );
         $res = $this->update($data, array($this->_db->quoteInto('id = ?', $id),));
 
-        if (empty($res)) { throw new Exception("チラシ情報が保存できませんでした id:{$id}"); }
+        if (empty($res)) {
+            throw new Exception("チラシ情報が保存できませんでした id:{$id}");
+        }
 
         return $this;
     }
@@ -240,7 +253,8 @@ class Flyer extends Zend_Db_Table_Abstract
      * @param  array $id 機械ID配列
      * @return $this
      */
-    public function deleteById($id, $companyId) {
+    public function deleteById($id, $companyId)
+    {
         if (empty($id)) {
             throw new Exception('削除する機械IDが設定されていません');
         }
@@ -270,20 +284,21 @@ class Flyer extends Zend_Db_Table_Abstract
         curl_setopt($ch, CURLOPT_USERPWD,        "anystring:" . $_conf->mailchimp_api_key);
         curl_setopt($ch, CURLOPT_HTTPHEADER,     array("Content-Type: application/json"));
         curl_setopt($ch, CURLOPT_POSTFIELDS,     json_encode($data));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true );
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $result = curl_exec($ch);
         curl_close($ch);
         return json_decode($result, true);
     }
 
-    function apiCreateCampaign($flyer, $company, $_conf) {
+    function apiCreateCampaign($flyer, $company, $_conf)
+    {
         $data = array(
             "type"         => "regular",
             "recipients"   => array("list_id" => $_conf->mailchimp_list_id),
             "content_type" => "html",
             "settings"     => array(
                 "subject_line"     => $flyer["subject"],
-                "title"            => $company["id"] . ".". $company["company"] . ":" . $flyer["title"],
+                "title"            => $company["id"] . "." . $company["company"] . ":" . $flyer["title"],
                 "from_name"        => $flyer["from_name"],
                 "reply_to"         => $_conf->mailchimp_reply_mail,
                 "use_conversation" => false,
@@ -302,12 +317,13 @@ class Flyer extends Zend_Db_Table_Abstract
         return $res["id"];
     }
 
-    function apiUpdateCampaign($flyer, $company, $_conf) {
+    function apiUpdateCampaign($flyer, $company, $_conf)
+    {
         $data = array(
             "recipients" => array("list_id" => $_conf->mailchimp_list_id),
             "settings"   => array(
                 "subject_line"     => $flyer["subject"],
-                "title"            => $company["id"] . ".". $company["company"] . ":" . $flyer["title"],
+                "title"            => $company["id"] . "." . $company["company"] . ":" . $flyer["title"],
                 "from_name"        => $flyer["from_name"],
                 "reply_to"         => $_conf->mailchimp_reply_mail,
                 "use_conversation" => false,
@@ -321,7 +337,8 @@ class Flyer extends Zend_Db_Table_Abstract
         return $res["id"];
     }
 
-    function apiSetHtml($flyer, $html, $_conf) {
+    function apiSetHtml($flyer, $html, $_conf)
+    {
         $data = array("html" => $html,);
 
         $res = $this->doAPI('campaigns/' . $flyer["campaign"] . '/content', 'PUT', $data, $_conf);
@@ -330,17 +347,20 @@ class Flyer extends Zend_Db_Table_Abstract
     }
 
     /// キャンペーン取得 ///
-    function apiGetCampaign($flyer, $_conf) {
+    function apiGetCampaign($flyer, $_conf)
+    {
         return $this->doAPI('campaigns/' . $flyer["campaign"], 'GET', null, $_conf);
     }
 
     /// レポート取得 ///
-    function apiGetReport($flyer, $_conf) {
+    function apiGetReport($flyer, $_conf)
+    {
         return $this->doAPI('reports/' . $flyer["campaign"], 'GET', null, $_conf);
     }
 
     /// 送信テスト実行 ///
-    function apiTest($flyer, $mail, $_conf) {
+    function apiTest($flyer, $mail, $_conf)
+    {
         $data = array(
             "test_emails" => array($mail),
             "send_type"   => "html",
@@ -351,7 +371,8 @@ class Flyer extends Zend_Db_Table_Abstract
     }
 
     /// 送信実行 ///
-    function apiSend($flyer, $_conf) {
+    function apiSend($flyer, $_conf)
+    {
         if (empty($flyer["send_date"])) {
             $res = $this->doAPI('campaigns/' . $flyer["campaign"] . '/actions/send', 'POST', null, $_conf);
         } else {
@@ -363,7 +384,8 @@ class Flyer extends Zend_Db_Table_Abstract
     }
 
     // スケジュールキャンセル
-    function apiUnschedule($flyer, $_conf) {
+    function apiUnschedule($flyer, $_conf)
+    {
         $res = $this->doAPI('campaigns/' . $flyer["campaign"] . '/actions/unschedule', 'POST', null, $_conf);
     }
 }

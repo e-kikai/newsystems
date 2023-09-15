@@ -40,14 +40,14 @@
           <td class="list_no fs-5 text-center">{$bm.list_no}</td>
           <td class="img">
             {if !empty($bm.top_img)}
-              <a href="/bid_detail.php?m={$bm.bid_machine_id}" target="_blank">
+              <a href="/bid_detail.php?m={$bm.id}" target="_blank">
                 <img class="lazy" src='imgs/blank.png' data-original="{$_conf.media_dir}machine/thumb_{$bm.top_img}" alt='' />
                 <noscript><img src="{$_conf.media_dir}machine/thumb_{$bm.top_img}" alt='PDF' /></noscript>
               </a>
             {/if}
           </td>
           <td class="name">
-            <a href="/bid_detail.php?m={$bm.bid_machine_id}" target="_blank">{$bm.name}</a>
+            <a href="/bid_detail.php?m={$bm.id}" target="_blank">{$bm.name}</a>
           </td>
           <td class="maker">{$bm.maker}</td>
           <td class="model">{$bm.model}</td>

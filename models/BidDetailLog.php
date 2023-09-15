@@ -10,7 +10,7 @@
  */
 class BidDetailLog extends MyTableAbstract
 {
-    protected $_name = 'bid_detail_logs';
+    protected $_name    = 'bid_detail_logs';
     protected $_primary = 'id';
 
     const ROBOTS     = "(goo|google|yahoo|naver|ahrefs|msnbot|bot|crawl|amazonaws|rate-limited-proxy|spider)";

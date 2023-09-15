@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 掲載会社情報モデルクラス
  *
@@ -9,6 +10,8 @@
  */
 class Company extends Zend_Db_Table_Abstract
 {
+    const HORIKAWA_ID = 1;
+
     protected $_name = 'companies';
 
     // 内容がJSONのカラム
@@ -56,23 +59,23 @@ class Company extends Zend_Db_Table_Abstract
      * @param  mixed  $id   会社ID
      * @return array メンバー一覧
      */
-    public function getList($q=NULL)
+    public function getList($q = NULL)
     {
         $where = '';
         if (!empty($q['id'])) {
-            $where.= ' AND' . $this->_db->quoteInto(' c.id IN (?) ', $q['id']);
+            $where .= ' AND' . $this->_db->quoteInto(' c.id IN (?) ', $q['id']);
         }
 
         if (!empty($q['group_id'])) {
-            $where.= ' AND' . $this->_db->quoteInto(' c.group_id IN (?) ', $q['group_id']);
+            $where .= ' AND' . $this->_db->quoteInto(' c.group_id IN (?) ', $q['group_id']);
         }
 
         if (!empty($q['root_id'])) {
-            $where.= ' AND' . $this->_db->quoteInto(' r.root_id IN (?) ', $q['root_id']);
+            $where .= ' AND' . $this->_db->quoteInto(' r.root_id IN (?) ', $q['root_id']);
         }
 
         if (!empty($q['notnull'])) {
-            $where.= ' AND m.count IS NOT NULL ';
+            $where .= ' AND m.count IS NOT NULL ';
             $orderBy = ' c.company_kana, c.id ';
         } else {
             $orderBy = ' r.root_id, c.group_id, c.company_kana, c.id ';
@@ -126,7 +129,7 @@ class Company extends Zend_Db_Table_Abstract
      * @param  mixed  $id   会社ID
      * @return array メンバー一覧
      */
-    public function getListRegion($q=NULL)
+    public function getListRegion($q = NULL)
     {
         // SQLクエリを作成
         $sql = " SELECT
@@ -159,12 +162,12 @@ class Company extends Zend_Db_Table_Abstract
      * @param  string  $id 団体ID(NULLの場合は、すべて)
      * @return array 団体情報と件数(メールアドレスがある場合のみ)
      */
-    public function countForMail($id=NULL)
+    public function countForMail($id = NULL)
     {
         $where = '';
         if (!empty($id)) {
-            $where.= $this->_db->quoteInto(' c.group_id IN ( SELECT g2.id FROM groups g2 WHERE g2.parent_id = ? ', $id);
-            $where.= $this->_db->quoteInto(' OR c.group_id = ? ) AND ', $id);
+            $where .= $this->_db->quoteInto(' c.group_id IN ( SELECT g2.id FROM groups g2 WHERE g2.parent_id = ? ', $id);
+            $where .= $this->_db->quoteInto(' OR c.group_id = ? ) AND ', $id);
         }
 
         $sql = "SELECT
@@ -187,12 +190,12 @@ class Company extends Zend_Db_Table_Abstract
      * @param  string  $id 団体ID(NULLの場合は、すべて)
      * @return array 会社情報一覧(メールアドレスがある場合のみ)
      */
-    public function getListForMail($id=NULL)
+    public function getListForMail($id = NULL)
     {
         $where = '';
         if (!empty($id)) {
-            $where.= $this->_db->quoteInto(' c.group_id IN ( SELECT g2.id FROM groups g2 WHERE g2.parent_id = ? ', $id);
-            $where.= $this->_db->quoteInto(' OR c.group_id = ? ) AND ', $id);
+            $where .= $this->_db->quoteInto(' c.group_id IN ( SELECT g2.id FROM groups g2 WHERE g2.parent_id = ? ', $id);
+            $where .= $this->_db->quoteInto(' OR c.group_id = ? ) AND ', $id);
         }
 
         $sql = "SELECT
@@ -285,7 +288,7 @@ class Company extends Zend_Db_Table_Abstract
      * @param int $id 会社ID
      * @return $this
      */
-    public function systemSet($data, $id=null)
+    public function systemSet($data, $id = null)
     {
         // フィルタリング・バリデーション
         $data = MyFilter::filter($data, $this->_systemChangeFilter);
@@ -296,7 +299,8 @@ class Company extends Zend_Db_Table_Abstract
             $data['contact_tel']  = $data['tel'];
             $data['contact_fax']  = $data['fax'];
             $data['contact_mail'] = $data['mail'];
-            $res = $this->insert($data);
+            // $res = $this->insert($data);
+            $res = $this->_db->insert("companies", $machine);
         } else {
             // 更新処理
             $data['changed_at'] = new Zend_Db_Expr('current_timestamp');
@@ -318,7 +322,7 @@ class Company extends Zend_Db_Table_Abstract
      * @param int $id 会社ID
      * @return $this
      */
-    public function setBidEntries($data, $id=null)
+    public function setBidEntries($data, $id = null)
     {
         if (empty($id)) {
             throw new Exception('会社IDがありません');
@@ -343,7 +347,8 @@ class Company extends Zend_Db_Table_Abstract
      * @param  array $id 会社ID
      * @return $this
      */
-    public function deleteById($id) {
+    public function deleteById($id)
+    {
         if (empty($id)) {
             throw new Exception('削除する会社IDが設定されていません');
         }
@@ -356,5 +361,10 @@ class Company extends Zend_Db_Table_Abstract
         );
 
         return $this;
+    }
+
+    public static function check_sp($company_id)
+    {
+        return $company_id == Company::HORIKAWA_ID;
     }
 }

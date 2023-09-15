@@ -46,6 +46,10 @@
     </div>
   {/if}
 
+  <div class="text-end">
+    <a href="system/my_users/?output=csv"><i class="fas fa-file-csv"></i> メールアドレスCSV出力</a>
+  </div>
+
   {*** ページャ ***}
   {include file="include/pager.tpl"}
 

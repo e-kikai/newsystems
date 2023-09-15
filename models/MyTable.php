@@ -252,7 +252,8 @@ class MyTable extends Zend_Db_Table_Abstract
         /// 保存処理 ///
         if (empty($id)) {
             /// 新規処理 ///
-            $res = $this->insert($data);
+            // $res = $this->insert($data);
+            $res = $this->_db->insert($this->_name, $data);
         } else {
             /// 更新処理 ///
             if ($this->_canSetChangedAt) {

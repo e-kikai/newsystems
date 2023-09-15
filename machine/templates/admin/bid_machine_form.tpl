@@ -522,26 +522,24 @@
     </script>
     <script id="top_img_tmpl" type="text/x-jsrender">
       <div class="img">
-    <a href="/media/tmp/{{>filename}}" target="_blank"><img src="/media/tmp/{{>filename}}" /></a>
-    <input name="top_img" class="top_img" type="hidden" value="{{>filename}}" />
-                                                                                    </div>
-                                                                                    </script>
+    <a href="/media/tmp/{{>filename}}" target="_blank">
+    <img src="/media/tmp/{{>filename}}" /></a>
+    <input name="top_img" class="top_img" type="hidden" value="{{>filename}}" /></div>
+        </script>
 
     <script id="imgs_tmpl" type="text/x-jsrender">
       <div class="img">
     <label><input type="checkbox" name="imgs_delete[]" class="imgs_delete" value="{{>filename}}" />削除</label><br />
     <a href="/media/tmp/{{>filename}}" target="_blank"><img src="/media/tmp/{{>filename}}" /></a>
-    <input name="imgs[]" class="imgs" type="hidden" value="{{>filename}}" />
-                                                                                    </div>
-                                                                                    </script>
+    <input name="imgs[]" class="imgs" type="hidden" value="{{>filename}}" /></div>
+            </script>
 
     <script id="pdfs_tmpl" type="text/x-jsrender">
       <div class="pdf">
     <a href="/media/tmp/{{>filename}}" target="_blank">PDF</a>
     <input type="text" name="pdfs[{{>filename}}]" class="pdfs" value="{{>label}}" data-file="{{>filename}}" placeholder="ラベル" />
-    <label><input name="pdfs_delete[]" class="pdfs_delete" type="checkbox" value="{{>filename}}" />削除</label>
-                                                                                    </div>
-                                                                                    </script>
+    <label><input name="pdfs_delete[]" class="pdfs_delete" type="checkbox" value="{{>filename}}" />削除</label></div>
+                                </script>
     <style type="text/css">
     </style>
   {/literal}

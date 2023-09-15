@@ -26,10 +26,10 @@ if (!empty($my_user["freezed_at"])) throw new Exception("現在、ウォッチ�
 
 $my_bid_watch_model = new MyBidWatch();
 $my_bid_watch_model->my_insert(
-  [
-    "my_user_id"     => $_my_user['id'],
-    "bid_machine_id" => $bid_machine_id,
-  ]
+    [
+        "my_user_id"     => $_my_user['id'],
+        "bid_machine_id" => $bid_machine_id,
+    ]
 );
 
 header('Location: /bid_detail.php?m=' . $bid_machine_id);

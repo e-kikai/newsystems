@@ -1,4 +1,5 @@
 <?php
+
 /**
  * メールログクラス
  *
@@ -28,11 +29,11 @@ class Mail extends Zend_Db_Table
 
     function __construct()
     {
-        //// メールサーバ設定 ////
+        /// メールサーバ設定 ///
         $conf = new Zend_Config_Ini(APP_PATH . '/config/mailsend.ini');
         $this->_mailConf = $conf->conf->toArray();
 
-        //// メール送信クラス ////
+        /// メール送信クラス ///
         $this->_mailsend = new Mailsend();
 
         parent::__construct();
@@ -59,7 +60,8 @@ class Mail extends Zend_Db_Table
      * @param  integer $id お知らせID
      * @return array メール情報を取得
      */
-    public function get($id) {
+    public function get($id)
+    {
         if (empty($id)) {
             throw new Exception('メールIDが設定されていません');
         }
@@ -81,7 +83,9 @@ class Mail extends Zend_Db_Table
      */
     public function getSendList($target, $val)
     {
-        if (empty($target)) { throw new Exception('送信対象がありません'); }
+        if (empty($target)) {
+            throw new Exception('送信対象がありません');
+        }
 
         $list = array();
         if ($target == 'group_id') {
@@ -89,7 +93,7 @@ class Mail extends Zend_Db_Table
             $cModel = new Companies();
             $res = $cModel->getListForMail($val);
 
-            foreach($res as $c) {
+            foreach ($res as $c) {
                 if (!empty($c['mail'])) {
                     $list[$c['mail']] = array('name' => $c['company']);
                 }
@@ -99,14 +103,16 @@ class Mail extends Zend_Db_Table
             $cModel = new Companies();
             $res = $cModel->getList(array('rankeq' => $val));
 
-            foreach($res as $c) {
+            foreach ($res as $c) {
                 if (!empty($c['mail'])) {
                     $list[$c['mail']] = array('name' => $c['company']);
                 }
             }
         } else if ($target == 'contact') {
             // お問い合せ内容
-            if (empty($val)) { throw new Exception('送信対象がありません'); }
+            if (empty($val)) {
+                throw new Exception('送信対象がありません');
+            }
             $cModel = new Contact();
             if ($val == 'ALL') {
                 // $res = $cModel->getList('ALL', 'ALL', array('order_by' => 'ASC'));
@@ -116,18 +122,20 @@ class Mail extends Zend_Db_Table
             }
 
 
-            foreach($res as $c) {
+            foreach ($res as $c) {
                 if (!empty($c['mail'])) {
-                    $list[$c['mail']] = array('name' => $c['user_company']. ' ' .$c['user_name']);
+                    $list[$c['mail']] = array('name' => $c['user_company'] . ' ' . $c['user_name']);
                 }
             }
         } else if ($target == 'preuser') {
             // 仮登録ユーザ
-            if (empty($val)) { throw new Exception('送信対象がありません'); }
+            if (empty($val)) {
+                throw new Exception('送信対象がありません');
+            }
             $puModel = new Preuser();
             $res = $puModel->getList(null, 'ALL', array('message' => $val));
 
-            foreach($res as $pu) {
+            foreach ($res as $pu) {
                 if (!empty($pu['mail'])) {
                     $list[$pu['mail']] = array('name' => $pu['user_name']);
                 }
@@ -142,23 +150,29 @@ class Mail extends Zend_Db_Table
             }
 
             while (($wg = fgetcsv($wgf, 10000, ',')) !== FALSE) {
-                if ($wg[2] == 'メールアドレス') { continue; }
+                if ($wg[2] == 'メールアドレス') {
+                    continue;
+                }
                 $list[$wg[2]] = array('name' => $wg[0] . ' ' . $wg[1]);
             }
-        } else if ($target == 'other' && $val =='test') {
+        } else if ($target == 'other' && $val == 'test') {
             // テスト送信のみ
             $list['info@zenkiren.net'] = array('name' => '全機連事務局');
         }
 
-        //// 非送信リスト ////
+        /// 非送信リスト ///
         if (($mailIgnore = mb_convert_encoding(file_get_contents(APP_PATH . Mail::MAIL_IGNORE_FILE), 'utf-8', 'sjis-win')) !== FALSE) {
-            foreach(explode("\n", $mailIgnore) as $i) {
+            foreach (explode("\n", $mailIgnore) as $i) {
                 $im = trim($i);
-                if (!empty($im)) { unset($list[$im]); }
+                if (!empty($im)) {
+                    unset($list[$im]);
+                }
             }
         }
 
-        if (empty($list)) { throw new Exception('送信先が取得できませんでした'); }
+        if (empty($list)) {
+            throw new Exception('送信先が取得できませんでした');
+        }
 
         $list['info@zenkiren.net'] = array('name' => '全機連事務局');
         return $list;
@@ -172,12 +186,12 @@ class Mail extends Zend_Db_Table
      * @param array $file 添付ファイルデータ
      * @return $this
      */
-    public function sendGroup($data, $file=null)
+    public function sendGroup($data, $file = null)
     {
         // 一覧の取得
         $res = $this->getSendList($data['target'], $data['val']);
 
-        foreach($res as $mail => $r) {
+        foreach ($res as $mail => $r) {
             $body = $r['name'] . " 様\n\n" . $data['message'] . "\n\n全機連事務局";
 
             $this->_mailsend->sendMail($mail, null, $body, $data['subject'], $file);
@@ -238,7 +252,7 @@ FAX : 06-6747-7525
 http://www.zenkiren.net/
 EOS;
 
-        foreach($res as $mail => $r) {
+        foreach ($res as $mail => $r) {
             $body = $r['name'] . " 様\n\n" . $message;
             $this->_mailsend->sendMail($mail, null, $body, $subject);
         }
@@ -294,8 +308,9 @@ EOS;
         // フィルタリング・バリデーション
         $data = MyFilter::filter($data, $this->_filter);
 
-        //// お問い合わせ内容の保存 ////
-        if (!$result = $this->insert($data)) {
+        /// お問い合わせ内容の保存 ///
+        // if (!$result = $this->insert($data)) {
+        if (!$result = $this->_db->insert($this->_name, (data))) {
             throw new Exception('一括送信メールログが保存できませんでした');
         }
 
@@ -309,7 +324,8 @@ EOS;
      * @param  array $id お知らせID配列
      * @return $this
      */
-    public function deleteById($id) {
+    public function deleteById($id)
+    {
         if (empty($id)) {
             throw new Exception('削除するお知らせIDが設定されていません');
         }

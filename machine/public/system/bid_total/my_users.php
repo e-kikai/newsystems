@@ -29,7 +29,8 @@ if (!empty($e)) throw new Exception($e);
 $results = [];
 
 $bid_machine_model = new BidMachine();
-$bm_select = $bid_machine_model->select()->setIntegrityCheck(false)
+// $bm_select = $bid_machine_model->select()->setIntegrityCheck(false)
+$bm_select = $_db->select()
     ->from("bid_machines as bm", null)
     ->where("bm.bid_open_id = ?", $bid_open_id)
     ->where("bm.deleted_at IS NULL");
@@ -82,7 +83,8 @@ $results["入札数"] = array_column($res, "c", "id");
 $results["落札数"] = array_column($res, "success", "id");
 
 /// 落札金額 ///
-$sub = $bid_machine_model->select()->setIntegrityCheck(false)
+// $sub = $bid_machine_model->select()->setIntegrityCheck(false)
+$sub = $_db->select()
     ->from(["mbb2" => "my_bid_bids"], ["mbb2.bid_machine_id", "id" => "mbb2.my_user_id", "result_price" => "max(mbb2.amount)"])
     ->where("mbb2.deleted_at IS NULL")
     ->group(["mbb2.bid_machine_id", "mbb2.my_user_id"]);

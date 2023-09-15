@@ -15,8 +15,8 @@ require_once '../../../lib-machine.php';
 Auth::isAuth('system');
 
 /// 変数を取得 ///
-$page  = Req::query('page', 1);
-$limit = Req::query('limit', 100);
+$page        = Req::query('page', 1);
+$limit       = Req::query('limit', 100);
 $bid_open_id = Req::query('o');
 $output      = Req::query('output');
 
@@ -27,11 +27,14 @@ $bid_open = $bid_open_model->get($bid_open_id);
 // 詳細ログ一覧の取得
 $bid_detail_log_model = new BidDetailLog();
 
-$select = $bid_detail_log_model->select()->from('bid_detail_logs', 'count(*) as count');
-$res = $bid_detail_log_model->fetchRow($select);
+$select = $_db->select()
+    ->from('bid_detail_logs', 'count(*) as count')
+    ->where('bid_detail_logs.bid_machine_id IN (SELECT bm.id FROM bid_machines bm WHERE bm.deleted_at IS NULL AND bm.bid_open_id = ?)', $bid_open_id);
+
+$res = $_db->fetchRow($select);
 $count = $res["count"];
 
-$select = $bid_detail_log_model->select()->setIntegrityCheck(false)->from("bid_detail_logs", "*")
+$select = $_db->select()->from("bid_detail_logs", "*")
     ->joinLeft("bid_machines", "bid_machines.id = bid_detail_logs.bid_machine_id",  ["list_no", "name", "maker", "model", "min_price", "top_img", "company_id"])
     ->joinLeft("my_users", "my_users.id = bid_detail_logs.my_user_id", ["uniq_account", "user_name" => "name", "user_company" => "company"])
     ->joinLeft("companies", "companies.id = bid_machines.company_id", ["company"])
@@ -39,7 +42,7 @@ $select = $bid_detail_log_model->select()->setIntegrityCheck(false)->from("bid_d
     ->order("bid_detail_logs.id DESC");
 
 if ($output == 'csv') { // CSV
-    $bid_detail_logs = $bid_detail_log_model->fetchAll($select);  // 全件取得
+    $bid_detail_logs = $_db->fetchAll($select);  // 全件取得
 
     $header   = array(
         'id'           => 'ID',
@@ -59,7 +62,7 @@ if ($output == 'csv') { // CSV
     $filename = "{$bid_open_id}_bid_detail_logs.csv";
     B::downloadCsvFile($header, $bid_detail_logs, $filename);
 } else {
-    $bid_detail_logs = $bid_detail_log_model->fetchAll($select->limitPage($page, $limit)); // ページ取得
+    $bid_detail_logs = $_db->fetchAll($select->limitPage($page, $limit)); // ページ取得
 
     /// ページャ ///
     Zend_Paginator::setDefaultScrollingStyle('Sliding');
@@ -74,11 +77,11 @@ if ($output == 'csv') { // CSV
     $_smarty->assign(array(
         'pageTitle' => "{$bid_open["title"]} 詳細ログ一覧",
         'pankuzu'   => array(
-            '/system/' => '管理者ページ',
+            '/system/'                  => '管理者ページ',
             '/system/bid_open_list.php' => '入札会開催一覧',
         ),
-        'r'     => $pgn->getPages(),
-        'cUri'  => $cUri,
+        'r'    => $pgn->getPages(),
+        'cUri' => $cUri,
 
         'bid_detail_logs'  => $bid_detail_logs,
     ))->display('system/bid_detail_logs/index.tpl');

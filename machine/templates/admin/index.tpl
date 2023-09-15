@@ -142,6 +142,20 @@
       <li><a href="imgs/urikai_manual.pdf" target="_blank"><i class="fas fa-file-pdf"></i> 売りたし買いたしマニュアルPDF</a></li>
     {/if}
 
+    {if Company::check_sp($_user.company_id)}
+      <h2>★ 分析</h2>
+      <li>
+        <a href="admin/histories/">
+          <i class="fas fa-bars-staggered"></i> 同型式の在庫登録履歴
+        </a>
+      </li>
+      <li>
+        <a href="admin/total/">
+          <i class="fas fa-calculator"></i> 機械在庫集計
+        </a>
+      </li>
+    {/if}
+
     {*** Web入札会 ***}
     <h2>Web入札会</h2>
     {if !empty($bidOpenList)}

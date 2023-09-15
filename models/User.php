@@ -111,7 +111,8 @@ class User extends Zend_Db_Table_Abstract
             if (empty($data['passwd'])) {
                 throw new Exception('パスワードが入力されていません');
             }
-            $res = $this->insert($data);
+            // $res = $this->insert($data);
+            $res = $this->_db->insert('users', $data);
         } else {
             // 更新処理
             if (empty($data['passwd'])) {

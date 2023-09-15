@@ -1,4 +1,5 @@
 <?php
+
 /**
  * お知らせモデルクラス
  *
@@ -32,7 +33,7 @@ class Info extends Zend_Db_Table
      * @param  boolean $ti 時限表示
      * @return array   お知らせ一覧
      */
-    public function getList($t=NULL, $g=NULL, $l=NULL, $ti=false)
+    public function getList($t = NULL, $g = NULL, $l = NULL, $ti = false)
     {
         $target  = in_array($t, $this->_targets) ? $this->_db->quoteInto(' AND i.target = ? ', $t) : '';
         if (!empty($g)) {
@@ -77,7 +78,8 @@ class Info extends Zend_Db_Table
      * @param  integer $id お知らせID
      * @return array お知らせ情報を取得
      */
-    public function get($id) {
+    public function get($id)
+    {
         if (empty($id)) {
             throw new Exception('お知らせIDが設定されていません');
         }
@@ -97,14 +99,15 @@ class Info extends Zend_Db_Table
      * @param array $data 入力データ
      * @return $this
      */
-    public function set($id=NULL, $data)
+    public function set($id = NULL, $data)
     {
         // フィルタリング・バリデーション
         $data = MyFilter::filter($data, $this->_filter);
 
         if (empty($id)) {
             // 新規処理
-            $res = $this->insert($data);
+            // $res = $this->insert($data);
+            $res = $this->_db->insert('infos', $data);
         } else {
             // 更新処理
             $data['changed_at'] = new Zend_Db_Expr('current_timestamp');
@@ -127,7 +130,8 @@ class Info extends Zend_Db_Table
      * @param  array $id お知らせID配列
      * @return $this
      */
-    public function deleteById($id) {
+    public function deleteById($id)
+    {
         if (empty($id)) {
             throw new Exception('削除するお知らせIDが設定されていません');
         }

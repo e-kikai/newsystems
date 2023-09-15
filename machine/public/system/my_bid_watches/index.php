@@ -33,7 +33,8 @@ $select = $my_bid_watch_model->my_select()->reset('where')
     ->join("companies", "companies.id = bid_machines.company_id", ["company"])
     ->where("bid_machines.bid_open_id = ?", $bid_open_id);
 
-$my_bid_watches = $bid_open_model->fetchAll($select)->toArray();
+// $my_bid_watches = $bid_open_model->fetchAll($select)->toArray();
+$my_bid_watches = $_db->fetchAll($select);
 
 /// 落札結果を取得 ///
 if (in_array($bid_open['status'], array('carryout', 'after'))) {

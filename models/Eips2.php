@@ -1,7 +1,8 @@
 <?php
+
 /**
  * EIPSテーブルモデルクラス
- * 
+ *
  * @access public
  * @author 川端洋平
  * @version 0.0.4
@@ -10,10 +11,10 @@
 class Eips2 extends Zend_Db_Table_Abstract
 {
     protected $_name = 'eipses2';
-    
+
     // ORDER BYデフォルト
     const ORDER_BY_DEFAULT  = ' g.large_genre_id, e.genre_id, e.capacity, e.name, e.maker, e.model ';
-    
+
     // ORDER BY候補一覧
     private $_orderBys = array(
         'name'     => ' ',
@@ -25,7 +26,7 @@ class Eips2 extends Zend_Db_Table_Abstract
         'company'  => ' e.company, ',
         'companyd' => ' e.company DESC, ',
     );
-    
+
     // 日付選択候補一覧
     private $_periods = array(
         '-1days'   => '24時間以内',
@@ -36,7 +37,7 @@ class Eips2 extends Zend_Db_Table_Abstract
         '-1months' => '1ヶ月',
         'input'    => '期間指定'
     );
-    
+
     /**
      * EIPS検索結果取得
      *
@@ -54,7 +55,7 @@ class Eips2 extends Zend_Db_Table_Abstract
             'queryDetail' => $this->queryDetail($q)
         );
     }
-    
+
     /**
      * EIPS一覧を取得
      *
@@ -64,53 +65,53 @@ class Eips2 extends Zend_Db_Table_Abstract
      */
     public function getList(array $q)
     {
-        //// 期間指定WHERE句 ////
+        /// 期間指定WHERE句 ///
         $where = $this->_makeQueryWhere($q);
-        
-        //// WHERE句 ////
+
+        /// WHERE句 ///
         $temp = $this->_makeWhere($q);
         if (!empty($temp)) {
-            $where.= ' AND ' . $temp;
+            $where .= ' AND ' . $temp;
         }
-        
-        //// LIMIT句、OFFSET句を作成 ////
+
+        /// LIMIT句、OFFSET句を作成 ///
         $limit = '';
         if (!empty($q['limit']) && intval($q['limit'])) {
             $l = intval($q['limit']);
             $limit = $this->_db->quoteInto(' LIMIT ? ', $l);
-            
+
             if (!empty($q['page']) && intval($q['page']) > 0) {
                 $p = intval($q['page']);
-                $limit.= $this->_db->quoteInto(' OFFSET ? ', ($l * ($p - 1)));
+                $limit .= $this->_db->quoteInto(' OFFSET ? ', ($l * ($p - 1)));
             }
         }
-        
-        //// ORDER BY句を作成 ////
+
+        /// ORDER BY句を作成 ///
         if (!empty($this->_orderBys[$q['order']])) {
             $orderBy = $this->_orderBys[$q['order']];
         } else {
             $orderBy = reset($this->_orderBys);
         }
-        
-        //// 検索クエリを作成・実行 ////
+
+        /// 検索クエリを作成・実行 ///
         $sql = "SELECT
           e.*,
           g.genre
         FROM
           eipses2 e
-          LEFT JOIN genres g 
-            ON g.id = e.genre_id 
+          LEFT JOIN genres g
+            ON g.id = e.genre_id
         WHERE
-          {$where} 
+          {$where}
         ORDER BY
           {$orderBy}
           " . self::ORDER_BY_DEFAULT . "
         {$limit};";
         $result = $this->_db->fetchAll($sql);
-        
+
         return $result;
     }
-    
+
     /**
      * EIPS件数を取得
      *
@@ -120,21 +121,21 @@ class Eips2 extends Zend_Db_Table_Abstract
      */
     public function getListCount(array $q)
     {
-        //// 期間指定WHERE句 ////
+        /// 期間指定WHERE句 ///
         $where = $this->_makeQueryWhere($q);
-        
-        //// WHERE句 ////
+
+        /// WHERE句 ///
         $temp = $this->_makeWhere($q);
         if (!empty($temp)) {
-            $where.= ' AND ' . $temp;
+            $where .= ' AND ' . $temp;
         }
-        
+
         // 検索クエリを作成・実行
         $sql = "SELECT count(e.*) FROM eipses2 e WHERE {$where};";
         $result = $this->_db->fetchOne($sql);
         return $result;
     }
-    
+
     /**
      * EIPSのジャンル一覧を取得
      *
@@ -144,27 +145,27 @@ class Eips2 extends Zend_Db_Table_Abstract
      */
     public function getGenreList(array $q)
     {
-        //// 期間指定 ////
+        /// 期間指定 ///
         $where = $this->_makeQueryWhere($q);
-        
-        //// WHERE句 ////
+
+        /// WHERE句 ///
         $temp = $this->_makeWhere($q, 'genre_id');
         if (!empty($temp)) {
-            $where.= ' AND ' . $temp;
+            $where .= ' AND ' . $temp;
         }
-        
-        //// 検索クエリを作成・実行 ////
+
+        /// 検索クエリを作成・実行 ///
         $sql = "SELECT
-          g.*, 
-          count(e.*) AS count 
+          g.*,
+          count(e.*) AS count
         FROM
-          eipses2 e 
+          eipses2 e
           LEFT JOIN genres g
-            ON g.id = e.genre_id 
+            ON g.id = e.genre_id
         WHERE
           {$where}
         GROUP BY
-          g.id 
+          g.id
         HAVING
           g.id IS NOT NULL
         ORDER BY
@@ -174,7 +175,7 @@ class Eips2 extends Zend_Db_Table_Abstract
         $result = $this->_db->fetchAll($sql);
         return $result;
     }
-    
+
     /**
      * EIPSのメーカー一覧を取得
      *
@@ -184,19 +185,19 @@ class Eips2 extends Zend_Db_Table_Abstract
      */
     public function getMakerList(array $q)
     {
-        //// 期間指定 ////
+        /// 期間指定 ///
         $where = $this->_makeQueryWhere($q);
-        
-        //// WHERE句 ////
+
+        /// WHERE句 ///
         $temp = $this->_makeWhere($q, 'maker');
         if (!empty($temp)) {
-            $where.= ' AND ' . $temp;
+            $where .= ' AND ' . $temp;
         }
-                
-        //// 検索クエリを作成・実行 ////
+
+        /// 検索クエリを作成・実行 ///
         $sql = "SELECT
-          e.maker, 
-          count(e.*) AS count 
+          e.maker,
+          count(e.*) AS count
         FROM
           eipses2 e
         WHERE
@@ -211,7 +212,7 @@ class Eips2 extends Zend_Db_Table_Abstract
         $result = $this->_db->fetchAll($sql);
         return $result;
     }
-    
+
     /**
      * クロールで取得した機械情報の保存
      *
@@ -220,12 +221,13 @@ class Eips2 extends Zend_Db_Table_Abstract
      * @param  string $data クロールで取得した機械情報
      * @return string INSERT数、UPDATE数の表示
      */
-    public function setCrawledData($siteId, $dataJson) {
-        //// 取得したデータを保存する ////
+    public function setCrawledData($siteId, $dataJson)
+    {
+        /// 取得したデータを保存する ///
         if (!intval($siteId)) {
             throw new Exception('クロールサイト情報がありません');
         }
-        
+
         // データをJSONからデコード
         if (empty($dataJson)) {
             throw new Exception('データがありません');
@@ -234,53 +236,55 @@ class Eips2 extends Zend_Db_Table_Abstract
         if (empty($data[0]['uid'])) {
             throw new Exception('データJSONデコードに失敗しました');
         }
-    
+
         // 変数初期化
         $now = date('Y-m-d H:i:s'); // 現在のタイムスタンプ
         $insertNum = 0;
         $updateNum = 0;
 
         $baseWhere = $this->_db->quoteInto(' site_id = ?', $siteId);
-        
+
         // 更新用情報(changed_atのみ変更)
         $updateM = array(
             'changed_at' => $now,
             'deleted_at' => NULL
         );
-        
+
         foreach ($data as $m) {
             // 機械情報に必要な情報を追加
             $m['site_id']    = $siteId;
             $m['changed_at'] = $now;
             // $m['deleted_at'] = NULL;
             $updateM['capacity'] = $m['capacity'];
-            
+
             /*
-            //// 画像ファイルURL配列のimplode ////
+            /// 画像ファイルURL配列のimplode ///
             if ($m['img_urls']) { $m['images'] = implode("\r\n", $m['img_urls']); }
             */
-            
-            //// 不要な配列要素を削除 ////
+
+            /// 不要な配列要素を削除 ///
             unset($m['genre_hint'], $m['genre_name'], $m['img_urls']);
-            
-            //// UPDATEのWHERE句の作成 ////
+
+            /// UPDATEのWHERE句の作成 ///
             $where = $baseWhere . $this->_db->quoteInto(' AND uid = ?', $m['uid']);
-            
-            //// 更新できないときは、新規登録 ////
+
+            /// 更新できないときは、新規登録 ///
             $res = $this->update($updateM, $where);
 
-            
+
             if (!$res) {
-                $this->insert($m);
+                // $this->insert($m);
+                $res = $this->_db->insert('eipses2', $m);
+
                 $insertNum++;
             } else {
                 $updateNum++;
             }
         }
-        
+
         return "{$updateNum} machines update / {$insertNum} machines insert success.";
     }
-    
+
     /**
      * クロールで取得した機械情報で、売却された機械の論理削除
      *
@@ -289,15 +293,18 @@ class Eips2 extends Zend_Db_Table_Abstract
      * @param  string   $crawl_date クロールした日時（それ以前から更新されていない情報を削除）
      * @return string   削除件数の表示
      */
-    public function deleteCrawledData($siteId, $date) {
-        if (empty($date)) { throw new Exception('日時情報がありません'); }
+    public function deleteCrawledData($siteId, $date)
+    {
+        if (empty($date)) {
+            throw new Exception('日時情報がありません');
+        }
         $time = date('Y-m-d H:i:s', strtotime($date));
-    
+
         // 更新された機械が0の場合、削除しない
         $sql = 'SELECT
-          count(*) 
+          count(*)
         FROM
-          eipses2 
+          eipses2
         WHERE
           site_id = ? AND
           changed_at >= ? AND
@@ -309,13 +316,13 @@ class Eips2 extends Zend_Db_Table_Abstract
 
         // 更新されなかった機械情報を論理削除する
         $where = $this->_db->quoteInto(' site_id = ?', $siteId);
-        $where.= $this->_db->quoteInto(' AND changed_at < ? ', $date);
-        $where.= ' AND deleted_at IS NULL ';
+        $where .= $this->_db->quoteInto(' AND changed_at < ? ', $date);
+        $where .= ' AND deleted_at IS NULL ';
         $result = $this->update(array('deleted_at' => $time), $where);
-        
+
         return $result . ' machines delete success.';
     }
-    
+
     /**
      * 期間指定配列を取得する
      *
@@ -326,7 +333,7 @@ class Eips2 extends Zend_Db_Table_Abstract
     {
         return $this->_periods;
     }
-    
+
     /**
      * 検索クエリからWHERE句の生成
      *
@@ -335,45 +342,45 @@ class Eips2 extends Zend_Db_Table_Abstract
      * @param string $ignore WHEREを生成しない条件項目
      * @return string where句
      */
-    private function _makeWhere(array $q, $ignore=NULL)
+    private function _makeWhere(array $q, $ignore = NULL)
     {
         $arr = array();
-        
+
         // EIPS ID（複数選択可）
         if (!empty($q['id'])) {
             $arr[] = $this->_db->quoteInto(' e.id IN (?) ', $q['id']);
         }
-        
+
         // ジャンルID（複数選択可）
         if (!empty($q['genre_id']) && $ignore != 'genre_id') {
             $arr[] = $this->_db->quoteInto(' e.genre_id IN (?) ', $q['genre_id']);
         }
-        
+
         // メーカー
         if (!empty($q['maker']) && $ignore != 'maker') {
             $arr[] = $this->_db->quoteInto(' e.maker IN (?) ', $q['maker']);
         }
-        
+
         // 型式
         if (!empty($q['model']) && $ignore != 'model') {
             // 部分一致
             $sql = ' e.keywords LIKE ? ';
-            $mo = '%' . $this->modelFilter($q['model']). '%';
+            $mo = '%' . $this->modelFilter($q['model']) . '%';
             $arr[] = $this->_db->quoteInto($sql, $mo);
         }
-        
+
         // マイリスト
         if (!empty($q['mylist']) && $ignore != 'mylist') {
-            $sql = ' CAST ( e.id AS text) IN ( 
+            $sql = ' CAST ( e.id AS text) IN (
                 SELECT query
                 FROM mylists
                 WHERE deleted_at IS NULL AND user_id IN (?)) ';
             $arr[] = $this->_db->quoteInto($sql, $q['mylist']);
         }
-        
+
         return implode(' AND ', $arr);
     }
-    
+
     /**
      * クエリ・期間指定からWHERE句の生成
      * 候補がなければ、新規登録、24時間以内
@@ -387,28 +394,28 @@ class Eips2 extends Zend_Db_Table_Abstract
         $query  = !empty($q['query'])  ? $q['query']  : NULL;
         $period = !empty($q['period']) ? $q['period'] : NULL;
         $date   = !empty($q['date'])   ? $q['date']   : NULL;
-        
+
         $userId = !empty($q['user_id']) ? $q['user_id'] : NULL;
-        
+
         $arr           = array();
         $periodCol     = ' e.created_at ';
         $periodDefault = ' -1days ';
-        
+
         // 検索指定
         if ($query == 'deleted') {
             $arr[] = ' e.deleted_at IS NOT NULL ';
-            
+
             $periodCol = ' e.deleted_at ';
         } else if ($query == 'mylist') {
             $sql = " CAST ( e.id AS text) IN (SELECT query FROM mylists WHERE deleted_at IS NULL AND target = 'eips' AND user_id = ?)";
             $arr[] = $this->_db->quoteInto($sql, $userId);
-            
+
             $periodDefault = NULL;
         } else {
             // news(デフォルト)
             // $arr[] = ' e.deleted_at IS NULL ';
         }
-        
+
         // 期間と日付
         if ($period == 'input' && !empty($date)) {
             // 日付指定
@@ -418,16 +425,16 @@ class Eips2 extends Zend_Db_Table_Abstract
             if (empty($this->_periods[$period]) || $period == 'input') {
                 $period = $periodDefault;
             }
-            
+
             $arr[] = $this->_db->quoteInto($periodCol . ' > current_timestamp + ? ', $period);
         }
-        
+
         // ジャンルがない情報を除外
         $arr[] = ' e.genre_id IS NOT NULL ';
-        
+
         return implode(' AND ', $arr);
     }
-    
+
     /**
      * 検索クエリの詳細を取得
      *
@@ -440,17 +447,18 @@ class Eips2 extends Zend_Db_Table_Abstract
         $detail = array();
         $query  = array();
         $label  = array();
-        
+
         // ジャンルID（複数選択可）
         if (isset($q['genre_id'])) {
-            $temp[] = $this->_db->quoteInto("
+            $temp[] = $this->_db->quoteInto(
+                "
                 SELECT 'g' as key, g.id as id, g.genre as label
                 FROM genres g
                 WHERE g.id IN(?) ",
                 $q['genre_id']
             );
         }
-        
+
         // ジャンルID（複数選択可）
         if (isset($q['model'])) {
             $detail[] = array(
@@ -459,7 +467,7 @@ class Eips2 extends Zend_Db_Table_Abstract
                 'label' => $q['model'],
             );
         }
-        
+
         // メーカー名
         if (isset($q['maker'])) {
             $detail[] = array(
@@ -468,13 +476,13 @@ class Eips2 extends Zend_Db_Table_Abstract
                 'label' => $q['maker'],
             );
         }
-        
+
         // URIクエリ、ページタイトルラベル生成
         foreach ($detail as $val) {
             $label[] = $val['label'];
             $query[] = $val['key'] . '[]=' . $val['data'];
         }
-        
+
         return array(
             'detail' => $detail,
             'query'  => implode('&', $query),
@@ -482,4 +490,3 @@ class Eips2 extends Zend_Db_Table_Abstract
         );
     }
 }
-

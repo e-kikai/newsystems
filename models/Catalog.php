@@ -1,4 +1,5 @@
 <?php
+
 /**
  * catalogsテーブルモデルクラス
  *
@@ -27,7 +28,7 @@ class Catalog extends Zend_Db_Table_Abstract
      * @param boolean $extra 型式特別取得
      * @return array カタログ検索結果一覧
      */
-    public function search($q, $extra=false)
+    public function search($q, $extra = false)
     {
         // 型式特別取得
         if ($extra) {
@@ -65,7 +66,7 @@ class Catalog extends Zend_Db_Table_Abstract
 
             if (!empty($q['page']) && intval($q['page'])) {
                 $p = intval($q['page']);
-                $limit.= $this->_db->quoteInto(' OFFSET ? ', ($l * ($p - 1)));
+                $limit .= $this->_db->quoteInto(' OFFSET ? ', ($l * ($p - 1)));
             }
         } else {
             $limit = '';
@@ -103,7 +104,7 @@ class Catalog extends Zend_Db_Table_Abstract
      * @param  array  $q 取得する情報クエリ
      * @return integer カタログ総件数
      */
-    public function getListCount($q=NULL)
+    public function getListCount($q = NULL)
     {
         //// WHERE句 ////
         $where = '';
@@ -152,7 +153,7 @@ class Catalog extends Zend_Db_Table_Abstract
      * @param  array $q 検索クエリ
      * @return array メーカー一覧
      */
-    public function getMakerList($q=NULL)
+    public function getMakerList($q = NULL)
     {
         //// WHERE句 ////
         $where = '';
@@ -187,7 +188,7 @@ class Catalog extends Zend_Db_Table_Abstract
      * @param  array $q 検索クエリ
      * @return array メーカー件数
      */
-    public function getMakerCount($q=NULL)
+    public function getMakerCount($q = NULL)
     {
         //// WHERE句 ////
         $where = '';
@@ -214,7 +215,7 @@ class Catalog extends Zend_Db_Table_Abstract
      * @param  array $q 検索クエリ
      * @return array メーカー一覧(件数順)
      */
-    public function getMakerGenreList($q=NULL)
+    public function getMakerGenreList($q = NULL)
     {
         //// WHERE句 ////
         $where = '';
@@ -262,7 +263,7 @@ class Catalog extends Zend_Db_Table_Abstract
      * @param  array $q 検索クエリ
      * @return array ジャンル一覧
      */
-    public function getGenreList($q=NULL)
+    public function getGenreList($q = NULL)
     {
         //// WHERE句 ////
         $where = '';
@@ -302,7 +303,7 @@ class Catalog extends Zend_Db_Table_Abstract
      * @param  array $ignore 格納・取得を拒否するテンプレート
      * @return string 格納したテンプレート
      */
-    public function template($p=NULL, $ignore=NULL)
+    public function template($p = NULL, $ignore = NULL)
     {
         // 初期化
         if (empty($_SESSION['catalog']['listTemplate'])) {
@@ -310,8 +311,10 @@ class Catalog extends Zend_Db_Table_Abstract
         }
 
         // テンプレート候補一覧にあれば格納
-        if (!empty($p) &&
-            in_array($p, $this->_templates)) {
+        if (
+            !empty($p) &&
+            in_array($p, $this->_templates)
+        ) {
             $_SESSION['catalog']['listTemplate'] = $p;
         }
 
@@ -331,7 +334,8 @@ class Catalog extends Zend_Db_Table_Abstract
      * @param  array $q 検索クエリ
      * @return string where句
      */
-    private function _makeWhere($q) {
+    private function _makeWhere($q)
+    {
         $arr = array();
 
         // カタログID（複数選択可）
@@ -354,7 +358,7 @@ class Catalog extends Zend_Db_Table_Abstract
         if (!empty($q['model'])) {
             // 部分一致
             $sql = ' c.keywords LIKE ? ';
-            $mo = '%' . $this->modelFilter($q['model']). '%';
+            $mo = '%' . $this->modelFilter($q['model']) . '%';
             $arr[] = $this->_db->quoteInto($sql, $mo);
         }
 
@@ -384,13 +388,16 @@ class Catalog extends Zend_Db_Table_Abstract
      * @param  array $q 検索クエリ
      * @return array カタログ検索結果一覧
      */
-    function _modelEx($q) {
+    function _modelEx($q)
+    {
         // 型式が入力されていない場合は、そのまま返す
-        if (empty($q['model'])) { return $q; }
+        if (empty($q['model'])) {
+            return $q;
+        }
 
         // 型式を整形して、アルファベットと整数に分ける
         $mArray = array();
-        $model =strtoupper(B::filter($q['model']));
+        $model = strtoupper(B::filter($q['model']));
         preg_match_all('/([A-Z]+|[0-9]+)/', $model, $tempArray);
         $mArray = $tempArray[0];
 
@@ -405,7 +412,9 @@ class Catalog extends Zend_Db_Table_Abstract
                     'genre_id' => $q['genre_id'],
                     'model'    => $moTemp,
                 ) + $q;
-                if ($this->getListCount($testQuery) > 0) { return $testQuery; }
+                if ($this->getListCount($testQuery) > 0) {
+                    return $testQuery;
+                }
             }
 
             // メーカー + 型式のみ
@@ -415,7 +424,9 @@ class Catalog extends Zend_Db_Table_Abstract
                     'genre_id' => NULL,
                     'model'    => $moTemp,
                 ) + $q;
-                if ($this->getListCount($testQuery) > 0) { return $testQuery; }
+                if ($this->getListCount($testQuery) > 0) {
+                    return $testQuery;
+                }
             }
 
             // ジャンル + 型式のみ
@@ -425,7 +436,9 @@ class Catalog extends Zend_Db_Table_Abstract
                     'genre_id' => $q['genre_id'],
                     'model'    => $moTemp,
                 ) + $q;
-                if ($this->getListCount($testQuery) > 0) { return $testQuery; }
+                if ($this->getListCount($testQuery) > 0) {
+                    return $testQuery;
+                }
             }
 
             // 型式のみ
@@ -434,7 +447,9 @@ class Catalog extends Zend_Db_Table_Abstract
                 'genre_id' => NULL,
                 'model'    => $moTemp,
             ) + $q;
-            if ($this->getListCount($testQuery) > 0) { return $testQuery; }
+            if ($this->getListCount($testQuery) > 0) {
+                return $testQuery;
+            }
 
             // 配列から後ろの要素を削除
             array_pop($mArray);
@@ -512,7 +527,8 @@ class Catalog extends Zend_Db_Table_Abstract
 
         if (empty($id)) {
             // 新規処理
-            $res = $this->insert($data);
+            // $res = $this->insert($data);
+            $res = $this->_db->insert('catalogs', $data);
 
             $temp = $this->getByUid($data['uid']);
             $id = $temp['id'];
@@ -529,12 +545,13 @@ class Catalog extends Zend_Db_Table_Abstract
         $insertGenres = array_diff($genres, $result);
 
         // ジャンル登録
-        foreach($insertGenres as $g) {
-            $this->_db->insert('catalog_genre', array('catalog_id' => $id, 'genre_id' => $g));
+        foreach ($insertGenres as $g) {
+            // $this->_db->insert('catalog_genre', array('catalog_id' => $id, 'genre_id' => $g));
+            $res = $this->_db->insert("catalog_genre", array('catalog_id' => $id, 'genre_id' => $g));
         }
 
         // ジャンル削除
-        foreach($deleteGenres as $g) {
+        foreach ($deleteGenres as $g) {
             $this->_db->delete('catalog_genre', array(
                 $this->_db->quoteInto('catalog_id = ?', $id),
                 $this->_db->quoteInto('genre_id = ?', $g),

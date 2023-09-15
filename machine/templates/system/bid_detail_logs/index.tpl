@@ -26,7 +26,7 @@
   </a>
 
   {*** ページャ ***}
-  {include file="include/pager.tpl"}
+  {include file="include/pager.tpl" pager=$r}
 
   <div class="table_area max_area">
     <table class="machines list">

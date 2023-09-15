@@ -238,7 +238,8 @@ class Companies extends MyTable
             $data['contact_tel']  = $data['tel'];
             $data['contact_fax']  = $data['fax'];
             $data['contact_mail'] = $data['mail'];
-            $res = $this->insert($data);
+            // $res = $this->insert($data);
+            $res = $this->_db->insert("companies", $machine);
         } else {
             // 更新処理
             $data['changed_at'] = new Zend_Db_Expr('current_timestamp');

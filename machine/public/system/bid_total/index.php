@@ -19,7 +19,8 @@ $output      = Req::query('output');
 $results = [];
 
 $bid_machine_model = new BidMachine();
-$bm_select = $bid_machine_model->select()->setIntegrityCheck(false)
+// $bm_select = $bid_machine_model->select()->setIntegrityCheck(false)
+$bm_select = $_db->select()
     ->from("bid_machines as bm", "bm.bid_open_id as id")
     ->where("bm.deleted_at IS NULL")
     ->group("bm.bid_open_id");
@@ -92,7 +93,8 @@ $bids_select_2->join(["bb" => "bid_bids"], "bb.bid_machine_id = bm.id", [
     "del_user" => "count(DISTINCT CASE WHEN bb.deleted_at IS NOT NULL THEN bb.company_id END)",
 ])->__toString();
 
-$bids_select = $bid_machine_model->select()->union(array($bids_select_1, $bids_select_2));
+// $bids_select = $bid_machine_model->select()->union(array($bids_select_1, $bids_select_2));
+$bids_select = $_db->select()->union(array($bids_select_1, $bids_select_2));
 
 // echo $bids_select_2;
 // var_export($res);
@@ -107,19 +109,22 @@ $results["入札取消"]  = array_column($res, "del", "id");
 $results["入札取消 人数"]  = array_column($res, "del_user", "id");
 
 /// 落札金額 ///
-$sub_1 = $bid_machine_model->select()->setIntegrityCheck(false)
+// $sub_1 = $bid_machine_model->select()->setIntegrityCheck(false)
+$sub_1 = $_db->select()
     ->from(["mbb2" => "my_bid_bids"], ["mbb2.bid_machine_id", "max" => "max(mbb2.amount)",])
     ->where("mbb2.deleted_at IS NULL")
     ->group("mbb2.bid_machine_id")
     ->__toString();
 
-$sub_2 = $bid_machine_model->select()->setIntegrityCheck(false)
+// $sub_2 = $bid_machine_model->select()->setIntegrityCheck(false)
+$sub_2 = $_db->select()
     ->from(["bb2" => "bid_bids"], ["bb2.bid_machine_id", "max" => "max(CASE WHEN bb2.deleted_at IS NULL THEN bb2.amount END)",])
     ->where("bb2.deleted_at IS NULL")
     ->group("bb2.bid_machine_id")
     ->__toString();
 
-$sub = $bid_machine_model->select()->union(array($sub_1, $sub_2));
+// $sub = $bid_machine_model->select()->union(array($sub_1, $sub_2));
+$sub = $_db->select()->union(array($sub_1, $sub_2));
 
 $result_select = clone $bm_select;
 $result_select->join(["sub" => $sub], "sub.bid_machine_id = bm.id", ["max" => "sum(sub.max)",]);

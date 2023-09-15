@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 実績用データ集計
  *
@@ -7,13 +8,13 @@
  * @version 0.0.1
  * @since   2019/01/24
  */
-//// 設定ファイル読み込み ////
+///  設定ファイル読み込み ///
 require_once '../../lib-machine.php';
 try {
-    //// 認証 ////
+    ///  認証 ///
     Auth::isAuth('system');
 
-    //// 変数を取得 ////
+    ///  変数を取得 ///
     $output     = Req::query('output');
     $monthYear  = Req::query('monthYear', date('Y'));
     $monthMonth = Req::query('monthMonth', date('m'));
@@ -42,21 +43,21 @@ try {
 
     // 登録数
     $createMonth = $_db->quoteInto(' t.created_at >= ? ',     $firstDay);
-    $createMonth.= $_db->quoteInto(' AND t.created_at <= ? ', $lastDay);
+    $createMonth .= $_db->quoteInto(' AND t.created_at <= ? ', $lastDay);
 
     // 登録数(年累計)
     $createTotal = $_db->quoteInto(' t.created_at >= ? ',     $newYear);
-    $createTotal.= $_db->quoteInto(' AND t.created_at <= ? ', $lastDay);
+    $createTotal .= $_db->quoteInto(' AND t.created_at <= ? ', $lastDay);
 
     // 総数
     $intoMonth = $_db->quoteInto(' (t.deleted_at >= ? OR t.deleted_at IS NULL)', $firstDay);
-    $intoMonth.= $_db->quoteInto(' AND t.created_at<= ? ',                       $lastDay);
+    $intoMonth .= $_db->quoteInto(' AND t.created_at<= ? ',                       $lastDay);
 
     // 削除数
     $deleteMonth = $_db->quoteInto(' t.deleted_at >= ? ',     $firstDay);
-    $deleteMonth.= $_db->quoteInto(' AND t.deleted_at <= ? ', $lastDay);
+    $deleteMonth .= $_db->quoteInto(' AND t.deleted_at <= ? ', $lastDay);
 
-    //// 集計取得 ////
+    ///  集計取得 ///
     $res = array();
 
     // 在庫
@@ -148,7 +149,7 @@ try {
     // Web入札会
     // 終了日取得
     $endMonth = $_db->quoteInto(' t.bid_end_date >= ? ',     $firstDay);
-    $endMonth.= $_db->quoteInto(' AND t.bid_end_date <= ? ', $lastDay);
+    $endMonth .= $_db->quoteInto(' AND t.bid_end_date <= ? ', $lastDay);
 
     $sql = "SELECT t.* FROM bid_opens t WHERE t.deleted_at IS NULL AND {$endMonth} ORDER BY t.bid_end_date;";
     $bidOpens = $_db->fetchAll($sql);
@@ -157,61 +158,63 @@ try {
     $res["bids"] = array();
 
     foreach ($bidOpens as $bo) {
-      $bidCount = $_db->fetchOne("SELECT count(t.*) as count FROM bid_bids t WHERE t.deleted_at IS NULL AND t.created_at BETWEEN '${bo['bid_start_date']}' AND '{$bo['bid_end_date']}';"); // 入札数
-      $bidCompanyCount = $_db->fetchOne("SELECT count(DISTINCT t.company_id) as count FROM bid_bids t WHERE t.deleted_at IS NULL AND t.created_at BETWEEN '${bo['bid_start_date']}' AND '{$bo['bid_end_date']}';"); // 入札数
+        $bidCount = $_db->fetchOne("SELECT count(t.*) as count FROM bid_bids t WHERE t.deleted_at IS NULL AND t.created_at BETWEEN '${bo['bid_start_date']}' AND '{$bo['bid_end_date']}';"); // 入札数
+        $bidCompanyCount = $_db->fetchOne("SELECT count(DISTINCT t.company_id) as count FROM bid_bids t WHERE t.deleted_at IS NULL AND t.created_at BETWEEN '${bo['bid_start_date']}' AND '{$bo['bid_end_date']}';"); // 入札数
 
 
-      // 金額等集計
-      $fullList = $bmModel->getList(array('bid_open_id' => $bo['id']));
-      $sums = array(
-          'count'        => count($fullList),
-          'min_price'    => 0,
-          'result_count' => 0,
-          'result_price' => 0,
+        // 金額等集計
+        $fullList = $bmModel->getList(array('bid_open_id' => $bo['id']));
+        $sums = array(
+            'count'        => count($fullList),
+            'min_price'    => 0,
+            'result_count' => 0,
+            'result_price' => 0,
 
-          'company_num'  => 0,
-      );
-      $cTemp = array();
-      foreach ($fullList as $f) {
-          $sums['min_price'] += $f['min_price'];
-          $cTemp[] = $f['company_id'];
-      }
+            'company_num'  => 0,
+        );
+        $cTemp = array();
+        foreach ($fullList as $f) {
+            $sums['min_price'] += $f['min_price'];
+            $cTemp[] = $f['company_id'];
+        }
 
-      $sums['company_num'] = count(array_unique($cTemp));
+        $sums['company_num'] = count(array_unique($cTemp));
 
-      $resultListAsKey = $bmModel->getResultListAsKey($bo['id']); // 落札結果を取得
-      foreach ($resultListAsKey as $r) {
-          $sums['result_price'] += $r['amount'];
-          if (!empty($r['amount'])) { $sums['result_count']++; }
-      }
+        $resultListAsKey = $bmModel->getResultListAsKey($bo['id']); // 落札結果を取得
+        foreach ($resultListAsKey as $r) {
+            $sums['result_price'] += $r['amount'];
+            if (!empty($r['amount'])) {
+                $sums['result_count']++;
+            }
+        }
 
-      // 売り切り
-      //
+        // 売り切り
+        //
 
 
 
-      // アクセス数
-      $log     = $_db->fetchOne("SELECT count(t.*) FROM actionlogs t WHERE t.action IN ('bid_detail', 'admin_bid_detail') AND t.hostname IS NOT NULL AND {$createMonth};"); // 総数
-      $logUniq = $_db->fetchOne("SELECT count(DISTINCT t.ip) FROM actionlogs t WHERE t.action IN ('bid_detail', 'admin_bid_detail') AND t.hostname IS NOT NULL AND {$createMonth};"); // ユニークユーザ数
+        // アクセス数
+        $log     = $_db->fetchOne("SELECT count(t.*) FROM actionlogs t WHERE t.action IN ('bid_detail', 'admin_bid_detail') AND t.hostname IS NOT NULL AND {$createMonth};"); // 総数
+        $logUniq = $_db->fetchOne("SELECT count(DISTINCT t.ip) FROM actionlogs t WHERE t.action IN ('bid_detail', 'admin_bid_detail') AND t.hostname IS NOT NULL AND {$createMonth};"); // ユニークユーザ数
 
-      // 出品商品x詳細アクセスランキング
-      $columns = "t.action_id, m.name, m.maker, m.model, m.year, m.min_price";
-      $sql = "SELECT {$columns}, count(t.*) as count FROM actionlogs t LEFT JOIN bid_machines m ON m.id = t.action_id WHERE t.action IN ('bid_detail', 'admin_bid_detail') AND t.hostname IS NOT NULL AND {$createMonth} AND t.action_id IS NOT NULL GROUP BY {$columns} ORDER BY count DESC LIMIT {$lank};";
-      $logBMRanking = $_db->fetchAll($sql);
+        // 出品商品x詳細アクセスランキング
+        $columns = "t.action_id, m.name, m.maker, m.model, m.year, m.min_price";
+        $sql = "SELECT {$columns}, count(t.*) as count FROM actionlogs t LEFT JOIN bid_machines m ON m.id = t.action_id WHERE t.action IN ('bid_detail', 'admin_bid_detail') AND t.hostname IS NOT NULL AND {$createMonth} AND t.action_id IS NOT NULL GROUP BY {$columns} ORDER BY count DESC LIMIT {$lank};";
+        $logBMRanking = $_db->fetchAll($sql);
 
-      $res["bids"][] = array(
-        'open'     => $bo,
-        'sums'     => $sums,
-        'log'      => $log,
-        'logUniq'  => $logUniq,
-        "logBMRanking"    => $logBMRanking,
-        'bidCount'        => $bidCount,
-        'bidCompanyCount' => $bidCompanyCount,
-      );
+        $res["bids"][] = array(
+            'open'     => $bo,
+            'sums'     => $sums,
+            'log'      => $log,
+            'logUniq'  => $logUniq,
+            "logBMRanking"    => $logBMRanking,
+            'bidCount'        => $bidCount,
+            'bidCompanyCount' => $bidCompanyCount,
+        );
     }
 
 
-    //// 表示変数アサイン ////
+    ///  表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle'   => '実績用データ集計',
         'pankuzu'     => array('/system/' => '管理者ページ'),
@@ -223,7 +226,7 @@ try {
         'res'         => $res,
     ))->display("system/formula.tpl");
 } catch (Exception $e) {
-    //// 表示変数アサイン ////
+    ///  表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle' => '実績用データ集計',
         'pankuzu'   => array('/system/' => '管理者ページ'),

@@ -65,7 +65,7 @@
           </td>
           <td class="condition">
             {if in_array($bo.status, array('carryout', 'after'))}
-              <a href="/mypage/my_bid_bids/?o={$bo.id}">
+              <a href="/mypage/my_bid_bids/total.php?o={$bo.id}">
                 <i class="fas fa-list-check"></i> 結果
               </a>
             {/if}

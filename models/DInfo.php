@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 大宝機械サイトお知らせモデルクラス
  *
@@ -32,7 +33,7 @@ class DInfo extends Zend_Db_Table
      * @param  boolean $ti 時限表示
      * @return array   お知らせ一覧
      */
-    public function getList($company_id, $l=NULL)
+    public function getList($company_id, $l = NULL)
     {
         $limit   = !empty($l) ? $this->_db->quoteInto(' LIMIT ? ', $l) : '';
         $company = !empty($company_id) ? $this->_db->quoteInto(' AND company_id = ? ', $company_id) : '';
@@ -61,7 +62,8 @@ class DInfo extends Zend_Db_Table
      * @param  integer $id お知らせID
      * @return array お知らせ情報を取得
      */
-    public function get($companyId, $id) {
+    public function get($companyId, $id)
+    {
         if (empty($id)) {
             throw new Exception('お知らせIDが設定されていません');
         }
@@ -81,14 +83,15 @@ class DInfo extends Zend_Db_Table
      * @param array $data 入力データ
      * @return $this
      */
-    public function set($companyId, $id=NULL, $data)
+    public function set($companyId, $id = NULL, $data)
     {
         // フィルタリング・バリデーション
         $data = MyFilter::filter($data, $this->_filter);
 
         if (empty($id)) {
             // 新規処理
-            $res = $this->insert($data);
+            // $res = $this->insert($data);
+            $res = $this->_db->insert('d_infos', $data);
         } else {
             // 更新処理
             $data['changed_at'] = new Zend_Db_Expr('current_timestamp');
@@ -111,7 +114,8 @@ class DInfo extends Zend_Db_Table
      * @param  array $id お知らせID配列
      * @return $this
      */
-    public function deleteById($companyId, $id) {
+    public function deleteById($companyId, $id)
+    {
         if (empty($id)) {
             throw new Exception('削除するお知らせIDが設定されていません');
         }

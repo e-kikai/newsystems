@@ -142,8 +142,51 @@
     </form>
   {/if}
 
-  {if $machineList}
+  {if !empty($smarty.get.test) && !empty($smarty.get.l) && $smarty.get.l == "11"}
+    <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+      aria-expanded="false" aria-controls="collapseExample">
+      <i class="fas fa-question-circle"></i>
+      フライス とは？
+      <span class="text-warning" style="font-size:13px;">&gt;&gt; クリックで詳細な説明を表示</span>
+    </button>
+    <div class="collapse" id="collapseExample">
+      <div class="card card-body">
 
+        <p style="white-space: pre-line;font-size:15px;">用途:
+          フライスは、金属やプラスチックなどの材料を削り出す加工機械です。
+          主に平面加工や複雑な形状の加工に使用されます。
+          例えば、歯車やネジなどの精密な部品の製造や、金型の製作などに適しています。
+
+          選定基準:
+          フライスを選ぶ際には、以下の項目を考慮する必要があります。
+          - 加工範囲：加工可能な材料の大きさや厚み、加工範囲の広さなど。
+          - 加工精度：加工精度の高さや、加工面の仕上げ具合など。
+          - 切削能力：切削能力の強さや、回転数の調整範囲など。
+          - 操作性：操作のしやすさや、プログラムの作成方法など。
+
+          種類:
+          フライスには、以下のような種類があります。
+          - ベッドタイプフライス：大型の工作物を加工するためのフライスで、ベッドと呼ばれる長い台座があります。
+          - コラムタイプフライス：小型の工作物を加工するためのフライスで、コラムと呼ばれる柱があります。
+          - ユニバーサルフライス：平面加工だけでなく、斜め加工や曲面加工も可能なフライスです。
+          - CNCフライス：コンピュータ制御による自動加工が可能なフライスです。
+
+          英語表記:
+          Milling machine
+
+          別名:
+          フライス盤、ミリング盤
+
+          類似:
+          フライスに類似する一般工作機械としては、旋盤やボール盤があります。
+          旋盤は回転させた材料を削り出す加工機械で、ボール盤は穴を開けるための加工機械です。
+          フライスと比較すると、旋盤は回転対称な形状の加工に適しており、ボール盤は穴あけに特化しています。
+        </p>
+      </div>
+    </div>
+  {/if}
+
+  {if $machineList}
     {*** 表示切り替えタブ／並び替え ***}
     {include file="include/order.tpl"}
 

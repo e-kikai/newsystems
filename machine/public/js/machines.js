@@ -923,7 +923,7 @@ $(function() {
                     yOffset: 0,
                     position:'right',
                     title: false
-           });
+            });
         }
     });
     */
@@ -960,18 +960,3 @@ $(function() {
         $(window).triggerHandler('scroll');
     });
 });
-
-/*
-$('body').load(function() {
-    /// end画像の位置調整 ///
-    $('.triangle').each(function() {
-        var sibling_img = $(this).siblings('.last_img');
-        var pos = sibling_img.position();
-
-        var left = pos.left + sibling_img.outerWidth() - $(this).outerWidth();
-        var top  = pos.top + sibling_img.outerHeight() - $(this).outerHeight();
-
-        $(this).css({'left' : left + 'px', 'top' : top + 'px'});
-    });
-});
-*/

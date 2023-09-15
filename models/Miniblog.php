@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ミニブログモデルクラス
  *
@@ -25,7 +26,7 @@ class Miniblog extends Zend_Db_Table
      * @access public
      * @return array メーカー名一覧
      */
-    public function getList($t=NULL, $l=NULL)
+    public function getList($t = NULL, $l = NULL)
     {
         $target = '';
         $limit  = '';
@@ -73,7 +74,8 @@ class Miniblog extends Zend_Db_Table
         // フィルタリング・バリデーション
         $data = MyFilter::filter($data, $this->_filter);
 
-        $this->_db->insert('miniblogs', $data);
+        // $this->_db->insert('miniblogs', $data);
+        $this->_db->insert($this->_name, $data);
 
         // 20180125@ba-ta メール通知
         $mailsend = new Mailsend();

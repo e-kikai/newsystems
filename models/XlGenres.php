@@ -10,6 +10,8 @@
  */
 class XlGenres extends MyTable
 {
+    const MACHINE_ID_LIMIT = 6;
+
     protected $_name     = 'xl_genres';
     protected $_primary  = 'id';
 

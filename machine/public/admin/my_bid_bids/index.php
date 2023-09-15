@@ -32,23 +32,24 @@ $my_bid_bid_model = new MyBidBid();
 
 // 入札一覧の取得
 $select = $my_bid_bid_model->my_select()
-  ->join("bid_machines", "bid_machines.id = my_bid_bids.bid_machine_id",  ["list_no", "name", "maker", "model", "min_price", "top_img", "company_id"])
-  ->join("my_users", "my_users.id = my_bid_bids.my_user_id", ["uniq_account"])
-  ->where("bid_machines.company_id = ?", $_user['company_id'])
-  ->where("bid_machines.bid_open_id = ?", $bid_open_id);
+    ->join("bid_machines", "bid_machines.id = my_bid_bids.bid_machine_id",  ["list_no", "name", "maker", "model", "min_price", "top_img", "company_id"])
+    ->join("my_users", "my_users.id = my_bid_bids.my_user_id", ["uniq_account"])
+    ->where("bid_machines.company_id = ?", $_user['company_id'])
+    ->where("bid_machines.bid_open_id = ?", $bid_open_id);
 
-$my_bid_bids = $bid_open_model->fetchAll($select);
+// $my_bid_bids = $bid_open_model->fetchAll($select);
+$my_bid_bids = $_db->fetchAll($select);
 
 /// 落札結果を取得 ///
 if (in_array($bid_open['status'], array('carryout', 'after'))) {
-  $ids = $my_bid_bid_model->bid_machines2ids($my_bid_bids, "bid_machine_id");
-  $bids_count  = $my_bid_bid_model->count_by_bid_machine_id($ids);
-  $bids_result = $my_bid_bid_model->results_by_bid_machine_id($ids);
+    $ids = $my_bid_bid_model->bid_machines2ids($my_bid_bids, "bid_machine_id");
+    $bids_count  = $my_bid_bid_model->count_by_bid_machine_id($ids);
+    $bids_result = $my_bid_bid_model->results_by_bid_machine_id($ids);
 
-  $_smarty->assign(array(
-    "bids_count"  => $bids_count,
-    "bids_result" => $bids_result,
-  ));
+    $_smarty->assign(array(
+        "bids_count"  => $bids_count,
+        "bids_result" => $bids_result,
+    ));
 }
 // /// CSVに出力する場合 ///
 // if ($output == 'csv') {
@@ -77,13 +78,13 @@ if (in_array($bid_open['status'], array('carryout', 'after'))) {
 
 /// 表示変数アサイン ///
 $_smarty->assign(array(
-  'pageTitle'       => "{$bid_open["title"]} 自社出品への入札履歴",
-  'pageDescription' => 'あなたの会社が出品した商品への入札履歴です。',
-  'pankuzu'          => array(
-    '/admin/' => '会員ページ',
-  ),
+    'pageTitle'       => "{$bid_open["title"]} 自社出品への入札履歴",
+    'pageDescription' => 'あなたの会社が出品した商品への入札履歴です。',
+    'pankuzu'          => array(
+        '/admin/' => '会員ページ',
+    ),
 
-  'bid_open'    => $bid_open,
-  'company'     => $company,
-  'my_bid_bids' => $my_bid_bids,
+    'bid_open'    => $bid_open,
+    'company'     => $company,
+    'my_bid_bids' => $my_bid_bids,
 ))->display('admin/my_bid_bids/index.tpl');

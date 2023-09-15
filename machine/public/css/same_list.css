@@ -8,7 +8,7 @@
   width: 120px;
   padding: 0;
   border: 1px solid #ccc;
-  height: 162px;
+  height: 160px;
   margin: 0 4px;
   text-align: left;
   background: #fff;
@@ -111,7 +111,7 @@
   letter-spacing: -0.4em;
 }
 
-.carousel_products .same_machine {
+.same_machine {
   display: inline-block;
   vertical-align: top;
   float: none;
@@ -121,11 +121,11 @@
   background: #eee;
 }
 
-.carousel_products .same_machine:hover {
+.same_machine:hover {
   background: rgb(254, 255, 204);
 }
 
-.carousel_products .same_machine div {
+.same_machine div {
   white-space: normal;
 }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * メンバー在庫一覧ページ
  *
@@ -9,20 +10,20 @@
  */
 require_once '../../lib-machine.php';
 try {
-    //// 認証処理 ////
+    /// 認証処理 ///
     $user = Auth::isAuth('member');
 
-    //// 変数を取得 ////
+    /// 変数を取得 ///
     $output = Req::query('output');
 
-    //// 機械情報一覧を取得 ////
+    /// 機械情報一覧を取得 ///
     $start_date = null;
     $end_date   = null;
     if (Req::query('startYear') && Req::query('startMonth') && Req::query('startDay')) {
-        $start_date = Req::query('startYear'). '-' . Req::query('startMonth') . '-' . Req::query('startDay');
+        $start_date = Req::query('startYear') . '-' . Req::query('startMonth') . '-' . Req::query('startDay');
     }
     if (Req::query('endYear') && Req::query('endMonth') && Req::query('endDay')) {
-        $end_date = Req::query('endYear'). '-' . Req::query('endMonth') . '-' . Req::query('endDay');
+        $end_date = Req::query('endYear') . '-' . Req::query('endMonth') . '-' . Req::query('endDay');
     }
 
     $q = array(
@@ -47,7 +48,7 @@ try {
     $mModel = new Machine();
     $result = $mModel->search($q);
 
-    //// CSVに出力する場合 ////
+    /// CSVに出力する場合 ///
     if ($output == 'csv') {
         $filename = date('Ymd') . 'machine_list.csv';
         $header   = array(
@@ -72,14 +73,16 @@ try {
         $auctionList = array();
         // 事前加工
         foreach ($result['machineList'] as $key => $ma) {
-          $temp = $ma;
-          $temp['auction_name'] = trim($ma['name'] . " " . $ma['maker'] . " " . $ma['model']);
-          if (!empty($ma['year'])) { $temp['auction_name'] .= " " . $ma['year'] . "年式"; }
-          $temp['auction_spec'] = trim($ma['spec'] . "\n\n" . $ma['accessory'] . "\n\n" . $ma['comment']);
-          // $temp['start']  = date("Y/m/d H:i:s", strtotime('+7day'));
-          // $temp['end']    = date("Y/m/d H:i:s", strtotime('+14day'));
-          $temp['images'] = $ma['top_img'] . " " . implode(' ', $ma['imgs']);
-          $auctionList[] = $temp;
+            $temp = $ma;
+            $temp['auction_name'] = trim($ma['name'] . " " . $ma['maker'] . " " . $ma['model']);
+            if (!empty($ma['year'])) {
+                $temp['auction_name'] .= " " . $ma['year'] . "年式";
+            }
+            $temp['auction_spec'] = trim($ma['spec'] . "\n\n" . $ma['accessory'] . "\n\n" . $ma['comment']);
+            // $temp['start']  = date("Y/m/d H:i:s", strtotime('+7day'));
+            // $temp['end']    = date("Y/m/d H:i:s", strtotime('+14day'));
+            $temp['images'] = $ma['top_img'] . " " . implode(' ', $ma['imgs']);
+            $auctionList[] = $temp;
         }
 
         $filename = date('YmdHis') . 'auction_machine_list.csv';
@@ -103,16 +106,18 @@ try {
         B::downloadCsvFile($header, $auctionList, $filename);
         exit;
     }
-    //// 会社情報を取得(絞り込み用) ////
+    /// 会社情報を取得(絞り込み用) ///
     $cModel = new Company();
     $company = $cModel->get($_user['company_id']);
-    if (empty($company)) { throw new Exception('会社情報が取得できませんでした'); }
+    if (empty($company)) {
+        throw new Exception('会社情報が取得できませんでした');
+    }
 
     if (!Companies::checkRank($company['rank'], 'A会員')) {
         throw new Exception('このページの表示権限がありません');
     }
 
-    //// 会社情報を取得(絞り込み用) ////
+    /// 会社情報を取得(絞り込み用) ///
     $aModel = new Actionlog();
     $actionCountPair = $aModel->getMachineCountPair($_user['company_id']);
 
@@ -123,7 +128,7 @@ try {
     }
     */
 
-    //// ページャ ////
+    /// ページャ ///
     Zend_Paginator::setDefaultScrollingStyle('Sliding');
     $pgn = Zend_Paginator::factory(intval($result['count']));
     $pgn->setCurrentPageNumber($q['page'])
@@ -131,9 +136,11 @@ try {
         ->setPageRange(15);
 
     $cUri = preg_replace("/(\&?page=[0-9]+)/", '', $_SERVER["REQUEST_URI"]);
-    if (!preg_match("/\?/", $cUri)) { $cUri.= '?'; }
+    if (!preg_match("/\?/", $cUri)) {
+        $cUri .= '?';
+    }
 
-    //// 表示変数アサイン ////
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle'       => '在庫機械一覧',
         'pageDescription' => '現在の在庫機械一覧です。変更・削除する機械を選択して下さい',
@@ -153,7 +160,7 @@ try {
         'actionCountPair' => $actionCountPair,
     ))->display("admin/machine_list.tpl");
 } catch (Exception $e) {
-    //// エラー画面表示 ////
+    /// エラー画面表示 ///
     $_smarty->assign(array(
         'pageTitle' => '在庫機械一覧',
         'pankuzu'   => array('admin/' => '会員ページ'),

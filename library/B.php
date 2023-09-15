@@ -1143,7 +1143,7 @@ class B
         foreach ($data as $d) {
             $temp = array();
             foreach ($arrayKey as $k) {
-                $temp[] = !empty($d[$k]) ? $d[$k] : '';
+                $temp[] = isset($d[$k]) ? $d[$k] : '';
             }
             fputcsv($fp, $temp);
         }

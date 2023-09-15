@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 機械情報モデルクラス
  *
@@ -29,7 +30,8 @@ class SeriBid extends Zend_Db_Table_Abstract
      * @param array $q 検索クエリ
      * @return array 入札履歴結果一覧
      */
-    public function getList($q) {
+    public function getList($q)
+    {
         if (empty($q['bid_open_id'])) {
             throw new Exception('入札会開催IDが設定されていません');
         } else if (empty($q['company_id'])) {
@@ -104,7 +106,8 @@ class SeriBid extends Zend_Db_Table_Abstract
      * @param  int $companyId 会社ID
      * @return array 入札会開催情報を取得
      */
-    public function get($bidId, $companyId) {
+    public function get($bidId, $companyId)
+    {
         if (empty($bidId)) {
             throw new Exception('入札IDが設定されていません');
         }
@@ -138,7 +141,9 @@ class SeriBid extends Zend_Db_Table_Abstract
 
     public function getByBidMachineId($bidMachineId)
     {
-        if (empty($bidMachineId)) { throw new Exception('入札会商品IDが設定されていません'); }
+        if (empty($bidMachineId)) {
+            throw new Exception('入札会商品IDが設定されていません');
+        }
 
         // SQLクエリを作成
         $sql = "SELECT
@@ -160,7 +165,9 @@ class SeriBid extends Zend_Db_Table_Abstract
 
     public function getMaxAmountByBidMachineId($bidMachineId)
     {
-        if (empty($bidMachineId)) { throw new Exception('入札会商品IDが設定されていません'); }
+        if (empty($bidMachineId)) {
+            throw new Exception('入札会商品IDが設定されていません');
+        }
 
         $sql = "SELECT max(bb.amount) FROM seri_bids bb WHERE bb.bid_machine_id = ?;";
         $result = $this->_db->fetchOne($sql, $bidMachineId);
@@ -244,25 +251,31 @@ class SeriBid extends Zend_Db_Table_Abstract
         } else if (strtotime($bidOpen["seri_start_date"]) > time() && strtotime($bidOpen["seri_end_date"]) <= time()) {
             // セリ期間のチェック
             $e = $bidOpen['title'] . " は、セリ分かれ開催期間ではありません\n";
-            $e.= "セリ分かれ開催期間 : " . date('Y/m/d H:i', strtotime($bidOpen['seri_start_date'])) . " ～ " . date('m/d H:i', strtotime($bidOpen['seri_end_date']));
+            $e .= "セリ分かれ開催期間 : " . date('Y/m/d H:i', strtotime($bidOpen['seri_start_date'])) . " ～ " . date('m/d H:i', strtotime($bidOpen['seri_end_date']));
         } else if ($data['amount'] < $bidOpen['min_price']) {
             $e = "入札金額が、最低入札金額より小さく入力されています";
-            $e.= "最低入札金額 : " . $bidOpen['min_price'] . '円';
+            $e .= "最低入札金額 : " . $bidOpen['min_price'] . '円';
         } else if (($data['amount'] % $bidOpen['rate']) != 0) {
             $e = '入札金額が、入札単位の倍数ではありません';
         } else if (!empty($maxAmount) && $maxAmount >= $data['amount']) {
             $e = '入札金額が、現在の最高入札金額より低く入力されています';
         }
 
-        if (!empty($e)) { throw new Exception($e); }
+        if (!empty($e)) {
+            throw new Exception($e);
+        }
 
-        $res = $this->insert($data);
+        // $res = $this->insert($data);
+        $res = $this->_db->insert('seri_bids', $data);
 
         if (empty($res)) {
             throw new Exception("セリ入札情報が保存できませんでした");
         }
 
-        if ($data['amount'] >= $machine['seri_price']) { return "success"; }
-        else                                           { return "none"; }
+        if ($data['amount'] >= $machine['seri_price']) {
+            return "success";
+        } else {
+            return "none";
+        }
     }
 }

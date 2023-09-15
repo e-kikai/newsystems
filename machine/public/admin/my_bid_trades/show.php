@@ -56,7 +56,9 @@ $my_bid_trade_model = new MyBidTrade();
 $select = $my_bid_trade_model->my_select()
     ->where("my_user_id = ?", $bid_result['my_user_id'])
     ->where("bid_machine_id = ?", $bid_machine['id']);
-$my_bid_trades = $my_bid_trade_model->fetchAll($select);
+
+// $my_bid_trades = $my_bid_trade_model->fetchAll($select);
+$my_bid_trades = $_db->fetchAll($select);
 
 /// 表示変数アサイン ///
 $_smarty->assign(array(

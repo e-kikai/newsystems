@@ -1,4 +1,5 @@
 <?php
+
 /**
  * mailuserテーブルモデルクラス
  *
@@ -7,7 +8,7 @@ require_once 'Zend/Db/Table.php';
 class Mailuser extends Zend_Db_Table_Abstract
 {
     protected $_name = 'mailusers';
-    
+
     /**
      * 配信開始処理
      *
@@ -19,11 +20,12 @@ class Mailuser extends Zend_Db_Table_Abstract
     {
         $result = $this->_db->fetchAll("SELECT id FROM mailusers m WHERE m.mail = ? AND m.deleted_at IS NULL;", B::filter($mail));
         if (empty($result)) {
-            $result = $this->insert(array('mail' => B::filter($mail)));
+            // $result = $this->insert(array('mail' => B::filter($mail)));
+            $result = $this->_db->insert($this->_name, array('mail' => B::filter($mail)));
         }
         return $this;
     }
-    
+
     /**
      * 配信停止処理
      *
@@ -42,7 +44,7 @@ class Mailuser extends Zend_Db_Table_Abstract
         );
         return $this;
     }
-    
+
     /**
      * メール送信ユーザ一覧を取得する
      *
@@ -54,7 +56,7 @@ class Mailuser extends Zend_Db_Table_Abstract
         //// 入札会情報を取得 ////
         $sql = "SELECT * FROM mailusers m WHERE m.deleted_at IS NULL ORDER BY created_at DESC;";
         $result = $this->_db->fetchAll($sql);
-        
+
         return $result;
     }
 }

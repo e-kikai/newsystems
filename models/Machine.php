@@ -574,6 +574,28 @@ class Machine extends Zend_Db_Table_Abstract
         return $result;
     }
 
+    // 削除されたものも含めて取得できるように
+    public function get_all($id, $companyId = NULL)
+    {
+        if (empty($id)) {
+            throw new Exception('機械IDが設定されていません');
+        }
+
+        $where = '';
+        if (!empty($companyId)) {
+            $where = $this->_db->quoteInto(' AND company_id = ? ', $companyId);
+        }
+
+        // SQLクエリを作成
+        $sql = "SELECT m.* FROM view_machines m WHERE m.id = ? {$where} LIMIT 1;";
+        $result = $this->_db->fetchRow($sql, $id);
+
+        // JSON展開
+        $result = B::decodeRowJson($result, array_merge($this->_jsonColumn, array('spec_labels')));
+
+        return $result;
+    }
+
     /**
      * 同じ機械情報を取得
      *
@@ -1079,7 +1101,8 @@ class Machine extends Zend_Db_Table_Abstract
             $res = $this->update($updateM + $m, $where);
             if (!$res) {
                 // 該当するユニークIDがなく更新できない時は、新規登録処理を行う
-                $this->insert($insertM + $m + array('used_id' => $usedId));
+                // $this->insert($insertM + $m + array('used_id' => $usedId));
+                $this->_db->insert('machines', $insertM + $m + array('used_id' => $usedId));
                 $insertNum++;
             } else {
                 $updateNum++;
@@ -1594,7 +1617,8 @@ class Machine extends Zend_Db_Table_Abstract
         if (empty($id)) {
             // 新規処理
             $data['company_id'] = $companyId;
-            $res = $this->insert($data);
+            // $res = $this->insert($data);
+            $res = $this->_db->insert("machines", $data);
 
             // @ba-ta 20140114 入札会商品からの登録
             if (!empty($bidMachineId)) {
