@@ -19,11 +19,11 @@ $my_user       = $my_user_model->get($_my_user['id']);
 
 /// 表示変数アサイン ///
 $_smarty->assign(array(
-  'pageTitle'       => "パスワード変更",
-  'pageDescription' => '登録されているパスワードを変更します。',
-  'pankuzu'         => array(
-    '/mypage/' => 'マイページ',
-  ),
+    'pageTitle'       => "パスワード変更",
+    'pageDescription' => '登録されているパスワードを変更します。',
+    'pankuzu'         => array(
+        '/mypage/' => 'マイページ',
+    ),
 
-  "data"     => $my_user,
+    "data"     => $my_user,
 ))->display('mypage/my_users/passwd.tpl');

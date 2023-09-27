@@ -108,7 +108,7 @@ class MyAuth extends Zend_Db_Table
 
         // パスワード更新
         $res = $this->_db->update(
-            'users',
+            'my_users',
             array('passwd' => $passwd),
             $this->_db->quoteInto('id = ?', $_SESSION[self::$_namespace]['id'])
         );

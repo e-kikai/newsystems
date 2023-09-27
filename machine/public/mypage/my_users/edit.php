@@ -19,12 +19,12 @@ $my_user       = $my_user_model->get($_my_user['id']);
 
 /// 表示変数アサイン ///
 $_smarty->assign(array(
-  'pageTitle'       => "ユーザ情報変更",
-  'pageDescription' => '登録されているユーザ情報を変更します。',
+    'pageTitle'       => "ユーザ情報変更",
+    'pageDescription' => '登録されているユーザ情報を変更します。',
 
-  'pankuzu'         => array(
-    '/mypage/' => 'マイページ',
-  ),
+    'pankuzu'         => array(
+        '/mypage/' => 'マイページ',
+    ),
 
-  'data'        => $my_user,
+    'data'        => $my_user,
 ))->display('mypage/my_users/edit.tpl');

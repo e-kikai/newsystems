@@ -598,8 +598,8 @@ EOS;
 
         /// Mailchimpリスト登録 ///
         if ($data["mailuser_flag"] == 1) {
-            $fModel      = new Flyer();
-            $json = array(
+            $fModel = new Flyer();
+            $json   = array(
                 "email_address" => $data["mail"],
                 "status"        => "subscribed",
                 "merge_fields"  => array(
@@ -614,7 +614,6 @@ EOS;
 
         return $this;
     }
-
 
     /**
      * 問い合わせをセット、通知メールを送信

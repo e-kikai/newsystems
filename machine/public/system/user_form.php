@@ -1,7 +1,8 @@
 <?php
+
 /**
  * ユーザ情報登録フォーム
- * 
+ *
  * @access public
  * @author 川端洋平
  * @version 0.0.4
@@ -9,11 +10,11 @@
  */
 require_once '../../lib-machine.php';
 try {
-    //// 認証処理 ////
+    /// 認証処理 ///
     Auth::isAuth('system');
-    
+
     $id = Req::query('id');
-    //// 入札会開催情報を取得 ////
+    /// 入札会開催情報を取得 ///
     if ($id) {
         $uModel = new User();
         $user = $uModel->get($id);
@@ -24,12 +25,12 @@ try {
             'role'       => 'guest'
         );
     }
-    
-    //// 会社情報を取得 ////
+
+    /// 会社情報を取得 ///
     $cModel = new Company();
     $companyList = $cModel->getList();
-    
-    //// 表示変数アサイン ////
+
+    /// 表示変数アサイン ///
     $_smarty->assign(array(
         'pageTitle' => $id ? 'ユーザ情報変更' : 'ユーザ情報新規登録',
         'pankuzu'   => array(
@@ -41,7 +42,7 @@ try {
         'companyList' => $companyList,
     ))->display("system/user_form.tpl");
 } catch (Exception $e) {
-    //// エラー画面表示 ////
+    /// エラー画面表示 ///
     $_smarty->assign(array(
         'pageTitle' => $id ? 'ユーザ情報変更' : 'ユーザ情報新規登録',
         'pankuzu'   => array(

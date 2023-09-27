@@ -115,4 +115,40 @@ class MyUser extends MyTableAbstract
     {
         return substr(str_shuffle(str_repeat(MyUser::RAND_STR, 10)), 0, 10);
     }
+
+    /**
+     * Mailchimpリスト登録
+     *
+     * @access  public
+     * @return string  ユニークアカウント(10桁)
+     */
+
+    public function mailchimp_subscribe($data)
+    {
+        $json = array(
+            "email_address" => $data["mail"],
+            "status"        => "subscribed",
+            "merge_fields"  => array(
+                "FNAME" => $data["name"],
+                "LNAME" => $data["company"],
+            ),
+        );
+
+        $fModel = new Flyer();
+        $_mconf = new Zend_Config_Ini(APP_PATH . '/config/mailchimp.ini');
+        $res = $fModel->doAPI('lists/' . $_mconf->mailchimp_list_id . '/members/' . md5($data["mail"]), 'PUT', $json, $_mconf);
+
+        return true;
+    }
+
+    public function mailchimp_unsubscribe($data)
+    {
+        $json = array("status" => "unsubscribed",);
+
+        $fModel = new Flyer();
+        $_mconf = new Zend_Config_Ini(APP_PATH . '/config/mailchimp.ini');
+        $res = $fModel->doAPI('lists/' . $_mconf->mailchimp_list_id . '/members/' . md5($data["mail"]), 'PUT', $json, $_mconf);
+
+        return true;
+    }
 }

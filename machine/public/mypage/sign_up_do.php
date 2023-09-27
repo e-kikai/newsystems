@@ -47,6 +47,10 @@ try {
     $my_auth = new MyAuth();
     $my_auth->send_confirmation_mail($data["mail"]);
 
+    if ($data["mailuser_flag"] == 1) {
+        $my_user_model->mailchimp_subscribe($data);
+    }
+
     header('Location: /mypage/sign_up_fin.php');
     exit;
 } catch (Exception $e) {

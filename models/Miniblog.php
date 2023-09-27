@@ -83,7 +83,7 @@ class Miniblog extends Zend_Db_Table
         $user     = $uModel->get($data['user_id']);
         $now      = date('Y/m/d H:i:s');
 
-        //// 通知メール送信内容 ////
+        /// 通知メール送信内容 ///
         $body = <<< EOS
 マシンライフに書きこみがありました。
 
@@ -100,7 +100,7 @@ http://www.zenkiren.org/
 EOS;
         $subject = 'マシンライフ:書き込み通知';
 
-        //// メール送信 ////
+        /// メール送信 ///
         $sends = array("bata44883@gmail.com", "kazuyoshih@gmail.com", "jimukyoku@zenkiren.net");
         foreach ($sends as $to) {
             $mailsend->sendMail($to, null, $body, $subject);
