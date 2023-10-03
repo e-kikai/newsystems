@@ -35,17 +35,20 @@ try {
                 !empty($c['created_at']) ? date('Y/m/d', strtotime($c['created_at'])) : '';
             $userList[$key]['changed_date'] =
                 !empty($c['changed_at']) ? date('Y/m/d', strtotime($c['changed_at'])) : '';
+            $userList[$key]['passwd_changed_date'] =
+                !empty($c['passwd_changed_at']) ? date('Y/m/d', strtotime($c['passwd_changed_at'])) : '';
         }
 
         $header = array(
-            'id'           => 'ユーザID',
-            'user_name'    => 'ユーザ名',
-            'company_id'   => '会社ID',
-            'role'         => '権限',
-            'account'      => 'アカウント',
-            'passwd'       => 'パスワード',
-            'created_date' => '登録日',
-            'changed_date' => '変更日',
+            'id'                  => 'ユーザID',
+            'user_name'           => 'ユーザ名',
+            'company_id'          => '会社ID',
+            'role'                => '権限',
+            'account'             => 'アカウント',
+            'passwd'              => 'パスワード',
+            'created_date'        => '登録日',
+            'passwd_changed_date' => 'パスワード登録日',
+            'changed_date'        => '変更日',
         );
 
         B::downloadCsvFile($header, $userList, 'user_list.csv');

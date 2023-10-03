@@ -3,7 +3,7 @@
   {$mAds.toshin = array('東信機工', 'ad_toshin.png', 'https://www.t-mt.com/')}
   {$mAds.endo = array('遠藤機械', 'banner_189.gif', 'https://www.endo-kikai.co.jp/')}
   {$mAds.kobayashi = array('小林機械', 'ad_kobayashi.png', 'https://www.kkmt.co.jp/')}
-  {$mAds.tachikawa = array('立川商店', 'ad_tachikawa.png', 'http://www.tachikawa-kikai.com/')}
+  {* {$mAds.tachikawa = array('立川商店', 'ad_tachikawa.png', 'http://www.tachikawa-kikai.com/')} *}
   {$mAds.hirai = array('平井鈑金機工', 'ad_hirai.png', 'http://www.hiraibankin.com/')}
   {* {$mAds.yushi = array('ユウシ', 'ad_yushi.png', 'https://www.yuushi.co.jp/index.html')} *}
   {* {$mAds.kusumoto = array('楠本機械', 'ad_kusumoto.png', 'https://kusumotokikai.e-kikai.com/')} *}

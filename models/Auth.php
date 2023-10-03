@@ -86,7 +86,7 @@ class Auth extends Zend_Db_Table_Abstract
         // パスワード更新
         $res = $this->_db->update(
             'users',
-            array('passwd' => $passwd),
+            array('passwd' => $passwd, "passwd_changed_at" => new Zend_Db_Expr('current_timestamp')),
             $this->_db->quoteInto('id = ?', $_SESSION[self::$_namespace]['id'])
         );
         if (!$res) {

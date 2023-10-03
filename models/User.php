@@ -117,6 +117,8 @@ class User extends Zend_Db_Table_Abstract
             // 更新処理
             if (empty($data['passwd'])) {
                 unset($data['passwd']);
+            } else {
+                $data['passwd_changed_at'] = new Zend_Db_Expr('current_timestamp');
             }
             $data['changed_at'] = new Zend_Db_Expr('current_timestamp');
             $res = $this->update($data, $this->_db->quoteInto('id = ?', $id));

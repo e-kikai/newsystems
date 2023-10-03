@@ -53,6 +53,7 @@
         <th class="company">会社名</th>
         <th class="role">権限</th>
         <th class="changed_at">変更日時</th>
+        <th class="changed_at">パスワード変更日時</th>
         <th class="delete">削除</th>
       </tr>
     </thead>
@@ -70,6 +71,11 @@
             {$u.changed_at|date_format:'%Y/%m/%d %H:%M'}
           {else}
             {$u.created_at|date_format:'%Y/%m/%d %H:%M'}
+          {/if}
+        </td>
+        <td class='changed_at'>
+          {if !empty($u.passwd_changed_at)}
+            {$u.passwd_changed_at|date_format:'%Y/%m/%d %H:%M'}
           {/if}
         </td>
         <td class='delete'>
