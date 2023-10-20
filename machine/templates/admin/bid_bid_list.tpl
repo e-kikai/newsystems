@@ -95,7 +95,8 @@
         <tr {if !empty($b.deleted_at)} class="deleted" {/if}>
           <td class="list_no">{$b.list_no}</td>
           <td class="name">
-            <a href="/admin/bid_detail.php?m={$b.bid_machine_id}" target="_blank">{$b.name}</a>
+            {* <a href="/admin/bid_detail.php?m={$b.bid_machine_id}" target="_blank">{$b.name}</a> *}
+            <a href="/bid_detail.php?m={$b.bid_machine_id}" target="_blank">{$b.name}</a>
           </td>
           <td class="maker">{$b.maker}</td>
           <td class="model">{$b.model}</td>

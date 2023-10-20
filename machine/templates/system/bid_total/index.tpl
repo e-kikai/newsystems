@@ -15,7 +15,7 @@
     <div class="error_mes">条件に合う内容がありません。</div>
   {/if}
 
-  <a href="{$smarty.server.REQUEST_URI}&output=csv" class="btn btn-primary"
+  <a href="{$smarty.server.REQUEST_URI}?output=csv" class="btn btn-primary"
     style="position: absolute; right: 8px; top: -46px;">
     <i class="fas fa-file-csv"></i> CSV出力
   </a>

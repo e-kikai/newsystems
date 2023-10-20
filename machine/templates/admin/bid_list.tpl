@@ -125,7 +125,10 @@
           {/if}
         </td>
         <td class="bid_machine_id">{$m.list_no}</td>
+        {*
         <td class="name"><a class="bid" href="admin/bid_detail.php?m={$m.id}">{$m.name}</a></td>
+        *}
+        <td class="name"><a class="bid" href="bid_detail.php?m={$m.id}">{$m.name}</a></td>
         <td class="maker">{$m.maker}</td>
         <td class="model">{$m.model}</td>
         {if !in_array($bidOpen.status, array('carryout', 'after'))}

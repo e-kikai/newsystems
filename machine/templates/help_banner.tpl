@@ -82,14 +82,17 @@
     <div class="price_box">
       <div class="price_title">広告バナー掲載料金</div>
       <div class="price_sub">月額基本料金</div>
-      <div class="price_contents">大バナー<br />50,000円 (税込) /月</div>
-      <div class="price_contents">小バナー<br />10,000円 (税込) /月</div>
+      {* <div class="price_contents">大バナー<br />50,000円 (税込) /月</div>
+      <div class="price_contents">小バナー<br />10,000円 (税込) /月</div> *}
+      <div class="price_contents">大バナー<br />50,000円 /月</div>
+      <div class="price_contents">小バナー<br />10,000円 /月</div>
     </div>
 
     <div class="price_box">
       <div class="price_title">入札会バナー掲載料金</div>
       <div class="price_sub">基本料金</div>
-      <div class="price_contents">入札会期間中<br />30,000円 (税込) /回</div>
+      {* <div class="price_contents">入札会期間中<br />30,000円 (税込) /回</div> *}
+      <div class="price_contents">入札会期間中<br />30,000円 /回</div>
       {*
     <div>入札会案内ページ等作成費用は<br />別途見積りいたします</div>
     *}
@@ -98,7 +101,8 @@
     <div class="price_box">
       <div class="price_title">入札会ご案内ページの作成</div>
       <div class="price_sub">基本料金</div>
-      <div class="price_contents">入札会期間中<br />80,000円 (税込) /回</div>
+      {* <div class="price_contents">入札会期間中<br />80,000円 (税込) /回</div> *}
+      <div class="price_contents">入札会期間中<br />80,000円 /回</div>
       <div>その他ご要望は<br />別途見積りいたします</div>
     </div>
 

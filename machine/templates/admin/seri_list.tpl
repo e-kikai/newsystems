@@ -318,7 +318,8 @@
         </div>
         <div class="data_area">
           <div class="list_no">No. {$m.list_no}</div>
-          <a href="/admin/bid_detail.php?m={$m.id}" class="name_link" target="_blank">{$m.name} {$m.maker} {$m.model}</a>
+          {* <a href="/admin/bid_detail.php?m={$m.id}" class="name_link" target="_blank">{$m.name} {$m.maker} {$m.model}</a> *}
+          <a href="/bid_detail.php?m={$m.id}" class="name_link" target="_blank">{$m.name} {$m.maker} {$m.model}</a>
           <div class="addr1">{$m.addr1}</div>
         </div>
 

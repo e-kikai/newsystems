@@ -217,40 +217,40 @@ class BidBid extends Zend_Db_Table_Abstract
      * @param  array $companyId 入札会ID
      * @return $this
      */
-    public function deleteById($bidId, $companyId)
-    {
-        if (empty($bidId)) {
-            throw new Exception('削除する入札IDが設定されていません');
-        }
+    // public function deleteById($bidId, $companyId)
+    // {
+    //     if (empty($bidId)) {
+    //         throw new Exception('削除する入札IDが設定されていません');
+    //     }
 
-        /// チェックのために、商品と入札会情報を取得 ///
-        $bid = $this->get($bidId, $companyId);
+    //     /// チェックのために、商品と入札会情報を取得 ///
+    //     $bid = $this->get($bidId, $companyId);
 
-        $boModel = new BidOpen();
-        $bidOpen = $boModel->get($bid['bid_open_id']);
+    //     $boModel = new BidOpen();
+    //     $bidOpen = $boModel->get($bid['bid_open_id']);
 
-        $e = '';
-        if (empty($bidOpen)) {
-            $e = '入札会情報が取得出来ませんでした';
-        } else if ($bidOpen['status'] != 'bid') {
-            // 入札期間のチェック
-            $e = $bidOpen['title'] . " は、現在「下見・入札期間」ではありません\n";
-            $e .= "下見・入札期間 : " . date('Y/m/d H:i', strtotime($bidOpen['bid_start_date'])) . " ～ " . date('m/d H:i', strtotime($bidOpen['bid_end_date']));
-        }
-        if (!empty($e)) {
-            throw new Exception($e);
-        }
+    //     $e = '';
+    //     if (empty($bidOpen)) {
+    //         $e = '入札会情報が取得出来ませんでした';
+    //     } else if ($bidOpen['status'] != 'bid') {
+    //         // 入札期間のチェック
+    //         $e = $bidOpen['title'] . " は、現在「下見・入札期間」ではありません\n";
+    //         $e .= "下見・入札期間 : " . date('Y/m/d H:i', strtotime($bidOpen['bid_start_date'])) . " ～ " . date('m/d H:i', strtotime($bidOpen['bid_end_date']));
+    //     }
+    //     if (!empty($e)) {
+    //         throw new Exception($e);
+    //     }
 
-        $this->update(
-            array('deleted_at' => new Zend_Db_Expr('current_timestamp')),
-            array(
-                $this->_db->quoteInto(' id IN(?) ', $bidId),
-                $this->_db->quoteInto(' company_id = ? ', $companyId),
-            )
-        );
+    //     $this->update(
+    //         array('deleted_at' => new Zend_Db_Expr('current_timestamp')),
+    //         array(
+    //             $this->_db->quoteInto(' id IN(?) ', $bidId),
+    //             $this->_db->quoteInto(' company_id = ? ', $companyId),
+    //         )
+    //     );
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * 入札情報をセット
@@ -260,50 +260,50 @@ class BidBid extends Zend_Db_Table_Abstract
      * @param integer $companyId 入札会社ID
      * @return $this
      */
-    public function set($data, $companyId)
-    {
-        if (empty($companyId)) {
-            throw new Exception('入札する会社IDが設定されていません');
-        }
+    // public function set($data, $companyId)
+    // {
+    //     if (empty($companyId)) {
+    //         throw new Exception('入札する会社IDが設定されていません');
+    //     }
 
-        // フィルタリング・バリデーション
-        $data['company_id'] = $companyId;
-        $data = MyFilter::filter($data, $this->_filter);
+    //     // フィルタリング・バリデーション
+    //     $data['company_id'] = $companyId;
+    //     $data = MyFilter::filter($data, $this->_filter);
 
-        /// チェックのために、商品と入札会情報を取得 ///
-        $bmModel = new BidMachine();
-        $machine = $bmModel->get($data['bid_machine_id']);
+    //     /// チェックのために、商品と入札会情報を取得 ///
+    //     $bmModel = new BidMachine();
+    //     $machine = $bmModel->get($data['bid_machine_id']);
 
-        $boModel = new BidOpen();
-        $bidOpen = $boModel->get($machine['bid_open_id']);
+    //     $boModel = new BidOpen();
+    //     $bidOpen = $boModel->get($machine['bid_open_id']);
 
-        $e = '';
-        if (empty($bidOpen)) {
-            $e = '入札会情報が取得出来ませんでした';
-        } else if ($bidOpen['status'] != 'bid') {
-            // 入札期間のチェック
-            $e = $bidOpen['title'] . " は、現在「下見・入札期間」ではありません\n";
-            $e .= "下見・入札期間 : " . date('Y/m/d H:i', strtotime($bidOpen['bid_start_date'])) . " ～ " . date('m/d H:i', strtotime($bidOpen['bid_end_date']));
-        } else if ($data['amount'] < $machine['min_price']) {
-            $e = "入札金額が、最低入札金額より小さく入力されています";
-            $e .= "最低入札金額 : " . $machine['min_price'] . '円';
-        } else if (($data['amount'] % $bidOpen['rate']) != 0) {
-            $e = '入札金額が、入札レートの倍数ではありません';
-        }
-        if (!empty($e)) {
-            throw new Exception($e);
-        }
+    //     $e = '';
+    //     if (empty($bidOpen)) {
+    //         $e = '入札会情報が取得出来ませんでした';
+    //     } else if ($bidOpen['status'] != 'bid') {
+    //         // 入札期間のチェック
+    //         $e = $bidOpen['title'] . " は、現在「下見・入札期間」ではありません\n";
+    //         $e .= "下見・入札期間 : " . date('Y/m/d H:i', strtotime($bidOpen['bid_start_date'])) . " ～ " . date('m/d H:i', strtotime($bidOpen['bid_end_date']));
+    //     } else if ($data['amount'] < $machine['min_price']) {
+    //         $e = "入札金額が、最低入札金額より小さく入力されています";
+    //         $e .= "最低入札金額 : " . $machine['min_price'] . '円';
+    //     } else if (($data['amount'] % $bidOpen['rate']) != 0) {
+    //         $e = '入札金額が、入札レートの倍数ではありません';
+    //     }
+    //     if (!empty($e)) {
+    //         throw new Exception($e);
+    //     }
 
-        /// 同額札ナンバー ///
-        $data['sameno'] = mt_rand();
+    //     /// 同額札ナンバー ///
+    //     $data['sameno'] = mt_rand();
 
-        // $res = $this->insert($data);
-        $res = $this->_db->insert("bid_bids", $data);
+    //     // $res = $this->insert($data);
+    //     $res = $this->_db->insert("bid_bids", $data);
 
-        if (empty($res)) {
-            throw new Exception("入札情報が保存できませんでした");
-        }
+    //     if (empty($res)) {
+    //         throw new Exception("入札情報が保存できませんでした");
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 }

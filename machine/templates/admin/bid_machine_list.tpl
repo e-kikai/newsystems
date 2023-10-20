@@ -277,7 +277,8 @@
             {if $bidOpen.status == 'entry' || (in_array($bidOpen.status, array('margin', 'bid')) && Auth::check('system'))}
               <a href="/admin/bid_machine_form.php?m={$m.id}">{$m.name} {$m.maker} {$m.model}</a>
             {else}
-              <a href="/admin/bid_detail.php?m={$m.id}">{$m.name} {$m.maker} {$m.model}</a>
+              {* <a href="/admin/bid_detail.php?m={$m.id}">{$m.name} {$m.maker} {$m.model}</a> *}
+              <a href="/bid_detail.php?m={$m.id}">{$m.name} {$m.maker} {$m.model}</a>
             {/if}
           </td>
 

@@ -37,6 +37,7 @@
 
     {literal}
       <script type="text/javascript">
+        /*
         $(function() {
           //// 入札処理 ////
           $('button.bid').click(function() {
@@ -113,12 +114,10 @@
             $(this).attr('action', $(this).attr('action').replace('bid_list.php', 'admin/bid_list.php'));
           });
         });
+        */
       </script>
-
     {/literal}
-
   {/if}
-
 
   {literal}
     <script type="text/javascript">
@@ -475,6 +474,7 @@
         <div class="spec_area">
         *}
 
+        {*
         {if preg_match("/admin/", $smarty.server.REQUEST_URI)}
 
           {if $bidOpen.status == 'bid'}
@@ -569,11 +569,6 @@
         {else}
 
           {if in_array($bidOpen.status, array('bid'))}
-            {*
-                <button class="bid_help">入札方法のご依頼方法<br />解説はこちら</button>
-                <button class="mylist_movie movie" data-youtubeid="PaZiV_OA7io" title="クリックで動画再生します">マイリスト使い方動画</button>
-                <a class="help_link" href="bid_help.php?o={$bidOpenId}">入札会よくある質問</a>
-                *}
             <p class="contents">
               <strong style="font-size:1.1em;text-decoration: underline;">商品への入札は、全機連会員を通じて行うことができます。</strong><br /><br />
               商品出品会社にフォーム・電話で問い合わせをしていただくか、<br />
@@ -598,6 +593,7 @@
           {/if}
 
         {/if}
+        *}
 
       </div>
       <div class="spec_area">
